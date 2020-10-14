@@ -1,0 +1,39 @@
+import { Col, Form, Row } from 'antd'
+import React from 'react'
+import { toast } from 'react-toastify'
+import { auth } from '../../../firebase'
+import { EMAIL_FOR_REGISTER } from '../../../redux/contants/keys'
+import FormRegister from './FormRegister'
+import './Register.scss'
+const Register = (props) => {
+  const [form] = Form.useForm()
+  const onFinish = async ({ email }) => {
+    const config = {
+      // env trong React phải có prefix là: REACT_APP_
+      url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+      handleCodeInApp: true,
+    }
+    await auth.sendSignInLinkToEmail(email, config)
+    toast.success(
+      `Đã gửi xác nhận đến địa chỉ ${email}. Vui lòng click vào link xác nhận để hoàn thành đăng ký`
+    )
+    window.localStorage.setItem(EMAIL_FOR_REGISTER, email)
+    form.resetFields()
+  }
+  return (
+    <div className="register">
+      <Row className="register__wrap">
+        <Col xs={24} sm={24} md={8} lg={8}>
+          <h3> Đăng ký</h3>
+          <Form form={form} onFinish={onFinish}>
+            <FormRegister />
+          </Form>
+        </Col>
+      </Row>
+    </div>
+  )
+}
+
+Register.propTypes = {}
+
+export default Register

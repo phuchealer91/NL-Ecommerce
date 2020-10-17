@@ -2,6 +2,7 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
   MailOutlined,
+  SmileTwoTone,
   UserOutlined,
 } from '@ant-design/icons'
 import { Form, Input } from 'antd'
@@ -13,6 +14,17 @@ import './RegisterComplete.scss'
 const FormRegisterComplete = ({ email }) => {
   return (
     <>
+      <Form.Item
+        rules={[
+          {
+            required: true,
+            message: 'Tên không được để trống',
+          },
+        ]}
+        name="name"
+      >
+        <Input placeholder="Nhập tên của bạn" prefix={<SmileTwoTone />} />
+      </Form.Item>
       <Form.Item
         rules={[
           {
@@ -57,7 +69,7 @@ const FormRegisterComplete = ({ email }) => {
           htmlType="submit"
           className="form-submit-button"
         >
-          Đăng ký để hoàn thành
+          Đăng ký ngay
         </Button>
       </Form.Item>
     </>

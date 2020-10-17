@@ -2,12 +2,15 @@ import { Col, Form, Row } from 'antd'
 import React from 'react'
 import { toast } from 'react-toastify'
 import { auth } from '../../../firebase'
-import { EMAIL_FOR_REGISTER } from '../../../redux/contants/keys'
+import { useAuthUser } from '../../../hooks/useAuthUser'
+import { EMAIL_FOR_REGISTER } from '../../../redux/constants/keys'
 import FormRegister from './FormRegister'
 import './Register.scss'
 const Register = (props) => {
+  useAuthUser()
   const [form] = Form.useForm()
   const onFinish = async ({ email }) => {
+    // Config dùng trong TH ấn vào link sẽ redirect về url trong config
     const config = {
       // env trong React phải có prefix là: REACT_APP_
       url: process.env.REACT_APP_REGISTER_REDIRECT_URL,

@@ -1,0 +1,30 @@
+.login {
+  margin-top: 50px;
+  &__wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__subEmail {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
+  &__subGoogle {
+    width: 100%;
+  }
+  &__forgot_password {
+    display: flex;
+    justify-content: flex-end;
+    &-btn {
+      padding-right: 0;
+      display: block;
+      margin-left: auto;
+    }
+    &-link {
+      margin-left: 8px;
+      color: #ff7875;
+    }
+  }
+}

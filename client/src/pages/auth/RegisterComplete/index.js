@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { auth } from '../../../firebase'
-import { EMAIL_FOR_REGISTER } from '../../../redux/contants/keys'
-import PATHS from '../../../redux/contants/paths'
+import { EMAIL_FOR_REGISTER } from '../../../redux/constants/keys'
+import PATHS from '../../../redux/constants/paths'
 import FormRegisterComplete from './FormRegisterComplete'
 import './RegisterComplete.scss'
 const RegisterComplete = (props) => {
@@ -14,7 +14,7 @@ const RegisterComplete = (props) => {
   useEffect(() => {
     setEmail(window.localStorage.getItem(EMAIL_FOR_REGISTER))
   }, [])
-  const onFinish = async ({ password }) => {
+  const onFinish = async ({ name, password }) => {
     if (!email) {
       toast.error('Email không được để trống')
     }
@@ -26,11 +26,14 @@ const RegisterComplete = (props) => {
       }
       // get id user
       let user = auth.currentUser
+      await user.updateProfile({ displayName: name })
       await user.updatePassword(password)
-      const getIdToken = await user.getIdTokenResult()
-      // redux store
+      const idTokenUser = await user.getIdTokenResult()
+      // save email & token with redux store
 
+      toast.success('Đăng ký thành công !')
       // redirect
+
       history.push(`${PATHS.HOME}`)
     } catch (error) {
       toast.error(error.message)
@@ -40,7 +43,7 @@ const RegisterComplete = (props) => {
     <div className="register-complete">
       <Row className="register-complete__wrap">
         <Col xs={24} sm={24} md={8} lg={8}>
-          <h3> Đăng ký để hoàn thành</h3>
+          <h3> Cập nhật mật khẩu để hoàn thành quá trình đăng ký</h3>
           <Form form={form} onFinish={onFinish}>
             <FormRegisterComplete email={email} />
           </Form>

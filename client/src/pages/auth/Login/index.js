@@ -1,31 +1,33 @@
-import { MailOutlined } from '@ant-design/icons'
-import { Col, Input, Row, Form } from 'antd'
+import { Col, Form, Row } from 'antd'
 import React from 'react'
-import FormLogin from './FormLogin'
-import './Login.scss'
-import { auth, googleAuthProvider } from '../../../firebase'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { loginInUser } from '../../../redux/actions/users'
 import { toast } from 'react-toastify'
-import PATHS from '../../../redux/constants/paths'
+import { auth, googleAuthProvider } from '../../../firebase'
 import { useAuthUser } from '../../../hooks/useAuthUser'
+import { useCheckAdmin } from '../../../hooks/useCheckAdmin'
+import { registerOrUpdateUser } from '../../../redux/actions/users'
+import FormLogin from './FormLogin'
+import './Login.scss'
 // import useLoginUser from '../../../hooks/useLoginUser'
 const Login = (props) => {
   useAuthUser()
+  useCheckAdmin()
   const [form] = Form.useForm()
   const dispatch = useDispatch()
-  const history = useHistory()
+
   const onFinish = async ({ email, password }) => {
     try {
       const result = await auth.signInWithEmailAndPassword(email, password)
       const { user } = result
       const idTokenUser = await user.getIdTokenResult()
       const data = { email: user.email, token: idTokenUser.token }
-      dispatch(loginInUser(data))
+      dispatch(registerOrUpdateUser(data))
+      // dispatch(loginInUser(data))
       toast.success('Đăng nhập thành công !')
-      history.push(`${PATHS.HOME}`)
+      // history.push(`${PATHS.HOME}`)
       // useLoginUser(result, 'Đăng nhập thành công', PATHS.HOME)
+      // CheckAdmin()
     } catch (error) {
       toast.error(error.message)
     }
@@ -37,13 +39,13 @@ const Login = (props) => {
         const { user } = result
         const idTokenUser = await user.getIdTokenResult()
         const data = {
-          displayName: user.displayName,
           email: user.email,
           token: idTokenUser.token,
         }
-        dispatch(loginInUser(data))
+        dispatch(registerOrUpdateUser(data))
+
         toast.success('Đăng nhập thành công !')
-        history.push(`${PATHS.HOME}`)
+        // history.push(`${PATHS.HOME}`)
       })
       .catch((error) => {
         toast.error(error.message)

@@ -14,7 +14,7 @@ import './RegisterComplete.scss'
 const FormRegisterComplete = ({ email }) => {
   return (
     <>
-      <Form.Item
+      {/* <Form.Item
         rules={[
           {
             required: true,
@@ -24,7 +24,7 @@ const FormRegisterComplete = ({ email }) => {
         name="name"
       >
         <Input placeholder="Nhập tên của bạn" prefix={<SmileTwoTone />} />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         rules={[
           {

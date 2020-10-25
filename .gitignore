@@ -1,5 +1,5 @@
-
-/server/src/config/serviceAccountKey.json
+/server/src/firebase/serviceAccountKey.json
+/server/src/firebase/ecommeres-8666c-firebase-adminsdk-4tukw-033e090676.json
 /server/node_modules
 /server/.env
 /client/.env

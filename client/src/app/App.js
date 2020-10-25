@@ -10,21 +10,32 @@ import ForgotPassword from '../pages/auth/ForgotPassword'
 import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import RegisterComplete from '../pages/auth/RegisterComplete'
+import { History, Password, WishList } from '../pages/user'
+import UserRoute from '../routers/UserRoute'
+import AdminRoute from '../routers/AdminRoute'
 import Home from '../pages/Home'
-import { loginInUser } from '../redux/actions/users'
+import {
+  loginInUser,
+  currentUser,
+  registerOrUpdateUser,
+} from '../redux/actions/users'
 import PATHS from '../redux/constants/paths'
+import { DashBoard } from '../pages/admin'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenUser = await user.getIdTokenResult()
+        const { token } = idTokenUser
         const data = {
-          displayName: user.displayName,
           email: user.email,
           token: idTokenUser.token,
         }
-        dispatch(loginInUser(data))
+        dispatch(registerOrUpdateUser(data))
+        dispatch(currentUser(data))
+
+        // dispatch(loginInUser(data))
       }
     })
     return () => unsubscribe()
@@ -44,6 +55,26 @@ function App() {
           exact
           path={`/${PATHS.FORGOT}/${PATHS.PASSWORD}`}
           component={ForgotPassword}
+        />
+        <UserRoute
+          exact
+          path={`/${PATHS.USER}/${PATHS.HISTORY}`}
+          component={History}
+        />
+        <UserRoute
+          exact
+          path={`/${PATHS.USER}/${PATHS.PASSWORD}`}
+          component={Password}
+        />
+        <UserRoute
+          exact
+          path={`/${PATHS.USER}/${PATHS.WISHLIST}`}
+          component={WishList}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.DASHBOARD}`}
+          component={DashBoard}
         />
         <Route exact path={`/${PATHS.HOME}`} component={Home} />
       </Switch>

@@ -6,13 +6,13 @@ import {
   MailOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import PropTypes from 'prop-types'
 import { Form, Input } from 'antd'
 import Button from 'antd/lib/button'
+import PropTypes from 'prop-types'
 import React from 'react'
-import './Login.scss'
 import { Link } from 'react-router-dom'
 import PATHS from '../../../redux/constants/paths'
+import './Login.scss'
 const FormLogin = ({ loginGoogle }) => {
   return (
     <>

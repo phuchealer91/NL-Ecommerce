@@ -2,22 +2,12 @@ const express = require('express')
 const router = express.Router()
 const {
   createOrUpdateUser,
-  login,
-  logout,
-  isAuth,
-  refreshToken,
+  currentUser,
 } = require('../controllers/auth.controller')
-// const {
-//   validatorRegister,
-//   validatorLogin,
-// } = require('../middlewares/authValidator')
-// const { auth } = require('../middlewares/auth')
-router.post('/create-or-update-user', createOrUpdateUser)
 
-// router.post('/register', upload.any(), validatorRegister(), register)
-// router.post('/login', validatorLogin(), login)
-// router.get('/logout', logout)
-// router.get('/refresh-token', refreshToken)
-// router.get('/is-auth', auth, isAuth)
+const { isAuth, isAdmin } = require('../middlewares/auth')
+router.post('/create-or-update-user', isAuth, createOrUpdateUser)
+router.post('/current-user', isAuth, currentUser)
+router.post('/current-admin', isAuth, isAdmin, currentUser)
 
 module.exports = router

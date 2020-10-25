@@ -1,16 +1,20 @@
 import { Col, Form, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { auth } from '../../../firebase'
-import { EMAIL_FOR_REGISTER } from '../../../redux/constants/keys'
+import { registerOrUpdateUser } from '../../../redux/actions/users'
+import { EMAIL_FOR_REGISTER, TOKEN } from '../../../redux/constants/keys'
 import PATHS from '../../../redux/constants/paths'
 import FormRegisterComplete from './FormRegisterComplete'
 import './RegisterComplete.scss'
+
 const RegisterComplete = (props) => {
   const [form] = Form.useForm()
   const [email, setEmail] = useState('')
   const history = useHistory()
+  const dispatch = useDispatch()
   useEffect(() => {
     setEmail(window.localStorage.getItem(EMAIL_FOR_REGISTER))
   }, [])
@@ -26,14 +30,16 @@ const RegisterComplete = (props) => {
       }
       // get id user
       let user = auth.currentUser
-      await user.updateProfile({ displayName: name })
+      // await user.updateProfile({ displayName: name })
       await user.updatePassword(password)
       const idTokenUser = await user.getIdTokenResult()
+      // const { token } = idTokenUser
       // save email & token with redux store
-
+      const data = { token: idTokenUser.token }
+      dispatch(registerOrUpdateUser(data))
+      // dispatch(loginInUser(data))
       toast.success('Đăng ký thành công !')
       // redirect
-
       history.push(`${PATHS.HOME}`)
     } catch (error) {
       toast.error(error.message)

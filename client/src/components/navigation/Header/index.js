@@ -14,17 +14,19 @@ import './Header.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutInUser } from '../../../redux/actions/users'
 import PATHS from '../../../redux/constants/paths'
+import { TOKEN } from '../../../redux/constants/keys'
 const { SubMenu, Item } = Menu
 const Header = () => {
   const [current, setCurrent] = useState('home')
   const history = useHistory()
   const dispatch = useDispatch()
-  const { token, displayName } = useSelector((state) => ({ ...state.user }))
+  const { token, name } = useSelector((state) => ({ ...state.user }))
   function handleClick(e) {
     setCurrent(e.key)
   }
   function logout() {
     auth.signOut()
+    localStorage.removeItem(TOKEN)
     dispatch(logoutInUser())
     history.push(`/${PATHS.LOGIN}`)
   }
@@ -45,7 +47,7 @@ const Header = () => {
         <SubMenu
           key="SubMenu"
           icon={<SettingOutlined />}
-          title={displayName && displayName ? displayName : ''}
+          title={name && name ? name : ''}
           className="nav__user"
         >
           <Item key="setting:1">Option 1</Item>

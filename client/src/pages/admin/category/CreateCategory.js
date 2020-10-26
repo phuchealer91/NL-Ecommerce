@@ -10,6 +10,7 @@ import {
   message,
   Statistic,
   Divider,
+  Input,
 } from 'antd'
 
 import { AdminSideBar } from '../../../components/navigation/SideBar'
@@ -22,25 +23,21 @@ import {
 } from '../../../redux/actions/category'
 import { getCategories } from '../../../redux/actions/category'
 import { Link } from 'react-router-dom'
+import LocalSearch from '../../../components/LocalSearch'
 
 const CreateCategory = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
   const [categoryToDelete, setCategoryToDelete] = useState('')
+  const [keyword, setKeyword] = useState('')
 
   const categories = useSelector((state) => state.category.listCategories)
   const totalCategory = categories.length
   useEffect(() => {
     dispatch(getCategories())
   }, [])
-  const dataSource =
-    categories &&
-    categories.map((item) => ({
-      Id: item._id,
-      Name: item.name,
-      Slug: item.slug,
-    }))
+
   function onFinish({ name }) {
     dispatch(createCategory({ name }))
     form.resetFields()
@@ -57,6 +54,15 @@ const CreateCategory = () => {
     setShowModal(false)
   }
 
+  const searched = (keyword) => (category) =>
+    category.name.toLowerCase().includes(keyword)
+  const dataSource =
+    categories &&
+    categories.filter(searched(keyword)).map((item) => ({
+      Id: item._id,
+      Name: item.name,
+      Slug: item.slug,
+    }))
   const columns = [
     {
       title: 'Id',
@@ -125,6 +131,8 @@ const CreateCategory = () => {
               <FormCategory />
             </Form>
             <h3>Tất cả danh mục ({totalCategory})</h3>
+            {/* Search */}
+            <LocalSearch keyword={keyword} setKeyword={setKeyword} />
             <Table dataSource={dataSource} columns={columns} rowKey="Id" />
           </div>
         </Col>

@@ -23,7 +23,7 @@ const FormCategory = () => {
 
       <Form.Item>
         <Button htmlType="submit" type="primary" className="creat__category">
-          {categoryEditing && categoryEditing._id ? 'Cập nhật' : 'Tạo mới'}
+          Thêm
         </Button>
       </Form.Item>
     </React.Fragment>

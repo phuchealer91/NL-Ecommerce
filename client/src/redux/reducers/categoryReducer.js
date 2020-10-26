@@ -51,6 +51,8 @@ const categoryReducer = (state = initialState, action) => {
           (item) => item.slug !== action.payload.data
         ),
       }
+    case types.GET_CATEGORY_FAILED:
+      return { ...state, categoryEditing: null }
     case types.CREATE_CATEGORY_FAILED:
       toast.error('Tạo thất bại !')
       return { ...state, listCategories: [] }

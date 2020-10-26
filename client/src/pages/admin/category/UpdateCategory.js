@@ -14,10 +14,10 @@ const UpdateCategory = ({ match }) => {
   const history = useHistory()
   const { categoryEditing } = useSelector((state) => state.category)
 
-  // const slug = useParams()
+  const { slug } = match.params
   useEffect(() => {
-    dispatch(getCategory(match.params.slug))
-  }, [])
+    dispatch(getCategory(slug))
+  }, [dispatch])
 
   function onFinish({ name }) {
     console.log(name)

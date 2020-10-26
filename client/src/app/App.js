@@ -11,6 +11,7 @@ import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import RegisterComplete from '../pages/auth/RegisterComplete'
 import { History, Password, WishList } from '../pages/user'
+import { CreateCategory, UpdateCategory } from '../pages/admin/category'
 import UserRoute from '../routers/UserRoute'
 import AdminRoute from '../routers/AdminRoute'
 import Home from '../pages/Home'
@@ -75,6 +76,16 @@ function App() {
           exact
           path={`/${PATHS.ADMIN}/${PATHS.DASHBOARD}`}
           component={DashBoard}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
+          component={CreateCategory}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}/:slug`}
+          component={UpdateCategory}
         />
         <Route exact path={`/${PATHS.HOME}`} component={Home} />
       </Switch>

@@ -11,6 +11,11 @@ const PATHS = {
   WISHLIST: 'wishlist',
   ADMIN: 'admin',
   DASHBOARD: 'dashboard',
+  CATEGORY: 'category',
+  LIST: 'list',
+  PRODUCT: 'product',
+  SUB_CATEGORY: 'sub-category',
+  COUPON: 'coupon',
 }
 
 export default PATHS

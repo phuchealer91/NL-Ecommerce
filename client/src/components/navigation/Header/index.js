@@ -20,7 +20,7 @@ const Header = () => {
   const [current, setCurrent] = useState('home')
   const history = useHistory()
   const dispatch = useDispatch()
-  const { token, name } = useSelector((state) => ({ ...state.user }))
+  const { user } = useSelector((state) => ({ ...state }))
   function handleClick(e) {
     setCurrent(e.key)
   }
@@ -37,27 +37,35 @@ const Header = () => {
       mode="horizontal"
       className="nav"
     >
-      <Item key="home" icon={<HomeOutlined />}>
+      <Item key="home" icon={<ShopOutlined />}>
         <Link to="/">HOME</Link>
       </Item>
       <Item key="shop" icon={<ShopOutlined />}>
         <Link to="/shop">SHOP</Link>
       </Item>
-      {token && (
+      {user && user.token ? (
         <SubMenu
           key="SubMenu"
           icon={<SettingOutlined />}
-          title={name && name ? name : ''}
+          title={user && user.name ? user.name : ''}
           className="nav__user"
         >
-          <Item key="setting:1">Option 1</Item>
+          {user && user.role === 'admin' ? (
+            <Item>
+              <Link to="/admin/dashboard">DashBoard</Link>
+            </Item>
+          ) : (
+            <Item>
+              <Link to="/user/history">DashBoard</Link>
+            </Item>
+          )}
           <Item key="setting:2">Option 2</Item>
           <Item icon={<LogoutOutlined />} onClick={logout}>
             Logout
           </Item>
         </SubMenu>
-      )}
-      {!token && (
+      ) : null}
+      {user && !user.token ? (
         <>
           <Item key="login" icon={<UserOutlined />} className="nav__login">
             <Link to="/login">LOGIN</Link>
@@ -70,7 +78,7 @@ const Header = () => {
             <Link to="/register">REGISTER</Link>
           </Item>
         </>
-      )}
+      ) : null}
 
       {/* <Item key="alipay">
         <a href="https://ant.design" target="_blank" rel="noopener noreferrer">

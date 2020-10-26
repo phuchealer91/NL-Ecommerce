@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Col, Form, Row } from 'antd'
-import SideBar from '../../components/navigation/SideBar'
+import { UserSideBar } from '../../components/navigation/SideBar'
 import './Password.scss'
 import FormUpdatePassword from './FormUpdatePassword'
 import { auth } from '../../firebase'
@@ -29,7 +29,7 @@ function Password(props) {
     <React.Fragment>
       <Row>
         <Col xs={24} sm={24} md={5} lg={5}>
-          <SideBar />
+          <UserSideBar />
         </Col>
         <Col xs={24} sm={24} md={10} lg={10}>
           <div className="update-password">

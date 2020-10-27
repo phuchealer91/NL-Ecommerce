@@ -1,10 +1,8 @@
-import { UserOutlined } from '@ant-design/icons'
+import { TagOutlined } from '@ant-design/icons'
 import { Form, Input } from 'antd'
 import Button from 'antd/lib/button'
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 const FormCategory = () => {
-  const { categoryEditing } = useSelector((state) => state.category)
   return (
     <React.Fragment>
       <Form.Item
@@ -18,11 +16,11 @@ const FormCategory = () => {
         ]}
         name="name"
       >
-        <Input prefix={<UserOutlined />} placeholder="Nhập danh mục của bạn" />
+        <Input prefix={<TagOutlined />} placeholder="Nhập danh mục của bạn" />
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" type="primary" className="creat__category">
+        <Button htmlType="submit" type="primary" className="category__btn">
           Thêm
         </Button>
       </Form.Item>

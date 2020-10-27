@@ -24,6 +24,8 @@ import {
 import { getCategories } from '../../../redux/actions/category'
 import { Link } from 'react-router-dom'
 import LocalSearch from '../../../components/LocalSearch'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { ModalConfirm } from '../../../components/ModalConfirm'
 
 const CreateCategory = () => {
   const [form] = Form.useForm()
@@ -53,7 +55,7 @@ const CreateCategory = () => {
   function closeModal() {
     setShowModal(false)
   }
-
+  // Search
   const searched = (keyword) => (category) =>
     category.name.toLowerCase().includes(keyword)
   const dataSource =
@@ -83,14 +85,21 @@ const CreateCategory = () => {
       title: 'Thao tác',
       dataIndex: '',
       key: 'x',
+      width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary">
-            <Link to={`/admin/category/${record.Slug}`}>Sửa</Link>
+          <Button type="primary" icon={<EditOutlined />} className="mr">
+            <Link
+              to={`/admin/category/${record.Slug}`}
+              className="category__edit"
+            >
+              Sửa
+            </Link>
           </Button>
           <Button
             type="primary"
             danger
+            icon={<DeleteOutlined />}
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
@@ -103,37 +112,36 @@ const CreateCategory = () => {
   ]
   return (
     <React.Fragment>
-      <Modal
-        title="Xác nhận"
-        visible={showModal}
-        onOk={onHandleDeleteItem}
-        onCancel={closeModal}
-        okText="Xóa"
-        cancelText="Thoát"
-      >
-        <p>
-          Khi bạn xóa một danh mục <span className="color-red">không thể</span>{' '}
-          khôi phục nó được !
-        </p>
-        <p>
-          {' '}
-          Bạn chắc chắn xóa danh mục <strong>{categoryToDelete}</strong> không ?
-        </p>
-      </Modal>
+      <ModalConfirm
+        showModal={showModal}
+        closeModal={closeModal}
+        onHandleDeleteItem={onHandleDeleteItem}
+        title="danh mục"
+        categoryToDelete={categoryToDelete}
+      />
       <Row>
         <Col xs={24} sm={24} md={5} lg={5}>
           <AdminSideBar />
         </Col>
         <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="create-category">
+          <div className="category">
             <h3> Tạo mới danh mục</h3>
             <Form form={form} onFinish={onFinish}>
-              <FormCategory />
+              <div className="category__form">
+                <FormCategory />
+              </div>
             </Form>
             <h3>Tất cả danh mục ({totalCategory})</h3>
             {/* Search */}
-            <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-            <Table dataSource={dataSource} columns={columns} rowKey="Id" />
+            <div className="category__search">
+              <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+            </div>
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              rowKey="Id"
+              tableLayout="auto"
+            />
           </div>
         </Col>
       </Row>

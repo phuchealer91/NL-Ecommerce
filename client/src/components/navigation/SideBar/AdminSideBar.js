@@ -7,6 +7,8 @@ import {
   HistoryOutlined,
   MailOutlined,
   SettingOutlined,
+  TagOutlined,
+  TagsOutlined,
   UserOutlined,
 } from '@ant-design/icons'
 import PATHS from '../../../redux/constants/paths'
@@ -49,17 +51,23 @@ const AdminSideBar = () => {
       <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Danh mục">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
-          icon={<UserOutlined />}
+          icon={<TagsOutlined />}
         >
           Tất cả danh mục
         </Menu.Item>
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
+          icon={<TagOutlined />}
+        >
+          Danh mục con
+        </Menu.Item>
       </SubMenu>
-      <Menu.Item
+      {/* <Menu.Item
         icon={<HistoryOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
       >
         Danh mục con
-      </Menu.Item>
+      </Menu.Item> */}
       <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Sản phẩm">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}

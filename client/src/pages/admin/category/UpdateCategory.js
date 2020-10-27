@@ -26,13 +26,10 @@ const UpdateCategory = ({ match }) => {
     form.resetFields()
   }
   useEffect(() => {
-    form.setFieldsValue(
-      {
-        name: (categoryEditing && categoryEditing.name) || '',
-      },
-      [form]
-    )
-  })
+    form.setFieldsValue({
+      name: (categoryEditing && categoryEditing.name) || '',
+    })
+  }, [categoryEditing])
   return (
     <React.Fragment>
       <Row>
@@ -40,10 +37,12 @@ const UpdateCategory = ({ match }) => {
           <AdminSideBar />
         </Col>
         <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="create-category">
+          <div className="category">
             <h3> Cập nhật danh mục</h3>
             <Form form={form} onFinish={onFinish}>
-              <FormCategory />
+              <div className="category__form">
+                <FormCategory />
+              </div>
             </Form>
           </div>
         </Col>

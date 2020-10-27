@@ -22,6 +22,10 @@ import {
 } from '../redux/actions/users'
 import PATHS from '../redux/constants/paths'
 import { DashBoard } from '../pages/admin'
+import {
+  CreateSubCategory,
+  UpdateSubCategory,
+} from '../pages/admin/subCategory'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -86,6 +90,16 @@ function App() {
           exact
           path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}/:slug`}
           component={UpdateCategory}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
+          component={CreateSubCategory}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}/:slug`}
+          component={UpdateSubCategory}
         />
         <Route exact path={`/${PATHS.HOME}`} component={Home} />
       </Switch>

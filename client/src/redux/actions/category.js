@@ -96,3 +96,23 @@ export const updateCategoriesFailed = (error) => {
     payload: { error },
   }
 }
+
+// update category
+export const getCategorySubs = (data) => {
+  return {
+    type: types.GET_CATEGORY_SUBS,
+    payload: data,
+  }
+}
+export const getCategorySubsSuccess = (data) => {
+  return {
+    type: types.GET_CATEGORY_SUBS_SUCCESS,
+    payload: { data },
+  }
+}
+export const getCategorySubsFailed = (error) => {
+  return {
+    type: types.GET_CATEGORY_SUBS_FAILED,
+    payload: { error },
+  }
+}

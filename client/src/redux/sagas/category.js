@@ -16,6 +16,7 @@ import {
   getCategories,
   getCategory,
   updateCategories,
+  getCategorySubs,
 } from '../../apis/category'
 import * as types from '../constants/category'
 import {
@@ -26,6 +27,8 @@ import {
   getCategoriesFailed,
   getCategoriesSuccess,
   getCategoryFailed,
+  getCategorySubsFailed,
+  getCategorySubsSuccess,
   getCategorySuccess,
   updateCategoriesFailed,
   updateCategoriesSuccess,
@@ -67,6 +70,17 @@ function* getCategorys({ payload }) {
   yield delay(400)
   yield put(hideLoading())
 }
+function* getCategorySubss({ payload }) {
+  console.log(payload)
+  try {
+    const resp = yield call(getCategorySubs, payload)
+    console.log(resp)
+    const { data } = resp
+    yield put(getCategorySubsSuccess(data))
+  } catch (error) {
+    yield put(getCategorySubsFailed(error))
+  }
+}
 
 function* deleteCategoryss({ payload }) {
   try {
@@ -97,6 +111,7 @@ export function* watchCategory() {
   yield takeEvery(types.CREATE_CATEGORY, createCategoryss)
   yield takeEvery(types.GET_CATEGORIES, getCategoryss)
   yield takeEvery(types.GET_CATEGORY, getCategorys)
+  yield takeEvery(types.GET_CATEGORY_SUBS, getCategorySubss)
   yield takeEvery(types.DELETE_CATEGORY, deleteCategoryss)
   yield takeEvery(types.UPDATE_CATEGORY, updateCategoryss)
 }

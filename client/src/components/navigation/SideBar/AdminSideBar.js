@@ -7,6 +7,7 @@ import {
   HistoryOutlined,
   MailOutlined,
   SettingOutlined,
+  ShoppingOutlined,
   TagOutlined,
   TagsOutlined,
   UserOutlined,
@@ -37,7 +38,7 @@ const AdminSideBar = () => {
     <Menu
       onClick={handleClick}
       style={{ width: 275 }}
-      defaultOpenKeys={['sub1', 'sub2']}
+      defaultOpenKeys={['sub1', 'sub2','sub3']}
       mode="inline"
       selectedKeys={selectedKey}
     >
@@ -62,26 +63,28 @@ const AdminSideBar = () => {
           Danh mục con
         </Menu.Item>
       </SubMenu>
+
+      <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Sản phẩm">
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
+          icon={<ShoppingOutlined />}
+        >
+          Tạo mới sản phẩm
+        </Menu.Item>
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
+          icon={<HeartOutlined />}
+        >
+          Tất cả sản phẩm
+        </Menu.Item>
+      </SubMenu>
       {/* <Menu.Item
         icon={<HistoryOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
       >
         Danh mục con
       </Menu.Item> */}
-      <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Sản phẩm">
-        <Menu.Item
-          key={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
-          icon={<UserOutlined />}
-        >
-          Tạo mới sản phẩm
-        </Menu.Item>
-        <Menu.Item
-          key={`/${PATHS.USER}/${PATHS.WISHLIST}`}
-          icon={<HeartOutlined />}
-        >
-          Danh sách yêu thích
-        </Menu.Item>
-      </SubMenu>
+
       <Menu.Item
         icon={<HistoryOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.COUPON}`}

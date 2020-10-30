@@ -26,6 +26,8 @@ import {
   CreateSubCategory,
   UpdateSubCategory,
 } from '../pages/admin/subCategory'
+import { CreateProduct, ListProduct } from '../pages/admin/product'
+import UpdateProduct from '../pages/admin/product/UpdateProduct'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -100,6 +102,21 @@ function App() {
           exact
           path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}/:slug`}
           component={UpdateSubCategory}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
+          component={CreateProduct}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.PRODUCT}/:slug`}
+          component={UpdateProduct}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
+          component={ListProduct}
         />
         <Route exact path={`/${PATHS.HOME}`} component={Home} />
       </Switch>

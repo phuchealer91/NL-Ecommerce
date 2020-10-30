@@ -46,7 +46,7 @@ const CreateSubCategory = () => {
   useEffect(() => {
     dispatch(getSubCategories())
     dispatch(getCategories())
-  }, [])
+  }, [dispatch])
 
   function onFinish({ name }) {
     const values = { name, parent: subcategory }

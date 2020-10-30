@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 const initialState = {
   listCategories: [],
   categoryEditing: null,
+  categorySubs: [],
 }
 
 const categoryReducer = (state = initialState, action) => {
@@ -25,6 +26,11 @@ const categoryReducer = (state = initialState, action) => {
       return {
         ...state,
         categoryEditing: action.payload.data.category,
+      }
+    case types.GET_CATEGORY_SUBS_SUCCESS:
+      return {
+        ...state,
+        categorySubs: action.payload.data.subs,
       }
     case types.UPDATE_CATEGORY_SUCCESS:
       toast.success('Cập nhật thành công !')

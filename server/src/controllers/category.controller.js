@@ -1,4 +1,5 @@
 const Categories = require('../models/category.model')
+const SubCategories = require('../models/subCategory.model')
 const slugify = require('slugify')
 var { validationResult } = require('express-validator')
 module.exports.createCategory = async (req, res) => {
@@ -70,6 +71,16 @@ module.exports.deleteCategory = async (req, res) => {
     return res
       .status(200)
       .json({ msg: `Delete ${categoryDeleted.name} success` })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
+module.exports.getCategorySubs = async (req, res) => {
+  try {
+    const subs = await SubCategories.find({ parent: req.params._id })
+    if (!subs) return res.status(400).json({ error: 'Subs not found' })
+    return res.status(200).json({ subs })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
   }

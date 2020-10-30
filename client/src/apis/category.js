@@ -16,3 +16,6 @@ export const getCategories = (data) => {
 export const getCategory = (slug, data) => {
   return axiosServices.get(`/${PATHS.CATEGORY}/${slug}`, data)
 }
+export const getCategorySubs = (_id, data) => {
+  return axiosServices.get(`/${PATHS.CATEGORY}/${PATHS.SUBS}/${_id}`, data)
+}

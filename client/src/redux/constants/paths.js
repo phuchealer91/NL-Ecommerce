@@ -14,8 +14,10 @@ const PATHS = {
   CATEGORY: 'category',
   LIST: 'list',
   PRODUCT: 'product',
+  LIST_PRODUCTS: 'list-products',
   SUB_CATEGORY: 'sub-category',
   COUPON: 'coupon',
+  SUBS: 'subs',
 }
 
 export default PATHS

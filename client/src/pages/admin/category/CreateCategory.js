@@ -88,11 +88,14 @@ const CreateCategory = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" icon={<EditOutlined />} className="mr">
+          <Button type="primary" className="mr">
             <Link
               to={`/admin/category/${record.Slug}`}
               className="category__edit"
             >
+              <span className="category__icon">
+                <EditOutlined />
+              </span>
               Sửa
             </Link>
           </Button>

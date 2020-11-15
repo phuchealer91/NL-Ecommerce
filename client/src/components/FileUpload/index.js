@@ -12,7 +12,6 @@ FileUpload.propTypes = {}
 
 function FileUpload({ product, setProduct, setIsLoading }) {
   const { user, product: pro } = useSelector((state) => ({ ...state }))
-  console.log(pro && pro.productEditing)
   function handleUploadAndResize(e) {
     let files = e.target.files
     let allImages = product.images

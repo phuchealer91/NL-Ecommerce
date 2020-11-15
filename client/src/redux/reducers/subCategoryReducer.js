@@ -2,14 +2,17 @@ import * as types from '../constants/subCategory'
 import { toast } from 'react-toastify'
 const initialState = {
   listSubCategories: [],
+  productOfSubCategory: [],
   subCategoryEditing: null,
+  isLoading: false,
 }
 
 const subCategoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CREATE_SUB_CATEGORY:
+    case types.GET_SUB_CATEGORY:
     case types.DELETE_SUB_CATEGORY:
-      return { ...state }
+      return { ...state, isLoading: true }
     case types.CREATE_SUB_CATEGORY_SUCCESS:
       toast.success('Tạo thành công !')
       return {
@@ -20,7 +23,6 @@ const subCategoryReducer = (state = initialState, action) => {
         ],
       }
     case types.GET_SUB_CATEGORIES_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         listSubCategories: action.payload.data.subCategorys,
@@ -29,6 +31,8 @@ const subCategoryReducer = (state = initialState, action) => {
       return {
         ...state,
         subCategoryEditing: action.payload.data.subCategory,
+        productOfSubCategory: action.payload.data.products,
+        isLoading: false,
       }
     case types.UPDATE_SUB_CATEGORY_SUCCESS:
       toast.success('Cập nhật thành công !')

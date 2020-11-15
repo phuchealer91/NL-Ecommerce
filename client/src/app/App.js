@@ -14,7 +14,8 @@ import { History, Password, WishList } from '../pages/user'
 import { CreateCategory, UpdateCategory } from '../pages/admin/category'
 import UserRoute from '../routers/UserRoute'
 import AdminRoute from '../routers/AdminRoute'
-import Home from '../pages/Home'
+import { Home } from '../pages/Home'
+import { Product } from '../pages/product'
 import {
   loginInUser,
   currentUser,
@@ -28,6 +29,8 @@ import {
 } from '../pages/admin/subCategory'
 import { CreateProduct, ListProduct } from '../pages/admin/product'
 import UpdateProduct from '../pages/admin/product/UpdateProduct'
+import CategoryMainPage from '../pages/category/CategoryMainPage'
+import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -63,6 +66,7 @@ function App() {
           path={`/${PATHS.FORGOT}/${PATHS.PASSWORD}`}
           component={ForgotPassword}
         />
+
         <UserRoute
           exact
           path={`/${PATHS.USER}/${PATHS.HISTORY}`}
@@ -117,6 +121,17 @@ function App() {
           exact
           path={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
           component={ListProduct}
+        />
+        <Route exact path={`/${PATHS.PRODUCT}/:slug`} component={Product} />
+        <Route
+          exact
+          path={`/${PATHS.CATEGORY}/:slug`}
+          component={CategoryMainPage}
+        />
+        <Route
+          exact
+          path={`/${PATHS.SUB_CATEGORY}/:slug`}
+          component={SubCategoryMainPage}
         />
         <Route exact path={`/${PATHS.HOME}`} component={Home} />
       </Switch>

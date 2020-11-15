@@ -31,17 +31,15 @@ function* LoggedUser({ payload }) {
   window.localStorage.setItem(TOKEN, token)
 
   try {
-    yield put(showLoading())
+    // yield put(showLoading())
     const resp = yield call(registerOrUpdateUsers, token)
-    // yield take(types.LOGGIN_IN_USER)
     const data = { ...resp.data, token }
-    // const { payload } = resp
     yield put(registerOrUpdateUserSuccess(data))
   } catch (error) {
     yield put(registerOrUpdateUserFailed(error))
   }
-  yield delay(400)
-  yield put(hideLoading())
+  // yield delay(400)
+  // yield put(hideLoading())
 }
 // function* registerOrUpdate({ payload }) {
 //   window.localStorage.setItem(TOKEN, payload)
@@ -59,7 +57,6 @@ function* currentUser({ payload }) {
   window.localStorage.setItem(TOKEN, token)
   try {
     const resp = yield call(currentUsers, token)
-    // const { data } = resp
     const data = { ...resp.data, token }
     yield put(currentUserSuccess(data))
   } catch (error) {
@@ -68,7 +65,6 @@ function* currentUser({ payload }) {
 }
 
 function* currentAdmin({ payload }) {
-  console.log(payload)
   window.localStorage.setItem(TOKEN, payload)
   try {
     const resp = yield call(currentAdmins, payload)

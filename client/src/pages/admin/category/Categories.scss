@@ -4,6 +4,17 @@
   &__search {
     width: 40%;
   }
+  &__icon {
+    margin-right: 4px;
+  }
+  &__edit {
+    text-decoration: none;
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
 }
 .list {
   &__category {

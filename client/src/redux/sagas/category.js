@@ -71,10 +71,8 @@ function* getCategorys({ payload }) {
   yield put(hideLoading())
 }
 function* getCategorySubss({ payload }) {
-  console.log(payload)
   try {
     const resp = yield call(getCategorySubs, payload)
-    console.log(resp)
     const { data } = resp
     yield put(getCategorySubsSuccess(data))
   } catch (error) {

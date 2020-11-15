@@ -45,13 +45,12 @@ const UpdateProducts = ({ match }) => {
   const { listCategories: categories, categorySubs } = useSelector(
     (state) => state.category
   )
-  console.log(arrOfSubs)
-  console.log('product start', product)
+  console.log('test', product)
   const { slug } = match.params
   useEffect(() => {
     dispatch(getCategories())
     dispatch(getProduct(slug))
-  }, [dispatch, slug])
+  }, [dispatch])
 
   useEffect(() => {
     if (productEditing && productEditing.category) {
@@ -73,7 +72,6 @@ const UpdateProducts = ({ match }) => {
       ...productEditing,
     })
     let arr = []
-
     productEditing &&
       productEditing.subs.map((s) => {
         arr.push(s._id)
@@ -81,19 +79,15 @@ const UpdateProducts = ({ match }) => {
     setArrOfSubs((prev) => arr)
   }, [productEditing])
   function onFinish(value) {
-    console.log(value)
-    product.subs = arrOfSubs
-    const values = { ...product, ...value }
+    const values = { ...product, subs: arrOfSubs, ...value }
     console.log(values)
     dispatch(updateProduct(values))
-    window.location.reload()
+    // window.location.reload()
     // history.push('/admin/sub-category')
     form.resetFields()
   }
   // // Sub category Select
-  function onChange(value) {
-    console.log(value)
-  }
+  function onChange(value) {}
   function onChangeCategory(value) {
     // setCategory(value)
     setProduct({ ...product, subs: [] })

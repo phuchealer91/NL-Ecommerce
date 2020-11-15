@@ -5,6 +5,9 @@ import {
   getListAllProducts,
   getProduct,
   updateProducts,
+  getListProductss,
+  getProductsCounts,
+  getRelated,
 } from '../../apis/product'
 import {
   createProductFailed,
@@ -17,6 +20,12 @@ import {
   getProductSuccess,
   updateProductFailed,
   updateProductSuccess,
+  getListProductsSuccess,
+  getListProductsFailed,
+  getProductsCountSuccess,
+  getProductsCountFailed,
+  getRelatedSuccess,
+  getRelatedFailed,
 } from '../actions/product'
 import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/product'
@@ -76,8 +85,8 @@ function* updateProductss({ payload }) {
   console.log(payload)
   try {
     const product = yield select((state) => state.product.productEditing)
+    console.log(product)
     const resp = yield call(updateProducts, product.slug, payload)
-
     console.log(resp)
     yield put(showLoading())
     const { data } = resp
@@ -90,24 +99,66 @@ function* updateProductss({ payload }) {
 }
 
 function* getListAllProductss({ payload }) {
-  console.log(payload)
   try {
-    yield put(showLoading())
+    // yield put(showLoading())
     const resp = yield call(getListAllProducts, payload)
-    console.log(resp)
     const { data } = resp
     yield put(getListAllProductSuccess(data))
   } catch (error) {
     yield put(getListAllProductFailed(error))
   }
-  yield delay(400)
-  yield put(hideLoading())
+  // yield delay(400)
+  // yield put(hideLoading())
+}
+function* getListProductsss({ payload }) {
+  const { sort, order, page } = payload
+  try {
+    // yield put(showLoading())
+    const resp = yield call(getListProductss, { sort, order, page })
+    const { data } = resp
+    yield put(getListProductsSuccess(data))
+  } catch (error) {
+    yield put(getListProductsFailed(error))
+  }
+  // yield delay(400)
+  // yield put(hideLoading())
+}
+function* getProductsCountss({ payload }) {
+  console.log(payload)
+  try {
+    // yield put(showLoading())
+    const resp = yield call(getProductsCounts, payload)
+    console.log(resp)
+    const { data } = resp
+    yield put(getProductsCountSuccess(data))
+  } catch (error) {
+    yield put(getProductsCountFailed(error))
+  }
+  // yield delay(400)
+  // yield put(hideLoading())
+}
+
+function* getRelateds({ payload }) {
+  console.log(payload)
+  try {
+    // yield put(showLoading())
+    const resp = yield call(getRelated, payload)
+    console.log(resp)
+    const { data } = resp
+    yield put(getRelatedSuccess(data))
+  } catch (error) {
+    yield put(getRelatedFailed(error))
+  }
+  // yield delay(400)
+  // yield put(hideLoading())
 }
 export function* watchProduct() {
   yield takeEvery(types.CREATE_PRODUCT, createProductss)
   yield takeEvery(types.GET_ALL_PRODUCT, getListAllProductss)
-  // yield takeEvery(types.GET_CATEGORIES, getProductss)
+  yield takeEvery(types.GET_PRODUCTS, getListProductsss)
   yield takeEvery(types.GET_PRODUCT, getProducts)
+  yield takeEvery(types.GET_RELATED, getRelateds)
+  yield takeEvery(types.GET_PRODUCT_COUNT, getProductsCountss)
   yield takeEvery(types.DELETE_PRODUCT, deleteProductss)
   yield takeEvery(types.UPDATE_PRODUCT, updateProductss)
 }

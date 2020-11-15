@@ -18,6 +18,8 @@ const PATHS = {
   SUB_CATEGORY: 'sub-category',
   COUPON: 'coupon',
   SUBS: 'subs',
+  TOTAL: 'total',
+  RELATED: 'related',
 }
 
 export default PATHS

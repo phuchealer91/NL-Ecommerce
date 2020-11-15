@@ -39,6 +39,55 @@ module.exports.getProduct = async (req, res) => {
     return res.status(500).json({ msg: 'Server error' })
   }
 }
+
+module.exports.getProductsCount = async (req, res) => {
+  try {
+    const productTotal = await Product.find({}).estimatedDocumentCount().exec()
+    return res.status(200).json({ total: productTotal })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
+module.exports.getListProducts = async (req, res) => {
+  console.log(req.body)
+  try {
+    const { sort, order, page } = req.body
+    const currentPage = page || 1
+    const perPage = 4
+
+    const listProducts = await Product.find({})
+      .skip((currentPage - 1) * perPage)
+      .populate('category')
+      .populate('subs')
+      .sort([[sort, order]])
+      .limit(perPage)
+      .exec()
+
+    return res.status(200).json({ products: listProducts })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+module.exports.getListRelated = async (req, res) => {
+  const { productId } = req.params
+  try {
+    const product = await Product.findById({ _id: productId }).exec()
+    const related = await Product.find({
+      _id: { $ne: product._id },
+      category: product.category,
+    })
+      .limit(4)
+      .populate('category')
+      .populate('subs')
+      // .populate('postedBy')
+      .exec()
+    return res.status(200).json({ products: related })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
 module.exports.updateProduct = async (req, res) => {
   try {
     if (req.body.title) {

@@ -4,6 +4,9 @@ const initialState = {
   listProducts: [],
   listAllProducts: [],
   productEditing: null,
+  productRelated: [],
+  isLoading: true,
+  totalProducts: 0,
 }
 
 const productReducer = (state = initialState, action) => {
@@ -14,7 +17,16 @@ const productReducer = (state = initialState, action) => {
       toast.success('Tạo sản phẩm thành công !')
       return { ...state, listAllProducts: action.payload.data.product }
     case types.GET_ALL_PRODUCT_SUCCESS:
-      return { ...state, listAllProducts: action.payload.data.products }
+      return {
+        ...state,
+        listAllProducts: action.payload.data.products,
+        isLoading: false,
+      }
+    case types.GET_PRODUCT_COUNT_SUCCESS:
+      return {
+        ...state,
+        totalProducts: action.payload.data.total,
+      }
     // case types.CREATE_CATEGORY:
     // case types.DELETE_CATEGORY:
     //   return { ...state }
@@ -33,6 +45,17 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         productEditing: action.payload.data.product,
+      }
+    case types.GET_RELATED_SUCCESS:
+      return {
+        ...state,
+        productRelated: action.payload.data.products,
+      }
+    case types.GET_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        listProducts: action.payload.data.products,
+        isLoading: false,
       }
     case types.UPDATE_PRODUCT_SUCCESS:
       toast.success('Cập nhật thành công !')

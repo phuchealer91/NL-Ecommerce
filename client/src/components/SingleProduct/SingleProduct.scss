@@ -1,0 +1,16 @@
+.single {
+  &__rating {
+    text-align: center;
+    margin: 12px 0;
+  }
+}
+.text-danger {
+  color: #f5222d;
+}
+.text-info {
+  color: #0050b3;
+}
+.carousel__fix {
+  display: grid;
+  place-items: center;
+}

@@ -2,15 +2,18 @@ import * as types from '../constants/category'
 import { toast } from 'react-toastify'
 const initialState = {
   listCategories: [],
+  productOfCategory: [],
   categoryEditing: null,
   categorySubs: [],
+  isLoading: false,
 }
 
 const categoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CREATE_CATEGORY:
+    case types.GET_CATEGORY:
     case types.DELETE_CATEGORY:
-      return { ...state }
+      return { ...state, isLoading: true }
     case types.CREATE_CATEGORY_SUCCESS:
       toast.success('Tạo thành công !')
       return {
@@ -26,6 +29,8 @@ const categoryReducer = (state = initialState, action) => {
       return {
         ...state,
         categoryEditing: action.payload.data.category,
+        productOfCategory: action.payload.data.products,
+        isLoading: false,
       }
     case types.GET_CATEGORY_SUBS_SUCCESS:
       return {

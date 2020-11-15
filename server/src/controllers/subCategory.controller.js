@@ -1,6 +1,7 @@
 const subCategories = require('../models/subCategory.model')
 const slugify = require('slugify')
 var { validationResult } = require('express-validator')
+const Product = require('../models/product.model')
 module.exports.createSubCategory = async (req, res) => {
   const { name, parent } = req.body
   const slug = slugify(name).toLowerCase()
@@ -30,9 +31,10 @@ module.exports.getSubCategory = async (req, res) => {
     if (!subCategory)
       return res.status(400).json({ error: 'Sub category not found' })
     // get related products
-    // const products = await Products.find({category}).populate('categories').exec()
-    // return res.status(200).json({ category, products: { data: products } })
-    return res.status(200).json({ subCategory })
+    const products = await Product.find({ subs: subCategory })
+      .populate('category')
+      .exec()
+    return res.status(200).json({ subCategory, products })
   } catch (error) {}
 }
 module.exports.getSubCategories = async (req, res) => {

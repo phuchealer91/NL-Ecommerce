@@ -37,6 +37,44 @@ export const getProductFailed = (error) => {
     payload: { error },
   }
 }
+// GET PRODUCTS
+export const getListProducts = (sort, order, page) => {
+  return {
+    type: types.GET_PRODUCTS,
+    payload: { sort, order, page },
+  }
+}
+export const getListProductsSuccess = (data) => {
+  return {
+    type: types.GET_PRODUCTS_SUCCESS,
+    payload: { data },
+  }
+}
+export const getListProductsFailed = (error) => {
+  return {
+    type: types.GET_PRODUCTS_FAILED,
+    payload: { error },
+  }
+}
+// GET PRODUCTS COUNT
+export const getProductsCount = (data) => {
+  return {
+    type: types.GET_PRODUCT_COUNT,
+    payload: data,
+  }
+}
+export const getProductsCountSuccess = (data) => {
+  return {
+    type: types.GET_PRODUCT_COUNT_SUCCESS,
+    payload: { data },
+  }
+}
+export const getProductsCountFailed = (error) => {
+  return {
+    type: types.GET_PRODUCT_COUNT_FAILED,
+    payload: { error },
+  }
+}
 // GET LIST ALL
 export const getListAllProduct = (data) => {
   return {
@@ -53,6 +91,25 @@ export const getListAllProductSuccess = (data) => {
 export const getListAllProductFailed = (error) => {
   return {
     type: types.GET_ALL_PRODUCT_FAILED,
+    payload: { error },
+  }
+}
+// GET RELATED
+export const getRelated = (data) => {
+  return {
+    type: types.GET_RELATED,
+    payload: data,
+  }
+}
+export const getRelatedSuccess = (data) => {
+  return {
+    type: types.GET_RELATED_SUCCESS,
+    payload: { data },
+  }
+}
+export const getRelatedFailed = (error) => {
+  return {
+    type: types.GET_RELATED_FAILED,
     payload: { error },
   }
 }

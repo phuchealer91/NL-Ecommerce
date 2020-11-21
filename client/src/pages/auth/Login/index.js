@@ -11,8 +11,8 @@ import FormLogin from './FormLogin'
 import './Login.scss'
 // import useLoginUser from '../../../hooks/useLoginUser'
 const Login = (props) => {
-  useAuthUser()
   useCheckAdmin()
+  // useAuthUser()
   const [form] = Form.useForm()
   const dispatch = useDispatch()
 

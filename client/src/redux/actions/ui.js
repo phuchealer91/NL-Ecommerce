@@ -9,3 +9,14 @@ export const hideLoading = () => {
     type: types.HIDE_LOADING,
   }
 }
+
+export const showDrawer = () => {
+  return {
+    type: types.SHOW_DRAWER,
+  }
+}
+export const hideDrawer = () => {
+  return {
+    type: types.HIDE_DRAWER,
+  }
+}

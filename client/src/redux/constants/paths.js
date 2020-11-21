@@ -20,6 +20,7 @@ const PATHS = {
   SUBS: 'subs',
   TOTAL: 'total',
   RELATED: 'related',
+  CART: 'cart',
 }
 
 export default PATHS

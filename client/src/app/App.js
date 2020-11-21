@@ -31,6 +31,8 @@ import { CreateProduct, ListProduct } from '../pages/admin/product'
 import UpdateProduct from '../pages/admin/product/UpdateProduct'
 import CategoryMainPage from '../pages/category/CategoryMainPage'
 import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
+import Cart from '../pages/cart/Cart'
+import SideDrawer from '../components/Drawer/SideDrawer'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -133,6 +135,7 @@ function App() {
           path={`/${PATHS.SUB_CATEGORY}/:slug`}
           component={SubCategoryMainPage}
         />
+        <Route exact path={`/${PATHS.CART}`} component={Cart} />
         <Route exact path={`/${PATHS.HOME}`} component={Home} />
       </Switch>
       <ToastContainer
@@ -147,6 +150,7 @@ function App() {
         pauseOnHover
       />
       <GlobalLoading />
+      <SideDrawer />
     </>
   )
 }

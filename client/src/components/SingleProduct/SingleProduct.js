@@ -7,12 +7,36 @@ import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import imageDefault from '../../assets/images/mac-default.png'
 import './SingleProduct.scss'
+import _ from 'lodash'
+import { addToCart } from '../../redux/actions/cart'
+import { useDispatch } from 'react-redux'
+import { showDrawer } from '../../redux/actions/ui'
 const { TabPane } = Tabs
 function SingleProduct({ productEditing }) {
   const { title, quantity, images, description } = productEditing
     ? productEditing
     : ''
-  function handleAddToCart() {}
+  const dispatch = useDispatch()
+  function handleAddToCart() {
+    let cart = []
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'))
+      }
+    }
+    // push new product
+    cart.push({
+      ...productEditing,
+      count: 1,
+    })
+    // remove duplicates
+    let unique = _.uniqBy(cart, (c) => c._id)
+    // let unique = _.uniqWith(cart, _.isEqual)
+    // save localstorage
+    localStorage.setItem('cart', JSON.stringify(unique))
+    dispatch(addToCart(unique))
+    dispatch(showDrawer())
+  }
   function handleAddToWishlist() {}
   return (
     <>

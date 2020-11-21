@@ -3,10 +3,11 @@ import {
   LogoutOutlined,
   SettingOutlined,
   ShopOutlined,
+  ShoppingCartOutlined,
   UserAddOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Menu } from 'antd'
+import { Badge, Menu } from 'antd'
 import React, { useState } from 'react'
 import { auth } from '../../../firebase'
 import { Link, useHistory } from 'react-router-dom'
@@ -20,7 +21,7 @@ const Header = () => {
   const [current, setCurrent] = useState('home')
   const history = useHistory()
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => ({ ...state }))
+  let { user, cart } = useSelector((state) => ({ ...state }))
   function handleClick(e) {
     setCurrent(e.key)
   }
@@ -43,6 +44,14 @@ const Header = () => {
       <Item key="shop" icon={<ShopOutlined />}>
         <Link to="/shop">SHOP</Link>
       </Item>
+      <Item key="cart" icon={<ShoppingCartOutlined />}>
+        <Link to="/cart">
+          <Badge count={cart.length} offset={[9, 0]}>
+            CART
+          </Badge>
+        </Link>
+      </Item>
+
       {user && user.token ? (
         <SubMenu
           key="SubMenu"
@@ -79,12 +88,6 @@ const Header = () => {
           </Item>
         </>
       ) : null}
-
-      {/* <Item key="alipay">
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Navigation Four - Link
-        </a>
-      </Item> */}
     </Menu>
   )
 }

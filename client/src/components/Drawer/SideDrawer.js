@@ -42,12 +42,12 @@ function SideDrawer(props) {
                   </span>
                 </div>
               </div>
-              <div className="dra__price">
+              <div className="dra__price text-primary">
                 <span className="dra__price-red">{c.price}</span> VND
               </div>
             </li>
           ))}
-        <div className="dra__btn">
+        <div className="dra__btn ">
           <Link to="/cart">
             <Button
               type="primary"

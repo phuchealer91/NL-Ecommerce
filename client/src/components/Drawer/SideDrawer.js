@@ -7,6 +7,7 @@ import { hideDrawer } from '../../redux/actions/ui'
 import { Link } from 'react-router-dom'
 function SideDrawer(props) {
   const { ui, cart } = useSelector((state) => ({ ...state }))
+  let { cartLists } = cart
   const dispatch = useDispatch()
   function onClose() {
     dispatch(hideDrawer())
@@ -16,7 +17,7 @@ function SideDrawer(props) {
   }
   return (
     <Drawer
-      title={`Giỏ Hàng Của Bạn (${cart.length})`}
+      title={`Giỏ Hàng Của Bạn (${cartLists.length})`}
       placement="right"
       closable={false}
       onClose={onClose}
@@ -24,8 +25,8 @@ function SideDrawer(props) {
       width="380px"
     >
       <ul className="dra__list">
-        {cart &&
-          cart.map((c) => (
+        {cartLists &&
+          cartLists.map((c) => (
             <li className="dra__list-item" key={c._id}>
               <div className="dra__wrap">
                 <img
@@ -42,7 +43,7 @@ function SideDrawer(props) {
                   </span>
                 </div>
               </div>
-              <div className="dra__price text-primary">
+              <div className="dra__price W">
                 <span className="dra__price-red">{c.price}</span> VND
               </div>
             </li>

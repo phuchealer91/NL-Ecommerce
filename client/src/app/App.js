@@ -33,6 +33,7 @@ import CategoryMainPage from '../pages/category/CategoryMainPage'
 import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 import Cart from '../pages/cart/Cart'
 import SideDrawer from '../components/Drawer/SideDrawer'
+import CheckOut from '../pages/checkout/CheckOut'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -53,105 +54,108 @@ function App() {
     return () => unsubscribe()
   }, [dispatch])
   return (
-    <>
+    <React.Fragment>
       <Header />
-      <Switch>
-        <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
-        <Route exact path={`/${PATHS.REGISTER}`} component={Register} />
-        <Route
-          exact
-          path={`/${PATHS.REGISTER}/${PATHS.COMPLETE}`}
-          component={RegisterComplete}
-        />
-        <Route
-          exact
-          path={`/${PATHS.FORGOT}/${PATHS.PASSWORD}`}
-          component={ForgotPassword}
-        />
+      <div className="mx-4 my-4">
+        <Switch>
+          <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
+          <Route exact path={`/${PATHS.REGISTER}`} component={Register} />
+          <Route
+            exact
+            path={`/${PATHS.REGISTER}/${PATHS.COMPLETE}`}
+            component={RegisterComplete}
+          />
+          <Route
+            exact
+            path={`/${PATHS.FORGOT}/${PATHS.PASSWORD}`}
+            component={ForgotPassword}
+          />
 
-        <UserRoute
-          exact
-          path={`/${PATHS.USER}/${PATHS.HISTORY}`}
-          component={History}
+          <UserRoute
+            exact
+            path={`/${PATHS.USER}/${PATHS.HISTORY}`}
+            component={History}
+          />
+          <UserRoute
+            exact
+            path={`/${PATHS.USER}/${PATHS.PASSWORD}`}
+            component={Password}
+          />
+          <UserRoute
+            exact
+            path={`/${PATHS.USER}/${PATHS.WISHLIST}`}
+            component={WishList}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.DASHBOARD}`}
+            component={DashBoard}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
+            component={CreateCategory}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}/:slug`}
+            component={UpdateCategory}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
+            component={CreateSubCategory}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}/:slug`}
+            component={UpdateSubCategory}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
+            component={CreateProduct}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.PRODUCT}/:slug`}
+            component={UpdateProduct}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
+            component={ListProduct}
+          />
+          <Route exact path={`/${PATHS.PRODUCT}/:slug`} component={Product} />
+          <Route
+            exact
+            path={`/${PATHS.CATEGORY}/:slug`}
+            component={CategoryMainPage}
+          />
+          <Route
+            exact
+            path={`/${PATHS.SUB_CATEGORY}/:slug`}
+            component={SubCategoryMainPage}
+          />
+          <Route exact path={`/${PATHS.CART}`} component={Cart} />
+          <Route exact path={`/${PATHS.CHECKOUT}`} component={CheckOut} />
+          <Route exact path={`/${PATHS.HOME}`} component={Home} />
+        </Switch>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
-        <UserRoute
-          exact
-          path={`/${PATHS.USER}/${PATHS.PASSWORD}`}
-          component={Password}
-        />
-        <UserRoute
-          exact
-          path={`/${PATHS.USER}/${PATHS.WISHLIST}`}
-          component={WishList}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.DASHBOARD}`}
-          component={DashBoard}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
-          component={CreateCategory}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}/:slug`}
-          component={UpdateCategory}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
-          component={CreateSubCategory}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}/:slug`}
-          component={UpdateSubCategory}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
-          component={CreateProduct}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.PRODUCT}/:slug`}
-          component={UpdateProduct}
-        />
-        <AdminRoute
-          exact
-          path={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
-          component={ListProduct}
-        />
-        <Route exact path={`/${PATHS.PRODUCT}/:slug`} component={Product} />
-        <Route
-          exact
-          path={`/${PATHS.CATEGORY}/:slug`}
-          component={CategoryMainPage}
-        />
-        <Route
-          exact
-          path={`/${PATHS.SUB_CATEGORY}/:slug`}
-          component={SubCategoryMainPage}
-        />
-        <Route exact path={`/${PATHS.CART}`} component={Cart} />
-        <Route exact path={`/${PATHS.HOME}`} component={Home} />
-      </Switch>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <GlobalLoading />
-      <SideDrawer />
-    </>
+        <GlobalLoading />
+        <SideDrawer />
+      </div>
+    </React.Fragment>
   )
 }
 

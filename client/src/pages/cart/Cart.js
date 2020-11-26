@@ -1,29 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Divider, Row } from 'antd'
 import './Cart.scss'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { formatPrice } from '../../helpers/formatPrice'
 import ListShoppingCart from './ListShoppingCart'
-function Cart({ history }) {
+import { userCart } from '../../redux/actions/cart'
+function Cart(props) {
   const { cart, user } = useSelector((state) => ({ ...state }))
+  let { cartLists, isCheckOut } = cart
+  const history = useHistory()
+  const dispatch = useDispatch()
   function getTotal() {
-    return cart.reduce((curr, next) => {
+    return cartLists.reduce((curr, next) => {
       return curr + next.count * next.price
     }, 0)
   }
+  function onHandleCheckOut() {
+    dispatch(userCart({ cartLists }))
+    if (isCheckOut === true) {
+      history.push('/check-out')
+    }
+  }
+  
   return (
     <React.Fragment>
       <div className="shopping-cart">
         <Row>
-          <Col xs={24} md={16} lg={16}>
+          <Col xs={24} sm={24} md={16} lg={16}>
             <h3 className="shopping__heading">
               Giỏ hàng:{' '}
-              <span className="shopping__heading-red">{cart.length}</span> sản
-              phẩm
+              <span className="shopping__heading-red">{cartLists.length}</span>{' '}
+              sản phẩm
             </h3>
-            {!cart.length ? (
+            {!cartLists.length ? (
               <div className="shopping__wrap">
                 <p className="shopping__nothing">Không có sản phẩm nào. </p>{' '}
                 <Link to="/shop">Tiếp tục mua hàng</Link>{' '}
@@ -32,11 +43,11 @@ function Cart({ history }) {
               <ListShoppingCart />
             )}
           </Col>
-          <Col xs={24} md={8} lg={8}>
+          <Col xs={24} sm={24} md={8} lg={8}>
             <h3 className="shopping__heading">Thanh Toán</h3>
             <Divider style={{ margin: '10px 0' }} />
             <h5 className="shopping__detail">Chi tiết thanh toán</h5>
-            {cart.map((c, i) => (
+            {cartLists.map((c, i) => (
               <ul key={c._id} className="shopping__detail-wrap">
                 <li className="shopping__detail-item">
                   <span className="shopping__detail-index">{i + 1}. </span>{' '}
@@ -53,10 +64,11 @@ function Cart({ history }) {
                 <>
                   <span className="shopping__btn">
                     <Button
+                      onClick={onHandleCheckOut}
                       type="primary"
                       shape="round"
                       size="middle"
-                      disabled={!cart.length}
+                      disabled={!cartLists.length}
                     >
                       Proceed to Checkout
                     </Button>
@@ -66,11 +78,12 @@ function Cart({ history }) {
                       type="primary"
                       shape="round"
                       size="middle"
-                      disabled={!cart.length}
+                      disabled={!cartLists.length}
                     >
                       Pay Cash on Delivery
                     </Button>
                   </span>
+                  
                 </>
               ) : (
                 <Button type="primary" shape="round" size="middle">

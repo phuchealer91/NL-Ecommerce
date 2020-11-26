@@ -19,7 +19,6 @@ ListProduct.propTypes = {}
 function ListProduct(props) {
   const dispatch = useDispatch()
   const [page, setPage] = useState(1)
-  console.log(page)
   const [listproduct, setListproduct] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 

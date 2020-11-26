@@ -21,6 +21,8 @@ const PATHS = {
   TOTAL: 'total',
   RELATED: 'related',
   CART: 'cart',
+  CHECKOUT: 'check-out',
+  ADDRESS: 'address',
 }
 
 export default PATHS

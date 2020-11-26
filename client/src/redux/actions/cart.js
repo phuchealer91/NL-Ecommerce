@@ -18,3 +18,79 @@ export const addToCartFailed = (error) => {
     payload: { error },
   }
 }
+//  USER CART
+export const userCart = (data) => {
+  return {
+    type: types.USER_CART,
+    payload: data,
+  }
+}
+export const userCartSuccess = (data) => {
+  return {
+    type: types.USER_CART_SUCCESS,
+    payload: { data },
+  }
+}
+export const userCartFailed = (error) => {
+  return {
+    type: types.USER_CART_FAILED,
+    payload: { error },
+  }
+}
+// GET USER CART
+export const getUserCart = (data) => {
+  return {
+    type: types.GET_USER_CART,
+    payload: data,
+  }
+}
+export const getUserCartSuccess = (data) => {
+  return {
+    type: types.GET_USER_CART_SUCCESS,
+    payload: { data },
+  }
+}
+export const getUserCartFailed = (error) => {
+  return {
+    type: types.GET_USER_CART_FAILED,
+    payload: { error },
+  }
+}
+// EMPTY CART
+export const emptyCart = (data) => {
+  return {
+    type: types.EMPTY_CART,
+    payload: data,
+  }
+}
+export const emptyCartSuccess = (data) => {
+  return {
+    type: types.EMPTY_CART_SUCCESS,
+    payload: { data },
+  }
+}
+export const emptyCartFailed = (error) => {
+  return {
+    type: types.EMPTY_CART_FAILED,
+    payload: { error },
+  }
+}
+// ADD ADDRESS CART
+export const addAddressCart = (data) => {
+  return {
+    type: types.ADD_ADDRESS_CART,
+    payload: data,
+  }
+}
+export const addAddressCartSuccess = (data) => {
+  return {
+    type: types.ADD_ADDRESS_CART_SUCCESS,
+    payload: { data },
+  }
+}
+export const addAddressCartFailed = (error) => {
+  return {
+    type: types.ADD_ADDRESS_CART_FAILED,
+    payload: { error },
+  }
+}

@@ -1,0 +1,65 @@
+const Cart = require('../models/cart.model')
+const Product = require('../models/product.model')
+const User = require('../models/user.model')
+
+module.exports.userCart = async (req, res) => {
+  const { cartLists: cart } = req.body
+  console.log(cart)
+  let products = []
+  // get user currently
+  const user = await User.findOne({ email: req.user.email }).exec()
+  // check if cart with logged in user id already exist
+  let cartExistByUser = await Cart.findOne({ orderedBy: user._id }).exec()
+  if (cartExistByUser) {
+    cartExistByUser.remove()
+  }
+  // for loop cart
+  for (let i = 0; i < cart.length; i++) {
+    let obj = {}
+    obj.product = cart[i]._id
+    obj.count = cart[i].count
+    obj.color = cart[i].color
+    // Get price tu db tránh trường hợp sửa ở local (ko bảo mật)
+    let productById = await Product.findById(cart[i]._id).select('price').exec()
+    obj.price = productById.price
+    products.push(obj)
+  }
+  let cartTotal = 0
+  for (let i = 0; i < products.length; i++) {
+    cartTotal += products[i].price * products[i].count
+  }
+  let newCart = await new Cart({
+    products,
+    cartTotal,
+    orderedBy: user._id,
+  }).save()
+  return res.status(200).json({ newCart })
+}
+
+module.exports.getUserCart = async (req, res) => {
+  const user = await User.findOne({ email: req.user.email }).exec()
+  const cart = await Cart.findOne({ orderedBy: user._id })
+    .populate('products.product', '_id title price totalAfterDiscount')
+    .exec()
+  const { products, cartTotal, totalAfterDiscount } = cart
+
+  return res.status(200).json({ products, cartTotal, totalAfterDiscount })
+}
+
+module.exports.emptyCart = async (req, res) => {
+  const user = await User.findOne({ email: req.user.email }).exec()
+  await Cart.findOneAndRemove({ orderedBy: user._id }).exec()
+  return res.status(200).json({ msg: 'Delete success' })
+}
+
+module.exports.saveUserAddress = async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+      { email: req.user.email },
+      { address: req.body.address }
+    ).exec()
+    return res.status(200).json({ msg: 'Update Address Success' })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

@@ -124,11 +124,9 @@ function* getListProductsss({ payload }) {
   // yield put(hideLoading())
 }
 function* getProductsCountss({ payload }) {
-  console.log(payload)
   try {
     // yield put(showLoading())
     const resp = yield call(getProductsCounts, payload)
-    console.log(resp)
     const { data } = resp
     yield put(getProductsCountSuccess(data))
   } catch (error) {
@@ -139,11 +137,9 @@ function* getProductsCountss({ payload }) {
 }
 
 function* getRelateds({ payload }) {
-  console.log(payload)
   try {
     // yield put(showLoading())
     const resp = yield call(getRelated, payload)
-    console.log(resp)
     const { data } = resp
     yield put(getRelatedSuccess(data))
   } catch (error) {

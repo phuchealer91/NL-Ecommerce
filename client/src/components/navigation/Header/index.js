@@ -22,6 +22,7 @@ const Header = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   let { user, cart } = useSelector((state) => ({ ...state }))
+  let { cartLists } = cart
   function handleClick(e) {
     setCurrent(e.key)
   }
@@ -46,7 +47,7 @@ const Header = () => {
       </Item>
       <Item key="cart" icon={<ShoppingCartOutlined />}>
         <Link to="/cart">
-          <Badge count={cart.length} offset={[9, 0]}>
+          <Badge count={cartLists.length} offset={[9, 0]}>
             CART
           </Badge>
         </Link>

@@ -18,13 +18,12 @@ const ListShoppingCart = () => {
   const [form] = Form.useForm()
   const colors = ['Black', 'Brown', 'Silver', 'White', 'Blue']
   const { cart } = useSelector((state) => ({ ...state }))
+  let { cartLists } = cart
   const [ItemX, setItemX] = useState({})
   const [showModal, setShowModal] = useState(false)
-  console.log(ItemX)
   const [idDelete, setIdDelete] = useState('')
   const dispatch = useDispatch()
   function onChangeColor(color) {
-    console.log(color)
     let cart = []
     if (typeof window !== 'undefined') {
       if (localStorage.getItem('cart')) {
@@ -40,7 +39,6 @@ const ListShoppingCart = () => {
     }
   }
   function onChangeCount(e) {
-    console.log(e.target.value)
     let count = e.target.value
     let countX = count < 1 ? 1 : count
     if (count > ItemX.Quantity) {
@@ -92,8 +90,8 @@ const ListShoppingCart = () => {
     setShowModal(false)
   }
   const dataSource =
-    cart &&
-    cart.map((item) => ({
+    cartLists &&
+    cartLists.map((item) => ({
       Id: item._id,
       Title: item.title,
       Image: item.images[0] ? item.images[0].url : imageDefault,
@@ -129,7 +127,7 @@ const ListShoppingCart = () => {
       key: 'color',
       render: (colorx, record) => (
         <Select
-          style={{ width: 100 }}
+          style={{ width: 105 }}
           placeholder="Select a color"
           onChange={onChangeColor}
           onFocus={onFocus}
@@ -210,7 +208,7 @@ const ListShoppingCart = () => {
         dataSource={dataSource}
         columns={columns}
         rowKey="Title"
-        tableLayout="auto"
+        tableLayout="fixed"
       />
     </div>
   )

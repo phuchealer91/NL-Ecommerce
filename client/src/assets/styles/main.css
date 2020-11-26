@@ -11197,6 +11197,10 @@ video {
   clear: none;
 }
 
+.font-body{
+  font-family: Poppins;
+}
+
 .font-sans{
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -29130,6 +29134,11 @@ video {
   animation: bounce 1s infinite;
 }
 
+/* #root {
+  font-size: 62.5%;
+  @apply font-body;
+} */
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;
@@ -39788,6 +39797,10 @@ video {
 
   .sm\:clear-none{
     clear: none;
+  }
+
+  .sm\:font-body{
+    font-family: Poppins;
   }
 
   .sm\:font-sans{
@@ -68340,6 +68353,10 @@ video {
     clear: none;
   }
 
+  .md\:font-body{
+    font-family: Poppins;
+  }
+
   .md\:font-sans{
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
@@ -96888,6 +96905,10 @@ video {
 
   .lg\:clear-none{
     clear: none;
+  }
+
+  .lg\:font-body{
+    font-family: Poppins;
   }
 
   .lg\:font-sans{
@@ -125440,6 +125461,10 @@ video {
     clear: none;
   }
 
+  .xl\:font-body{
+    font-family: Poppins;
+  }
+
   .xl\:font-sans{
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
@@ -153988,6 +154013,10 @@ video {
 
   .\32xl\:clear-none{
     clear: none;
+  }
+
+  .\32xl\:font-body{
+    font-family: Poppins;
   }
 
   .\32xl\:font-sans{

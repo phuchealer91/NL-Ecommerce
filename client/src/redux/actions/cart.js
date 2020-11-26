@@ -94,3 +94,22 @@ export const addAddressCartFailed = (error) => {
     payload: { error },
   }
 }
+// ADD COUPON CART
+export const applyCouponCart = (data) => {
+  return {
+    type: types.APPLY_COUPON_CART,
+    payload: data,
+  }
+}
+export const applyCouponCartSuccess = (data) => {
+  return {
+    type: types.APPLY_COUPON_CART_SUCCESS,
+    payload: { data },
+  }
+}
+export const applyCouponCartFailed = (error) => {
+  return {
+    type: types.APPLY_COUPON_CART_FAILED,
+    payload: { error },
+  }
+}

@@ -8,6 +8,9 @@ let initialState = {
   addressCart: null,
   isLoading: true,
   isAddAddress: true,
+  totalAfterDiscount: 0,
+  errors: '',
+  isCheckError: false,
 }
 
 if (typeof window !== 'undefined') {
@@ -47,6 +50,8 @@ const cartReducer = (state = initialState, action) => {
         cartCheckOut: [],
         cartTotals: null,
         isLoading: false,
+        totalAfterDiscount: 0,
+        errors: '',
       }
     case types.ADD_ADDRESS_CART_SUCCESS:
       toast.success('Add Address Success !')
@@ -56,12 +61,28 @@ const cartReducer = (state = initialState, action) => {
         isLoading: false,
         isAddAddress: false,
       }
+    case types.APPLY_COUPON_CART_SUCCESS:
+      toast.success('Apply Coupon Success !')
+      return {
+        ...state,
+        totalAfterDiscount:
+          action.payload.data.totalAfterDiscount.totalAfterDiscount,
+        isCheckError: false,
+        errors: '',
+      }
     case types.GET_USER_CART_FAILED:
     case types.ADD_TO_CART_FAILED:
     case types.EMPTY_CART_FAILED:
       return {
         ...state,
         isLoading: false,
+      }
+    case types.APPLY_COUPON_CART_FAILED:
+      toast.error(action.payload.error.response.data.Error)
+      return {
+        ...state,
+        isCheckError: true,
+        errors: action.payload.error.response.data.Error,
       }
     default:
       return state

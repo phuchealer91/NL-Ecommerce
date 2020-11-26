@@ -13,6 +13,8 @@ import {
   addToCart,
   addToCartFailed,
   addToCartSuccess,
+  applyCouponCartFailed,
+  applyCouponCartSuccess,
   emptyCartFailed,
   emptyCartSuccess,
   getUserCartFailed,
@@ -27,6 +29,7 @@ import {
   emptyCarts,
   getUserCarts,
   userCarts,
+  applyCouponCarts,
 } from '../../apis/cart'
 
 function* addToCarts({ payload }) {
@@ -87,10 +90,27 @@ function* addAddressCartss({ payload }) {
   yield delay(400)
   yield hideLoading()
 }
+function* applyCouponCartss({ payload }) {
+  console.log(payload)
+  try {
+    yield showLoading()
+    const resp = yield call(applyCouponCarts, payload)
+    const { data } = resp
+    console.log(resp)
+    console.log(data)
+    yield put(applyCouponCartSuccess(data))
+  } catch (error) {
+    yield put(applyCouponCartFailed(error))
+  }
+  yield delay(400)
+  yield hideLoading()
+}
 
 export function* watchShoppingCart() {
   yield takeEvery(types.ADD_TO_CART, addToCarts)
   yield takeEvery(types.USER_CART, userCartss)
   yield takeEvery(types.GET_USER_CART, getUserCartss)
   yield takeEvery(types.ADD_ADDRESS_CART, addAddressCartss)
+  yield takeEvery(types.EMPTY_CART, emptyCartss)
+  yield takeEvery(types.APPLY_COUPON_CART, applyCouponCartss)
 }

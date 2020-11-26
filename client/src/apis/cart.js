@@ -13,3 +13,9 @@ export const getUserCarts = (data) => {
 export const emptyCarts = (data) => {
   return axiosServices.delete(`/${PATHS.USER}/${PATHS.CART}`, data)
 }
+export const applyCouponCarts = (data) => {
+  return axiosServices.post(
+    `/${PATHS.USER}/${PATHS.CART}/${PATHS.COUPON}`,
+    data
+  )
+}

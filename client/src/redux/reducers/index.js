@@ -5,6 +5,7 @@ import categoryReducer from './categoryReducer'
 import subCategoryReducer from './subCategoryReducer'
 import productReducer from './productReducer'
 import cartReducer from './cartReducer'
+import couponReducer from './couponReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   subCategory: subCategoryReducer,
   product: productReducer,
   cart: cartReducer,
+  coupon: couponReducer,
 })
 
 export default rootReducer

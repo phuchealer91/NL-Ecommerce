@@ -34,6 +34,7 @@ import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 import Cart from '../pages/cart/Cart'
 import SideDrawer from '../components/Drawer/SideDrawer'
 import CheckOut from '../pages/checkout/CheckOut'
+import { CreateCoupon } from '../pages/admin/coupon'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -125,6 +126,11 @@ function App() {
             exact
             path={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
             component={ListProduct}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.COUPON}`}
+            component={CreateCoupon}
           />
           <Route exact path={`/${PATHS.PRODUCT}/:slug`} component={Product} />
           <Route

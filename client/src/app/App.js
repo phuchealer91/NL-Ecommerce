@@ -35,6 +35,7 @@ import Cart from '../pages/cart/Cart'
 import SideDrawer from '../components/Drawer/SideDrawer'
 import CheckOut from '../pages/checkout/CheckOut'
 import { CreateCoupon } from '../pages/admin/coupon'
+import { Payment } from '../pages/payment'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -145,6 +146,7 @@ function App() {
           />
           <Route exact path={`/${PATHS.CART}`} component={Cart} />
           <Route exact path={`/${PATHS.CHECKOUT}`} component={CheckOut} />
+          <Route exact path={`/${PATHS.PAYMENT}`} component={Payment} />
           <Route exact path={`/${PATHS.HOME}`} component={Home} />
         </Switch>
         <ToastContainer

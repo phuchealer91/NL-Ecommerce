@@ -23,6 +23,7 @@ const PATHS = {
   CART: 'cart',
   CHECKOUT: 'check-out',
   ADDRESS: 'address',
+  PAYMENT: 'payment',
 }
 
 export default PATHS

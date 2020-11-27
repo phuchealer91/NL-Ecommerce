@@ -9,8 +9,9 @@ let initialState = {
   isLoading: true,
   isAddAddress: true,
   totalAfterDiscount: 0,
-  errors: '',
+  isCoupon: false,
   isCheckError: false,
+  errors: '',
 }
 
 if (typeof window !== 'undefined') {
@@ -69,6 +70,7 @@ const cartReducer = (state = initialState, action) => {
           action.payload.data.totalAfterDiscount.totalAfterDiscount,
         isCheckError: false,
         errors: '',
+        isCoupon: true,
       }
     case types.GET_USER_CART_FAILED:
     case types.ADD_TO_CART_FAILED:

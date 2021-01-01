@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { createPaymentItent } from '../../redux/actions/stripe'
+import { createPaymentIntent } from '../../redux/actions/stripe'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Button, Spin } from 'antd'
 import { Link } from 'react-router-dom'
@@ -10,6 +10,7 @@ import './StripeCheckOut.scss'
 import { toast } from 'react-toastify'
 import { CheckOutlined, DollarCircleOutlined } from '@ant-design/icons'
 import { formatPrice } from '../../helpers/formatPrice'
+import { createOrder } from '../../redux/actions/cart'
 function StripeCheckOut(props) {
   const [disabled, setDisabled] = useState(true)
   const [error, setError] = useState(null)
@@ -23,7 +24,7 @@ function StripeCheckOut(props) {
   const stripe = useStripe()
   const elements = useElements()
   useEffect(() => {
-    dispatch(createPaymentItent({ isCoupon }))
+    dispatch(createPaymentIntent({ isCoupon }))
   }, [])
   function onHandlChange(e) {
     // disable button
@@ -46,7 +47,7 @@ function StripeCheckOut(props) {
       toast.error(payload.error.message)
       setProcessing(false)
     } else {
-      console.log(JSON.stringify(payload, null, 4))
+      dispatch(createOrder(payload))
       toast.success('Check Out Success !')
       setProcessing(false)
       setSuccessed(true)
@@ -84,7 +85,10 @@ function StripeCheckOut(props) {
         </div>
       )}
       <form id="payment-form" className="stripe-form" onSubmit={onHandleSubmit}>
-        <div className="bg-red-600 pb-3 py-2 text-lg text-white font-semibold text-center">
+        <div
+          className="bg-red-600 pb-3 py-2 text-lg text-white font-semibold text-center
+        "
+        >
           {isCoupon ? 'Apply Coupon' : 'No Apply Coupon '}
         </div>
         <div className="grid grid-cols-2 gap-10 pb-3">

@@ -12,6 +12,8 @@ let initialState = {
   isCoupon: false,
   isCheckError: false,
   errors: '',
+  order: null,
+  userOrders: [],
 }
 
 if (typeof window !== 'undefined') {
@@ -43,7 +45,7 @@ const cartReducer = (state = initialState, action) => {
         isLoading: false,
       }
     case types.EMPTY_CART_SUCCESS:
-      toast.success('Empty Cart Success !')
+      // toast.success('Empty Cart Success !')
       return {
         ...state,
         cartLists: [],
@@ -63,7 +65,7 @@ const cartReducer = (state = initialState, action) => {
         isAddAddress: false,
       }
     case types.APPLY_COUPON_CART_SUCCESS:
-      toast.success('Apply Coupon Success !')
+      // toast.success('Apply Coupon Success !')
       return {
         ...state,
         totalAfterDiscount:
@@ -71,6 +73,28 @@ const cartReducer = (state = initialState, action) => {
         isCheckError: false,
         errors: '',
         isCoupon: true,
+      }
+    case types.CREATE_ORDER_SUCCESS:
+      toast.success('Create Order Success !')
+      return {
+        ...state,
+        order: action.payload.data.order,
+        cartLists: [],
+        isCheckOut: false,
+        cartCheckOut: [],
+        cartTotals: null,
+        addressCart: null,
+        isLoading: true,
+        isAddAddress: true,
+        totalAfterDiscount: 0,
+        isCoupon: false,
+        isCheckError: false,
+        errors: '',
+      }
+    case types.USER_ORDER_SUCCESS:
+      return {
+        ...state,
+        userOrders: action.payload.data.userOrders,
       }
     case types.GET_USER_CART_FAILED:
     case types.ADD_TO_CART_FAILED:
@@ -83,9 +107,19 @@ const cartReducer = (state = initialState, action) => {
       toast.error(action.payload.error.response.data.Error)
       return {
         ...state,
+        cartLists: [],
+        isCheckOut: false,
+        cartCheckOut: [],
+        cartTotals: null,
+        addressCart: null,
+        isLoading: true,
+        isAddAddress: true,
+        totalAfterDiscount: 0,
+        isCoupon: false,
         isCheckError: true,
         errors: action.payload.error.response.data.Error,
       }
+
     default:
       return state
   }

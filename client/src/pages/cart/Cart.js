@@ -19,11 +19,9 @@ function Cart(props) {
   }
   function onHandleCheckOut() {
     dispatch(userCart({ cartLists }))
-    if (isCheckOut === true) {
-      history.push('/check-out')
-    }
+    history.push('/check-out')
   }
-  
+
   return (
     <React.Fragment>
       <div className="shopping-cart">
@@ -83,7 +81,6 @@ function Cart(props) {
                       Pay Cash on Delivery
                     </Button>
                   </span>
-                  
                 </>
               ) : (
                 <Button type="primary" shape="round" size="middle">

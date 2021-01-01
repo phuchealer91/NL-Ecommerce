@@ -2,6 +2,7 @@ const Cart = require('../models/cart.model')
 const Product = require('../models/product.model')
 const User = require('../models/user.model')
 const Coupon = require('../models/coupon.model')
+const Order = require('../models/order.model')
 
 module.exports.userCart = async (req, res) => {
   const { cartLists: cart } = req.body
@@ -86,6 +87,46 @@ module.exports.applyCouponToCart = async (req, res) => {
       { new: true }
     ).exec()
     return res.status(200).json({ totalAfterDiscount: updateCart })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+module.exports.createOrder = async (req, res) => {
+  try {
+    const { paymentIntent } = req.body
+    console.log('hello em', paymentIntent)
+    const user = await User.findOne({ email: req.user.email }).exec()
+    const { products } = await Cart.findOne({ orderedBy: user._id }).exec()
+    let newOrder = await new Order({
+      products,
+      paymentIntent,
+      orderedBy: user._id,
+    }).save()
+    // increment sold, decrement quantity
+    let bulk = products.map((item) => {
+      return {
+        updateOne: {
+          filter: { _id: item.product._id },
+          update: { $inc: { quantity: -item.count, sold: +item.count } },
+        },
+      }
+    })
+    // SD bulkWrite (Thực hiện nhiều thao tác)
+    await Product.bulkWrite(bulk, {})
+    return res.status(200).json({ order: newOrder })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+module.exports.getOrders = async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.user.email }).exec()
+    let userOrders = await Order.find({ orderedBy: user._id })
+      .populate('products.product')
+      .exec()
+    return res.status(200).json({ userOrders })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }

@@ -19,3 +19,9 @@ export const applyCouponCarts = (data) => {
     data
   )
 }
+export const createOrders = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDER}`, data)
+}
+export const userOrders = (data) => {
+  return axiosServices.get(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDERS}`, data)
+}

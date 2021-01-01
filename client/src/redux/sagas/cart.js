@@ -11,16 +11,22 @@ import {
   addAddressCartFailed,
   addAddressCartSuccess,
   addToCart,
+  emptyCart,
   addToCartFailed,
   addToCartSuccess,
   applyCouponCartFailed,
   applyCouponCartSuccess,
+  createOrderFailed,
+  createOrderSuccess,
   emptyCartFailed,
   emptyCartSuccess,
   getUserCartFailed,
   getUserCartSuccess,
   userCartFailed,
   userCartSuccess,
+  applyCouponCart,
+  userOrderFailed,
+  userOrderSuccess,
 } from '../actions/cart'
 
 import * as types from '../constants/cart'
@@ -30,6 +36,8 @@ import {
   getUserCarts,
   userCarts,
   applyCouponCarts,
+  createOrders,
+  userOrders,
 } from '../../apis/cart'
 
 function* addToCarts({ payload }) {
@@ -91,16 +99,44 @@ function* addAddressCartss({ payload }) {
   yield hideLoading()
 }
 function* applyCouponCartss({ payload }) {
-  console.log(payload)
   try {
     yield showLoading()
     const resp = yield call(applyCouponCarts, payload)
     const { data } = resp
-    console.log(resp)
-    console.log(data)
     yield put(applyCouponCartSuccess(data))
   } catch (error) {
     yield put(applyCouponCartFailed(error))
+  }
+  yield delay(400)
+  yield hideLoading()
+}
+function* createOrderss({ payload }) {
+  try {
+    yield showLoading()
+    const resp = yield call(createOrders, payload)
+    if (resp.status === 200) {
+      // remove localStorage
+      localStorage.removeItem('cart')
+      // Empty redux
+      // yield put(addToCart([]))
+      // yield put(applyCouponCart(''))
+      yield put(emptyCart([]))
+    }
+    const { data } = resp
+    yield put(createOrderSuccess(data))
+  } catch (error) {
+    yield put(createOrderFailed(error))
+  }
+  yield delay(400)
+  yield hideLoading()
+}
+function* userOrderss({ payload }) {
+  try {
+    let resp = yield call(userOrders, payload)
+    const { data } = resp
+    yield put(userOrderSuccess(data))
+  } catch (error) {
+    yield put(userOrderFailed(error))
   }
   yield delay(400)
   yield hideLoading()
@@ -113,4 +149,6 @@ export function* watchShoppingCart() {
   yield takeEvery(types.ADD_ADDRESS_CART, addAddressCartss)
   yield takeEvery(types.EMPTY_CART, emptyCartss)
   yield takeEvery(types.APPLY_COUPON_CART, applyCouponCartss)
+  yield takeEvery(types.CREATE_ORDER, createOrderss)
+  yield takeEvery(types.USER_ORDER, userOrderss)
 }

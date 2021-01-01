@@ -6,6 +6,7 @@ import { watchProduct } from './product'
 import { watchShoppingCart } from './cart'
 import { watchCoupon } from './coupon'
 import { watchCreatePayment } from './stripe'
+import { watchOrders } from './order'
 
 function* rootSaga() {
   yield all([
@@ -16,6 +17,7 @@ function* rootSaga() {
     watchShoppingCart(),
     watchCoupon(),
     watchCreatePayment(),
+    watchOrders(),
   ])
 }
 

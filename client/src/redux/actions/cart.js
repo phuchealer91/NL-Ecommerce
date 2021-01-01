@@ -113,3 +113,41 @@ export const applyCouponCartFailed = (error) => {
     payload: { error },
   }
 }
+// CREATE ORDER
+export const createOrder = (data) => {
+  return {
+    type: types.CREATE_ORDER,
+    payload: data,
+  }
+}
+export const createOrderSuccess = (data) => {
+  return {
+    type: types.CREATE_ORDER_SUCCESS,
+    payload: { data },
+  }
+}
+export const createOrderFailed = (error) => {
+  return {
+    type: types.CREATE_ORDER_FAILED,
+    payload: { error },
+  }
+}
+// USER ORDER
+export const userOrder = (data) => {
+  return {
+    type: types.USER_ORDER,
+    payload: data,
+  }
+}
+export const userOrderSuccess = (data) => {
+  return {
+    type: types.USER_ORDER_SUCCESS,
+    payload: { data },
+  }
+}
+export const userOrderFailed = (error) => {
+  return {
+    type: types.USER_ORDER_FAILED,
+    payload: { error },
+  }
+}

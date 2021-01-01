@@ -43,3 +43,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     "watch:css": "postcss src/assets/styles/tailwind.css -o src/assets/styles/main.css"
   }
 ```
+
+#### PDF VIEWER
+
+```
+  yarn add @react-pdf/renderer
+  yarn add @david.kucsai/react-pdf-table
+```

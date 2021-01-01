@@ -3,25 +3,20 @@ import {
   CloseCircleOutlined,
   SyncOutlined,
 } from '@ant-design/icons'
-import { PDFDownloadLink } from '@react-pdf/renderer'
-import { Card, Col, Row, Statistic, Table, Tag } from 'antd'
+import { Card, Col, Row, Select, Statistic, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { UserSideBar } from '../../components/navigation/SideBar'
-import Invoice from '../../components/Order/Invoice'
-import { formatPrice } from '../../helpers/formatPrice'
-import { userOrder } from '../../redux/actions/cart'
-import './Styles.scss'
-
-function History(props) {
+import { AdminSideBar } from '../../../components/navigation/SideBar'
+import { formatPrice } from '../../../helpers/formatPrice'
+import { getOrder, updateOrderStatus } from '../../../redux/actions/order'
+function OrdersList(props) {
+  const { Option } = Select
   const dispatch = useDispatch()
-  const [isReady, setIsReady] = useState(false)
-  let { userOrders } = useSelector((state) => state.cart)
+  const { ordersList, ordersListChange } = useSelector((state) => state.order)
+  const [values, setValues] = useState(null)
   useEffect(() => {
-    dispatch(userOrder())
-    setIsReady(true)
-  }, [])
-
+    dispatch(getOrder())
+  }, [ordersListChange, dispatch])
   const columns = [
     {
       title: 'Title',
@@ -63,30 +58,30 @@ function History(props) {
         ),
     },
   ]
+  const arrStatus = [
+    'Not Processed',
+    'Cash On Delivery',
+    'Processing',
+    'Dispatched',
+    'Cannelled',
+    'Completed',
+  ]
+  function handleChange(value) {
+    let xx = { orderId: values, orderStatus: value }
 
-  const showPDFDownloadLink = (userOrders) => (
-    <PDFDownloadLink
-      document={<Invoice userOrders={userOrders} />}
-      fileName="invoice.pdf"
-      className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    >
-      Download PDF
-    </PDFDownloadLink>
-  )
+    dispatch(updateOrderStatus(xx))
+  }
   return (
     <React.Fragment>
       <Row>
-        <Col span={5}>
-          <UserSideBar />
+        <Col xs={24} sm={24} md={5} lg={5}>
+          <AdminSideBar />
         </Col>
-        <Col span={19}>
-          <div className="p-4">
-            <h3 className="uppercase font-bold py-3 text-lg text-center ">
-              User purchase orders{' '}
-              <span className="text-red-600">({userOrders.length})</span>
-            </h3>
-            {userOrders &&
-              userOrders.map((userOrders) => {
+        <Col xs={24} sm={24} md={19} lg={19}>
+          <div className="category">
+            <h3 className="text-2xl mb-5">ORDERS </h3>
+            {ordersList &&
+              ordersList.map((userOrders) => {
                 return (
                   <Card
                     key={userOrders._id}
@@ -149,10 +144,27 @@ function History(props) {
                               }
                               className="flex items-center font-semibold"
                             >
-                              {userOrders?.orderStatus?.toUpperCase()}
+                              <Select
+                                defaultValue={userOrders?.orderStatus}
+                                style={{
+                                  width: 204,
+                                  border: '0',
+                                  backgroundColor: 'transparent',
+                                }}
+                                onChange={handleChange}
+                                onClick={() => setValues(userOrders._id)}
+                              >
+                                {arrStatus.map((arr) => {
+                                  return (
+                                    <Option key={arr} value={arr}>
+                                      {arr.toUpperCase()}
+                                    </Option>
+                                  )
+                                })}
+                              </Select>
                             </Tag>
                           )}
-                          className="mb-2 w-40"
+                          className="mb-2 w-60"
                         />
                         <Statistic
                           title="METHOD"
@@ -189,9 +201,6 @@ function History(props) {
                         bordered
                       />
                     </div>
-                    <div className="py-3">
-                      {isReady ? showPDFDownloadLink(userOrders) : ''}
-                    </div>
                   </Card>
                 )
               })}
@@ -201,6 +210,6 @@ function History(props) {
     </React.Fragment>
   )
 }
-History.propTypes = {}
+OrdersList.propTypes = {}
 
-export default History
+export default OrdersList

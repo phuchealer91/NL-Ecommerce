@@ -1,13 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Col, Form, Row } from 'antd'
-import { UserSideBar } from '../../components/navigation/SideBar'
-import './Password.scss'
-import FormUpdatePassword from './FormUpdatePassword'
-import { auth } from '../../firebase'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { hideLoading, showLoading } from '../../redux/actions/ui'
 import { toast } from 'react-toastify'
+import { UserSideBar } from '../../components/navigation/SideBar'
+import { auth } from '../../firebase'
+import { hideLoading, showLoading } from '../../redux/actions/ui'
+import FormUpdatePassword from './FormUpdatePassword'
+import './Styles.scss'
 function Password(props) {
   const [form] = Form.useForm()
   const dispatch = useDispatch()

@@ -35,6 +35,7 @@ import Cart from '../pages/cart/Cart'
 import SideDrawer from '../components/Drawer/SideDrawer'
 import CheckOut from '../pages/checkout/CheckOut'
 import { CreateCoupon } from '../pages/admin/coupon'
+import { OrdersList } from '../pages/admin/ordersList'
 import { Payment } from '../pages/payment'
 function App() {
   const dispatch = useDispatch()
@@ -132,6 +133,11 @@ function App() {
             exact
             path={`/${PATHS.ADMIN}/${PATHS.COUPON}`}
             component={CreateCoupon}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.ORDER}`}
+            component={OrdersList}
           />
           <Route exact path={`/${PATHS.PRODUCT}/:slug`} component={Product} />
           <Route

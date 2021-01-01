@@ -24,6 +24,8 @@ const PATHS = {
   CHECKOUT: 'check-out',
   ADDRESS: 'address',
   PAYMENT: 'payment',
+  ORDER: 'order',
+  ORDERS: 'orders',
 }
 
 export default PATHS

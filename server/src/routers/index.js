@@ -8,6 +8,7 @@ const cloudinaryRoute = require('./cloudinary.route')
 const productRoute = require('./product.route')
 const couponRoute = require('./coupon.route')
 const stripeRoute = require('./stripe.route')
+const orderRoute = require('./order.route')
 
 // router.use('/', uploadRoute)
 router.use('/v1', cloudinaryRoute)
@@ -18,5 +19,6 @@ router.use('/sub-category', subCategoryRoute)
 router.use('/product', productRoute)
 router.use('/coupon', couponRoute)
 router.use('/payment', stripeRoute)
+router.use('/order', orderRoute)
 
 module.exports = router

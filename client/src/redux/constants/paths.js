@@ -26,6 +26,7 @@ const PATHS = {
   PAYMENT: 'payment',
   ORDER: 'order',
   ORDERS: 'orders',
+  REVIEW: 'review',
 }
 
 export default PATHS

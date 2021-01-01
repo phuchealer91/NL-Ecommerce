@@ -12,14 +12,14 @@ import { CardItem } from '../../components/CardItem'
 function Product(props) {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
-  const { productEditing, productRelated } = useSelector(
+  const { productEditing, productRelated, reviews } = useSelector(
     (state) => state.product
   )
   console.log(productEditing)
   const { slug } = useRouteMatch().params
   useEffect(() => {
     dispatch(getProduct(slug))
-  }, [dispatch, slug])
+  }, [dispatch, reviews])
   useEffect(() => {
     setIsLoading(true)
     if (productEditing && productEditing._id) {

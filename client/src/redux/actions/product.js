@@ -151,3 +151,22 @@ export const deleteProductFailed = (error) => {
     payload: { error },
   }
 }
+// PRODUCT RATINGS
+export const productRating = (data) => {
+  return {
+    type: types.PRODUCT_RATING,
+    payload: data,
+  }
+}
+export const productRatingSuccess = (data) => {
+  return {
+    type: types.PRODUCT_RATING_SUCCESS,
+    payload: { data },
+  }
+}
+export const productRatingFailed = (error) => {
+  return {
+    type: types.PRODUCT_RATING_FAILED,
+    payload: { error },
+  }
+}

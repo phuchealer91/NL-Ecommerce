@@ -7,6 +7,7 @@ const initialState = {
   productRelated: [],
   isLoading: true,
   totalProducts: 0,
+  reviews: [],
 }
 
 const productReducer = (state = initialState, action) => {
@@ -27,6 +28,8 @@ const productReducer = (state = initialState, action) => {
         ...state,
         totalProducts: action.payload.data.total,
       }
+    case types.PRODUCT_RATING_SUCCESS:
+      return { ...state, reviews: action.payload.data.reviews }
     // case types.CREATE_CATEGORY:
     // case types.DELETE_CATEGORY:
     //   return { ...state }

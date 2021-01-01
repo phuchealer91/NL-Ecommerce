@@ -8,6 +8,7 @@ import {
   getListProductss,
   getProductsCounts,
   getRelated,
+  productRatings,
 } from '../../apis/product'
 import {
   createProductFailed,
@@ -26,6 +27,8 @@ import {
   getProductsCountFailed,
   getRelatedSuccess,
   getRelatedFailed,
+  productRatingFailed,
+  productRatingSuccess,
 } from '../actions/product'
 import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/product'
@@ -148,6 +151,18 @@ function* getRelateds({ payload }) {
   // yield delay(400)
   // yield put(hideLoading())
 }
+function* productRatingss({ payload }) {
+  try {
+    yield put(showLoading())
+    const resp = yield call(productRatings, payload?.productId, payload)
+    const { data } = resp
+    yield put(productRatingSuccess(data))
+  } catch (error) {
+    yield put(productRatingFailed(error))
+  }
+  yield delay(400)
+  yield put(hideLoading())
+}
 export function* watchProduct() {
   yield takeEvery(types.CREATE_PRODUCT, createProductss)
   yield takeEvery(types.GET_ALL_PRODUCT, getListAllProductss)
@@ -157,4 +172,5 @@ export function* watchProduct() {
   yield takeEvery(types.GET_PRODUCT_COUNT, getProductsCountss)
   yield takeEvery(types.DELETE_PRODUCT, deleteProductss)
   yield takeEvery(types.UPDATE_PRODUCT, updateProductss)
+  yield takeEvery(types.PRODUCT_RATING, productRatingss)
 }

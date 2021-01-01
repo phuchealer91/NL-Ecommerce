@@ -43,3 +43,9 @@ export const getProductsCounts = (data) => {
 export const getListAllProducts = (count, data) => {
   return axiosServices.get(`/${PATHS.PRODUCT}/${PATHS.LIST}/${count}`, data)
 }
+export const productRatings = (productId, data) => {
+  return axiosServices.put(
+    `/${PATHS.PRODUCT}/${PATHS.REVIEW}/${productId}`,
+    data
+  )
+}

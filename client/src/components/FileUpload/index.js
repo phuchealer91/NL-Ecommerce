@@ -1,12 +1,10 @@
+import { UploadOutlined } from '@ant-design/icons'
+import { Avatar, Badge, Button, Input } from 'antd'
 import React from 'react'
-import axios from 'axios'
-import PropTypes from 'prop-types'
 import Resizer from 'react-image-file-resizer'
-import { uploadFileImages, deleteUploadImage } from '../../apis/cloudinary'
-import { toast } from 'react-toastify'
-import { Avatar, Badge, Input } from 'antd'
-import './FileUpload.scss'
 import { useSelector } from 'react-redux'
+import { deleteUploadImage, uploadFileImages } from '../../apis/cloudinary'
+import './FileUpload.scss'
 
 FileUpload.propTypes = {}
 
@@ -80,8 +78,9 @@ function FileUpload({ product, setProduct, setIsLoading }) {
           })}
       </div>
 
-      <label className="label">
-        Choose File
+      <label className="border-gray-50 p-3 rounded-xl flex items-center cursor-pointer">
+        <UploadOutlined />
+        <span className="ml-1 text-green-600"> Click to Upload </span>
         <Input
           type="file"
           multiple

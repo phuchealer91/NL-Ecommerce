@@ -3,16 +3,15 @@ import { Avatar, Button, Col, Form, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import imageDefault from '../../../assets/images/default-image.jpg'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
-import { getCategories } from '../../../redux/actions/category'
 import {
   deleteProduct,
   getListAllProduct,
 } from '../../../redux/actions/product'
 import './Product.scss'
-import imageDefault from '../../../assets/images/default-image.jpg'
 const ListProduct = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()

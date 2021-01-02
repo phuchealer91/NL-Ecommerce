@@ -1,19 +1,12 @@
+import { Col, Form, Row, Select, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Button, Col, Form, Row, Select, Space, Spin, Table } from 'antd'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import FormUpdateProduct from './FormUpdateProduct'
-import './Product.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getSubCategory,
-  updateSubCategories,
-} from '../../../redux/actions/subCategory'
-import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom'
+import FileUpload from '../../../components/FileUpload'
+import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { getCategories, getCategorySubs } from '../../../redux/actions/category'
 import { getProduct, updateProduct } from '../../../redux/actions/product'
-import FileUpload from '../../../components/FileUpload'
-const { Option } = Select
+import FormUpdateProduct from './FormUpdateProduct'
+import './Product.scss'
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
@@ -38,7 +31,7 @@ const UpdateProducts = ({ match }) => {
   const dispatch = useDispatch()
   const [product, setProduct] = useState(initialState)
   const [arrOfSubs, setArrOfSubs] = useState([])
-  const [showSub, setShowSub] = useState(false)
+  const [showSub] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   // const history = useHistory()
   const { productEditing } = useSelector((state) => state.product)

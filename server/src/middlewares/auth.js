@@ -1,12 +1,10 @@
 const admin = require('../firebase')
 const User = require('../models/user.model')
 module.exports.isAuth = async (req, res, next) => {
-  console.log(req.headers)
   try {
     const firebaseUser = await admin
       .auth()
       .verifyIdToken(req.headers.authorization)
-    console.log('Authorization', firebaseUser)
     req.user = firebaseUser
     next()
   } catch (error) {

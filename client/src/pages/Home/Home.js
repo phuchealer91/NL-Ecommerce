@@ -1,7 +1,7 @@
 import React from 'react'
 import CategoryList from '../../components/Category/CategoryList'
+import Footer from '../../components/Footer/Footer'
 import { ListProduct, ListProductSeller } from '../../components/Home'
-import Searchs from '../../components/LocalSearch/Searchs'
 import SubCategoryList from '../../components/SubCategory/SubCategoryList'
 import './Home.scss'
 import Slider from './Slider'
@@ -28,6 +28,14 @@ function Home(props) {
       <div className="products">
         <ListProduct />
         <ListProductSeller />
+      </div>
+      <div className="">
+        <Footer />
+        <div className="bg-green-700">
+          <p className="text-center py-4 text-white font-semibold">
+            © 1997 - 2020 Công Ty Cổ Phần Thương Mại - Dịch Vụ MT
+          </p>
+        </div>
       </div>
     </React.Fragment>
   )

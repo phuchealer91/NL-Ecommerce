@@ -1,44 +1,34 @@
+import { call, delay, put, takeEvery } from 'redux-saga/effects'
 import {
-  call,
-  delay,
-  put,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
+  addAddressCarts,
+  applyCouponCarts,
+  createOrders,
+  emptyCarts,
+  getUserCarts,
+  userCarts,
+  userOrders,
+} from '../../apis/cart'
 import {
   addAddressCartFailed,
   addAddressCartSuccess,
-  addToCart,
-  emptyCart,
   addToCartFailed,
   addToCartSuccess,
   applyCouponCartFailed,
   applyCouponCartSuccess,
   createOrderFailed,
   createOrderSuccess,
+  emptyCart,
   emptyCartFailed,
   emptyCartSuccess,
   getUserCartFailed,
   getUserCartSuccess,
   userCartFailed,
   userCartSuccess,
-  applyCouponCart,
   userOrderFailed,
   userOrderSuccess,
 } from '../actions/cart'
-
+import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/cart'
-import {
-  addAddressCarts,
-  emptyCarts,
-  getUserCarts,
-  userCarts,
-  applyCouponCarts,
-  createOrders,
-  userOrders,
-} from '../../apis/cart'
 
 function* addToCarts({ payload }) {
   try {

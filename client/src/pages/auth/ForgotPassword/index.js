@@ -1,14 +1,14 @@
 import { Col, Form, Row } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { auth } from '../../../firebase'
+import { useAuthUser } from '../../../hooks/useAuthUser'
+import { hideLoading, showLoading } from '../../../redux/actions/ui'
 import PATHS from '../../../redux/constants/paths'
 import './ForgotPassword.scss'
-import { hideLoading, showLoading } from '../../../redux/actions/ui'
-import { useDispatch } from 'react-redux'
 import FormForgotPassword from './FormForgotPassword'
-import { useAuthUser } from '../../../hooks/useAuthUser'
 const ForgotPassword = (props) => {
   useAuthUser()
   const [form] = Form.useForm()

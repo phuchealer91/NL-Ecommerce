@@ -1,21 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-  PDFViewer,
-} from '@react-pdf/renderer'
-import {
-  Table,
-  TableHeader,
-  TableCell,
-  TableBody,
   DataTableCell,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
 } from '@david.kucsai/react-pdf-table'
+import { Document, Page, StyleSheet, Text } from '@react-pdf/renderer'
+import React from 'react'
 import { formatPrice } from '../../helpers/formatPrice'
 function Invoice({ userOrders: order }) {
   return (

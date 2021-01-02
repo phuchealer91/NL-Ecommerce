@@ -1,23 +1,12 @@
-import {
-  call,
-  delay,
-  put,
-  select,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
-
-import { TOKEN } from '../constants/keys'
-
+import { call, delay, put, takeEvery } from 'redux-saga/effects'
 import { getOrders, updatedOrderStatus } from '../../apis/order'
 import {
-  getOrderSuccess,
   getOrderFailed,
-  updateOrderStatusSuccess,
+  getOrderSuccess,
   updateOrderStatusFailed,
+  updateOrderStatusSuccess,
 } from '../actions/order'
+import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/order'
 
 function* getOrderss() {

@@ -1,12 +1,11 @@
+import { DollarOutlined, DownSquareOutlined } from '@ant-design/icons'
+import { Col, Menu, Row, Slider, Spin } from 'antd'
+import SubMenu from 'antd/lib/menu/SubMenu'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Col, Row, Spin } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { getListAllProduct } from '../../redux/actions/product'
-import { CardItem } from '../../components/CardItem'
-import { productSearch } from '../../redux/actions/search'
-import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
+import { CardItem } from '../../components/CardItem'
 
 function Shop(props) {
   const history = useHistory()
@@ -38,9 +37,46 @@ function Shop(props) {
     <React.Fragment>
       <Row gutter={[2, 12]}>
         <Col xs={6} sm={6} md={6} lg={6}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-          deserunt totam reiciendis eum tempore cum quibusdam aliquam
-          repudiandae facere dolor.
+          <h4 className="p-3 pl-2 text-green-600 font-semibold text-lg">
+            Search/Filter
+          </h4>
+
+          <Menu
+            defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7']}
+            mode="inline"
+          >
+            {/* price */}
+            <SubMenu
+              key="1"
+              title={
+                <span className="h6 flex items-center">
+                  <DollarOutlined /> <span>Price</span>
+                </span>
+              }
+            >
+              <div>
+                <Slider
+                  className="ml-4 mr-4"
+                  tipFormatter={(v) => `$${v}`}
+                  range
+                  // value={price}
+                  // onChange={handleSlider}
+                  max="4999"
+                />
+              </div>
+            </SubMenu>
+            {/* Category */}
+            <SubMenu
+              key="2"
+              title={
+                <span className="h6 flex items-center">
+                  <DownSquareOutlined /> <span>Categories</span>
+                </span>
+              }
+            >
+              {/* <div style={{ maringTop: '-10px' }}>{showCategories()}</div> */}
+            </SubMenu>
+          </Menu>
         </Col>
         <Col xs={18} sm={18} md={18} lg={18}>
           {isLoading ? (

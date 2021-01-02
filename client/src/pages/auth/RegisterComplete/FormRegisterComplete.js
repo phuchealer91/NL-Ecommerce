@@ -2,7 +2,6 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
   MailOutlined,
-  SmileTwoTone,
   UserOutlined,
 } from '@ant-design/icons'
 import { Form, Input } from 'antd'

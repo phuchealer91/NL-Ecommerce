@@ -1,19 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Card, Rate, Tooltip } from 'antd'
-import imageDefault from '../../assets/images/mac-default.png'
-import { Link } from 'react-router-dom'
-import './CartItem.scss'
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { Button, Card, Tooltip } from 'antd'
 import _ from 'lodash'
-import { addToCart } from '../../redux/actions/cart'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { showDrawer } from '../../redux/actions/ui'
+import { Link } from 'react-router-dom'
+import imageDefault from '../../assets/images/mac-default.png'
 import { formatPrice } from '../../helpers/formatPrice'
+import { addToCart } from '../../redux/actions/cart'
+import { showDrawer } from '../../redux/actions/ui'
 import ShowRatings from '../Ratings/ShowRatings'
-const { Meta } = Card
+import './CartItem.scss'
 function CardItem({ product }) {
-  const { title, price, description, slug, quantity } = product
+  const { title, price, slug, quantity } = product
   const image = product.images[0].url
   const dispatch = useDispatch()
   function handleAddToCart() {
@@ -55,6 +53,7 @@ function CardItem({ product }) {
               padding: '1px',
               borderRadius: '4px',
             }}
+            alt="image default "
           />
         }
         actions={[
@@ -62,7 +61,7 @@ function CardItem({ product }) {
             <EyeOutlined className="text-warning" /> <br /> View Product
           </Link>,
           <Tooltip title="Thêm sản phẩm">
-            <a onClick={handleAddToCart} disabled={quantity < 1}>
+            <a onClick={handleAddToCart} disabled={quantity < 1} href="#">
               <ShoppingCartOutlined className="text-danger" /> <br />
               {quantity < 1 ? 'Out of stock' : 'Add to Cart'}
             </a>

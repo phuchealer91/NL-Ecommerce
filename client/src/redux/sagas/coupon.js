@@ -1,24 +1,14 @@
-import {
-  call,
-  delay,
-  put,
-  select,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
-
-import { TOKEN } from '../constants/keys'
+import { call, delay, put, takeEvery } from 'redux-saga/effects'
 import { createCoupons, deleteCoupons, getCoupons } from '../../apis/coupon'
 import {
-  createCouponSuccess,
   createCouponFailed,
-  getCouponSuccess,
-  getCouponFailed,
-  deleteCouponSuccess,
+  createCouponSuccess,
   deleteCouponFailed,
+  deleteCouponSuccess,
+  getCouponFailed,
+  getCouponSuccess,
 } from '../actions/coupon'
+import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/coupon'
 
 function* createCouponss({ payload }) {

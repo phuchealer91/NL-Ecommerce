@@ -1,33 +1,20 @@
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Button, Col, Form, Row, Select, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import {
-  Button,
-  Col,
-  Form,
-  Row,
-  Table,
-  Modal,
-  message,
-  Statistic,
-  Divider,
-  Input,
-  Select,
-} from 'antd'
-
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import FormCategory from './FormSubCategory'
-import './SubCategories.scss'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { SearchItem } from '../../../components/LocalSearch'
+import { ModalConfirm } from '../../../components/ModalConfirm'
+import { AdminSideBar } from '../../../components/navigation/SideBar'
+import { getCategories } from '../../../redux/actions/category'
 import {
   createSubCategory,
   deleteSubCategories,
   getSubCategories,
 } from '../../../redux/actions/subCategory'
-import { getCategories } from '../../../redux/actions/category'
-import { Link } from 'react-router-dom'
-import { SearchItem } from '../../../components/LocalSearch'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { ModalConfirm } from '../../../components/ModalConfirm'
+import FormCategory from './FormSubCategory'
+import './SubCategories.scss'
+
 const { Option } = Select
 
 const CreateSubCategory = () => {

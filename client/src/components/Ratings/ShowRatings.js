@@ -1,6 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Rate } from 'antd'
+import React from 'react'
 
 function ShowRatings(product) {
   let len = product?.reviews.length

@@ -40,8 +40,13 @@ const Header = () => {
       mode="horizontal"
       className="nav"
     >
-      <Item key="home" icon={<ShopOutlined />}>
-        <Link to="/">HOME</Link>
+      <Item key="home" className="block flex items-center">
+        <span>
+          <ShopOutlined />
+        </span>
+        <Link to="/" className="">
+          HOME
+        </Link>
       </Item>
       <Item key="shop" icon={<ShopOutlined />}>
         <Link to="/shop">SHOP</Link>

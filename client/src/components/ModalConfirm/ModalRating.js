@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { toast } from 'react-toastify'
+import { StarOutlined } from '@ant-design/icons'
+import { Form } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
-import { Card, Col, Input, Rate, Row, Tabs, Tooltip, Form } from 'antd'
-
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { StarOutlined } from '@ant-design/icons'
+import { toast } from 'react-toastify'
 import { productRating } from '../../redux/actions/product'
+
 function ModalRating({ children, productId }) {
   const [form] = Form.useForm()
   const [isOpen, setIsOpen] = useState(false)

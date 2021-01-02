@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Row, Col, Button, Divider, List, Typography, Spin, Input } from 'antd'
+import { Button, Col, Divider, Input, List, Row, Typography } from 'antd'
+import React, { useEffect, useState } from 'react'
+import ReactQuill from 'react-quill' // ES6
+import 'react-quill/dist/quill.snow.css' // ES6
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { formatPrice } from '../../helpers/formatPrice'
 import {
   addAddressCart,
   addToCart,
@@ -10,10 +12,6 @@ import {
   emptyCart,
   getUserCart,
 } from '../../redux/actions/cart'
-import { formatPrice } from '../../helpers/formatPrice'
-import ReactQuill from 'react-quill' // ES6
-import 'react-quill/dist/quill.snow.css' // ES6
-import { useHistory } from 'react-router-dom'
 const { Text } = Typography
 function CheckOut(props) {
   const dispatch = useDispatch()

@@ -1,16 +1,15 @@
+import { Col, Form, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Button, Col, Form, Row, Select, Table } from 'antd'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import FormCategory from './FormSubCategory'
-import './SubCategories.scss'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { AdminSideBar } from '../../../components/navigation/SideBar'
+import { getCategories } from '../../../redux/actions/category'
 import {
   getSubCategory,
   updateSubCategories,
 } from '../../../redux/actions/subCategory'
-import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom'
-import { getCategories } from '../../../redux/actions/category'
+import FormCategory from './FormSubCategory'
+import './SubCategories.scss'
 const { Option } = Select
 const UpdateSubCategory = ({ match }) => {
   const [form] = Form.useForm()
@@ -31,7 +30,7 @@ const UpdateSubCategory = ({ match }) => {
       name: (subCategoryEditing && subCategoryEditing.name) || '',
     })
     setSubcategory((subCategoryEditing && subCategoryEditing.parent) || '')
-  }, [subCategoryEditing])
+  }, [form, subCategoryEditing])
   function onFinish({ name }) {
     const values = { name, parent: subcategory }
     dispatch(updateSubCategories(values))

@@ -1,31 +1,18 @@
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Button, Col, Form, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import {
-  Button,
-  Col,
-  Form,
-  Row,
-  Table,
-  Modal,
-  message,
-  Statistic,
-  Divider,
-  Input,
-} from 'antd'
-
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import FormCategory from './FormCategory'
-import './Categories.scss'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { SearchItem } from '../../../components/LocalSearch'
+import { ModalConfirm } from '../../../components/ModalConfirm'
+import { AdminSideBar } from '../../../components/navigation/SideBar'
 import {
   createCategory,
   deleteCategories,
+  getCategories,
 } from '../../../redux/actions/category'
-import { getCategories } from '../../../redux/actions/category'
-import { Link } from 'react-router-dom'
-import { SearchItem } from '../../../components/LocalSearch'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { ModalConfirm } from '../../../components/ModalConfirm'
+import './Categories.scss'
+import FormCategory from './FormCategory'
 
 const CreateCategory = () => {
   const [form] = Form.useForm()
@@ -38,7 +25,7 @@ const CreateCategory = () => {
   const totalCategory = categories.length
   useEffect(() => {
     dispatch(getCategories())
-  }, [])
+  }, [dispatch])
 
   function onFinish({ name }) {
     dispatch(createCategory({ name }))

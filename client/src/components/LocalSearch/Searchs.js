@@ -1,9 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { Input } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { searchQuery } from '../../redux/actions/search'
 function Searchs(props) {
   const dispatch = useDispatch()
@@ -19,16 +17,17 @@ function Searchs(props) {
   return (
     <React.Fragment>
       <div className="flex items-center content-center">
-        <Input
+        <input
           type="search"
           placeholder="Search"
           onChange={handleChange}
           value={text}
+          className="border-0 outline-none focus:border-0 focus:outline-none text-gray-800"
         />
         ,
         <SearchOutlined
           onClick={handleSubmit}
-          className="font-semibold text-xl"
+          className="font-semibold text-2xl"
         />
       </div>
     </React.Fragment>

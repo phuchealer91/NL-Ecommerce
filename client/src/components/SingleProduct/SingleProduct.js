@@ -1,20 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Card, Col, Input, Rate, Row, Tabs, Tooltip, Form, Divider } from 'antd'
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import ProductListItem from '../ProductListItem/index'
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Form,
+  Input,
+  Rate,
+  Row,
+  Tabs,
+  Tooltip,
+} from 'antd'
+import { format } from 'date-fns'
+import _ from 'lodash'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import emptyComment from '../../assets/images/empty-comment.png'
 import imageDefault from '../../assets/images/mac-default.png'
-import './SingleProduct.scss'
-import _ from 'lodash'
 import { addToCart } from '../../redux/actions/cart'
-import { useDispatch } from 'react-redux'
 import { showDrawer } from '../../redux/actions/ui'
 import ModalRating from '../ModalConfirm/ModalRating'
-import { format } from 'date-fns'
+import ProductListItem from '../ProductListItem/index'
 import ShowRatings from '../Ratings/ShowRatings'
-import emptyComment from '../../assets/images/empty-comment.png'
+import './SingleProduct.scss'
 const { TabPane } = Tabs
 function SingleProduct({ productEditing }) {
   const { title, quantity, images, description } = productEditing
@@ -55,11 +65,19 @@ function SingleProduct({ productEditing }) {
               className="carousel__fix"
             >
               {images &&
-                images.map((i) => <img src={i.url} key={i.public_id} />)}
+                images.map((i) => (
+                  <img src={i.url} key={i.public_id} alt={i.public_id} />
+                ))}
             </Carousel>
           ) : (
             <Card
-              cover={<img src={imageDefault} className="mb-3 card-image" />}
+              cover={
+                <img
+                  src={imageDefault}
+                  className="mb-3 card-image"
+                  alt="image default"
+                />
+              }
             ></Card>
           )}
 
@@ -88,13 +106,13 @@ function SingleProduct({ productEditing }) {
           <Card
             actions={[
               <Tooltip placement="top" title="kk">
-                <a onClick={handleAddToCart} disabled={quantity < 1}>
+                <a onClick={handleAddToCart} disabled={quantity < 1} href="#">
                   <ShoppingCartOutlined className="text-danger" />
                   <br />
                   {quantity < 1 ? 'Out of Stock' : 'Add To Cart'}
                 </a>
               </Tooltip>,
-              <a onClick={handleAddToWishlist}>
+              <a onClick={handleAddToWishlist} href="#">
                 <HeartOutlined className="text-info" /> <br /> Add to Wishlist
               </a>,
 
@@ -163,7 +181,11 @@ function SingleProduct({ productEditing }) {
               )
             })
           ) : (
-            <img src={emptyComment} style={{ width: '120px', color: 'gray' }} />
+            <img
+              src={emptyComment}
+              style={{ width: '120px', color: 'gray' }}
+              alt="hello"
+            />
           )}
         </Col>
       </Row>

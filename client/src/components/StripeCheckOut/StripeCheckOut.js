@@ -1,23 +1,21 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { createPaymentIntent } from '../../redux/actions/stripe'
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { Button, Spin } from 'antd'
-import { Link } from 'react-router-dom'
-import './StripeCheckOut.scss'
-import { toast } from 'react-toastify'
 import { CheckOutlined, DollarCircleOutlined } from '@ant-design/icons'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { Spin } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { formatPrice } from '../../helpers/formatPrice'
 import { createOrder } from '../../redux/actions/cart'
+import { createPaymentIntent } from '../../redux/actions/stripe'
+import './StripeCheckOut.scss'
 function StripeCheckOut(props) {
   const [disabled, setDisabled] = useState(true)
   const [error, setError] = useState(null)
   const [successed, setSuccessed] = useState(false)
   const [processing, setProcessing] = useState(false)
   const dispatch = useDispatch()
-  const { clientSecret, cartTotal, totalAfterDiscount, payable } = useSelector(
+  const { clientSecret, cartTotal, payable } = useSelector(
     (state) => state.stripe
   )
   const { isCoupon } = useSelector((state) => state.cart)
@@ -25,7 +23,7 @@ function StripeCheckOut(props) {
   const elements = useElements()
   useEffect(() => {
     dispatch(createPaymentIntent({ isCoupon }))
-  }, [])
+  }, [dispatch, isCoupon])
   function onHandlChange(e) {
     // disable button
     setDisabled(e.empty)

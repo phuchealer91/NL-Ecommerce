@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { Button, Select, Table, Form, Input } from 'antd'
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   DeleteOutlined,
 } from '@ant-design/icons'
-import Avatar from 'antd/lib/avatar/avatar'
-import imageDefault from '../../assets/images/default-image.jpg'
+import { Button, Form, Input, Select, Table } from 'antd'
+import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
-import { addToCart } from '../../redux/actions/cart'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import imageDefault from '../../assets/images/default-image.jpg'
 import { ModalConfirm } from '../../components/ModalConfirm'
+import { addToCart } from '../../redux/actions/cart'
 const { Option } = Select
 const ListShoppingCart = () => {
   const [form] = Form.useForm()

@@ -1,7 +1,6 @@
 import { Col, Form, Row, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import FileUpload from '../../../components/FileUpload'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { getCategories, getCategorySubs } from '../../../redux/actions/category'
@@ -29,12 +28,9 @@ const initialState = {
 const CreateProducts = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
-  const history = useHistory()
   const [product, setProduct] = useState(initialState)
-  const [categorySubss, setCategorySubss] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [showSub, setShowSub] = useState(false)
-  const [showModal, setShowModal] = useState(false)
   const { listCategories: categories, categorySubs } = useSelector(
     (state) => state.category
   )

@@ -1,18 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useEffect } from 'react'
+import { Row } from 'antd'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategories } from '../../redux/actions/category'
-import { Button, Row } from 'antd'
 import { Link } from 'react-router-dom'
+import { getCategories } from '../../redux/actions/category'
 import PATHS from '../../redux/constants/paths'
 import './CategoryList.scss'
 function CategoryList(props) {
   const dispatch = useDispatch()
+  const { listCategories } = useSelector((state) => state.category)
   useEffect(() => {
     dispatch(getCategories())
-  }, [])
-  const { listCategories } = useSelector((state) => state.category)
+  }, [dispatch])
   return (
     <React.Fragment>
       <Row>

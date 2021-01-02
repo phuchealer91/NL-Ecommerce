@@ -54,28 +54,26 @@ const FormLogin = ({ loginGoogle }) => {
         <Button
           htmlType="submit"
           type="primary"
-          icon={<MailOutlined />}
-          className="login__subEmail"
+          className="login__subEmail flex items-center justify-center"
         >
-          Đăng nhập với Email và Password
+          <MailOutlined /> <span>Đăng nhập với Email và Password</span>
         </Button>
         <Button
           danger
           type="dashed"
-          className="login__subGoogle"
+          className="login__subGoogle flex items-center justify-center"
           onClick={loginGoogle}
-          icon={<GoogleOutlined />}
         >
-          Đăng nhập với Google
+          <GoogleOutlined /> <span>Đăng nhập với Google</span>
         </Button>
       </Form.Item>
       <Form.Item className="login__forgot_password">
         <Button
-          icon={<KeyOutlined />}
           type="link"
           danger
-          className="login__forgot_password-btn"
+          className="login__forgot_password-btn flex items-center justify-center "
         >
+          <KeyOutlined />
           <Link
             to={`/${PATHS.FORGOT}/${PATHS.PASSWORD}`}
             className="login__forgot_password-link"

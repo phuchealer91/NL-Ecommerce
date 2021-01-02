@@ -1,18 +1,9 @@
-import {
-  call,
-  delay,
-  put,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
+import { call, put, takeEvery } from 'redux-saga/effects'
+import { createPaymentIntents } from '../../apis/stripe'
 import {
   createPaymentIntentFailed,
   createPaymentIntentSuccess,
 } from '../actions/stripe'
-import { TOKEN } from '../constants/keys'
-import { createPaymentIntents } from '../../apis/stripe'
 import * as types from '../constants/stripe'
 
 function* createPaymentIntentss({ payload }) {

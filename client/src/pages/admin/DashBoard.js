@@ -1,6 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Col, Row } from 'antd'
+import React from 'react'
 import AdminSideBar from '../../components/navigation/SideBar/AdminSideBar'
 
 DashBoard.propTypes = {}

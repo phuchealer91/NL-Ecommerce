@@ -1,22 +1,7 @@
-import {
-  call,
-  delay,
-  put,
-  select,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
-
-import { TOKEN } from '../constants/keys'
-
+import { call, delay, put, takeEvery } from 'redux-saga/effects'
 import { fetchProductsSearch } from '../../apis/product'
-import {
-  productSearchSuccess,
-  productSearch,
-  productSearchFailed,
-} from '../actions/search'
+import { productSearchFailed, productSearchSuccess } from '../actions/search'
+import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/search'
 
 function* productsSearchss({ payload }) {

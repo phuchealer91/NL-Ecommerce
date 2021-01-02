@@ -20,7 +20,7 @@ function History(props) {
   useEffect(() => {
     dispatch(userOrder())
     setIsReady(true)
-  }, [])
+  }, [dispatch])
 
   const columns = [
     {

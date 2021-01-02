@@ -1,24 +1,12 @@
-import {
-  call,
-  delay,
-  put,
-  select,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
-
-import { TOKEN } from '../constants/keys'
+import { call, delay, put, select, takeEvery } from 'redux-saga/effects'
 import {
   createCategories,
   deleteCategories,
   getCategories,
   getCategory,
-  updateCategories,
   getCategorySubs,
+  updateCategories,
 } from '../../apis/category'
-import * as types from '../constants/category'
 import {
   createCategoryFailed,
   createCategorySuccess,
@@ -33,6 +21,8 @@ import {
   updateCategoriesFailed,
   updateCategoriesSuccess,
 } from '../actions/category'
+import { hideLoading, showLoading } from '../actions/ui'
+import * as types from '../constants/category'
 
 function* createCategoryss({ payload }) {
   try {

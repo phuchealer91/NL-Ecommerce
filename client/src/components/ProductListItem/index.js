@@ -1,14 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import './ProductListItem.scss'
 import { formatPrice } from '../../helpers/formatPrice'
+import './ProductListItem.scss'
 function ProductListItem({ productEditing }) {
   const {
-    title,
     price,
-    description,
-    slug,
     quantity,
     sold,
     category,

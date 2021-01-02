@@ -1,29 +1,15 @@
+import { DeleteOutlined } from '@ant-design/icons'
+import { Button, Col, Form, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import {
-  Button,
-  Col,
-  Form,
-  Row,
-  Table,
-  Modal,
-  message,
-  Statistic,
-  Divider,
-  Input,
-} from 'antd'
-
-import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { useDispatch, useSelector } from 'react-redux'
+import { SearchItem } from '../../../components/LocalSearch'
+import { ModalConfirm } from '../../../components/ModalConfirm'
+import { AdminSideBar } from '../../../components/navigation/SideBar'
 import {
   createCoupon,
   deleteCoupon,
   getCoupon,
 } from '../../../redux/actions/coupon'
-import { Link } from 'react-router-dom'
-import { SearchItem } from '../../../components/LocalSearch'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { ModalConfirm } from '../../../components/ModalConfirm'
 import FormCoupon from './FormCoupon'
 
 const CreateCoupon = () => {
@@ -37,7 +23,7 @@ const CreateCoupon = () => {
   const totalCoupon = couponList.length
   useEffect(() => {
     dispatch(getCoupon())
-  }, [])
+  }, [dispatch])
 
   function onFinish(fieldsValue) {
     const values = {

@@ -1,10 +1,8 @@
 import { Col, Form, Row } from 'antd'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { auth, googleAuthProvider } from '../../../firebase'
-import { useAuthUser } from '../../../hooks/useAuthUser'
 import { useCheckAdmin } from '../../../hooks/useCheckAdmin'
 import { registerOrUpdateUser } from '../../../redux/actions/users'
 import FormLogin from './FormLogin'
@@ -55,7 +53,10 @@ const Login = (props) => {
     <div className="login">
       <Row className="login__wrap">
         <Col xs={24} sm={24} md={8} lg={8}>
-          <h3> Đăng Nhập</h3>
+          <h3 className="pb-2 text-green-600 font-semibold text-xl">
+            {' '}
+            Đăng Nhập
+          </h3>
           <Form form={form} onFinish={onFinish}>
             <FormLogin loginGoogle={loginGoogle} />
           </Form>

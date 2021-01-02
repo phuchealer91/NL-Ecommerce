@@ -1,29 +1,18 @@
-import {
-  call,
-  delay,
-  put,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
-import {
-  currentAdminFailed,
-  currentAdminSuccess,
-  currentUserFailed,
-  currentUserSuccess,
-  loginInUserFailed,
-  loginInUserSuccess,
-  registerOrUpdateUser,
-  registerOrUpdateUserFailed,
-  registerOrUpdateUserSuccess,
-} from '../actions/users'
-import { TOKEN } from '../constants/keys'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import {
   currentAdmins,
   currentUsers,
   registerOrUpdateUsers,
 } from '../../apis/auth'
+import {
+  currentAdminFailed,
+  currentAdminSuccess,
+  currentUserFailed,
+  currentUserSuccess,
+  registerOrUpdateUserFailed,
+  registerOrUpdateUserSuccess,
+} from '../actions/users'
+import { TOKEN } from '../constants/keys'
 import * as types from '../constants/users'
 
 function* LoggedUser({ payload }) {

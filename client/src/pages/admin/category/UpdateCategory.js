@@ -1,12 +1,11 @@
+import { Col, Form, Row } from 'antd'
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { Button, Col, Form, Row, Table } from 'antd'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import FormCategory from './FormCategory'
-import './Categories.scss'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { getCategory, updateCategories } from '../../../redux/actions/category'
-import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom'
+import './Categories.scss'
+import FormCategory from './FormCategory'
 
 const UpdateCategory = ({ match }) => {
   const [form] = Form.useForm()
@@ -17,7 +16,7 @@ const UpdateCategory = ({ match }) => {
   const { slug } = match.params
   useEffect(() => {
     dispatch(getCategory(slug))
-  }, [dispatch])
+  }, [dispatch, slug])
 
   function onFinish({ name }) {
     dispatch(updateCategories({ name }))
@@ -28,7 +27,7 @@ const UpdateCategory = ({ match }) => {
     form.setFieldsValue({
       name: (categoryEditing && categoryEditing.name) || '',
     })
-  }, [categoryEditing])
+  }, [form, categoryEditing])
   return (
     <React.Fragment>
       <Row>

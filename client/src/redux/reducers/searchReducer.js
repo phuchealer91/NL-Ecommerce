@@ -1,5 +1,4 @@
 import * as types from '../constants/search'
-import { toast } from 'react-toastify'
 let initialState = {
   text: '',
   productsAfterFilter: [],

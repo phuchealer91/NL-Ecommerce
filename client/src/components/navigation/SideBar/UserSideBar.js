@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import { Menu } from 'antd'
 import {
   AppstoreOutlined,
   HeartOutlined,
   HistoryOutlined,
-  MailOutlined,
-  SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+import { Menu } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import PATHS from '../../../redux/constants/paths'
 const { SubMenu } = Menu
 const UserSideBar = () => {

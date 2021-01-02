@@ -1,15 +1,4 @@
-import {
-  call,
-  delay,
-  put,
-  select,
-  take,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects'
-import { hideLoading, showLoading } from '../actions/ui'
-
-import { TOKEN } from '../constants/keys'
+import { call, delay, put, select, takeEvery } from 'redux-saga/effects'
 import {
   createSubCategories,
   deleteSubCategories,
@@ -17,7 +6,6 @@ import {
   getSubCategory,
   updateSubCategories,
 } from '../../apis/subCategory'
-import * as types from '../constants/subCategory'
 import {
   createSubCategoryFailed,
   createSubCategorySuccess,
@@ -30,6 +18,8 @@ import {
   updateSubCategoriesFailed,
   updateSubCategoriesSuccess,
 } from '../actions/subCategory'
+import { hideLoading, showLoading } from '../actions/ui'
+import * as types from '../constants/subCategory'
 
 function* createSubCategoryss({ payload }) {
   try {

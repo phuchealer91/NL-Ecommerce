@@ -1,5 +1,4 @@
 import * as types from '../constants/stripe'
-import { toast } from 'react-toastify'
 let initialState = {
   clientSecret: '',
   cartTotal: 0,

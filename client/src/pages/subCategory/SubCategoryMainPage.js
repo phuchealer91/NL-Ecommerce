@@ -1,11 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import LoadingCard from '../../components/LoadingCard'
 import { Col, Row } from 'antd'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { CardItem } from '../../components/CardItem'
+import LoadingCard from '../../components/LoadingCard'
 import { getSubCategory } from '../../redux/actions/subCategory'
 import './SubCategoryMainPage.scss'
 function SubCategoryMainPage(props) {
@@ -16,7 +14,7 @@ function SubCategoryMainPage(props) {
   const { slug } = useParams()
   useEffect(() => {
     dispatch(getSubCategory(slug))
-  }, [dispatch])
+  }, [dispatch, slug])
   return (
     <React.Fragment>
       <div className="sub-category-main">

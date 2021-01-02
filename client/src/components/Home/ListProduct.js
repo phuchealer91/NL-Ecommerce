@@ -1,17 +1,10 @@
+import { Col, Pagination, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { CarouselItem } from '../Carousel'
-import { Col, Divider, Row } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getListAllProduct,
-  getListProducts,
-  getProductsCount,
-} from '../../redux/actions/product'
+import { getListProductss } from '../../apis/product'
+import { getProductsCount } from '../../redux/actions/product'
 import { CardItem } from '../CardItem'
 import LoadingCard from '../LoadingCard'
-import { getListProductss } from '../../apis/product'
-import { Pagination } from 'antd'
 import './ListProduct.scss'
 
 ListProduct.propTypes = {}
@@ -22,9 +15,7 @@ function ListProduct(props) {
   const [listproduct, setListproduct] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
-  const { listProducts, issLoading, totalProducts } = useSelector(
-    (state) => state.product
-  )
+  const { totalProducts } = useSelector((state) => state.product)
   useEffect(() => {
     // dispatch(getListProducts('createAt', 'desc', page))
     loadProducts()

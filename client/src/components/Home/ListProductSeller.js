@@ -1,16 +1,10 @@
+import { Col, Pagination, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { CarouselItem } from '../Carousel'
-import { Col, Divider, Pagination, Row } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getListAllProduct,
-  getListProducts,
-  getProductsCount,
-} from '../../redux/actions/product'
+import { getListProductss } from '../../apis/product'
+import { getProductsCount } from '../../redux/actions/product'
 import { CardItem } from '../CardItem'
 import LoadingCard from '../LoadingCard'
-import { getListProductss } from '../../apis/product'
 import './ListProductSeller.scss'
 ListProductSeller.propTypes = {}
 

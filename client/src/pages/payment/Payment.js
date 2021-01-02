@@ -1,9 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import React from 'react'
 import { StripeCheckOut } from '../../components/StripeCheckOut'
-import { Col, Row } from 'antd'
 function Payment(props) {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
   return (

@@ -1,10 +1,9 @@
+import { Button, Drawer } from 'antd'
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Col, Drawer, Row } from 'antd'
-import './SidebarDrawer.scss'
-import { hideDrawer } from '../../redux/actions/ui'
 import { Link } from 'react-router-dom'
+import { hideDrawer } from '../../redux/actions/ui'
+import './SidebarDrawer.scss'
 function SideDrawer(props) {
   const { ui, cart } = useSelector((state) => ({ ...state }))
   let { cartLists } = cart

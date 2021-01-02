@@ -16,23 +16,20 @@ function CategoryList(props) {
   return (
     <React.Fragment>
       <Row>
-        <ul className="category-list">
+        <ul className="flex item-center text-white content-center">
           {listCategories &&
             listCategories.map((category) => {
               return (
-                <li key={category._id} className="category-list__item">
-                  <Button
-                    type="dashed"
-                    size="large"
-                    className="category-list__item-btn"
+                <li
+                  key={category._id}
+                  className="bg-green-500 rounded-xl p-8 mr-2 w-50 h-50"
+                >
+                  <Link
+                    to={`${PATHS.CATEGORY}/${category.slug}`}
+                    className="text-white font-semibold text-xl hover:text-gray-800"
                   >
-                    <Link
-                      to={`${PATHS.CATEGORY}/${category.slug}`}
-                      className="category-list__item-link"
-                    >
-                      {category.name}
-                    </Link>
-                  </Button>
+                    {category.name.toUpperCase()}
+                  </Link>
                 </li>
               )
             })}

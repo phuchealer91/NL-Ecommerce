@@ -174,12 +174,12 @@ function History(props) {
                           userOrders.products &&
                           userOrders.products.map((item) => ({
                             Id: item._id,
-                            Title: item.product.title,
-                            Price: formatPrice(item.product.price),
-                            Brand: item.product.brand,
+                            Title: item.product?.title,
+                            Price: formatPrice(item.product?.price),
+                            Brand: item.product?.brand,
                             Color: item.color,
                             Count: item.count,
-                            Shipping: item.product.shipping,
+                            Shipping: item.product?.shipping,
                           }))
                         }
                         columns={columns}

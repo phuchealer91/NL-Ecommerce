@@ -43,7 +43,7 @@ function ListProduct(props) {
   }, [])
   return (
     <>
-      <h3 className="products__heading">Sản phẩm</h3>
+      <h3 className="products__heading text-green-600">Sản phẩm</h3>
       {isLoading ? (
         <LoadingCard count={4} />
       ) : (

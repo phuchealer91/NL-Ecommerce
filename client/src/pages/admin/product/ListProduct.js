@@ -3,7 +3,7 @@ import { Avatar, Button, Col, Form, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import LocalSearch from '../../../components/LocalSearch'
+import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { getCategories } from '../../../redux/actions/category'
@@ -42,7 +42,7 @@ const ListProduct = () => {
     category.title.toLowerCase().includes(keyword)
   const dataSource =
     listAllProducts &&
-    listAllProducts.filter(searched(keyword)).map((item) => ({
+    listAllProducts?.filter(searched(keyword)).map((item) => ({
       Id: item._id,
       Title: item.title,
       Slug: item.slug,
@@ -129,7 +129,7 @@ const ListProduct = () => {
             <h3>Tất cả sản phẩm ({totalProducts})</h3>
             {/* Search */}
             <div className="product__search">
-              <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+              <SearchItem keyword={keyword} setKeyword={setKeyword} />
             </div>
             <Table
               dataSource={dataSource}

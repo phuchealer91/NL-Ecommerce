@@ -49,3 +49,9 @@ export const productRatings = (productId, data) => {
     data
   )
 }
+export const fetchProductsSearch = (data) => {
+  return axiosServices.post(
+    `/${PATHS.PRODUCT}/${PATHS.SEARCH}/${PATHS.FILTERS}`,
+    data
+  )
+}

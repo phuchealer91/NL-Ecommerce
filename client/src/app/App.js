@@ -37,6 +37,7 @@ import CheckOut from '../pages/checkout/CheckOut'
 import { CreateCoupon } from '../pages/admin/coupon'
 import { OrdersList } from '../pages/admin/ordersList'
 import { Payment } from '../pages/payment'
+import Shop from '../pages/Shop/Shop'
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -59,7 +60,7 @@ function App() {
   return (
     <React.Fragment>
       <Header />
-      <div className="mx-4 my-4">
+      <div className="pt-2 mb-4">
         <Switch>
           <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
           <Route exact path={`/${PATHS.REGISTER}`} component={Register} />
@@ -154,6 +155,7 @@ function App() {
           <Route exact path={`/${PATHS.CHECKOUT}`} component={CheckOut} />
           <Route exact path={`/${PATHS.PAYMENT}`} component={Payment} />
           <Route exact path={`/${PATHS.HOME}`} component={Home} />
+          <Route exact path={`/${PATHS.SHOP}`} component={Shop} />
         </Switch>
         <ToastContainer
           position="top-right"

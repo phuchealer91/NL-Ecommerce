@@ -8,6 +8,7 @@ import cartReducer from './cartReducer'
 import couponReducer from './couponReducer'
 import stripeReducer from './stripeReducer'
 import orderReducer from './orderReducer'
+import searchReducer from './searchReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -18,6 +19,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   coupon: couponReducer,
   order: orderReducer,
+  stripe: stripeReducer,
+  search: searchReducer,
 })
 
 export default rootReducer

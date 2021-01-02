@@ -21,7 +21,7 @@ import {
   getCoupon,
 } from '../../../redux/actions/coupon'
 import { Link } from 'react-router-dom'
-import LocalSearch from '../../../components/LocalSearch'
+import { SearchItem } from '../../../components/LocalSearch'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import FormCoupon from './FormCoupon'
@@ -147,7 +147,7 @@ const CreateCoupon = () => {
             <h3 className="text-2xl mb-3">Tất cả mã giảm giá({totalCoupon})</h3>
             <h5 className="text-xl">Search</h5>
             <div className="category__search">
-              <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+              <SearchItem keyword={keyword} setKeyword={setKeyword} />
             </div>
             <Table
               dataSource={dataSource}

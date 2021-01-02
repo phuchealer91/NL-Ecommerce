@@ -44,8 +44,7 @@ function CardItem({ product }) {
           height: 'auto',
           borderRadius: '4px',
           background: '#ffffff',
-          boxShadow: '0 4px 2px 0 rgba(0,0,0,0.05)',
-          border: '0',
+          boxShadow: '0 4px 2px 0 rgba(0,0,0,0.2)',
         }}
         cover={
           <img
@@ -70,7 +69,7 @@ function CardItem({ product }) {
           </Tooltip>,
         ]}
       >
-        <h3 className="text-xl font-medium pb-1">{title}</h3>
+        <h3 className="text-lg font-medium pb-1">{title}</h3>
         <h4 className="text-red-600 font-bold text-sm pb-1">
           {formatPrice(price)} VND
         </h4>

@@ -66,7 +66,6 @@ const productSchema = new mongoose.Schema(
         postedBy: { type: ObjectId, ref: 'User', required: true },
       },
     ],
-    ratings: { type: Number, required: true },
   },
   { timestamps: true }
 )

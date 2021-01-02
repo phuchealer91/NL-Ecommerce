@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutInUser } from '../../../redux/actions/users'
 import PATHS from '../../../redux/constants/paths'
 import { TOKEN } from '../../../redux/constants/keys'
+import { Searchs } from '../../LocalSearch'
 const { SubMenu, Item } = Menu
 const Header = () => {
   const [current, setCurrent] = useState('home')
@@ -75,6 +76,10 @@ const Header = () => {
           </Item>
         </SubMenu>
       ) : null}
+      <Item className="nav__login">
+        <Searchs />
+      </Item>
+
       {user && !user.token ? (
         <>
           <Item key="login" icon={<UserOutlined />} className="nav__login">

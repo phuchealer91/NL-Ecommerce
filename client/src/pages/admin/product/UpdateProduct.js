@@ -63,7 +63,7 @@ const UpdateProducts = ({ match }) => {
       quantity: (productEditing && productEditing.quantity) || '',
       color: (productEditing && productEditing.color) || '',
       brand: (productEditing && productEditing.brand) || '',
-      category: (productEditing && productEditing.category.name) || '',
+      category: (productEditing && productEditing.category?.name) || '',
     })
     setProduct({
       ...product,

@@ -5,6 +5,7 @@ module.exports.createProduct = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title)
     const newProduct = new Product(req.body)
+    console.log('day ne', newProduct)
     await newProduct.save()
     return res.status(201).json({ product: newProduct })
   } catch (error) {
@@ -152,6 +153,24 @@ module.exports.productReivews = async (req, res) => {
     //   product.reviews.reduce((acc, item) => item.rating + acc, 0) /
     //   product.reviews.length
     // return await product.save()
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+const handleQuery = async (req, res, query) => {
+  const products = await Product.find({ $text: { $search: query } })
+    .populate('category', '_id name')
+    .populate('subs', '_id name')
+    .populate('postedBy', '_id name')
+    .exec()
+  return res.status(200).json({ products })
+}
+module.exports.productSearchFilters = async (req, res) => {
+  try {
+    const { query } = req.body
+    if (query) {
+      await handleQuery(req, res, query.trim())
+    }
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }

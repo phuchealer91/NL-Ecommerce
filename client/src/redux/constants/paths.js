@@ -27,6 +27,9 @@ const PATHS = {
   ORDER: 'order',
   ORDERS: 'orders',
   REVIEW: 'review',
+  SHOP: 'shop',
+  SEARCH: 'search',
+  FILTERS: 'filters',
 }
 
 export default PATHS

@@ -25,7 +25,7 @@ import {
 } from '../../../redux/actions/subCategory'
 import { getCategories } from '../../../redux/actions/category'
 import { Link } from 'react-router-dom'
-import LocalSearch from '../../../components/LocalSearch'
+import { SearchItem } from '../../../components/LocalSearch'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 const { Option } = Select
@@ -187,7 +187,7 @@ const CreateSubCategory = () => {
             <h3>Tất cả danh mục con ({totalCategory})</h3>
             {/* Search */}
             <div className="category__search">
-              <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+              <SearchItem keyword={keyword} setKeyword={setKeyword} />
             </div>
             <Table
               dataSource={dataSource}

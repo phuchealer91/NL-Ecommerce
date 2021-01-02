@@ -5,7 +5,6 @@ const User = require('../models/user.model')
 const stripe = require('stripe')(process.env.STRIPE_SECRET)
 module.exports.createPaymentIntent = async (req, res) => {
   const { isCoupon } = req.body
-  console.log(isCoupon)
   const user = await User.findOne({ email: req.user.email }).exec()
   const { cartTotal, totalAfterDiscount } = await Cart.findOne({
     orderedBy: user._id,

@@ -40,12 +40,10 @@ const CreateCoupon = () => {
   }, [])
 
   function onFinish(fieldsValue) {
-    console.log(fieldsValue)
     const values = {
       ...fieldsValue,
       expiry: fieldsValue['expiry'].format('YYYY-MM-DD HH:mm:ss'),
     }
-    console.log(values)
     dispatch(createCoupon(values))
     form.resetFields()
   }

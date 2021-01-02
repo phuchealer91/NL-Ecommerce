@@ -14,6 +14,7 @@ import { showDrawer } from '../../redux/actions/ui'
 import ModalRating from '../ModalConfirm/ModalRating'
 import { format } from 'date-fns'
 import ShowRatings from '../Ratings/ShowRatings'
+import emptyComment from '../../assets/images/empty-comment.png'
 const { TabPane } = Tabs
 function SingleProduct({ productEditing }) {
   const { title, quantity, images, description } = productEditing
@@ -75,13 +76,15 @@ function SingleProduct({ productEditing }) {
           <h2 className="text-2xl font-semibold text-green-600">
             {title?.toUpperCase()}
           </h2>
-          {productEditing &&
-          productEditing.reviews &&
-          productEditing.reviews.length > 0 ? (
-            ShowRatings(productEditing)
-          ) : (
-            <div className="single__rating">No rating yet</div>
-          )}
+          <div className="py-3 text-center">
+            {productEditing &&
+            productEditing.reviews &&
+            productEditing.reviews.length > 0 ? (
+              ShowRatings(productEditing)
+            ) : (
+              <div className="single__rating">No rating yet</div>
+            )}
+          </div>
           <Card
             actions={[
               <Tooltip placement="top" title="kk">
@@ -133,7 +136,7 @@ function SingleProduct({ productEditing }) {
             )
           </h3>
           <Divider dashed />
-          {productEditing &&
+          {productEditing && productEditing?.reviews.length > 0 ? (
             productEditing.reviews.map((rating, idx) => {
               return (
                 <div className="pb-2" key={idx}>
@@ -158,7 +161,10 @@ function SingleProduct({ productEditing }) {
                   <Divider dashed />
                 </div>
               )
-            })}
+            })
+          ) : (
+            <img src={emptyComment} style={{ width: '120px', color: 'gray' }} />
+          )}
         </Col>
       </Row>
     </>

@@ -55,9 +55,7 @@ const CreateProducts = () => {
     form.resetFields()
     window.location.reload()
   }
-  function onChange(value) {
-    // console.log(`selected ${value}`)
-  }
+  function onChange(value) {}
   function onChangeCategory(_id) {
     setProduct({ ...product, subs: [] })
     dispatch(getCategorySubs(_id))

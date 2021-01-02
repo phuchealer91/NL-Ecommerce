@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card, Tooltip } from 'antd'
+import { Card, Rate, Tooltip } from 'antd'
 import imageDefault from '../../assets/images/mac-default.png'
 import { Link } from 'react-router-dom'
 import './CartItem.scss'
@@ -9,6 +9,8 @@ import _ from 'lodash'
 import { addToCart } from '../../redux/actions/cart'
 import { useDispatch } from 'react-redux'
 import { showDrawer } from '../../redux/actions/ui'
+import { formatPrice } from '../../helpers/formatPrice'
+import ShowRatings from '../Ratings/ShowRatings'
 const { Meta } = Card
 function CardItem({ product }) {
   const { title, price, description, slug, quantity } = product
@@ -68,10 +70,18 @@ function CardItem({ product }) {
           </Tooltip>,
         ]}
       >
-        <Meta
-          title={`${title} - $${price}`}
-          description={`${description && description.substring(0, 40)}...`}
-        />
+        <h3 className="text-xl font-medium pb-1">{title}</h3>
+        <h4 className="text-red-600 font-bold text-sm pb-1">
+          {formatPrice(price)} VND
+        </h4>
+        <div className="text-gray-700">
+          {/* {description && description.substring(0, 40)}... */}
+          {product && product.reviews && product.reviews.length > 0 ? (
+            <span style={{ fontSize: '14px' }}>{ShowRatings(product)}</span>
+          ) : (
+            <span className="text-center py-1 block">No rating yet</span>
+          )}
+        </div>
       </Card>
     </>
   )

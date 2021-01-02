@@ -32,11 +32,9 @@ import {
 } from '../actions/subCategory'
 
 function* createSubCategoryss({ payload }) {
-  console.log(payload)
   try {
     yield put(showLoading())
     const resp = yield call(createSubCategories, payload)
-    console.log('resp', resp)
     const { data } = resp
     yield put(createSubCategorySuccess(data))
   } catch (error) {

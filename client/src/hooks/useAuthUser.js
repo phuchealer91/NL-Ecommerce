@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 export const useAuthUser = () => {
   const { user } = useSelector((state) => ({ ...state }))
   const history = useHistory()
-  console.log(history.location.state)
   useEffect(() => {
     // if (history.location.state && history.location.state !== 'undefined') {
     //   return

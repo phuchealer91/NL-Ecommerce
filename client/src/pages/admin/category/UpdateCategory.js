@@ -20,7 +20,6 @@ const UpdateCategory = ({ match }) => {
   }, [dispatch])
 
   function onFinish({ name }) {
-    console.log(name)
     dispatch(updateCategories({ name }))
     history.push('/admin/category')
     form.resetFields()

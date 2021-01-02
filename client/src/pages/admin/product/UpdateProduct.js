@@ -45,7 +45,6 @@ const UpdateProducts = ({ match }) => {
   const { listCategories: categories, categorySubs } = useSelector(
     (state) => state.category
   )
-  console.log('test', product)
   const { slug } = match.params
   useEffect(() => {
     dispatch(getCategories())
@@ -80,7 +79,6 @@ const UpdateProducts = ({ match }) => {
   }, [productEditing])
   function onFinish(value) {
     const values = { ...product, subs: arrOfSubs, ...value }
-    console.log(values)
     dispatch(updateProduct(values))
     // window.location.reload()
     // history.push('/admin/sub-category')

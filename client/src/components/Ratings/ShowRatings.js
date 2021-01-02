@@ -7,9 +7,9 @@ function ShowRatings(product) {
   let result =
     product?.reviews.reduce((acc, item) => item.rating + acc, 0) / len
   return (
-    <div className="py-3 text-center">
+    <div className="">
       <Rate disabled value={result} style={{ fontSize: '20px' }} />
-      <span className="text-gray-700">({len} reviews)</span>
+      <span className="text-gray-700 pl-2">({len} reviews)</span>
     </div>
   )
 }

@@ -84,13 +84,10 @@ function* emptyCartss({ payload }) {
   yield hideLoading()
 }
 function* addAddressCartss({ payload }) {
-  console.log(payload)
   try {
     yield showLoading()
     const resp = yield call(addAddressCarts, payload)
     const { data } = resp
-    console.log(resp)
-    console.log(data)
     yield put(addAddressCartSuccess(data))
   } catch (error) {
     yield put(addAddressCartFailed(error))

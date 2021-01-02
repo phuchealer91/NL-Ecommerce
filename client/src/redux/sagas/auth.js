@@ -69,7 +69,6 @@ function* currentAdmin({ payload }) {
   try {
     const resp = yield call(currentAdmins, payload)
     const { data } = resp
-    console.log(resp)
     yield put(currentAdminSuccess(data))
   } catch (error) {
     yield put(currentAdminFailed(error))

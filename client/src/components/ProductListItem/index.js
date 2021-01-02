@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import './ProductListItem.scss'
+import { formatPrice } from '../../helpers/formatPrice'
 function ProductListItem({ productEditing }) {
-  console.log(productEditing)
   const {
     title,
     price,
@@ -22,7 +22,10 @@ function ProductListItem({ productEditing }) {
     <>
       <ul className="list-group">
         <li className="list-group-item">
-          Price <span className="list-group__right">{price} VND</span>
+          Price{' '}
+          <span className="list-group__right font-semibold">
+            {formatPrice(price)} VND
+          </span>
         </li>
 
         {category && (
@@ -30,7 +33,7 @@ function ProductListItem({ productEditing }) {
             Category{' '}
             <Link
               to={`/category/${category.slug}`}
-              className="list-group__right"
+              className="font-semibold list-group__right text-green-600 underline"
             >
               {category.name}
             </Link>
@@ -44,7 +47,7 @@ function ProductListItem({ productEditing }) {
               <Link
                 key={s._id}
                 to={`/sub-category/${s.slug}`}
-                className="list-group__right"
+                className="font-semibold list-group__right text-green-600 underline"
               >
                 {s.name}
               </Link>
@@ -53,23 +56,27 @@ function ProductListItem({ productEditing }) {
         )}
 
         <li className="list-group-item">
-          Shipping <span className="list-group__right">{shipping}</span>
+          Shipping{' '}
+          <span className="list-group__right font-semibold">{shipping}</span>
         </li>
 
         <li className="list-group-item">
-          Color <span className="list-group__right">{color}</span>
+          Color <span className="list-group__right font-semibold">{color}</span>
         </li>
 
         <li className="list-group-item">
-          Brand <span className="list-group__right">{brand}</span>
+          Brand <span className="list-group__right font-semibold">{brand}</span>
         </li>
 
         <li className="list-group-item">
-          Available <span className="list-group__right">{quantity}</span>
+          Available{' '}
+          <span className="list-group__right font-semibold">
+            {formatPrice(quantity)}
+          </span>
         </li>
 
         <li className="list-group-item">
-          Sold <span className="list-group__right">{sold}</span>
+          Sold <span className="list-group__right font-semibold">{sold}</span>
         </li>
       </ul>
     </>

@@ -34,11 +34,9 @@ import { hideLoading, showLoading } from '../actions/ui'
 import * as types from '../constants/product'
 
 function* createProductss({ payload }) {
-  console.log(payload)
   try {
     yield put(showLoading())
     const resp = yield call(createProducts, payload)
-    console.log(resp)
     const { data } = resp
     yield put(createProductSuccess(data))
   } catch (error) {

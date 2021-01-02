@@ -15,11 +15,10 @@ function Product(props) {
   const { productEditing, productRelated, reviews } = useSelector(
     (state) => state.product
   )
-  console.log(productEditing)
   const { slug } = useRouteMatch().params
   useEffect(() => {
     dispatch(getProduct(slug))
-  }, [dispatch, reviews])
+  }, [dispatch, reviews, slug])
   useEffect(() => {
     setIsLoading(true)
     if (productEditing && productEditing._id) {

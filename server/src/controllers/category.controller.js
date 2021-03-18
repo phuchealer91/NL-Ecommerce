@@ -13,7 +13,7 @@ module.exports.createCategory = async (req, res) => {
     }
     const categoryExists = await Categories.findOne({ slug })
     if (categoryExists)
-      return res.status(400).json({ error: 'Category already exists' })
+      return res.status(400).json({ error: 'Category đã tồn tại' })
     const newCategory = new Categories({
       name,
       slug,
@@ -28,7 +28,8 @@ module.exports.getCategory = async (req, res) => {
   const { slug } = req.params
   try {
     const category = await Categories.findOne({ slug }).exec()
-    if (!category) return res.status(400).json({ error: 'Category not found' })
+    if (!category)
+      return res.status(400).json({ error: 'Category không tồn tại' })
     // get related products
     const products = await Product.find({ category })
       .populate('category')
@@ -41,7 +42,7 @@ module.exports.getCategories = async (req, res) => {
   try {
     const categories = await Categories.find().sort({ createdAt: -1 }).exec()
     if (!categories)
-      return res.status(400).json({ error: 'Categories not found' })
+      return res.status(400).json({ error: 'Categories không tồn tại' })
     return res.status(200).json({ categories })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -57,7 +58,8 @@ module.exports.updateCategory = async (req, res) => {
       { name, slug: slugUpdate },
       { new: true }
     )
-    if (!category) return res.status(400).json({ error: 'Category not found' })
+    if (!category)
+      return res.status(400).json({ error: 'Category không tồn tại' })
     return res.status(200).json({ category })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -70,7 +72,7 @@ module.exports.deleteCategory = async (req, res) => {
       slug: slug,
     })
     if (!categoryDeleted)
-      return res.status(400).json({ error: 'Category not found' })
+      return res.status(400).json({ error: 'Category không tồn tại' })
     return res
       .status(200)
       .json({ msg: `Delete ${categoryDeleted.name} success` })
@@ -82,7 +84,7 @@ module.exports.deleteCategory = async (req, res) => {
 module.exports.getCategorySubs = async (req, res) => {
   try {
     const subs = await SubCategories.find({ parent: req.params._id })
-    if (!subs) return res.status(400).json({ error: 'Subs not found' })
+    if (!subs) return res.status(400).json({ error: 'Subs không tồn tại' })
     return res.status(200).json({ subs })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })

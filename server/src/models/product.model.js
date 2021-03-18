@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 32,
+      maxlength: 100,
       text: true,
     },
     slug: {
@@ -18,10 +18,10 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
-      maxlength: 2000,
-      text: true,
+      required: false,
+      maxlength: 100000,
     },
+
     price: {
       type: Number,
       required: true,
@@ -39,6 +39,7 @@ const productSchema = new mongoose.Schema(
       },
     ],
     quantity: { type: Number },
+    pages: { type: Number, required: true, trim: true, maxlength: 5 },
     sold: {
       type: Number,
       default: 0,
@@ -50,14 +51,22 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ['Yes', 'No'],
     },
-    color: {
+    layout: {
       type: String,
-      enum: ['Black', 'Brown', 'Silver', 'White', 'Blue'],
+      enum: ['Bìa Cứng', 'Bìa Mềm'],
     },
-    brand: {
+    language: {
       type: String,
-      enum: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS'],
+      enum: ['Tiếng Việt', 'English'],
     },
+    author: [{ type: ObjectId, ref: 'Author', required: true }],
+    // nha cung cap
+    supplier: { type: ObjectId, ref: 'Supplier', required: true },
+    // nha xuat ban
+    publisher: { type: String, required: true },
+    // nam xuat ban
+    publication: { type: Date, required: true },
+
     reviews: [
       {
         name: { type: String, required: true },
@@ -70,5 +79,5 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const Product = mongoose.model('Product', productSchema, 'product')
+const Product = mongoose.model('Product', productSchema)
 module.exports = Product

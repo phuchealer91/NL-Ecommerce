@@ -4,11 +4,15 @@ const User = require('../models/user.model')
 module.exports.createProduct = async (req, res) => {
   try {
     req.body.slug = slugify(req.body.title)
+    const productExists = await Product.findOne({ slug: req.body.slug })
+    if (productExists)
+      return res.status(400).json({ error: 'Product đã tồn tại' })
     const newProduct = new Product(req.body)
     console.log('day ne', newProduct)
     await newProduct.save()
     return res.status(201).json({ product: newProduct })
   } catch (error) {
+    console.log('day ne', error)
     return res.status(500).json({ msg: 'Server error' })
   }
 }
@@ -17,11 +21,14 @@ module.exports.getListAllProducts = async (req, res) => {
   try {
     const products = await Product.find({})
       .limit(parseInt(req.params.count))
+      .populate('author')
+      .populate('supplier')
       .populate('category')
       .populate('subs')
       .sort([['createdAt', 'desc']])
       .exec()
-    if (!products) return res.status(400).json({ error: 'Products not found' })
+    if (!products)
+      return res.status(400).json({ error: 'Products không tồn tại' })
     return res.status(200).json({ products })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -31,10 +38,13 @@ module.exports.getListAllProducts = async (req, res) => {
 module.exports.getProduct = async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug })
+      .populate('author')
+      .populate('supplier')
       .populate('category')
       .populate('subs')
       .exec()
-    if (!product) return res.status(400).json({ error: 'Product not found' })
+    if (!product)
+      return res.status(400).json({ error: 'Product không tồn tại' })
     return res.status(200).json({ product })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -58,6 +68,8 @@ module.exports.getListProducts = async (req, res) => {
 
     const listProducts = await Product.find({})
       .skip((currentPage - 1) * perPage)
+      .populate('author')
+      .populate('supplier')
       .populate('category')
       .populate('subs')
       .sort([[sort, order]])
@@ -78,6 +90,8 @@ module.exports.getListRelated = async (req, res) => {
       category: product.category,
     })
       .limit(4)
+      .populate('author')
+      .populate('supplier')
       .populate('category')
       .populate('subs')
       // .populate('postedBy')
@@ -98,10 +112,12 @@ module.exports.updateProduct = async (req, res) => {
       req.body,
       { new: true }
     ).exec()
+    console.log('CDCfsfsdfsdfsfsdfMMM', req.body)
     if (!productUpdated)
       return res.status(400).json({ error: 'Update product failed' })
     return res.status(200).json({ product: productUpdated })
   } catch (error) {
+    console.log('CDCMMM', error)
     return res.status(500).json({ msg: 'Server error' })
   }
 }

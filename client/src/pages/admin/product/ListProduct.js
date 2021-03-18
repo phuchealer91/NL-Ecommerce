@@ -3,50 +3,72 @@ import { Avatar, Button, Col, Form, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { deleteProducts, getListAllProducts } from '../../../apis/product'
 import imageDefault from '../../../assets/images/default-image.jpg'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
-import {
-  deleteProduct,
-  getListAllProduct,
-} from '../../../redux/actions/product'
+
 import './Product.scss'
 const ListProduct = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
   const [productToDelete, setProductToDelete] = useState('')
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(false)
   const [keyword, setKeyword] = useState('')
 
-  const { listAllProducts } = useSelector((state) => state.product)
-  const totalProducts = listAllProducts.length
+  const totalProducts = products.length
   useEffect(() => {
-    dispatch(getListAllProduct())
-  }, [dispatch])
+    loadAllProducts()
+  }, [])
+
+  const loadAllProducts = () => {
+    setLoading(true)
+    getListAllProducts(100)
+      .then((res) => {
+        setProducts(res.data.products)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setLoading(false)
+      })
+  }
 
   function onHandleDelete(slug) {
     setShowModal(true)
     setProductToDelete(slug)
   }
   function onHandleDeleteItem() {
-    dispatch(deleteProduct(productToDelete))
-    setShowModal(false)
+    deleteProducts(productToDelete)
+      .then((res) => {
+        loadAllProducts()
+        toast.success(`Xóa ${res.data.deleted.title} thành công`)
+        setShowModal(false)
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          toast.error(err.response.data.error)
+        }
+        setShowModal(false)
+      })
   }
   function closeModal() {
     setShowModal(false)
   }
   // Search
-  const searched = (keyword) => (category) =>
-    category.title.toLowerCase().includes(keyword)
+  const searched = (keyword) => (product) =>
+    product.title.toLowerCase().includes(keyword)
   const dataSource =
-    listAllProducts &&
-    listAllProducts?.filter(searched(keyword)).map((item) => ({
+    products &&
+    products?.filter(searched(keyword)).map((item) => ({
       Id: item._id,
       Title: item.title,
       Slug: item.slug,
       Price: item.price,
-      Brand: item.brand,
+      Author: item.author,
       Image: item.images[0] ? item.images[0].url : imageDefault,
     }))
   const columns = [
@@ -77,9 +99,16 @@ const ListProduct = () => {
       render: (image) => <Avatar size={64} src={image} />,
     },
     {
-      title: 'Brand',
-      dataIndex: 'Brand',
-      key: 'brand',
+      title: 'Author',
+      dataIndex: 'Author',
+      key: 'author',
+      render: (author) => (
+        <>
+          {author.map((author) => {
+            return <span>{author.name}</span>
+          })}
+        </>
+      ),
     },
     {
       title: 'Thao tác',

@@ -63,8 +63,25 @@ const AdminSideBar = () => {
           Danh mục con
         </Menu.Item>
       </SubMenu>
-
-      <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Sản phẩm">
+      <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Tác giả">
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.AUTHOR}`}
+          icon={<TagsOutlined />}
+          className="flex items-center"
+        >
+          Tất cả tác giả
+        </Menu.Item>
+      </SubMenu>
+      <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Nhà cung cấp">
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.SUPPLIER}`}
+          icon={<TagsOutlined />}
+          className="flex items-center"
+        >
+          Tất cả nhà cung cấp
+        </Menu.Item>
+      </SubMenu>
+      <SubMenu key="sub5" icon={<AppstoreOutlined />} title="Sản phẩm">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
           icon={<ShoppingOutlined />}

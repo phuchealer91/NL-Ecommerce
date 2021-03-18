@@ -16,7 +16,7 @@ const UpdateCategory = ({ match }) => {
   const { slug } = match.params
   useEffect(() => {
     dispatch(getCategory(slug))
-  }, [dispatch, slug])
+  }, [dispatch])
 
   function onFinish({ name }) {
     dispatch(updateCategories({ name }))
@@ -27,7 +27,7 @@ const UpdateCategory = ({ match }) => {
     form.setFieldsValue({
       name: (categoryEditing && categoryEditing.name) || '',
     })
-  }, [form, categoryEditing])
+  }, [categoryEditing])
   return (
     <React.Fragment>
       <Row>

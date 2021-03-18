@@ -38,6 +38,10 @@ import { CreateCoupon } from '../pages/admin/coupon'
 import { OrdersList } from '../pages/admin/ordersList'
 import { Payment } from '../pages/payment'
 import Shop from '../pages/Shop/Shop'
+import CreateAuthor from '../pages/admin/author/CreateAuthor'
+import UpdateAuthor from '../pages/admin/author/UpdateAuthor'
+import { CreateSupplier, UpdateSupplier } from '../pages/admin/supplier'
+
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -105,6 +109,7 @@ function App() {
             path={`/${PATHS.ADMIN}/${PATHS.CATEGORY}/:slug`}
             component={UpdateCategory}
           />
+
           <AdminRoute
             exact
             path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
@@ -114,6 +119,26 @@ function App() {
             exact
             path={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}/:slug`}
             component={UpdateSubCategory}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.AUTHOR}`}
+            component={CreateAuthor}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.AUTHOR}/:slug`}
+            component={UpdateAuthor}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.SUPPLIER}`}
+            component={CreateSupplier}
+          />
+          <AdminRoute
+            exact
+            path={`/${PATHS.ADMIN}/${PATHS.SUPPLIER}/:slug`}
+            component={UpdateSupplier}
           />
           <AdminRoute
             exact

@@ -1,10 +1,14 @@
 import { Col, Form, Row, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
+import { getAuthors } from '../../../apis/author'
+import { getCategories, getCategorySubs } from '../../../apis/category'
+import { createProducts } from '../../../apis/product'
+import { getSuppliers } from '../../../apis/supplier'
 import FileUpload from '../../../components/FileUpload'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
-import { getCategories, getCategorySubs } from '../../../redux/actions/category'
-import { createProduct } from '../../../redux/actions/product'
 import FormCreateProduct from './FormCreateProduct'
 const layout = {
   labelCol: { span: 6 },
@@ -19,42 +23,72 @@ const initialState = {
   subs: [],
   shipping: ['Yes', 'No'],
   quantity: '',
+  pages: '',
+  author: [],
+  supplier: '',
+  publisher: '',
+  publication: null,
+
   images: [],
-  colors: ['Black', 'Brown', 'Silver', 'White', 'Blue'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS'],
-  color: '',
-  brand: '',
+  layouts: ['Bìa Cứng', 'Bìa Mềm'],
+  languages: ['Tiếng Việt', 'English'],
+  layout: '',
+  language: '',
 }
 const CreateProducts = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
   const [product, setProduct] = useState(initialState)
   const [isLoading, setIsLoading] = useState(false)
+  const [categorySubs, setCategorySubs] = useState([])
+  const [authors, setAuthors] = useState([])
+  const [suppliers, setSuppliers] = useState([])
   const [showSub, setShowSub] = useState(false)
-  const { listCategories: categories, categorySubs } = useSelector(
-    (state) => state.category
-  )
+  const history = useHistory()
+
   useEffect(() => {
-    dispatch(getCategories())
-  }, [dispatch])
+    loadCategories()
+  }, [])
   useEffect(() => {
-    // form.setFieldsValue({
-    //   name: (subCategoryEditing && subCategoryEditing.name) || '',
-    // })
-    setProduct({ ...product, categories: categories })
-  }, [categories])
+    loadAuthors()
+  }, [])
+  useEffect(() => {
+    loadSuppliers()
+  }, [])
+
+  const loadCategories = () =>
+    getCategories().then((c) =>
+      setProduct({ ...product, categories: c.data.categories })
+    )
+  const loadAuthors = () => getAuthors().then((c) => setAuthors(c.data.authors))
+  const loadSuppliers = () =>
+    getSuppliers().then((c) => setSuppliers(c.data.suppliers))
+
   function onFinish(value) {
-    const values = { ...product, ...value }
-    setProduct(values)
-    dispatch(createProduct(values))
-    setShowSub(false)
-    form.resetFields()
-    window.location.reload()
+    const values = {
+      ...product,
+      ...value,
+      publication: value['publication']
+        ? value['publication'].format('DD-MM-YYYY')
+        : null,
+    }
+    // console.log('ANH EYU EMMMMMMMMM', values)
+    createProducts(values)
+      .then((res) => {
+        toast.success(`Tạo ${res.data.product.title} thành công `)
+        window.location.reload()
+      })
+      .catch((err) => {
+        if (err.response.status === 400) toast.error(err.response.data.error)
+      })
   }
   function onChange(value) {}
   function onChangeCategory(_id) {
     setProduct({ ...product, subs: [] })
-    dispatch(getCategorySubs(_id))
+    getCategorySubs(_id).then((res) => {
+      console.log('SUB OPTIONS ON CATGORY CLICK', res)
+      setCategorySubs(res.data.subs)
+    })
     setShowSub(true)
   }
   return (
@@ -94,6 +128,8 @@ const CreateProducts = () => {
                   categorySubss={categorySubs}
                   showSub={showSub}
                   setProduct={setProduct}
+                  authors={authors}
+                  suppliers={suppliers}
                 />
               </div>
             </Form>

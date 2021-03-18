@@ -30,6 +30,11 @@ const PATHS = {
   SHOP: 'shop',
   SEARCH: 'search',
   FILTERS: 'filters',
+  PROVINCE: 'province',
+  DISTRICT: 'district',
+  WARD: 'ward',
+  AUTHOR: 'author',
+  SUPPLIER: 'supplier',
 }
 
 export default PATHS

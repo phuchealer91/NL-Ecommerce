@@ -12,7 +12,7 @@ module.exports.createSubCategory = async (req, res) => {
     }
     const subCategoryExists = await subCategories.findOne({ slug })
     if (subCategoryExists)
-      return res.status(400).json({ error: 'Sub category already exists' })
+      return res.status(400).json({ error: 'Sub category đã tồn tại' })
     const newSubCategory = new subCategories({
       name,
       parent,
@@ -29,7 +29,7 @@ module.exports.getSubCategory = async (req, res) => {
   try {
     const subCategory = await subCategories.findOne({ slug }).exec()
     if (!subCategory)
-      return res.status(400).json({ error: 'Sub category not found' })
+      return res.status(400).json({ error: 'Sub category không tồn tại' })
     // get related products
     const products = await Product.find({ subs: subCategory })
       .populate('category')
@@ -44,7 +44,7 @@ module.exports.getSubCategories = async (req, res) => {
       .sort({ createdAt: -1 })
       .exec()
     if (!subCategorys)
-      return res.status(400).json({ error: 'Sub categories not found' })
+      return res.status(400).json({ error: 'Sub categories không tồn tại' })
     return res.status(200).json({ subCategorys })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -61,7 +61,7 @@ module.exports.updateSubCategory = async (req, res) => {
       { new: true }
     )
     if (!subCategory)
-      return res.status(400).json({ error: 'Sub category not found' })
+      return res.status(400).json({ error: 'Sub category không tồn tại' })
     return res.status(200).json({ subCategory })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -74,7 +74,7 @@ module.exports.deleteSubCategory = async (req, res) => {
       slug: slug,
     })
     if (!subCategoryDeleted)
-      return res.status(400).json({ error: 'Sub category not found' })
+      return res.status(400).json({ error: 'Sub category không tồn tại' })
     return res
       .status(200)
       .json({ msg: `Delete ${subCategoryDeleted.name} success` })

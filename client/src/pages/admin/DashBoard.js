@@ -11,7 +11,12 @@ function DashBoard(props) {
         <Col span={5}>
           <AdminSideBar />
         </Col>
-        <Col span={19}>dashboard</Col>
+        <Col span={19}>
+          <h3 className="text-green-600 font-semibold text-2xl grid place-items-center h-60">
+            {' '}
+            Welcome to ADMIN{' '}
+          </h3>
+        </Col>
       </Row>
     </React.Fragment>
   )

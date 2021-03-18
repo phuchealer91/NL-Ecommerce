@@ -29139,6 +29139,10 @@ video {
   @apply font-body;
 } */
 
+svg {
+  vertical-align: baseline;
+}
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;

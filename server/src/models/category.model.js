@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Schema
-
 const schema = mongoose.Schema
 
 const categorySchema = new schema(
@@ -23,5 +21,5 @@ const categorySchema = new schema(
   { timestamps: true }
 )
 
-const Categories = mongoose.model('Categories', categorySchema, 'categories')
+const Categories = mongoose.model('Categories', categorySchema)
 module.exports = Categories

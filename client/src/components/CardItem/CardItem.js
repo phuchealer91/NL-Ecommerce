@@ -1,5 +1,10 @@
-import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Button, Card, Tooltip } from 'antd'
+import {
+  EyeOutlined,
+  HeartOutlined,
+  ShoppingCartOutlined,
+  ShoppingOutlined,
+} from '@ant-design/icons'
+import { Rate, Tooltip } from 'antd'
 import _ from 'lodash'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -36,51 +41,81 @@ function CardItem({ product }) {
   }
   return (
     <>
-      <Card
-        style={{
-          width: 312,
-          height: 'auto',
-          borderRadius: '4px',
-          background: '#ffffff',
-          boxShadow: '0 4px 2px 0 rgba(0,0,0,0.2)',
-        }}
-        cover={
+      <div className="relative">
+        <Link to={`/product/${slug}`} className="block">
           <img
             src={image ? image : imageDefault}
-            style={{
-              height: '200px',
-              objectFit: 'cover',
-              padding: '1px',
-              borderRadius: '4px',
-            }}
-            alt="image default "
+            alt=""
+            className="product__item-image"
           />
-        }
-        actions={[
-          <Link to={`/product/${slug}`}>
-            <EyeOutlined className="text-warning" /> <br /> View Product
-          </Link>,
-          <Tooltip title="Thêm sản phẩm">
-            <a onClick={handleAddToCart} disabled={quantity < 1} href="#">
-              <ShoppingCartOutlined className="text-danger" /> <br />
-              {quantity < 1 ? 'Out of stock' : 'Add to Cart'}
-            </a>
-          </Tooltip>,
-        ]}
-      >
-        <h3 className="text-lg font-medium pb-1">{title}</h3>
-        <h4 className="text-red-600 font-bold text-sm pb-1">
-          {formatPrice(price)} VND
-        </h4>
-        <div className="text-gray-700">
-          {/* {description && description.substring(0, 40)}... */}
-          {product && product.reviews && product.reviews.length > 0 ? (
-            <span style={{ fontSize: '14px' }}>{ShowRatings(product)}</span>
-          ) : (
-            <span className="text-center py-1 block">No rating yet</span>
-          )}
+        </Link>
+
+        <div className="product-item__footer bg-white text-center relative">
+          <p className=" font-light text-lg pt-4 text-gray-500">{title}</p>
+          <div className="star">
+            {product && product.reviews && product.reviews.length > 0 ? (
+              <span style={{ fontSize: '14px' }}>{ShowRatings(product)}</span>
+            ) : (
+              <span className="text-center py-1 block">
+                <Rate disabled style={{ fontSize: '20px' }} />
+              </span>
+            )}
+          </div>
+          <span className="text-sm text-gray-600 mt-1 ">
+            {product.description.substring(0, 30)}...
+          </span>
+          <p className="money mt-1 text-blue-600">{formatPrice(price)}đ</p>
         </div>
-      </Card>
+        {/* hidden */}
+        <div className="desktop__add-to-cart  xl:block ">
+          <button
+            onClick={handleAddToCart}
+            disabled={quantity < 1}
+            className=" btn btn-primary btn-addToCart uppercase mx-auto "
+          >
+            <span className="mr-2">
+              {' '}
+              <ShoppingOutlined className="leading-none" />
+            </span>
+            <span>{quantity < 1 ? 'Tạm hết hàng' : 'Thêm vào giỏ hàng'}</span>
+          </button>
+        </div>
+        <div className="mobile__add-to-cart">
+          <button
+            onClick={handleAddToCart}
+            disabled={quantity < 1}
+            className="btn btn-primary btn-addToCart uppercase mx-auto "
+          >
+            <span className="mr-2">
+              {' '}
+              <ShoppingOutlined className="leading-none" />
+            </span>
+            <span>{quantity < 1 ? 'Tạm hết hàng' : 'Thêm vào giỏ hàng'}</span>
+          </button>
+        </div>
+        <div className="product-item__tools">
+          <div className="flex align-center flex-row justify-center lg:flex-col">
+            <Tooltip placement="left" title="Xem chi tiết">
+              <Link to={`/product/${slug}`}>
+                <EyeOutlined />
+              </Link>
+            </Tooltip>
+            <Tooltip placement="left" title="Yêu thích">
+              <Link to="/">
+                <HeartOutlined />
+              </Link>
+            </Tooltip>
+            <Tooltip
+              placement="left"
+              title={quantity < 1 ? 'Tạm hết hàng' : 'Thêm vào giỏ hàng'}
+            >
+              <Link to="#" onClick={handleAddToCart} disabled={quantity < 1}>
+                <ShoppingCartOutlined />
+              </Link>
+            </Tooltip>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

@@ -33,20 +33,19 @@ function ListProductSeller(props) {
   }, [])
   return (
     <>
-      <h3 className="products__heading text-green-600">Sản phẩm bán chạy </h3>
       {isLoading ? (
         <LoadingCard count={4} />
       ) : (
-        <Row gutter={[2, 12]}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-12 mt-6">
           {listproduct &&
             listproduct.map((product) => {
               return (
-                <Col xs={24} sm={24} md={12} lg={6} key={product._id}>
+                <div className="product-item" key={product._id}>
                   <CardItem product={product} />
-                </Col>
+                </div>
               )
             })}
-        </Row>
+        </div>
       )}
       <Row gutter={[2, 12]}>
         <div className="pagination">

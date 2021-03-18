@@ -1,7 +1,6 @@
 import { Button, Col, Divider, Input, List, Row, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill' // ES6
-import 'react-quill/dist/quill.snow.css' // ES6
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { formatPrice } from '../../helpers/formatPrice'

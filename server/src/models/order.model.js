@@ -29,5 +29,5 @@ const orderSchema = new schema(
   { timestamps: true }
 )
 
-const Order = mongoose.model('Order', orderSchema, 'order')
+const Order = mongoose.model('Order', orderSchema)
 module.exports = Order

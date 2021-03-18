@@ -1,12 +1,17 @@
 import { Col, Form, Row, Select, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getAuthors } from '../../../apis/author'
+import { getCategories, getCategorySubs } from '../../../apis/category'
+import { getProduct, updateProducts } from '../../../apis/product'
+import { getSuppliers } from '../../../apis/supplier'
 import FileUpload from '../../../components/FileUpload'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
-import { getCategories, getCategorySubs } from '../../../redux/actions/category'
-import { getProduct, updateProduct } from '../../../redux/actions/product'
 import FormUpdateProduct from './FormUpdateProduct'
 import './Product.scss'
+import moment from 'moment'
+import { toast } from 'react-toastify'
+import { useHistory } from 'react-router'
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
@@ -20,73 +25,138 @@ const initialState = {
   subs: [],
   shipping: ['Yes', 'No'],
   quantity: '',
+  pages: '',
+  author: [],
+  supplier: [],
+  publisher: '',
+  publication: null,
+  weight: '',
+  size: '',
   images: [],
-  colors: ['Black', 'Brown', 'Silver', 'White', 'Blue'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS'],
-  color: '',
-  brand: '',
+  layouts: ['Bìa Cứng', 'Bìa Mềm'],
+  languages: ['Tiếng Việt', 'English'],
+  layout: '',
+  language: '',
 }
-const UpdateProducts = ({ match }) => {
+const UpdateProductss = ({ match }) => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
   const [product, setProduct] = useState(initialState)
-  const [arrOfSubs, setArrOfSubs] = useState([])
+  const [arrayOfSubs, setArrayOfSubs] = useState([])
+
+  const [arrayOfAuthors, setArrayOfAuthors] = useState([])
+  const [categories, setCategories] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedSupplier, setSelectedSupplier] = useState('')
+  const [authors, setAuthors] = useState([])
+  const [suppliers, setSuppliers] = useState([])
+  const [categorySubs, setCategorySubs] = useState([])
   const [showSub] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  // const history = useHistory()
-  const { productEditing } = useSelector((state) => state.product)
-  const { listCategories: categories, categorySubs } = useSelector(
-    (state) => state.category
-  )
+  const history = useHistory()
+
   const { slug } = match.params
-  useEffect(() => {
-    dispatch(getCategories())
-    dispatch(getProduct(slug))
-  }, [dispatch])
 
   useEffect(() => {
-    if (productEditing && productEditing.category) {
-      dispatch(getCategorySubs(productEditing.category._id))
-    }
+    loadProduct()
+
+    loadCategories()
+    loadAuthors()
+    loadSuppliers()
+  }, [])
+  useEffect(() => {
     form.setFieldsValue({
-      title: (productEditing && productEditing.title) || '',
-      description: (productEditing && productEditing.description) || '',
-      price: (productEditing && productEditing.price) || '',
-      shipping: (productEditing && productEditing.shipping) || '',
-      quantity: (productEditing && productEditing.quantity) || '',
-      color: (productEditing && productEditing.color) || '',
-      brand: (productEditing && productEditing.brand) || '',
-      category: (productEditing && productEditing.category?.name) || '',
+      title: product ? product.title : '',
+      description: (product && product.description) || '',
+      price: (product && product.price) || '',
+      shipping: (product && product.shipping) || '',
+      quantity: (product && product.quantity) || '',
+      layout: (product && product.layout) || '',
+      language: (product && product.language) || '',
+      category: (product && product.category?.name) || '',
+      pages: (product && product.pages) || '',
+      publisher: (product && product.publisher) || '',
+      publication: (product && moment(product.publication)) || '',
+      supplier: (product && product.supplier?.name) || '',
+      // category: (product && product.category?.name) || '',
     })
-    setProduct({
-      ...product,
-      categories: categories,
-      ...productEditing,
-    })
-    let arr = []
-    productEditing &&
-      productEditing.subs.map((s) => {
+  }, [product])
+
+  const loadValues = () => {}
+  console.log('single product', product)
+  const loadProduct = () => {
+    getProduct(slug).then((p) => {
+      // 1 load single proudct
+      setProduct({ ...product, ...p.data.product })
+
+      // 2 load single product category subs
+      getCategorySubs(p.data.product.category._id).then((res) => {
+        setCategorySubs(res.data.subs) // on first load, show default subs
+      })
+      // 3 prepare array of sub ids to show as default sub product in antd Select
+
+      let arr = []
+      let arrAuthors = []
+      p.data.product.subs.map((s) => {
         arr.push(s._id)
       })
-    setArrOfSubs((prev) => arr)
-  }, [productEditing])
+      setArrayOfSubs((prev) => arr) // required for ant design select to work
+      p.data.product.author.map((s) => {
+        arrAuthors.push(s._id)
+      })
+      setArrayOfAuthors((prev) => arrAuthors)
+    }) // required for ant design select to work
+  }
+
+  const loadCategories = () =>
+    getCategories().then((c) => {
+      setCategories(c.data.categories)
+    })
+  const loadAuthors = () => getAuthors().then((c) => setAuthors(c.data.authors))
+  const loadSuppliers = () =>
+    getSuppliers().then((c) => setSuppliers(c.data.suppliers))
+
   function onFinish(value) {
-    const values = { ...product, subs: arrOfSubs, ...value }
-    dispatch(updateProduct(values))
-    // window.location.reload()
-    // history.push('/admin/sub-category')
-    form.resetFields()
+    // setIsLoading(true)
+    const productUpdate = {
+      ...product,
+      subs: arrayOfSubs,
+      author: arrayOfAuthors,
+      publication: value['publication']
+        ? value['publication'].format('DD-MM-YYYY')
+        : null,
+      ...value,
+    }
+    console.log('TUI KHONG BIT LOI O DAU 1', value)
+    console.log('TUI KHONG BIT LOI O DAU', productUpdate)
+
+    // updateProducts(slug, productUpdate)
+    //   .then((res) => {
+    //     setIsLoading(false)
+    //     toast.success(`Cập nhật ${res.data.product.title} thành công`)
+    //     history.push('/admin/list-products')
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false)
+    //     toast.error(err.response.data.error)
+    //   })
   }
   // // Sub category Select
   function onChange(value) {}
-  function onChangeCategory(value) {
-    // setCategory(value)
+  // function onChangeSupplier(value) {
+  //   setSelectedSupplier(value)
+  // }
+  function onChangeCategory(_id) {
+    console.log('ANH EM MINH', _id)
+    setSelectedCategory(_id)
+    getCategorySubs(_id).then((res) => {
+      setCategorySubs(res.data.subs)
+    })
     setProduct({ ...product, subs: [] })
-    dispatch(getCategorySubs(value))
-    if (product.category._id === value) {
-      dispatch(getProduct(slug))
-    }
-    setArrOfSubs([])
+    // if (product.category._id === _id) {
+    //   loadProduct()
+    // }
+    // setArrayOfSubs([])
   }
 
   return (
@@ -104,7 +174,65 @@ const UpdateProducts = ({ match }) => {
             ) : (
               <h3> Cập nhật sản phẩm</h3>
             )}
-            <Form {...layout} form={form} onFinish={onFinish}>
+            <Form
+              {...layout}
+              form={form}
+              onFinish={onFinish}
+              // fields={[
+              //   {
+              //     name: ['title'],
+              //     value: product.title,
+              //   },
+              //   {
+              //     name: ['description'],
+              //     value: product.description,
+              //   },
+              //   {
+              //     name: ['category'],
+              //     value: selectedCategory
+              //       ? selectedCategory
+              //       : product.category._id,
+              //   },
+              //   {
+              //     name: ['shipping'],
+              //     value: product.shipping,
+              //   },
+              //   {
+              //     name: ['quantity'],
+              //     value: product.quantity,
+              //   },
+              //   {
+              //     name: ['pages'],
+              //     value: product.pages,
+              //   },
+              //   // {
+              //   //   name: ['supplier'],
+              //   //   value: selectedSupplier
+              //   //     ? selectedSupplier
+              //   //     : product.supplier.name,
+              //   // },
+              //   {
+              //     name: ['publisher'],
+              //     value: product.publisher,
+              //   },
+              //   {
+              //     name: ['publication'],
+              //     value: moment(product.publication),
+              //   },
+              //   {
+              //     name: ['layout'],
+              //     value: product.layout,
+              //   },
+              //   {
+              //     name: ['language'],
+              //     value: product.language,
+              //   },
+              //   {
+              //     name: ['price'],
+              //     value: product.price,
+              //   },
+              // ]}
+            >
               <div className="product__form">
                 <FileUpload
                   setIsLoading={setIsLoading}
@@ -115,11 +243,17 @@ const UpdateProducts = ({ match }) => {
                   product={product}
                   onChange={onChange}
                   onChangeCategory={onChangeCategory}
+                  // onChangeSupplier={onChangeSupplier}
                   categorySubss={categorySubs}
                   showSub={showSub}
                   setProduct={setProduct}
-                  arrOfSubs={arrOfSubs}
-                  setArrOfSubs={setArrOfSubs}
+                  arrayOfSubs={arrayOfSubs}
+                  arrayOfAuthors={arrayOfAuthors}
+                  suppliers={suppliers}
+                  categories={categories}
+                  authors={authors}
+                  setArrayOfSubs={setArrayOfSubs}
+                  setArrayOfAuthors={setArrayOfAuthors}
                 />
               </div>
             </Form>
@@ -130,6 +264,6 @@ const UpdateProducts = ({ match }) => {
   )
 }
 
-UpdateProducts.propTypes = {}
+UpdateProductss.propTypes = {}
 
-export default UpdateProducts
+export default UpdateProductss

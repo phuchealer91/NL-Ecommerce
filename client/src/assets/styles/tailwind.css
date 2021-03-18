@@ -7,3 +7,6 @@
   font-size: 62.5%;
   @apply font-body;
 } */
+svg {
+  vertical-align: baseline;
+}

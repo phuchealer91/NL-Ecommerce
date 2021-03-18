@@ -1,4 +1,10 @@
 const { check } = require('express-validator')
+module.exports.validatorSupplier = () => {
+  return [check('name', 'Supplier is required').not().isEmpty()]
+}
+module.exports.validatorAuthor = () => {
+  return [check('name', 'Author is required').not().isEmpty()]
+}
 module.exports.validatorCategory = () => {
   return [
     check('name', 'Category is required').not().isEmpty(),

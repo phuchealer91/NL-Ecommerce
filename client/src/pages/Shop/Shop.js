@@ -82,13 +82,13 @@ function Shop(props) {
           {isLoading ? (
             <Spin />
           ) : (
-            <h3 className="text-2xl text-green-600 font-semibold pb-3">
+            <h3 className="text-2xl text-green-600 font-semibold pb-3 pl-3">
               Products
             </h3>
           )}
 
           {productsAll.length < 1 && (
-            <span className="text-gray-700 font-semibold text-xl">
+            <span className="text-gray-700 font-semibold text-xl pl-3">
               No products found
             </span>
           )}

@@ -1,7 +1,6 @@
 import { Button, Col, Form, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
-import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getAuthor, updateAuthors } from '../../../apis/author'
@@ -11,7 +10,6 @@ import FormAuthor from './FormAuthor'
 
 const UpdateAuthor = ({ match }) => {
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
   const history = useHistory()
   const [name, setName] = useState('')
   const [bio, setBio] = useState('')

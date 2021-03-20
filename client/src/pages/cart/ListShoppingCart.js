@@ -3,44 +3,29 @@ import {
   CloseCircleOutlined,
   DeleteOutlined,
 } from '@ant-design/icons'
-import { Button, Form, Input, Select, Table } from 'antd'
+import { Button, Form, Input, InputNumber, Select, Table } from 'antd'
 import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { ModalConfirm } from '../../components/ModalConfirm'
+import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 const { Option } = Select
-const ListShoppingCart = () => {
+const ListShoppingCart = ({ item }) => {
   const [form] = Form.useForm()
-  const colors = ['Black', 'Brown', 'Silver', 'White', 'Blue']
-  const { cart } = useSelector((state) => ({ ...state }))
-  let { cartLists } = cart
-  const [ItemX, setItemX] = useState({})
+
   const [showModal, setShowModal] = useState(false)
   const [idDelete, setIdDelete] = useState('')
   const dispatch = useDispatch()
-  function onChangeColor(color) {
-    let cart = []
-    if (typeof window !== 'undefined') {
-      if (localStorage.getItem('cart')) {
-        cart = JSON.parse(localStorage.getItem('cart'))
-      }
-      cart.map((pro, i) => {
-        if (pro._id === ItemX.Id) {
-          cart[i].color = color
-        }
-      })
-      localStorage.setItem('cart', JSON.stringify(cart))
-      dispatch(addToCart(cart))
-    }
-  }
-  function onChangeCount(e) {
-    let count = e.target.value
+
+  console.log('count ne', item)
+  function onChangeCount(count) {
     let countX = count < 1 ? 1 : count
-    if (count > ItemX.Quantity) {
-      toast.warning(`Sản phẩm chỉ còn: ${ItemX.Quantity} `)
+    if (count > item.Quantity) {
+      toast.warning(`Sản phẩm chỉ còn: ${item.Quantity} `)
       return
     }
     let cart = []
@@ -49,17 +34,16 @@ const ListShoppingCart = () => {
         cart = JSON.parse(localStorage.getItem('cart'))
       }
       cart.map((pro, i) => {
-        if (pro._id === ItemX.Id) {
+        if (pro._id === item._id) {
           cart[i].count = countX
         }
       })
       localStorage.setItem('cart', JSON.stringify(cart))
       dispatch(addToCart(cart))
+      console.log('hello đáibáhđấ', cart)
     }
   }
-  function onHandleClick(item) {
-    setItemX(item)
-  }
+
   function onHandleDeleteItem() {
     setShowModal(false)
     let cart = []
@@ -73,6 +57,7 @@ const ListShoppingCart = () => {
         }
       })
       localStorage.setItem('cart', JSON.stringify(cart))
+
       dispatch(addToCart(cart))
     }
   }
@@ -87,128 +72,68 @@ const ListShoppingCart = () => {
   function closeModal() {
     setShowModal(false)
   }
-  const dataSource =
-    cartLists &&
-    cartLists.map((item) => ({
-      Id: item._id,
-      Title: item.title,
-      Image: item.images[0] ? item.images[0].url : imageDefault,
-      Brand: item.brand,
-      Color: item.color,
-      Price: item.price,
-      Count: item.count,
-      Quantity: item.quantity,
-      Shipping: item.shipping,
-    }))
-  const columns = [
-    {
-      title: 'Title',
-      dataIndex: 'Title',
-      key: 'title',
-    },
-    {
-      title: 'Image',
-      dataIndex: 'Image',
-      key: 'image',
-      render: (image) => (
-        <ModalImage small={image} large={image} alt={`${image}`} />
-      ),
-    },
-    {
-      title: 'Brand',
-      dataIndex: 'Brand',
-      key: 'brand',
-    },
-    {
-      title: 'Color',
-      dataIndex: 'Color',
-      key: 'color',
-      render: (colorx, record) => (
-        <Select
-          style={{ width: 105 }}
-          placeholder="Select a color"
-          onChange={onChangeColor}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          defaultValue={colorx}
-          onClick={(e) => onHandleClick(record, e)}
-        >
-          {colors.map((c, i) => (
-            <Option value={c} key={c}>
-              {c}
-            </Option>
-          ))}
-        </Select>
-      ),
-    },
-    {
-      title: 'Price',
-      dataIndex: 'Price',
-      key: 'price',
-    },
-    {
-      title: 'Count',
-      dataIndex: 'Count',
-      key: 'count',
-      render: (count, record) => (
-        <Input
-          style={{ width: 80 }}
-          type="number"
-          onChange={onChangeCount}
-          onClick={(e) => onHandleClick(record, e)}
-          min="1"
-          defaultValue={count}
-        />
-      ),
-    },
-    {
-      title: 'Shipping',
-      dataIndex: 'Shipping',
-      key: 'shipping',
-      render: (shipping) =>
-        shipping === 'Yes' ? (
-          <CheckCircleOutlined className="text-success" />
-        ) : (
-          <CloseCircleOutlined className="text-danger" />
-        ),
-    },
-    {
-      title: 'Thao tác',
-      dataIndex: '',
-      key: 'x',
-
-      render: (text, record) => (
-        <>
-          <Button
-            type="primary"
-            danger
-            icon={<DeleteOutlined />}
-            onClick={(e) => {
-              onHandleDelete(record.Id, e)
-            }}
-          >
-            Xóa
-          </Button>
-        </>
-      ),
-    },
-  ]
   return (
-    <div className="shopping__list-item">
+    <>
       <ModalConfirm
         showModal={showModal}
         closeModal={closeModal}
         onHandleDeleteItem={onHandleDeleteItem}
-        title="sản phẩm"
+        title="sản phẩm từ giỏ hàng"
         // categoryToDelete={categoryToDelete}
       />
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        rowKey="Title"
-        tableLayout="fixed"
-      />
-    </div>
+
+      <div className="hidden md:block">
+        <div className="py-3 flex-row justify-between items-center mb-0 hidden md:flex">
+          <div className="w-1/2 lg:w-3/5 xl:w-3/5 flex flex-row items-start border-b-0 border-grey-dark pt-0 pb-0 pl-3 text-left">
+            <div className="w-20 mx-0 relative pr-0 mr-3 ">
+              <div className="h-20 rounded flex items-center justify-center">
+                <div className="aspect-w-1 aspect-h-1 w-full">
+                  <ModalImage
+                    small={item ? item.images[0]?.url : imageDefault}
+                    large={item ? item.images[0]?.url : imageDefault}
+                    alt={`${item ? item.images[0]?.url : imageDefault}`}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col justify-start items-start">
+              <Link
+                to={`/product/${item.slug}`}
+                className="font-hk text-secondary text-base"
+              >
+                {item.title}
+              </Link>
+              <span className="pt-1 text-gray-700 font-semibold ">
+                {formatPrice(item.price)}đ
+              </span>
+              <span
+                className="pt-1 text-blue-600 cursor-pointer hover:underline"
+                onClick={() => onHandleDelete(item?._id)}
+              >
+                Xóa
+              </span>
+            </div>
+          </div>
+
+          <div className="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4 flex flex-col items-center justify-end">
+            <div className="custom-number-input h-10 w-32">
+              <InputNumber
+                size="middle"
+                min={1}
+                max={100000}
+                value={item.count}
+                onChange={onChangeCount}
+                className="opacity-100"
+              />
+            </div>
+            <div className=" text-blue-700 text-base font-semibold">
+              <span className="text-xs text-gray-500">Thành tiền:</span>{' '}
+              {formatPrice(item.price * item.count)}đ
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

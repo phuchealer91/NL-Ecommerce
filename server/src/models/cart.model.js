@@ -12,7 +12,6 @@ const cartSchema = new schema(
           ref: 'Product',
         },
         count: Number,
-        color: String,
         price: Number,
       },
     ],

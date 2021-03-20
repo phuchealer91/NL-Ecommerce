@@ -342,6 +342,8 @@
 }
 
 .product-item {
+  background-color: #fff;
+  border-radius: 8px;
   &__footer {
     width: 100%;
     padding-bottom: 1rem;
@@ -408,7 +410,7 @@
 
 .contact-input {
   font-size: 14px;
-  border: 1px solid transparent;
+  // border: 1px solid transparent;
   transition: all 0.2s ease;
 
   &:active,
@@ -667,4 +669,17 @@
   .options__item {
     margin-right: 6px;
   }
+}
+.pt-c-10 {
+  padding-top: 10%;
+}
+
+// override ant design
+.ant-input-number-handler-wrap {
+  opacity: 1;
+}
+
+.w-align {
+  width: calc(100% - 156px);
+  display: inline-block;
 }

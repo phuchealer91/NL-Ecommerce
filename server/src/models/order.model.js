@@ -7,7 +7,6 @@ const orderSchema = new schema(
     products: [
       {
         product: { type: ObjectId, ref: 'Product' },
-        color: String,
         count: Number,
       },
     ],

@@ -75,6 +75,7 @@ module.exports.getListProducts = async (req, res) => {
       .sort([[sort, order]])
       .limit(perPage)
       .exec()
+    console.log('listProductslistProducts', listProducts)
 
     return res.status(200).json({ products: listProducts })
   } catch (error) {

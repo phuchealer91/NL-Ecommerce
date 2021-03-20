@@ -1,6 +1,6 @@
 import { Col, Form, Row, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
 import { getAuthors } from '../../../apis/author'

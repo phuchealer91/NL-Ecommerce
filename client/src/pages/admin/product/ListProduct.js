@@ -1,7 +1,7 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Avatar, Button, Col, Form, Row, Table } from 'antd'
+import { Avatar, Button, Col, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { deleteProducts, getListAllProducts } from '../../../apis/product'
@@ -9,10 +9,10 @@ import imageDefault from '../../../assets/images/default-image.jpg'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
-
 import './Product.scss'
+
 const ListProduct = () => {
-  const [form] = Form.useForm()
+  // const [form] = Form.useForm()
   const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
   const [productToDelete, setProductToDelete] = useState('')

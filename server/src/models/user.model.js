@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// const { ObjectId } = mongoose.Schema
+const { ObjectId } = mongoose.Schema
 const schema = mongoose.Schema
 
 const userSchema = new schema(
@@ -8,8 +8,17 @@ const userSchema = new schema(
     email: { type: String, required: true, unique: true, index: true },
     role: { type: String, default: 'user' },
     cart: { type: Array, default: [] },
-    address: { type: String, trim: true },
-    // wishlist: [{ type: ObjectId, ref: 'Product' }],
+    address: [
+      {
+        name: { type: String },
+        phone: { type: Number, required: true },
+        district: { type: String },
+        province: { type: String },
+        ward: { type: String },
+        addressFull: { type: String },
+      },
+    ],
+    wishlist: [{ type: ObjectId, ref: 'Product' }],
   },
   { timestamps: true }
 )

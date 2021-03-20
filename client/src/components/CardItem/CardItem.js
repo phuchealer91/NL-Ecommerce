@@ -7,18 +7,21 @@ import {
 import { Rate, Tooltip } from 'antd'
 import _ from 'lodash'
 import React from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { addWishLists } from '../../apis/cart'
 import imageDefault from '../../assets/images/mac-default.png'
 import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { showDrawer } from '../../redux/actions/ui'
 import ShowRatings from '../Ratings/ShowRatings'
-import './CartItem.scss'
 function CardItem({ product }) {
   const { title, price, slug, quantity } = product
   const image = product.images[0].url
   const dispatch = useDispatch()
+  const history = useHistory()
   function handleAddToCart() {
     let cart = []
     if (typeof window !== 'undefined') {
@@ -39,13 +42,27 @@ function CardItem({ product }) {
     dispatch(addToCart(unique))
     dispatch(showDrawer())
   }
+  function onHanleWishList(e) {
+    e.preventDefault()
+    addWishLists({ productId: product._id })
+      .then((res) => {
+        console.log('sssssssssssssssssssssss', res)
+        if (res) {
+          toast.success('Đã thêm vào yêu thích')
+          history.push('/user/wishlist')
+        }
+      })
+      .catch((error) => {
+        toast.error('Lỗi thêm yêu thích', error)
+      })
+  }
   return (
     <>
-      <div className="relative">
+      <div className="relative p-4">
         <Link to={`/product/${slug}`} className="block">
           <img
             src={image ? image : imageDefault}
-            alt=""
+            alt={image}
             className="product__item-image"
           />
         </Link>
@@ -101,7 +118,7 @@ function CardItem({ product }) {
               </Link>
             </Tooltip>
             <Tooltip placement="left" title="Yêu thích">
-              <Link to="/">
+              <Link to="#" onClick={onHanleWishList}>
                 <HeartOutlined />
               </Link>
             </Tooltip>

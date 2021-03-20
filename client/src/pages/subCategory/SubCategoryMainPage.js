@@ -14,7 +14,7 @@ function SubCategoryMainPage(props) {
   const { slug } = useParams()
   useEffect(() => {
     dispatch(getSubCategory(slug))
-  }, [dispatch, slug])
+  }, [dispatch])
   return (
     <React.Fragment>
       <div className="sub-category-main">

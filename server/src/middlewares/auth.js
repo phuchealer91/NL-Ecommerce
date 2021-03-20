@@ -8,6 +8,7 @@ module.exports.isAuth = async (req, res, next) => {
     req.user = firebaseUser
     next()
   } catch (error) {
+    console.log('loi gi the', error)
     res.status(401).json({ error: 'Invalid or expired token' })
   }
 }

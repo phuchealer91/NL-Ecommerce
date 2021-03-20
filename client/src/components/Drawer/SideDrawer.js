@@ -2,6 +2,7 @@ import { Button, Drawer } from 'antd'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { formatPrice } from '../../helpers/formatPrice'
 import { hideDrawer } from '../../redux/actions/ui'
 import './SidebarDrawer.scss'
 function SideDrawer(props) {
@@ -34,16 +35,11 @@ function SideDrawer(props) {
                   className="dra__wrap-avatar"
                 />
                 <div className="dra__content">
-                  <h3 className="dra__content-name">
-                    {c.title.substring(0, 20)}...
-                  </h3>
-                  <span className="dra__content-desc">
-                    {c.description.substring(0, 40)}...
+                  <h3 className="dra__content-name">{c.title}</h3>
+                  <span className="text-blue-600 font-semibold">
+                    {formatPrice(c.price)}đ
                   </span>
                 </div>
-              </div>
-              <div className="dra__price W">
-                <span className="dra__price-red">{c.price}</span> VND
               </div>
             </li>
           ))}
@@ -52,7 +48,7 @@ function SideDrawer(props) {
             <Button
               type="primary"
               size="large"
-              className="dra__btn-check"
+              className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5"
               onClick={onHandleCheckOut}
             >
               Thanh Toán

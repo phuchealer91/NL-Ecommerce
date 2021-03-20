@@ -35,6 +35,7 @@ const PATHS = {
   WARD: 'ward',
   AUTHOR: 'author',
   SUPPLIER: 'supplier',
+  WISHLISTS: 'wishlists',
 }
 
 export default PATHS

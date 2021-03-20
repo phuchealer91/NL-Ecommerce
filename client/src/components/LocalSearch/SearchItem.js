@@ -1,6 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Input } from 'antd'
+import React from 'react'
 
 const SearchItem = ({ keyword, setKeyword }) => {
   // Search

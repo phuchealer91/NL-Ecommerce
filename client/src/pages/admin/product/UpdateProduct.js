@@ -1,17 +1,16 @@
-import { Col, Form, Row, Select, Space, Spin } from 'antd'
+import { Col, Form, Row, Space, Spin } from 'antd'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import { getAuthors } from '../../../apis/author'
 import { getCategories, getCategorySubs } from '../../../apis/category'
-import { getProduct, updateProducts } from '../../../apis/product'
+import { getProduct } from '../../../apis/product'
 import { getSuppliers } from '../../../apis/supplier'
 import FileUpload from '../../../components/FileUpload'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
 import FormUpdateProduct from './FormUpdateProduct'
 import './Product.scss'
-import moment from 'moment'
-import { toast } from 'react-toastify'
-import { useHistory } from 'react-router'
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },

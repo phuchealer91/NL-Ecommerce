@@ -1,4 +1,3 @@
-import PATHS from '../redux/constants/paths'
 import axiosServices from './axiosServices'
 
 export const uploadFileImages = (data) => {

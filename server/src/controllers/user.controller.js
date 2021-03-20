@@ -20,7 +20,7 @@ module.exports.userCart = async (req, res) => {
     let obj = {}
     obj.product = cart[i]._id
     obj.count = cart[i].count
-    obj.color = cart[i].color
+
     // Get price tu db tránh trường hợp sửa ở local (ko bảo mật)
     let productById = await Product.findById(cart[i]._id).select('price').exec()
     obj.price = productById.price
@@ -41,7 +41,10 @@ module.exports.userCart = async (req, res) => {
 module.exports.getUserCart = async (req, res) => {
   const user = await User.findOne({ email: req.user.email }).exec()
   const cart = await Cart.findOne({ orderedBy: user._id })
-    .populate('products.product', '_id title price totalAfterDiscount')
+    .populate(
+      'products.product',
+      '_id title slug price images totalAfterDiscount'
+    )
     .exec()
   const { products, cartTotal, totalAfterDiscount } = cart
 
@@ -130,4 +133,48 @@ module.exports.getOrders = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }
+}
+
+// add, update, remove wishlist
+module.exports.addWishList = async (req, res) => {
+  const { productId } = req.body
+  const user = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $addToSet: { wishlist: productId } }
+  ).exec()
+
+  return res.status(200).json({ user })
+}
+
+module.exports.getWishList = async (req, res) => {
+  // const { page } = req.body
+  // const currentPage = page || 1
+  // const perPage = 4
+  try {
+    const list = await User.findOne({ email: req.user.email })
+      .select('wishlist')
+      .populate('wishlist')
+      // .skip((currentPage - 1) * perPage)
+      // .limit(perPage)
+      .exec()
+    // const wishL = list.limit(4).exec()
+    // console.log('wishLwishL', wishL)
+    console.log('wishLwishL', list)
+    return res.status(200).json({ list })
+  } catch (error) {
+    console.log('LOI wishLwishL', error)
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+module.exports.removeWishList = async (req, res) => {
+  const { productId } = req.params
+  const user = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $pull: { wishlist: productId } },
+    { new: true }
+  ).exec()
+
+  if (!user) return res.status(400).json({ error: 'Không thấy người dùng' })
+  return res.status(200).json({ msg: 'Xóa thành công' })
 }

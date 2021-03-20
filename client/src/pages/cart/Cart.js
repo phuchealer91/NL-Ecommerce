@@ -1,12 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Col, Divider, Row } from 'antd'
-import './Cart.scss'
 import { Link, useHistory } from 'react-router-dom'
-import { formatPrice } from '../../helpers/formatPrice'
-import ListShoppingCart from './ListShoppingCart'
 import { userCart } from '../../redux/actions/cart'
+import { InputNumber } from 'antd'
+import './Cart.scss'
+import { EmptyCart } from '../../components/Empty'
+import ListShoppingCart from './ListShoppingCart'
+import { formatPrice } from '../../helpers/formatPrice'
+import { userCarts } from '../../apis/cart'
+import { toast } from 'react-toastify'
 function Cart(props) {
   const { cart, user } = useSelector((state) => ({ ...state }))
   let { cartLists, isCheckOut } = cart
@@ -18,87 +20,89 @@ function Cart(props) {
     }, 0)
   }
   function onHandleCheckOut() {
-    dispatch(userCart({ cartLists }))
-    history.push('/check-out')
+    userCarts({ cartLists })
+      .then((res) => {
+        if (res.data.newCart) {
+          history.push('/check-out')
+        }
+      })
+      .catch((error) => {
+        toast.error('Lỗi thanh toán')
+      })
   }
-
   return (
-    <React.Fragment>
-      <div className="shopping-cart">
-        <Row>
-          <Col xs={24} sm={24} md={16} lg={16}>
-            <h3 className="shopping__heading">
-              Giỏ hàng:{' '}
-              <span className="shopping__heading-red">{cartLists.length}</span>{' '}
-              sản phẩm
-            </h3>
-            {!cartLists.length ? (
-              <div className="shopping__wrap">
-                <p className="shopping__nothing">Không có sản phẩm nào. </p>{' '}
-                <Link to="/shop">Tiếp tục mua hàng</Link>{' '}
-              </div>
-            ) : (
-              <ListShoppingCart />
-            )}
-          </Col>
-          <Col xs={24} sm={24} md={8} lg={8}>
-            <h3 className="shopping__heading">Thanh Toán</h3>
-            <Divider style={{ margin: '10px 0' }} />
-            <h5 className="shopping__detail">Chi tiết thanh toán</h5>
-            {cartLists.map((c, i) => (
-              <ul key={c._id} className="shopping__detail-wrap">
-                <li className="shopping__detail-item">
-                  <span className="shopping__detail-index">{i + 1}. </span>{' '}
-                  {c.title} x {c.count} = {formatPrice(c.price * c.count)} VND
-                </li>
-              </ul>
-            ))}
-            <Divider style={{ margin: '10px 0' }} />
-            <h5 className="shopping__total">
-              Tổng: {formatPrice(getTotal())} VND
-            </h5>
-            <div className="shopping__checkout">
-              {user && user.token ? (
-                <>
-                  <span className="shopping__btn">
-                    <Button
-                      onClick={onHandleCheckOut}
-                      type="primary"
-                      shape="round"
-                      size="middle"
-                      disabled={!cartLists.length}
-                    >
-                      Proceed to Checkout
-                    </Button>
-                  </span>{' '}
-                  <span className="shopping__btn">
-                    <Button
-                      type="primary"
-                      shape="round"
-                      size="middle"
-                      disabled={!cartLists.length}
-                    >
-                      Pay Cash on Delivery
-                    </Button>
-                  </span>
-                </>
+    <>
+      <div className="pt-10 px-6">
+        <h1 className="font-hkbold text-secondary text-2xl pb-3 text-center sm:text-left">
+          GIỎ HÀNG{' '}
+          <span className="text-gray-500 text-xs">
+            ({cartLists.length} sản phẩm)
+          </span>
+        </h1>
+        <div className="flex flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
+          <div className="lg:w-2/3 pr-6">
+            <div className="pt-8 bg-white rounded">
+              {!cartLists.length ? (
+                <div className="shopping__wrap">
+                  <EmptyCart />
+                  <Link to="/shop">Tiếp tục mua hàng</Link>{' '}
+                </div>
               ) : (
-                <Button type="primary" shape="round" size="middle">
+                cartLists &&
+                cartLists.map((item) => {
+                  return <ListShoppingCart item={item} />
+                })
+              )}
+            </div>
+          </div>
+          <div className="lg:w-2/6">
+            <div className="bg-white rounded">
+              <div className="px-3 pt-3 pb-8">
+                <div className="border-b border-gray-100 pb-1 text-gray-500  border-solid">
+                  Thành tiền
+                </div>
+                <div className="flex items-center justify-between pt-2 pb-4">
+                  <p className="text-gray-500 font-semibold text-">
+                    Tổng số tiền (gồm VAT)
+                  </p>
+                  <p className="text-blue-600 font-semibold text-xl">
+                    {formatPrice(getTotal())}đ
+                  </p>
+                </div>
+                {user && user.token ? (
+                  <>
+                    <button
+                      onClick={onHandleCheckOut}
+                      disabled={!cartLists.length}
+                      className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5"
+                    >
+                      Thanh Toán
+                    </button>
+                    <button
+                      onClick={onHandleCheckOut}
+                      disabled={!cartLists.length}
+                      className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5 mt-2"
+                    >
+                      Thanh Toán Tiền Mặt
+                    </button>
+                  </>
+                ) : (
                   <Link
                     to={{
                       pathname: '/login',
                       state: { from: 'cart' },
                     }}
+                    className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5"
                   >
-                    Login to Checkout
+                    Đăng nhập
                   </Link>
-                </Button>
-              )}
+                )}
+              </div>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 Cart.propTypes = {}

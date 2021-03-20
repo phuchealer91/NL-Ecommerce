@@ -1,5 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons'
-import { Avatar, Badge, Button, Input } from 'antd'
+import { Avatar, Badge, Input } from 'antd'
 import React from 'react'
 import Resizer from 'react-image-file-resizer'
 import { useSelector } from 'react-redux'

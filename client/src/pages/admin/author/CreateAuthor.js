@@ -1,8 +1,11 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Col, Form, Row, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import ReactQuill from 'react-quill'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { createAuthors, deleteAuthors, getAuthors } from '../../../apis/author'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
@@ -13,9 +16,6 @@ import { AdminSideBar } from '../../../components/navigation/SideBar'
 // } from '../../../redux/actions/category'
 import './Authors.scss'
 import FormAuthor from './FormAuthor'
-import { toast } from 'react-toastify'
-import { createAuthors, deleteAuthors, getAuthors } from '../../../apis/author'
-import ReactQuill from 'react-quill'
 
 const CreateAuthor = () => {
   const [form] = Form.useForm()

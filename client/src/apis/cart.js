@@ -25,3 +25,17 @@ export const createOrders = (data) => {
 export const userOrders = (data) => {
   return axiosServices.get(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDERS}`, data)
 }
+
+//api wish list
+export const addWishLists = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/${PATHS.WISHLIST}`, data)
+}
+export const getWishLists = (page) => {
+  return axiosServices.post(`/${PATHS.USER}/${PATHS.WISHLISTS}`, { page })
+}
+export const removeWishLists = (productId, data) => {
+  return axiosServices.put(
+    `/${PATHS.USER}/${PATHS.WISHLIST}/${productId}`,
+    data
+  )
+}

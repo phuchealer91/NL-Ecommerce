@@ -1,5 +1,4 @@
 import * as types from '../constants/order'
-import { toast } from 'react-toastify'
 let initialState = {
   ordersList: [],
   ordersListChange: [],

@@ -1,16 +1,5 @@
 import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Rate,
-  Row,
-  Tabs,
-  Tooltip,
-} from 'antd'
+import { Card, Col, Divider, Form, Input, Rate, Row, Tabs, Tooltip } from 'antd'
 import { format } from 'date-fns'
 import _ from 'lodash'
 import React from 'react'

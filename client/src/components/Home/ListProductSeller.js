@@ -1,4 +1,4 @@
-import { Col, Pagination, Row } from 'antd'
+import { Pagination, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getListProductss } from '../../apis/product'

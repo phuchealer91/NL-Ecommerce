@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { getCategorySubs } from '../../apis/category'
-import PATHS from '../../redux/constants/paths'
 import './SubCategoryList.scss'
 
 function SubCategoryK() {
@@ -11,15 +10,21 @@ function SubCategoryK() {
       setSubK(res.data.subs)
     })
   }, [])
+
+  const history = useHistory()
+  function onhandleClick(xxx) {
+    history.push(`sub-category/${xxx}`)
+  }
   return (
     <React.Fragment>
       {subK &&
         subK.map((subCategory) => {
           return (
             <>
-              <li key={subCategory._id} className="group">
+              <li key={subCategory._id}>
                 <Link
-                  to={`${PATHS.SUB_CATEGORY}/${subCategory.slug}`}
+                  // to={`${PATHS.SUB_CATEGORY}/${subCategory.slug}`}
+                  onClick={() => onhandleClick(subCategory.slug)}
                   className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                 >
                   {subCategory.name}

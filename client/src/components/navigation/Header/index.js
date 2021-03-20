@@ -110,7 +110,7 @@ const Header = () => {
     // </Menu>
     <>
       <header className="header">
-        <div className="desktop-header bg-white xs:hidden lg:block">
+        <div className="desktop-header bg-white hidden lg:block">
           <div className="container mx-auto px-11">
             <nav className="nav flex justify-between relative">
               <div className="flex items-center">

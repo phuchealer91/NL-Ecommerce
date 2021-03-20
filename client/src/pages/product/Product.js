@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { getProduct, getRelated } from '../../redux/actions/product'
-import { useRouteMatch } from 'react-router-dom'
 import { Col, Row } from 'antd'
-import { SingleProduct } from '../../components/SingleProduct'
-import './Product.scss'
-import { useState } from 'react'
-import LoadingCard from '../../components/LoadingCard'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouteMatch } from 'react-router-dom'
 import { CardItem } from '../../components/CardItem'
+import LoadingCard from '../../components/LoadingCard'
+import { SingleProduct } from '../../components/SingleProduct'
+import { getProduct, getRelated } from '../../redux/actions/product'
+import './Product.scss'
 function Product(props) {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)

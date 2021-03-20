@@ -8,6 +8,9 @@ const {
   applyCouponToCart,
   createOrder,
   getOrders,
+  addWishList,
+  getWishList,
+  removeWishList,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
@@ -20,5 +23,10 @@ router.post('/cart/coupon', isAuth, applyCouponToCart)
 // order
 router.post('/cart/order', isAuth, createOrder)
 router.get('/cart/orders', isAuth, getOrders)
+
+// wishlist
+router.post('/wishlist', isAuth, addWishList)
+router.post('/wishlists', isAuth, getWishList)
+router.put('/wishlist/:productId', isAuth, removeWishList)
 
 module.exports = router

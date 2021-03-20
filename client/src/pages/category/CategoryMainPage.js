@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getCategory } from '../../redux/actions/category'
@@ -48,7 +47,5 @@ function CategoryMainPage(props) {
     </React.Fragment>
   )
 }
-
-CategoryMainPage.propTypes = {}
 
 export default CategoryMainPage

@@ -7,6 +7,7 @@ import SideDrawer from '../components/Drawer/SideDrawer'
 import GlobalLoading from '../components/GlobalLoading/GlobalLoading'
 import Header from '../components/navigation/Header'
 import { auth } from '../firebase'
+import Addressx from '../pages/address'
 import { DashBoard } from '../pages/admin'
 import CreateAuthor from '../pages/admin/author/CreateAuthor'
 import UpdateAuthor from '../pages/admin/author/UpdateAuthor'
@@ -174,6 +175,7 @@ function App() {
           />
           <Route exact path={`/${PATHS.CART}`} component={Cart} />
           <Route exact path={`/${PATHS.CHECKOUT}`} component={CheckOut} />
+          <Route exact path={`/${PATHS.ADDRESS}`} component={Addressx} />
           <Route exact path={`/${PATHS.PAYMENT}`} component={Payment} />
           <Route exact path={`/${PATHS.HOME}`} component={Home} />
           <Route exact path={`/${PATHS.SHOP}`} component={Shop} />

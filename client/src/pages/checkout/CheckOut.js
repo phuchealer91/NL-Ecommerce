@@ -1,21 +1,14 @@
-import { Button, Col, Divider, Input, List, Row, Typography } from 'antd'
+import { Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
-import ReactQuill from 'react-quill' // ES6
-import { useDispatch, useSelector } from 'react-redux'
+import ModalImage from 'react-modal-image'
+import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { emptyCarts, getUserCarts } from '../../apis/cart'
-import { formatPrice } from '../../helpers/formatPrice'
+import { emptyCarts, getAddresss, getUserCarts } from '../../apis/cart'
 import imageDefault from '../../assets/images/default-image.jpg'
-import ModalImage from 'react-modal-image'
-import {
-  addAddressCart,
-  addToCart,
-  applyCouponCart,
-  emptyCart,
-  getUserCart,
-} from '../../redux/actions/cart'
-import { getProvinceDistrict, getProvinces } from '../../apis/province'
+import { formatPrice } from '../../helpers/formatPrice'
+import { addToCart } from '../../redux/actions/cart'
+
 const { Text } = Typography
 function CheckOut(props) {
   const dispatch = useDispatch()
@@ -23,6 +16,7 @@ function CheckOut(props) {
   const [total, setTotal] = useState(0)
   const [address, setAddress] = useState('')
   const [addressSaved, setAddressSaved] = useState(false)
+  const [listAddress, setListAddress] = useState([])
   const [coupon, setCoupon] = useState('')
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
@@ -38,6 +32,7 @@ function CheckOut(props) {
       setProducts(res.data.products)
       setTotal(res.data.cartTotal)
     })
+    loadUserAddress()
   }, [])
   const onHandleEmptyCart = () => {
     // remove from local storage
@@ -53,6 +48,7 @@ function CheckOut(props) {
       setTotalAfterDiscount(0)
       setCoupon('')
       toast.success('Cart is emapty. Contniue shopping.')
+      history.push('/')
     })
   }
 
@@ -75,39 +71,19 @@ function CheckOut(props) {
 
   // }
 
-  const [province, setProvince] = useState('')
-  const [provinceDistrict, setProvinceDistrict] = useState('')
-  const [values, setValues] = useState([])
-  const [valuess, setValuess] = useState([])
-  useEffect(() => {
-    getProvincess()
-  }, [])
-  useEffect(() => {
-    getProvinceDistrictss()
-  }, [valuess, province, provinceDistrict])
-  function getProvincess() {
-    getProvinces({})
+  function loadUserAddress() {
+    getAddresss()
       .then((res) => {
-        setValues(res)
+        console.log('hello dia chi', res)
+        setListAddress(res.data.listUserAddress.address)
       })
-      .catch((err) => console.log('Error anh em', err))
-  }
-  function getProvinceDistrictss() {
-    getProvinceDistrict(province)
-      .then((res) => {
-        setValuess(res)
+      .catch((error) => {
+        toast.error('Lỗi lấy địa chỉ', error)
       })
-      .catch((err) => console.log('Error anh em', err))
   }
-  function handleChangeProvinceDistrict(value) {
-    setProvinceDistrict(value)
-  }
-  // function handleChange(value) {
-  //   setProvinceDistrict('')
-  //   setProvince(value)
-  // }
+  console.log('hello dia chi', listAddress)
   return (
-    <React.Fragment>
+    <div>
       {/* <Row>
         <Col xs={24} sm={24} md={12} lg={12} className="px-2">
           <h3 className="text-2xl font-medium mb-3">Thông tin vận chuyển</h3>
@@ -211,93 +187,59 @@ function CheckOut(props) {
       <div className="xl:max-w-7xl mx-auto bg-white rounded">
         <div className="px-3 pt-3 pb-8">
           <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
-            ĐỊA CHỈ GIAO HÀNG
+            TẤT CẢ ĐỊA CHỈ ()
           </div>
-          <div>
-            <div className="my-5 px-4">
-              <div className="my-2 flex items-center justify-between">
-                <span> Họ và tên người nhận </span>
-                <input
-                  type="text"
-                  placeholder="Nhập họ và tên người nhận"
-                  className="ml-2 py-2 w-align border px-3 text-grey-darkest rounded"
-                />
-              </div>
-              <div className="my-2 flex items-center justify-between">
-                <span> Số điện thoại </span>
-                <input
-                  type="text"
-                  placeholder="Nhập số điện thoại"
-                  className="ml-2 py-2 w-align border px-3 text-grey-darkest rounded"
-                />
-              </div>
-              <div className="my-2 flex items-center justify-between">
-                <span> Tỉnh/Thành Phố </span>
-                <select
-                  type="select"
-                  placeholder="Chọn tỉnh/thành phố"
-                  className="ml-2 py-2 w-align border px-3 text-grey-darkest rounded"
-                  // value={provinceDistrict}
-                  // onChange={handleChangeProvinceDistrict}
+          <div className="my-3 mx-3 flex items-center">
+            <span>Bạn muốn giao hàng đến địa chỉ khác?</span>
+            <Link
+              // disabled={districtWard || !products.length}
+              onClick={() => history.push('/address')}
+              className="text-blue-600  bg-transparent px-2"
+            >
+              Thêm địa chỉ giao hàng mới
+            </Link>
+          </div>
+          <div className="flex items-start justify-start mt-4">
+            {listAddress.length > 0 ? (
+              listAddress.map((addr) => {
+                return (
+                  <div className="w-2/6 border-dashed border-blue-600 bg-gray-50 mx-3 border">
+                    <div className="px-3 py-3">
+                      <div className="text-base text-gray-600 font-semibold">
+                        {addr.name}
+                      </div>
+                      <div className="text-base text-gray-600">
+                        <span className="text-sm text-gray-500">Địa chỉ: </span>
+                        {addr.fullAddress} - {addr.mainAddress}
+                      </div>
+                      <div className="text-base text-gray-600">
+                        <span className="text-sm text-gray-500">
+                          Điện thoại:{' '}
+                        </span>
+                        {addr.phone}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            ) : (
+              <div className="border border-dashed border-red-600 px-4 py-3 mt-3 mx-auto">
+                <span className="text-red-600 font-semibold text-sm">
+                  Hiện tại bạn chưa có địa chỉ để chúng tôi giao hàng !{' '}
+                </span>
+                <button
+                  // disabled={districtWard || !products.length}
+                  onClick={() => history.push('/address')}
+                  className="text-blue-600 btn btn-addToCart uppercase mx-auto w-full mt-2 bg-transparent border border-blue-600 border-solid"
                 >
-                  {values &&
-                    values.data?.provinces.map((arr) => {
-                      return (
-                        <option key={arr._id} value={arr.code}>
-                          {arr.name}
-                        </option>
-                      )
-                    })}
-                </select>
+                  Bấm vào đây để thêm địa chỉ giao hàng
+                </button>
               </div>
-              <div className="my-2 flex items-center justify-between">
-                <span> Quận/Huyện</span>
-                <select
-                  type="select"
-                  placeholder="Chọn tỉnh/thành phố"
-                  className="ml-2 py-2 w-align border px-3 text-grey-darkest rounded"
-                  value={provinceDistrict}
-                  onChange={handleChangeProvinceDistrict}
-                >
-                  {valuess &&
-                    valuess.data?.districts.map((arr) => {
-                      return (
-                        <option key={arr._id} value={arr.code}>
-                          {arr.name}
-                        </option>
-                      )
-                    })}
-                </select>
-              </div>
-              <div className="my-2 flex items-center justify-between">
-                <span> Phường/Xã</span>
-                <input
-                  type="text"
-                  placeholder="Nhập số điện thoại"
-                  className="ml-2 py-2 w-align border px-3 text-grey-darkest rounded"
-                />
-              </div>
-              <div className="my-2 flex items-center justify-between">
-                <span> Địa chỉ nhận hàng</span>
-                <input
-                  type="text"
-                  placeholder="Nhập số điện thoại"
-                  className="ml-2 py-2 w-align border px-3 text-grey-darkest rounded calc"
-                />
-              </div>
-            </div>
-
-            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-              <button
-                type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Save
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </div>
+      {/* dia chi giao hang */}
       <div className="xl:max-w-7xl mx-auto bg-white rounded mt-4">
         <div className="px-3 pt-3 pb-8">
           <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
@@ -367,7 +309,29 @@ function CheckOut(props) {
             })}
         </div>
       </div>
-    </React.Fragment>
+      <div className="xl:max-w-7xl mx-auto bg-white rounded mt-4">
+        <div className="px-3 pt-3 pb-8">
+          <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
+            XÁC NHẬN THANH TOÁN
+          </div>
+
+          <button
+            // disabled={districtWard || !products.length}
+            onClick={() => history.push('/payment')}
+            className="btn btn-primary btn-addToCart uppercase mx-auto w-1/4 mt-2"
+          >
+            Đặt hàng
+          </button>
+          <button
+            onClick={onHandleEmptyCart}
+            disabled={!products.length}
+            className="btn btn-primary btn-addToCart uppercase mx-auto w-1/4 mt-2"
+          >
+            Xóa đơn hàng
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 CheckOut.propTypes = {}

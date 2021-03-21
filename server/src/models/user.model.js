@@ -10,12 +10,10 @@ const userSchema = new schema(
     cart: { type: Array, default: [] },
     address: [
       {
-        name: { type: String },
+        name: { type: String, required: true },
         phone: { type: Number, required: true },
-        district: { type: String },
-        province: { type: String },
-        ward: { type: String },
-        addressFull: { type: String },
+        mainAddress: { type: String, required: true },
+        fullAddress: { type: String, required: true },
       },
     ],
     wishlist: [{ type: ObjectId, ref: 'Product' }],

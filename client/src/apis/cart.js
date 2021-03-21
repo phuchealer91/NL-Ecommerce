@@ -39,3 +39,11 @@ export const removeWishLists = (productId, data) => {
     data
   )
 }
+
+// api add addresss
+export const addAddresss = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/${PATHS.ADDRESS}`, data)
+}
+export const getAddresss = (data) => {
+  return axiosServices.get(`/${PATHS.USER}/${PATHS.ADDRESS}`, data)
+}

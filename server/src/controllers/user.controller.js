@@ -178,3 +178,51 @@ module.exports.removeWishList = async (req, res) => {
   if (!user) return res.status(400).json({ error: 'Không thấy người dùng' })
   return res.status(200).json({ msg: 'Xóa thành công' })
 }
+
+module.exports.addAddress = async (req, res) => {
+  const { name, phone, mainAddress, fullAddress } = req.body
+  console.log('dcmmm add ', req.body)
+  console.log('dcmmm add address', fullAddress)
+  const userAddress = await User.findOneAndUpdate(
+    { email: req.user.email },
+    {
+      $push: {
+        address: {
+          name,
+          phone,
+          mainAddress,
+          fullAddress,
+        },
+      },
+    },
+    { new: true }
+  ).exec()
+
+  if (!userAddress)
+    return res.status(400).json({ error: 'Không thấy người dùng' })
+  return res.status(200).json({ userAddress })
+}
+module.exports.getAddress = async (req, res) => {
+  try {
+    const listUserAddress = await User.findOne({ email: req.user.email })
+      .select('address')
+      .exec()
+    console.log('hello ccc', listUserAddress)
+    if (!listUserAddress)
+      return res.status(400).json({ error: 'Không thấy người dùng' })
+    return res.status(200).json({ listUserAddress })
+  } catch (error) {
+    console.log('loi gi the', error)
+  }
+}
+module.exports.removeAddress = async (req, res) => {
+  const { productId } = req.params
+  const user = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $pull: { wishlist: productId } },
+    { new: true }
+  ).exec()
+
+  if (!user) return res.status(400).json({ error: 'Không thấy người dùng' })
+  return res.status(200).json({ msg: 'Xóa thành công' })
+}

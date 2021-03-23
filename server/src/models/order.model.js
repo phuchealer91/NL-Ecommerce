@@ -14,8 +14,8 @@ const orderSchema = new schema(
     deliveryAddress: {},
     orderStatus: {
       type: String,
-      default: 'Tiếp nhận',
-      enum: ['Tiếp nhận', 'Đang xử lý', 'Hoàn thành', 'Hủy'],
+      default: 'Đang chờ xác nhận',
+      enum: ['Đang chờ xác nhận', 'Đang xử lý', 'Đã bàn giao', 'Hủy'],
     },
     orderedBy: { type: ObjectId, ref: 'User' },
   },

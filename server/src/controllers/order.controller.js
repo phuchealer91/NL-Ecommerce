@@ -6,6 +6,7 @@ module.exports.getOrders = async (req, res) => {
       .sort('-createdAt')
       .populate('products.product')
       .exec()
+    console.log('hello orrder', allOrders)
     return res.status(200).json({ orders: allOrders })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })

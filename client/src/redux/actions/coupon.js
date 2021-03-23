@@ -57,3 +57,22 @@ export const deleteCouponFailed = (error) => {
     payload: { error },
   }
 }
+// DELETE COUPON
+export const appliedCoupon = (data) => {
+  return {
+    type: types.APPLIED_COUPON,
+    payload: data,
+  }
+}
+export const appliedCouponSuccess = (data) => {
+  return {
+    type: types.APPLIED_COUPON_SUCCESS,
+    payload: { data },
+  }
+}
+export const appliedCouponFailed = (error) => {
+  return {
+    type: types.APPLIED_COUPON_FAILED,
+    payload: { error },
+  }
+}

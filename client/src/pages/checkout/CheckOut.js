@@ -1,23 +1,35 @@
+import { DeleteOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
+import Modal from 'antd/lib/modal/Modal'
 import React, { useEffect, useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { emptyCarts, getAddresss, getUserCarts } from '../../apis/cart'
+import {
+  applyAddressCarts,
+  applyCouponCarts,
+  emptyCarts,
+  getAddresss,
+  getUserCarts,
+  removeAddress,
+} from '../../apis/cart'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
+import { appliedCoupon } from '../../redux/actions/coupon'
 
 const { Text } = Typography
 function CheckOut(props) {
   const dispatch = useDispatch()
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
-  const [address, setAddress] = useState('')
-  const [addressSaved, setAddressSaved] = useState(false)
+  const [isSubmitAddr, setIsSubmitAddr] = useState(false)
+  const [addressSaved, setAddressSaved] = useState(null)
   const [listAddress, setListAddress] = useState([])
-  const [coupon, setCoupon] = useState('')
+  const [addressId, setAddressId] = useState('')
+  const [coupons, setCoupons] = useState('')
+  const [visible, setVisible] = useState(false)
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
   const [discountError, setDiscountError] = useState('')
@@ -46,44 +58,103 @@ function CheckOut(props) {
       setProducts([])
       setTotal(0)
       setTotalAfterDiscount(0)
-      setCoupon('')
-      toast.success('Cart is emapty. Contniue shopping.')
+      setCoupons('')
+      toast.success('Giỏ hàng rỗng. Chúc bạn tiếp tục mua sản phẩm vui vẻ.')
       history.push('/')
     })
   }
-
-  // function onHandleEmptyCart() {
-  //   if (typeof window !== 'undefined') {
-  //     localStorage.removeItem('cart')
-  //   }
-  //   dispatch(addToCart([]))
-  //   dispatch(emptyCart([]))
-  //   setCoupons('')
-  // }
-  // function onHandleChange(value) {
-  //   setAddressCart(value)
-  // }
-  // function onSubmit() {
-  //   dispatch(addAddressCart({ address: addressCart }))
-  // }
-  // function onHandleSubmit() {
-  //   dispatch(applyCouponCart({ coupon: coupons }))
-
-  // }
 
   function loadUserAddress() {
     getAddresss()
       .then((res) => {
         console.log('hello dia chi', res)
         setListAddress(res.data.listUserAddress.address)
+        setAddressSaved(res.data.listUserAddress.address[0])
+        applyAddressCarts({
+          deliveryAddress: res.data.listUserAddress.address[0],
+        })
       })
       .catch((error) => {
         toast.error('Lỗi lấy địa chỉ', error)
       })
   }
-  console.log('hello dia chi', listAddress)
+  console.log('totalAfterDiscount', totalAfterDiscount)
+  function onHandleDelete(addressId) {
+    setAddressId(addressId)
+    setVisible(true)
+  }
+  function onHandleDeleted() {
+    removeAddress(addressId)
+      .then((res) => {
+        console.log('xóa cc', res)
+        toast.success('Xóa địa chỉ thành công')
+        setVisible(false)
+        loadUserAddress()
+      })
+      .catch((error) => {
+        setVisible(false)
+        toast.error('Xóa địa chỉ thất bại')
+      })
+  }
+  function onHandleAddressSelected(deliveryAddress) {
+    console.log('hello dia chi', deliveryAddress)
+    setAddressSaved(deliveryAddress)
+
+    applyAddressCarts({ deliveryAddress })
+      .then((res) => {
+        console.log('deliveryAddressdeliveryAddress', res)
+        if (res.data) {
+          toast.success('Chọn địa chỉ giao hàng thành công')
+          setIsSubmitAddr(true)
+        }
+      })
+      .catch((error) => {
+        setIsSubmitAddr(false)
+        toast.error('Chọn địa chỉ giao hàng thất bại')
+        console.log('errror', error)
+      })
+  }
+  console.log('hello dia chi mac dinh', listAddress[0])
+  console.log('hello dia chi click', coupons)
+  function onHandleApplyCoupon() {
+    applyCouponCarts({ coupons })
+      .then((res) => {
+        console.log('res', res)
+        if (res.data) {
+          setTotalAfterDiscount(res.data.totalAfterDiscount.totalAfterDiscount)
+          dispatch(appliedCoupon(true))
+        }
+        toast.success('Áp dụng mã khuyến mãi thành công')
+      })
+      .catch((error) => {
+        toast.error('Áp dụng mã khuyến mãi thất bại', error)
+        dispatch(appliedCoupon(false))
+      })
+  }
+  function onHandlePayMent() {
+    console.log('dcmmmmmmmm', !addressSaved)
+    console.log('dcmmmmmmmm 2', !products.length)
+    if (!addressSaved || !products.length) {
+      return toast.error('Vui lòng cập nhật địa chỉ giao hàng')
+    } else {
+      history.push('/payment')
+    }
+  }
   return (
     <div>
+      <Modal
+        title="Xóa địa chỉ giao hàng"
+        visible={visible}
+        onOk={onHandleDeleted}
+        onCancel={() => setVisible(false)}
+        okText="Chấp nhận"
+        cancelText="Hủy"
+      >
+        <p>
+          Khi bạn xóa địa chỉ giao hàng hiện tại, bạn sẽ{' '}
+          <span className="text-red-600">không thể</span> khôi phục nó.
+        </p>
+      </Modal>
       {/* <Row>
         <Col xs={24} sm={24} md={12} lg={12} className="px-2">
           <h3 className="text-2xl font-medium mb-3">Thông tin vận chuyển</h3>
@@ -201,25 +272,59 @@ function CheckOut(props) {
           </div>
           <div className="flex items-start justify-start mt-4">
             {listAddress.length > 0 ? (
-              listAddress.map((addr) => {
+              listAddress.map((addr, idx) => {
                 return (
-                  <div className="w-2/6 border-dashed border-blue-600 bg-gray-50 mx-3 border">
-                    <div className="px-3 py-3">
-                      <div className="text-base text-gray-600 font-semibold">
-                        {addr.name}
+                  <>
+                    <div
+                      key={addr._id}
+                      className={`w-2/6 bg-gray-50 mx-3 border ${
+                        addressSaved && addr._id === addressSaved?._id
+                          ? 'border-dashed border-red-700 border-4'
+                          : 'border-solid border-gray-200'
+                      }`}
+                    >
+                      <div className="px-3 py-3">
+                        <div className="text-base text-gray-600 font-semibold flex items-center justify-between">
+                          <span>{addr.name}</span>
+                          {idx === 0 && addr._id === addressSaved?._id ? (
+                            <span className="text-blue-600 text-xs">
+                              Mặc định
+                            </span>
+                          ) : (
+                            ''
+                          )}
+                        </div>
+                        <div className="text-base text-gray-600">
+                          <span className="text-sm text-gray-500">
+                            Địa chỉ:{' '}
+                          </span>
+                          {addr.fullAddress} - {addr.mainAddress}
+                        </div>
+                        <div className="text-base text-gray-600">
+                          <span className="text-sm text-gray-500">
+                            Điện thoại:{' '}
+                          </span>
+                          {addr.phone}
+                        </div>
                       </div>
-                      <div className="text-base text-gray-600">
-                        <span className="text-sm text-gray-500">Địa chỉ: </span>
-                        {addr.fullAddress} - {addr.mainAddress}
-                      </div>
-                      <div className="text-base text-gray-600">
-                        <span className="text-sm text-gray-500">
-                          Điện thoại:{' '}
-                        </span>
-                        {addr.phone}
+
+                      <div className="flex items-center justify-start mb-4 pl-3">
+                        <button
+                          onClick={() => onHandleAddressSelected(addr)}
+                          className=" px-8 py-2 mr-3 bg-blue-600 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
+                        >
+                          Giao đến địa chỉ này
+                        </button>
+
+                        <button
+                          onClick={() => onHandleDelete(addr._id)}
+                          className=" px-8 py-2 bg-red-500 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
+                        >
+                          <DeleteOutlined />
+                        </button>
                       </div>
                     </div>
-                  </div>
+                  </>
                 )
               })
             ) : (
@@ -236,6 +341,32 @@ function CheckOut(props) {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+      <div className="xl:max-w-7xl mx-auto bg-white rounded mt-4">
+        <div className="px-3 pt-3 pb-8">
+          <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
+            MÃ KHUYẾN MÃI/MÃ QUÀ TẶNG
+          </div>
+          <div className="px-3 pt-3 flex items-center">
+            <h3>Mã KM/Quà tặng </h3>
+            <input
+              type="text"
+              name="coupon"
+              onChange={(e) => {
+                setCoupons(e.target.value)
+              }}
+              value={coupons}
+              placeholder="Nhập mã khuyến mãi/quà tặng"
+              className="ml-2 py-2 border px-3 text-grey-darkest rounded w-2/6"
+            />
+            <button
+              onClick={onHandleApplyCoupon}
+              className="text-white btn mt-2 bg-red-500 border border-solid ml-3 px-4 py-2"
+            >
+              Áp dụng
+            </button>
           </div>
         </div>
       </div>
@@ -314,21 +445,48 @@ function CheckOut(props) {
           <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
             XÁC NHẬN THANH TOÁN
           </div>
-
-          <button
-            // disabled={districtWard || !products.length}
-            onClick={() => history.push('/payment')}
-            className="btn btn-primary btn-addToCart uppercase mx-auto w-1/4 mt-2"
-          >
-            Đặt hàng
-          </button>
-          <button
-            onClick={onHandleEmptyCart}
-            disabled={!products.length}
-            className="btn btn-primary btn-addToCart uppercase mx-auto w-1/4 mt-2"
-          >
-            Xóa đơn hàng
-          </button>
+          <div className="px-3 pt-3 text-right">
+            <div className="  text-base font-semibold">
+              <span className="text-base text-gray-500">Thành tiền:</span>{' '}
+              <span className="text-lg text-gray-600">
+                {formatPrice(total)}đ
+              </span>
+            </div>
+            <div className=" text-base font-semibold">
+              <span className="text-base text-gray-500">
+                Sau khi áp dụng mã khuyến mãi:
+              </span>{' '}
+              <span className="text-lg text-red-500">
+                {totalAfterDiscount > 0 ? formatPrice(totalAfterDiscount) : '0'}
+                đ
+              </span>
+            </div>
+            <div className=" text-blue-600 text-xl font-semibold">
+              <span className="text-lg text-gray-600">
+                Tổng Số Tiền (gồm VAT):
+              </span>{' '}
+              {totalAfterDiscount > 0
+                ? formatPrice(totalAfterDiscount)
+                : formatPrice(total)}
+              đ
+            </div>
+          </div>
+          <div className="flex items-center justify-end px-3">
+            <button
+              onClick={onHandleEmptyCart}
+              disabled={!products.length}
+              className="btn bg-red-500 px-4 py-3 uppercase text-white w-1/4 mt-2 ml-3 font-semibold"
+            >
+              Xóa đơn hàng
+            </button>
+            <button
+              // disabled={!addressSaved || !products.length}
+              onClick={onHandlePayMent}
+              className="btn btn-primary px-4 py-3 uppercase text-right w-1/4 mt-2 font-semibold"
+            >
+              Đặt hàng
+            </button>
+          </div>
         </div>
       </div>
     </div>

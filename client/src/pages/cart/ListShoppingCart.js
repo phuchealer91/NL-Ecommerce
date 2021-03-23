@@ -21,12 +21,16 @@ const ListShoppingCart = ({ item }) => {
   const [idDelete, setIdDelete] = useState('')
   const dispatch = useDispatch()
 
-  console.log('count ne', item)
+  console.log('count ne', item.quantity)
   function onChangeCount(count) {
     let countX = count < 1 ? 1 : count
-    if (count > item.Quantity) {
-      toast.warning(`Sản phẩm chỉ còn: ${item.Quantity} `)
-      return
+
+    if (count && item.quantity > 0) {
+      if (count > item.quantity) {
+        return toast.warning(`Sản phẩm chỉ còn: ${item.quantity} `)
+      }
+    } else {
+      return toast.error(`Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác`)
     }
     let cart = []
     if (typeof window !== 'undefined') {
@@ -120,7 +124,7 @@ const ListShoppingCart = ({ item }) => {
               <InputNumber
                 size="middle"
                 min={1}
-                max={100000}
+                max={item.quantity}
                 value={item.count}
                 onChange={onChangeCount}
                 className="opacity-100"

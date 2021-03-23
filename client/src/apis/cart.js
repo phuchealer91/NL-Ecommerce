@@ -19,6 +19,12 @@ export const applyCouponCarts = (data) => {
     data
   )
 }
+export const applyAddressCarts = (data) => {
+  return axiosServices.post(
+    `/${PATHS.USER}/${PATHS.CART}/${PATHS.ADDRESS}`,
+    data
+  )
+}
 export const createOrders = (data) => {
   return axiosServices.post(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDER}`, data)
 }
@@ -46,4 +52,7 @@ export const addAddresss = (data) => {
 }
 export const getAddresss = (data) => {
   return axiosServices.get(`/${PATHS.USER}/${PATHS.ADDRESS}`, data)
+}
+export const removeAddress = (addressId, data) => {
+  return axiosServices.put(`/${PATHS.USER}/${PATHS.ADDRESS}/${addressId}`, data)
 }

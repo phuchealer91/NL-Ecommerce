@@ -2,10 +2,14 @@ import * as types from '../constants/coupon'
 import { toast } from 'react-toastify'
 let initialState = {
   couponList: [],
+  isCoupons: false,
 }
 
 const couponReducer = (state = initialState, action) => {
+  console.log('helllo', action.payload)
   switch (action.type) {
+    case types.APPLIED_COUPON:
+      return { ...state, isCoupons: action.payload }
     case types.ADD_COUPON:
       return { ...state }
     case types.ADD_COUPON_SUCCESS:

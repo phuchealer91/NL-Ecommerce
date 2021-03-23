@@ -70,9 +70,9 @@ module.exports.saveUserAddress = async (req, res) => {
 }
 
 module.exports.applyCouponToCart = async (req, res) => {
-  const { coupon } = req.body
+  const { coupons } = req.body
   try {
-    const validateCoupon = await Coupon.findOne({ name: coupon }).exec()
+    const validateCoupon = await Coupon.findOne({ name: coupons }).exec()
     if (validateCoupon === null) {
       return res.status(400).json({ Error: 'Invalid Coupon !' })
     }
@@ -80,10 +80,9 @@ module.exports.applyCouponToCart = async (req, res) => {
     let { products, cartTotal } = await Cart.findOne({ orderedBy: user._id })
       .populate('products.product', '_id title price')
       .exec()
-    let totalAfterDiscount = (
-      cartTotal -
-      (cartTotal * validateCoupon.discount) / 100
-    ).toFixed(2)
+    let totalAfterDiscount = Math.round(
+      (cartTotal - (cartTotal * validateCoupon.discount) / 100).toFixed(2)
+    )
     const updateCart = await Cart.findOneAndUpdate(
       { orderedBy: user._id },
       { totalAfterDiscount },
@@ -94,16 +93,34 @@ module.exports.applyCouponToCart = async (req, res) => {
     return res.status(500).json({ Error: 'Server error' })
   }
 }
+module.exports.applyAddressToCart = async (req, res) => {
+  const { deliveryAddress } = req.body
+  console.log('hello', req.body)
+  console.log('hello', deliveryAddress)
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec()
+    const updateCart = await Cart.findOneAndUpdate(
+      { orderedBy: user._id },
+      { deliveryAddress },
+      { new: true }
+    ).exec()
+    return res.status(200).json({ deliveryAddress: updateCart })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
 
 module.exports.createOrder = async (req, res) => {
   try {
     const { paymentIntent } = req.body
-    console.log('hello em', paymentIntent)
     const user = await User.findOne({ email: req.user.email }).exec()
-    const { products } = await Cart.findOne({ orderedBy: user._id }).exec()
+    const { products, deliveryAddress } = await Cart.findOne({
+      orderedBy: user._id,
+    }).exec()
     let newOrder = await new Order({
       products,
       paymentIntent,
+      deliveryAddress,
       orderedBy: user._id,
     }).save()
     // increment sold, decrement quantity
@@ -126,9 +143,13 @@ module.exports.createOrder = async (req, res) => {
 module.exports.getOrders = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.user.email }).exec()
+    // console.log('hello products', products)
+    console.log('hello ussedsadsadsarrrrr', user)
+    console.log('hello dsada dasdsa', user.address[0])
     let userOrders = await Order.find({ orderedBy: user._id })
       .populate('products.product')
       .exec()
+    console.log('get orrder', userOrders)
     return res.status(200).json({ userOrders })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
@@ -207,7 +228,6 @@ module.exports.getAddress = async (req, res) => {
     const listUserAddress = await User.findOne({ email: req.user.email })
       .select('address')
       .exec()
-    console.log('hello ccc', listUserAddress)
     if (!listUserAddress)
       return res.status(400).json({ error: 'Không thấy người dùng' })
     return res.status(200).json({ listUserAddress })
@@ -216,13 +236,24 @@ module.exports.getAddress = async (req, res) => {
   }
 }
 module.exports.removeAddress = async (req, res) => {
-  const { productId } = req.params
-  const user = await User.findOneAndUpdate(
+  const { addressId } = req.params
+  console.log('addđ', addressId)
+  const addressDeleted = await User.findOneAndUpdate(
     { email: req.user.email },
-    { $pull: { wishlist: productId } },
+    { $pull: { address: { _id: addressId } } },
     { new: true }
   ).exec()
 
-  if (!user) return res.status(400).json({ error: 'Không thấy người dùng' })
+  if (!addressDeleted)
+    return res.status(400).json({ error: 'Không thấy người dùng' })
+  return res.status(200).json({ msg: 'Xóa thành công' })
+}
+module.exports.getAddressSelected = async (req, res) => {
+  const { addressId } = req.params
+  console.log('addđ', addressId)
+  const addressDeleted = await User.findOne({ email: req.user.email })
+
+  if (!addressDeleted)
+    return res.status(400).json({ error: 'Không thấy người dùng' })
   return res.status(200).json({ msg: 'Xóa thành công' })
 }

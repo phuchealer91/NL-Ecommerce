@@ -15,6 +15,7 @@ const cartSchema = new schema(
         price: Number,
       },
     ],
+    deliveryAddress: {},
     cartTotal: Number,
     totalAfterDiscount: Number,
     orderedBy: {

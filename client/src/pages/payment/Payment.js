@@ -6,15 +6,16 @@ function Payment(props) {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
   return (
     <div className="">
-      <h3 className="text-2xl mb-2 text-center font-bold">
-        Hoàn tất thanh toán
-      </h3>
-
-      <Elements stripe={stripePromise}>
-        <div className="grid place-items-center h-auto">
-          <StripeCheckOut />
+      <div className="xl:max-w-7xl mx-auto bg-white rounded">
+        <div className="px-3 pt-3 pb-8">
+          <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
+            HOÀN TẤT THANH TOÁN ()
+          </div>
+          <Elements stripe={stripePromise}>
+            <StripeCheckOut />
+          </Elements>
         </div>
-      </Elements>
+      </div>
     </div>
   )
 }

@@ -18,6 +18,7 @@ const orderSchema = new schema(
       enum: ['Đang chờ xác nhận', 'Đang xử lý', 'Đã bàn giao', 'Hủy'],
     },
     orderedBy: { type: ObjectId, ref: 'User' },
+    isCancel: Boolean,
   },
   { timestamps: true }
 )

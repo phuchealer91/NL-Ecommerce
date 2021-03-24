@@ -3,210 +3,256 @@ import {
   CloseCircleOutlined,
   SyncOutlined,
 } from '@ant-design/icons'
-import { Card, Col, Row, Select, Statistic, Table, Tag } from 'antd'
+import ModalImage from 'react-modal-image'
+import { Card, Col, Row, Select, Statistic, Steps, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { formatPrice } from '../../../helpers/formatPrice'
 import { getOrder, updateOrderStatus } from '../../../redux/actions/order'
+import imageDefault from '../../../assets/images/default-image.jpg'
+import { getOrders, updatedOrderStatus } from '../../../apis/order'
+import { toast } from 'react-toastify'
+const { Step } = Steps
+
 function OrdersList(props) {
   const { Option } = Select
   const dispatch = useDispatch()
+  const [orders, setOrders] = useState([])
   const { ordersList, ordersListChange } = useSelector((state) => state.order)
   const [values, setValues] = useState(null)
   useEffect(() => {
-    dispatch(getOrder())
-  }, [ordersListChange, dispatch])
-  const columns = [
-    {
-      title: 'Title',
-      dataIndex: 'Title',
-      key: 'title',
-      className: 'font-semibold text-lg',
-    },
-    {
-      title: 'Price (VND)',
-      dataIndex: 'Price',
-      key: 'price',
-    },
-    {
-      title: 'Brand',
-      dataIndex: 'Brand',
-      key: 'brand',
-    },
-    {
-      title: 'Color',
-      dataIndex: 'Color',
-      key: 'color',
-    },
-    {
-      title: 'Count',
-      dataIndex: 'Count',
-      key: 'count',
-      className: 'text-center',
-    },
-    {
-      title: 'Shipping',
-      dataIndex: 'Shipping',
-      key: 'shipping',
-      className: 'text-center',
-      render: (shipping) =>
-        shipping === 'Yes' ? (
-          <CheckCircleOutlined className="text-success" />
-        ) : (
-          <CloseCircleOutlined className="text-danger" />
-        ),
-    },
-  ]
-  const arrStatus = [
-    'Not Processed',
-    'Cash On Delivery',
-    'Processing',
-    'Dispatched',
-    'Cannelled',
-    'Completed',
-  ]
-  function handleChange(value) {
-    let xx = { orderId: values, orderStatus: value }
+    loadAllOrders()
+  }, [])
 
-    dispatch(updateOrderStatus(xx))
+  const arrStatus = ['Đang chờ xác nhận', 'Đang xử lý', 'Đã bàn giao', 'Hủy']
+  const loadAllOrders = () => {
+    getOrders().then((res) => {
+      if (res.data) {
+        setOrders(res.data.orders)
+      }
+    })
+  }
+  function handleChange(orderId, orderStatus) {
+    let value = { orderId, orderStatus }
+    updatedOrderStatus(orderId, orderStatus)
+      .then((res) => {
+        if (res.data) {
+          toast.success('Cập nhật trạng thái đơn hàng thành công')
+          loadAllOrders()
+        }
+      })
+      .catch((error) => {
+        toast.error('Cập nhật trạng thái đơn hàng thất bại')
+      })
   }
   return (
     <React.Fragment>
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
+      <div className="w-full mx-auto flex ">
+        <div className="w-1/4">
           <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            <h3 className="text-2xl mb-5">ORDERS </h3>
-            {ordersList &&
-              ordersList.map((userOrders) => {
-                return (
-                  <Card
-                    key={userOrders._id}
-                    style={{
-                      width: '100%',
-                      marginBottom: '20px',
-                    }}
-                    className="border-green-400"
-                  >
-                    <div className="grid grid-cols-2 p-2">
-                      <ul>
-                        <li>
-                          <Statistic
-                            title="ORDER ID"
-                            value={userOrders?.paymentIntent?.id}
-                            className="mb-2"
-                          />
-                          <Statistic
-                            title="AMOUNT"
-                            value={formatPrice(
-                              userOrders?.paymentIntent?.amount
-                            )}
-                            className="mb-2"
-                          />
-                          <Statistic
-                            title="CURRENCY"
-                            value={userOrders?.paymentIntent?.currency.toUpperCase()}
-                            className="mb-2"
-                          />
-                        </li>
-                      </ul>
-                      <ul>
-                        <Statistic
-                          title="PAYMENT"
-                          valueRender={() => (
-                            <Tag
-                              icon={
-                                userOrders?.paymentIntent?.status ===
-                                'Not Processed' ? (
-                                  <CheckCircleOutlined />
-                                ) : (
-                                  <SyncOutlined spin />
-                                )
-                              }
-                              color={
-                                userOrders?.orderStatus === 'Not Processed'
-                                  ? 'default'
-                                  : userOrders?.orderStatus ===
-                                    'Cash On Delivery'
-                                  ? 'magenta'
-                                  : userOrders?.orderStatus === 'Processing'
-                                  ? 'processing'
-                                  : userOrders?.orderStatus === 'Dispatched'
-                                  ? 'purple'
-                                  : userOrders?.orderStatus === 'Cannelled'
-                                  ? 'error'
-                                  : userOrders?.orderStatus === 'Completed'
-                                  ? 'success'
-                                  : 'default'
-                              }
-                              className="flex items-center font-semibold"
-                            >
-                              <Select
-                                defaultValue={userOrders?.orderStatus}
-                                style={{
-                                  width: 204,
-                                  border: '0',
-                                  backgroundColor: 'transparent',
-                                }}
-                                onChange={handleChange}
-                                onClick={() => setValues(userOrders._id)}
-                              >
-                                {arrStatus.map((arr) => {
-                                  return (
-                                    <Option key={arr} value={arr}>
-                                      {arr.toUpperCase()}
-                                    </Option>
-                                  )
-                                })}
-                              </Select>
-                            </Tag>
-                          )}
-                          className="mb-2 w-60"
-                        />
-                        <Statistic
-                          title="METHOD"
-                          value={userOrders?.paymentIntent?.payment_method_types[0].toUpperCase()}
-                          className="mb-2"
-                        />
-                        <Statistic
-                          title="ORDERED ON"
-                          value={new Date(
-                            userOrders?.paymentIntent?.created * 1000
-                          ).toLocaleString()}
-                          className="mb-2"
-                        />
-                      </ul>
-                    </div>
-                    <div className="p-2 pl-0">
-                      <Table
-                        dataSource={
-                          userOrders.products &&
-                          userOrders.products.map((item) => ({
-                            Id: item._id,
-                            Title: item.product?.title,
-                            Price: formatPrice(item.product?.price),
-                            Brand: item.product?.brand,
-                            Color: item.color,
-                            Count: item.count,
-                            Shipping: item.product?.shipping,
-                          }))
-                        }
-                        columns={columns}
-                        rowKey="Id"
-                        tableLayout="auto"
-                        pagination={false}
-                        bordered
-                      />
-                    </div>
-                  </Card>
-                )
-              })}
+        </div>
+        <div className="w-3/4 mx-auto rounded mt-4 px-4 border">
+          <div className="uppercase border-b py-4 border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
+            CÁC ĐƠN HÀNG CỦA KHÁCH HÀNG{' '}
+            <span className="text-gray-500 text-xs">({orders.length})</span>
           </div>
-        </Col>
-      </Row>
+          {orders &&
+            orders.map((order) => {
+              return (
+                <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded">
+                  <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">
+                    CHI TIẾT ĐƠN HÀNG
+                  </div>
+                  <div className="bg-white rounded my-3">
+                    <div className="flex items-center justify-between">
+                      <Select
+                        defaultValue={order?.orderStatus}
+                        onChange={(e) => handleChange(order._id, e)}
+                        className="border-red-600 border-dashed border w-2/6"
+                        size="middle"
+                      >
+                        {arrStatus.map((arr) => {
+                          return (
+                            <Option key={arr} value={arr}>
+                              {arr.toUpperCase()}
+                            </Option>
+                          )
+                        })}
+                      </Select>
+                    </div>
+
+                    {/* <Tag color="warning">{
+                                order?.paymentIntent?.status}</Tag> */}
+                    <div className="mt-3">
+                      Mã đơn hàng:{' '}
+                      <span className="text-sm text-gray-600 font-semibold">
+                        {order?.paymentIntent?.id}
+                      </span>
+                    </div>
+                    <div className="mt-3">
+                      Ngày mua:{' '}
+                      <span className="text-sm text-gray-600 font-semibold">
+                        {/* {order?.paymentIntent?.currency.toUpperCase()} */}
+                        {new Date(
+                          order?.paymentIntent?.created * 1000
+                        ).toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="mt-3">
+                      Tổng tiền:{' '}
+                      <span className="text-sm text-gray-600 font-semibold">
+                        {formatPrice(order?.paymentIntent?.amount)}đ
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-white rounded mt-3 flex ">
+                    <div className="w-3/6 border px-3 py-3 mr-3">
+                      <span className="text-sm text-blue-600 uppercase border-b border-solid border-gray-100 py-3 w-full">
+                        Thông tin người nhận
+                      </span>
+                      <div className="text-sm text-gray-500 mt-3">
+                        <div className="px-3 pt-3">
+                          <div className="text-base text-gray-600 font-semibold flex items-center justify-between">
+                            <span>{order?.deliveryAddress?.name}</span>
+                          </div>
+                          <div className="text-base text-gray-600">
+                            <span className="text-sm text-gray-500">
+                              Địa chỉ:{' '}
+                            </span>
+                            {order?.deliveryAddress?.fullAddress} -{' '}
+                            {order?.deliveryAddress?.mainAddress}
+                          </div>
+                          <div className="text-base text-gray-600">
+                            <span className="text-sm text-gray-500">
+                              Điện thoại:{' '}
+                            </span>
+                            {order?.deliveryAddress?.phone}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-3/6 border px-3 py-3">
+                      <span className="text-sm text-blue-600 uppercase border-b border-solid border-gray-100 py-3 w-full">
+                        phương thức thanh toán
+                      </span>
+                      <div className="text-sm text-gray-500 pt-3 ">
+                        {order?.paymentIntent?.payment_method_types[0].toUpperCase()}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-white rounded mt-3 flex items-center border px-5 py-5 justify-center">
+                    <Steps
+                      current={
+                        order?.orderStatus === 'Đang xử lý'
+                          ? 1
+                          : order?.orderStatus === 'Đã bàn giao' ||
+                            order?.orderStatus === 'Hủy'
+                          ? 2
+                          : 0
+                      }
+                      percent={60}
+                      size="default"
+                      status={
+                        order?.orderStatus === 'Đang xử lý'
+                          ? 'process'
+                          : order?.orderStatus === 'Đã bàn giao'
+                          ? 'finish'
+                          : order?.orderStatus === 'Hủy'
+                          ? 'error'
+                          : 'process'
+                      }
+                    >
+                      <Step
+                        title="Đang chờ xác nhận"
+                        description="Chờ xác nhận từ đơn hàng"
+                      />
+                      <Step
+                        title="Đang xử lý"
+                        description="
+                        Đang xử lý đơn hàng."
+                      />
+                      <Step
+                        title="Đã bàn giao"
+                        description="Bàn giao đơn hàng thành công."
+                      />
+                    </Steps>
+                  </div>
+                  <div className="bg-white rounded mt-3 flex items-center ">
+                    <div className="px-3 pt-3 pb-8 w-full">
+                      <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid py-3">
+                        TỔNG QUAN SẢN PHẨM TRONG ĐƠN HÀNG
+                      </div>
+                      {order.products.map((item) => {
+                        return (
+                          <div className="hidden md:block">
+                            <div className="py-3 flex-row justify-between items-center mb-0 hidden md:flex">
+                              <div className="w-full lg:w-align xl:w-align flex flex-row items-start border-b-0 border-grey-dark pt-0 pb-0 pl-3 text-left">
+                                <div className="w-20 mx-0 relative pr-0 mr-3 ">
+                                  <div className="h-20 rounded flex items-center justify-center">
+                                    <div className="aspect-w-1 aspect-h-1 w-full">
+                                      <ModalImage
+                                        small={
+                                          item
+                                            ? item.product.images[0]?.url
+                                            : imageDefault
+                                        }
+                                        large={
+                                          item
+                                            ? item.product.images[0]?.url
+                                            : imageDefault
+                                        }
+                                        alt={`${
+                                          item
+                                            ? item.product.images[0]?.url
+                                            : imageDefault
+                                        }`}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col justify-start items-start">
+                                  <Link
+                                    to={`/product/${item.product.slug}`}
+                                    className="font-hk text-secondary text-base"
+                                  >
+                                    {item.product.title}
+                                  </Link>
+                                  <span className="pt-1 text-gray-700 font-semibold ">
+                                    {formatPrice(item.product.price)}đ
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="w-1/4 lg:w-1/5 xl:w-1/4 pr-10 xl:pr-10 pb-4 flex flex-col items-center justify-end">
+                                <div className="custom-number-input h-10 w-32">
+                                  <div className="text-blue-700 text-base font-semibold">
+                                    <span className="text-xs text-gray-500">
+                                      Số lượng:
+                                    </span>{' '}
+                                    {item.count}
+                                  </div>
+                                </div>
+                                <div className=" text-blue-700 text-base font-semibold">
+                                  <span className="text-xs text-gray-500">
+                                    Thành tiền:
+                                  </span>{' '}
+                                  {formatPrice(item.product.price * item.count)}
+                                  đ
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+        </div>
+      </div>
     </React.Fragment>
   )
 }

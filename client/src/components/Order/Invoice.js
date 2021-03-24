@@ -1,120 +1,265 @@
 import {
-  DataTableCell,
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-} from '@david.kucsai/react-pdf-table'
-import { Document, Page, StyleSheet, Text } from '@react-pdf/renderer'
+  Document,
+  Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from '@react-pdf/renderer'
 import React from 'react'
+import logo from '../../assets/images/logo.png'
 import { formatPrice } from '../../helpers/formatPrice'
 function Invoice({ userOrders: order }) {
+  function removeAccents(str) {
+    return str
+      ?.normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D')
+  }
+  const styles = StyleSheet.create({
+    page: {
+      fontFamily: 'Helvetica',
+      fontSize: 11,
+      paddingTop: 30,
+      paddingLeft: 60,
+      paddingRight: 60,
+      lineHeight: 1.5,
+      flexDirection: 'column',
+    },
+    logo: {
+      width: 74,
+      height: 66,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+    titleContainer: {
+      flexDirection: 'row',
+      marginTop: 24,
+    },
+    reportTitle: {
+      color: '#61dafb',
+      letterSpacing: 4,
+      fontSize: 25,
+      textAlign: 'center',
+      textTransform: 'uppercase',
+    },
+    invoiceNoContainer: {
+      flexDirection: 'row',
+      marginTop: 36,
+      justifyContent: 'flex-end',
+    },
+    invoiceDateContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
+    invoiceDate: {
+      fontSize: 12,
+      fontStyle: 'bold',
+    },
+    label: {
+      width: 60,
+    },
+    headerContainer: {
+      marginTop: 36,
+    },
+    billTo: {
+      marginTop: 20,
+      paddingBottom: 3,
+      fontFamily: 'Helvetica-Oblique',
+    },
+    tableContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginTop: 24,
+      borderWidth: 1,
+      '#ccc': '#bff0fd',
+    },
+    container: {
+      flexDirection: 'row',
+      borderBottomColor: '#bff0fd',
+      backgroundColor: '#bff0fd',
+      borderBottomWidth: 1,
+      alignItems: 'center',
+      height: 24,
+      textAlign: 'center',
+      fontStyle: 'bold',
+      flexGrow: 1,
+    },
+    description: {
+      width: '60%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+    },
+    qty: {
+      width: '10%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+    },
+    rate: {
+      width: '15%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+    },
+    amount: {
+      width: '15%',
+    },
+    row: {
+      flexDirection: 'row',
+      borderBottomColor: '#bff0fd',
+      borderBottomWidth: 1,
+      alignItems: 'center',
+      height: 24,
+      fontStyle: 'bold',
+    },
+    description: {
+      width: '60%',
+      textAlign: 'left',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+      paddingLeft: 8,
+    },
+    qty: {
+      width: '10%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+      textAlign: 'right',
+      paddingRight: 8,
+    },
+    rate: {
+      width: '15%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+      textAlign: 'right',
+      paddingRight: 8,
+    },
+    amount: {
+      width: '15%',
+      textAlign: 'right',
+      paddingRight: 8,
+    },
+    row: {
+      flexDirection: 'row',
+      borderBottomColor: '#bff0fd',
+      borderBottomWidth: 1,
+      alignItems: 'center',
+      height: 24,
+      fontStyle: 'bold',
+      color: '#333',
+    },
+    description: {
+      width: '60%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+    },
+    qty: {
+      width: '10%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+    },
+    rate: {
+      width: '15%',
+      borderRightColor: '#ccc',
+      borderRightWidth: 1,
+    },
+    amount: {
+      width: '15%',
+    },
+    titleContainer: {
+      flexDirection: 'row',
+      marginTop: 12,
+    },
+    reportTitle: {
+      fontSize: 12,
+      textAlign: 'center',
+      textTransform: 'uppercase',
+    },
+  })
   return (
     <Document>
-      <Page style={styles.body}>
-        <Text style={styles.header} fixed>
-          ~ {new Date().toLocaleString()} ~
-        </Text>
-        <Text style={styles.title}>Order Invoice</Text>
-        <Text style={styles.subtitle}>Order Summary</Text>
+      <Page style={styles.page}>
+        <Image style={styles.logo} src={logo} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.reportTitle}>Wobook</Text>
+        </View>
 
-        <Table>
-          <TableHeader>
-            <TableCell>Title</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Brand</TableCell>
-            <TableCell>Color</TableCell>
-          </TableHeader>
-        </Table>
+        <>
+          <View style={styles.invoiceNoContainer}>
+            <Text style={styles.label}>Invoice No:</Text>
+            <Text style={styles.invoiceDate}>
+              {new Date().toLocaleString()}
+            </Text>
+          </View>
+          <View style={styles.invoiceDateContainer}>
+            <Text style={styles.label}>Date: </Text>
+            <Text>{new Date().toLocaleString()}</Text>
+          </View>
+        </>
 
-        <Table data={order.products}>
-          <TableBody>
-            <DataTableCell getContent={(x) => x.product?.title} />
-            <DataTableCell getContent={(x) => `$${x.product?.price}`} />
-            <DataTableCell getContent={(x) => x.count} />
-            <DataTableCell getContent={(x) => x.product?.brand} />
-            <DataTableCell getContent={(x) => x.product?.color} />
-          </TableBody>
-        </Table>
-
-        <Text style={styles.text}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.billTo}>Bill To:</Text>
+          <Text>Name: {removeAccents(order.deliveryAddress?.name)}</Text>
           <Text>
-            Date: {'               '}
+            Address: {removeAccents(order.deliveryAddress?.mainAddress)},{' '}
+            {removeAccents(order.deliveryAddress?.fullAddress)}
+          </Text>
+          <Text>Phone: {order.deliveryAddress?.phone}</Text>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.container}>
+            <Text style={styles.description}>Name</Text>
+            <Text style={styles.qty}>Count</Text>
+            <Text style={styles.rate}>NXB</Text>
+            <Text style={styles.amount}>Amount</Text>
+          </View>
+          <>
+            {order &&
+              order?.products.map((item) => {
+                return (
+                  <View style={styles.row}>
+                    <Text style={styles.description}>
+                      {removeAccents(item.product?.title)}
+                    </Text>
+                    <Text style={styles.qty}>{item?.count}</Text>
+                    <Text style={styles.rate}>
+                      {removeAccents(item.product?.publisher)}
+                    </Text>
+                    <Text style={styles.amount}>
+                      {formatPrice(item.product?.price * item?.count)}đ
+                    </Text>
+                  </View>
+                )
+              })}
+          </>
+        </View>
+        <View style={styles.headerContainer}>
+          <Text style={styles.billTo}>Order info:</Text>
+
+          <Text>
+            Date:{' '}
             {new Date(order.paymentIntent?.created * 1000).toLocaleString()}
           </Text>
-          {'\n'}
           <Text>
             Order Id: {'         '}
             {order.paymentIntent?.id}
           </Text>
-          {'\n'}
           <Text>
             Order Status: {'  '}
-            {order.orderStatus}
+            {removeAccents(order.orderStatus)}
           </Text>
-          {'\n'}
           <Text>
             Total Paid: {'       '}
             {formatPrice(order.paymentIntent?.amount)}
           </Text>
-        </Text>
-
-        <Text style={styles.footer}> ~ Thank you for shopping with us ~ </Text>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.reportTitle}>Thank you for your business</Text>
+        </View>
       </Page>
     </Document>
   )
 }
-const styles = StyleSheet.create({
-  body: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35,
-  },
-  title: {
-    fontSize: 24,
-    textAlign: 'center',
-  },
-  author: {
-    fontSize: 12,
-    textAlign: 'center',
-    marginBottom: 40,
-  },
-  subtitle: {
-    fontSize: 18,
-    margin: 12,
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-  },
-  image: {
-    marginVertical: 15,
-    marginHorizontal: 100,
-  },
-  header: {
-    fontSize: 12,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
-  },
-  footer: {
-    padding: '30px',
-    fontSize: 12,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
-  },
-  pageNumber: {
-    position: 'absolute',
-    fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    color: 'grey',
-  },
-})
+
 Invoice.propTypes = {}
 export default Invoice

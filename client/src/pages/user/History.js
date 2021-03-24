@@ -15,29 +15,68 @@ import './Styles.scss'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { Link } from 'react-router-dom'
 import ModalImage from 'react-modal-image'
+import { getOrders, updatedOrderStatus } from '../../apis/order'
+import { userOrders } from '../../apis/cart'
+import { toast } from 'react-toastify'
 const { Step } = Steps
 
 function History(props) {
   const dispatch = useDispatch()
   const [isReady, setIsReady] = useState(false)
-  let { userOrders } = useSelector((state) => state.cart)
-  const [current, setCurrent] = useState(0)
+  const [userOrder, setuserOrder] = useState([])
+  const [isBack, setIsBack] = useState(false)
+  const [isCancel, setIsCancel] = useState(false)
   useEffect(() => {
-    dispatch(userOrder())
-    setIsReady(true)
-  }, [dispatch])
+    loaduserOrder()
+  }, [userOrder])
+  // useEffect(() => {
 
-  console.log('userOrdersuserOrdersuserOrdersuserOrders', userOrders)
+  // }, [])
+  const loaduserOrder = () =>
+    userOrders().then((res) => {
+      console.log('hello ress', res)
+      setuserOrder(res.data.userOrders)
+    })
 
-  const showPDFDownloadLink = (userOrders) => (
-    <PDFDownloadLink
-      document={<Invoice userOrders={userOrders} />}
-      fileName="invoice.pdf"
-      className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-    >
-      Download PDF
-    </PDFDownloadLink>
-  )
+  console.log('userOrderuserOrderuserOrderuserOrder', userOrder)
+
+  const showPDFDownloadLink = (userOrder) => {
+    return (
+      <PDFDownloadLink
+        document={<Invoice userOrders={userOrder} />}
+        fileName="invoice.pdf"
+        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+      >
+        Download PDF
+      </PDFDownloadLink>
+    )
+  }
+  function onHandleCancelOrder(orderId) {
+    updatedOrderStatus(orderId, 'Hủy')
+      .then((res) => {
+        if (res.data) {
+          toast.success('Hủy đơn hàng thành công')
+          setIsCancel(!isCancel)
+          loaduserOrder()
+        }
+      })
+      .catch((error) => {
+        toast.error('Hủy đơn hàng thất bại')
+      })
+  }
+  function onHandleBackOrder(orderId) {
+    updatedOrderStatus(orderId, 'Đang chờ xác nhận')
+      .then((res) => {
+        if (res.data) {
+          toast.success('Đặt lại đơn hàng thành công')
+          setIsCancel(!isCancel)
+          loaduserOrder()
+        }
+      })
+      .catch((error) => {
+        toast.error('Đặt lại đơn hàng thất bại')
+      })
+  }
 
   return (
     <React.Fragment>
@@ -45,161 +84,48 @@ function History(props) {
         <div className="w-1/4">
           <UserSideBar />
         </div>
-        {/* <Col span={19}>
-          <div className="p-4">
-            <h3 className="uppercase font-bold py-3 text-lg text-center ">
-              User purchase orders{' '}
-              <span className="text-red-600">({userOrders.length})</span>
-            </h3>
-            {userOrders &&
-              userOrders.map((userOrders) => {
-                return (
-                  <Card
-                    key={userOrders._id}
-                    style={{
-                      width: '100%',
-                      marginBottom: '20px',
-                    }}
-                    className="border-green-400"
-                  >
-                    <div className="grid grid-cols-2 p-2">
-                      <ul>
-                        <li>
-                          <Statistic
-                            title="ORDER ID"
-                            value={userOrders?.paymentIntent?.id}
-                            className="mb-2"
-                          />
-                          <Statistic
-                            title="AMOUNT"
-                            value={formatPrice(
-                              userOrders?.paymentIntent?.amount
-                            )}
-                            className="mb-2"
-                          />
-                          <Statistic
-                            title="CURRENCY"
-                            value={userOrders?.paymentIntent?.currency.toUpperCase()}
-                            className="mb-2"
-                          />
-                        </li>
-                      </ul>
-                      <ul>
-                        <Statistic
-                          title="PAYMENT"
-                          valueRender={() => (
-                            <Tag
-                              icon={
-                                userOrders?.paymentIntent?.status ===
-                                'Not Processed' ? (
-                                  <CheckCircleOutlined />
-                                ) : (
-                                  <SyncOutlined spin />
-                                )
-                              }
-                              color={
-                                userOrders?.orderStatus === 'Not Processed'
-                                  ? 'default'
-                                  : userOrders?.orderStatus ===
-                                    'Cash On Delivery'
-                                  ? 'magenta'
-                                  : userOrders?.orderStatus === 'Processing'
-                                  ? 'processing'
-                                  : userOrders?.orderStatus === 'Dispatched'
-                                  ? 'purple'
-                                  : userOrders?.orderStatus === 'Cannelled'
-                                  ? 'error'
-                                  : userOrders?.orderStatus === 'Completed'
-                                  ? 'success'
-                                  : 'default'
-                              }
-                              className="flex items-center font-semibold"
-                            >
-                              {userOrders?.orderStatus?.toUpperCase()}
-                            </Tag>
-                          )}
-                          className="mb-2 w-40"
-                        />
-                        <Statistic
-                          title="METHOD"
-                          value={userOrders?.paymentIntent?.payment_method_types[0].toUpperCase()}
-                          className="mb-2"
-                        />
-                        <Statistic
-                          title="ORDERED ON"
-                          value={new Date(
-                            userOrders?.paymentIntent?.created * 1000
-                          ).toLocaleString()}
-                          className="mb-2"
-                        />
-                      </ul>
-                    </div>
-                    <div className="p-2 pl-0">
-                      <Table
-                        dataSource={
-                          userOrders.products &&
-                          userOrders.products.map((item) => ({
-                            Id: item._id,
-                            Title: item.product?.title,
-                            Price: formatPrice(item.product?.price),
-                            Brand: item.product?.brand,
-                            Color: item.color,
-                            Count: item.count,
-                            Shipping: item.product?.shipping,
-                          }))
-                        }
-                        columns={columns}
-                        rowKey="Id"
-                        tableLayout="auto"
-                        pagination={false}
-                        bordered
-                      />
-                    </div>
-                    <div className="py-3">
-                      {isReady ? showPDFDownloadLink(userOrders) : ''}
-                    </div>
-                  </Card>
-                )
-              })}
-          </div>
-        </Col> */}
-        <div className="w-3/4 mx-auto rounded mt-4">
+
+        <div className="w-3/4 mx-auto rounded mt-4 px-4 border">
           <div className="uppercase border-b py-4 border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
             CÁC ĐƠN HÀNG CỦA BẠN{' '}
-            <span className="text-gray-500 text-xs">({userOrders.length})</span>
+            <span className="text-gray-500 text-xs">({userOrder.length})</span>
           </div>
-          {userOrders &&
-            userOrders.map((userOrders) => {
+          {userOrder &&
+            userOrder.map((order) => {
               return (
                 <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded">
                   <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">
                     CHI TIẾT ĐƠN HÀNG
                   </div>
                   <div className="bg-white rounded my-3">
-                    <Tag color="warning">
-                      {userOrders?.orderStatus?.toUpperCase()}
-                    </Tag>
+                    <div className="flex items-center justify-between">
+                      <Tag color="warning">
+                        {order?.orderStatus?.toUpperCase()}
+                      </Tag>
+                      {/* {showPDFDownloadLink(order)} */}
+                    </div>
+
                     {/* <Tag color="warning">{
-                                userOrders?.paymentIntent?.status}</Tag> */}
+                                order?.paymentIntent?.status}</Tag> */}
                     <div className="mt-3">
                       Mã đơn hàng:{' '}
                       <span className="text-sm text-gray-600 font-semibold">
-                        {userOrders?.paymentIntent?.id}
+                        {order?.paymentIntent?.id}
                       </span>
                     </div>
                     <div className="mt-3">
                       Ngày mua:{' '}
                       <span className="text-sm text-gray-600 font-semibold">
-                        {/* {userOrders?.paymentIntent?.currency.toUpperCase()} */}
+                        {/* {order?.paymentIntent?.currency.toUpperCase()} */}
                         {new Date(
-                          userOrders?.paymentIntent?.created * 1000
+                          order?.paymentIntent?.created * 1000
                         ).toLocaleString()}
                       </span>
                     </div>
                     <div className="mt-3">
                       Tổng tiền:{' '}
                       <span className="text-sm text-gray-600 font-semibold">
-                        {formatPrice(userOrders?.paymentIntent?.amount)}đ
+                        {formatPrice(order?.paymentIntent?.amount)}đ
                       </span>
                     </div>
                   </div>
@@ -211,20 +137,20 @@ function History(props) {
                       <div className="text-sm text-gray-500 mt-3">
                         <div className="px-3 pt-3">
                           <div className="text-base text-gray-600 font-semibold flex items-center justify-between">
-                            <span>{userOrders?.deliveryAddress?.name}</span>
+                            <span>{order?.deliveryAddress?.name}</span>
                           </div>
                           <div className="text-base text-gray-600">
                             <span className="text-sm text-gray-500">
                               Địa chỉ:{' '}
                             </span>
-                            {userOrders?.deliveryAddress?.fullAddress} -{' '}
-                            {userOrders?.deliveryAddress?.mainAddress}
+                            {order?.deliveryAddress?.fullAddress} -{' '}
+                            {order?.deliveryAddress?.mainAddress}
                           </div>
                           <div className="text-base text-gray-600">
                             <span className="text-sm text-gray-500">
                               Điện thoại:{' '}
                             </span>
-                            {userOrders?.deliveryAddress?.phone}
+                            {order?.deliveryAddress?.phone}
                           </div>
                         </div>
                       </div>
@@ -234,21 +160,31 @@ function History(props) {
                         phương thức thanh toán
                       </span>
                       <div className="text-sm text-gray-500 pt-3 ">
-                        {userOrders?.paymentIntent?.payment_method_types[0].toUpperCase()}
+                        {order?.paymentIntent?.payment_method_types[0].toUpperCase()}
                       </div>
                     </div>
                   </div>
                   <div className="bg-white rounded mt-3 flex items-center border px-5 py-5 justify-center">
                     <Steps
                       current={
-                        userOrders?.orderStatus === 'Đang xử lý'
+                        order?.orderStatus === 'Đang xử lý'
                           ? 1
-                          : userOrders?.orderStatus === 'Đã bàn giao'
+                          : order?.orderStatus === 'Đã bàn giao' ||
+                            order?.orderStatus === 'Hủy'
                           ? 2
                           : 0
                       }
                       percent={60}
                       size="default"
+                      status={
+                        order?.orderStatus === 'Đang xử lý'
+                          ? 'process'
+                          : order?.orderStatus === 'Đã bàn giao'
+                          ? 'finish'
+                          : order?.orderStatus === 'Hủy'
+                          ? 'error'
+                          : 'process'
+                      }
                     >
                       <Step
                         title="Đang chờ xác nhận"
@@ -269,7 +205,7 @@ function History(props) {
                       <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid py-3">
                         TỔNG QUAN SẢN PHẨM TRONG ĐƠN HÀNG
                       </div>
-                      {userOrders.products.map((item) => {
+                      {order.products.map((item) => {
                         return (
                           <div className="hidden md:block">
                             <div className="py-3 flex-row justify-between items-center mb-0 hidden md:flex">
@@ -332,6 +268,24 @@ function History(props) {
                         )
                       })}
                     </div>
+                  </div>
+
+                  <div className="px-4 my-4 ">
+                    {isCancel ? (
+                      <button
+                        onClick={() => onHandleBackOrder(order._id)}
+                        className="bg-blue-500 hover:bg-white text-white font-semibold hover:text-blue-500 py-2 px-4 hover:border border-solid border-blue-500 rounded"
+                      >
+                        Đặt lại đơn hàng
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => onHandleCancelOrder(order._id)}
+                        className="bg-red-500 hover:bg-white text-white font-semibold hover:text-red-500 py-2 px-4 hover:border border-solid border-red-500 rounded"
+                      >
+                        Hủy đơn hàng
+                      </button>
+                    )}
                   </div>
                 </div>
               )

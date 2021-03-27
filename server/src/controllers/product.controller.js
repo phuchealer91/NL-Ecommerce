@@ -209,9 +209,84 @@ const handlePrice = async (req, res, price) => {
     console.log(err)
   }
 }
+const handleCategory = async (req, res, category) => {
+  try {
+    let products = await Product.find({ category })
+      .populate('category', '_id name')
+      .populate('author', '_id name')
+      .populate('supplier', '_id name')
+      .populate('subs', '_id name')
+      .populate('postedBy', '_id name')
+      .exec()
+
+    return res.status(200).json({ products })
+  } catch (err) {
+    console.log(err)
+  }
+}
+const handleStar = (req, res, stars) => {
+  Product.aggregate([
+    {
+      $project: {
+        document: '$$ROOT',
+        floorAverage: {
+          $floor: {
+            $avg: '$reviews.rating',
+          },
+        },
+      },
+    },
+    { $match: { floorAverage: stars } },
+  ])
+    .limit(12)
+    .exec((err, aggregates) => {
+      if (err) console.log('AGGREGATE ERROR', err)
+      Product.find({ _id: aggregates })
+        .populate('category', '_id name')
+        .populate('author', '_id name')
+        .populate('supplier', '_id name')
+        .populate('subs', '_id name')
+        .populate('postedBy', '_id name')
+        .exec((err, products) => {
+          if (err) console.log('PRODUCT AGGREGATE ERROR', err)
+          return res.status(200).json({ products })
+        })
+    })
+}
+
+const handleSub = async (req, res, subs) => {
+  try {
+    let products = await Product.find({ subs })
+      .populate('category', '_id name')
+      .populate('author', '_id name')
+      .populate('supplier', '_id name')
+      .populate('subs', '_id name')
+      .populate('postedBy', '_id name')
+      .exec()
+
+    return res.status(200).json({ products })
+  } catch (err) {
+    console.log(err)
+  }
+}
+const handleLayout = async (req, res, layout) => {
+  try {
+    let products = await Product.find({ layout })
+      .populate('category', '_id name')
+      .populate('author', '_id name')
+      .populate('supplier', '_id name')
+      .populate('subs', '_id name')
+      .populate('postedBy', '_id name')
+      .exec()
+
+    return res.status(200).json({ products })
+  } catch (err) {
+    console.log(err)
+  }
+}
 module.exports.productSearchFilters = async (req, res) => {
   try {
-    const { query, price } = req.body
+    const { query, price, category, stars, subs, layout } = req.body
     // text
     if (query) {
       await handleQuery(req, res, query.trim())
@@ -219,6 +294,22 @@ module.exports.productSearchFilters = async (req, res) => {
     // price
     if (price !== undefined) {
       await handlePrice(req, res, price)
+    }
+    // category
+    if (category) {
+      await handleCategory(req, res, category)
+    }
+    // stars
+    if (stars) {
+      await handleStar(req, res, stars)
+    }
+    // sub category
+    if (subs) {
+      await handleSub(req, res, subs)
+    }
+    // layout
+    if (layout) {
+      await handleLayout(req, res, layout)
     }
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })

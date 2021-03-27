@@ -7,13 +7,16 @@ function Searchs(props) {
   const dispatch = useDispatch()
   const history = useHistory()
   const { text } = useSelector((state) => state.search)
+
   function handleChange(e) {
     dispatch(searchQuery({ text: e.target.value }))
   }
+
   function handleSubmit(e) {
     e.preventDefault()
     history.push(`/shop?${text}`)
   }
+
   return (
     <React.Fragment>
       <div className="flex items-center content-center">

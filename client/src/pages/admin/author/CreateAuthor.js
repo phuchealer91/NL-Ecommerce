@@ -2,7 +2,6 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Col, Form, Row, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { createAuthors, deleteAuthors, getAuthors } from '../../../apis/author'
@@ -19,7 +18,6 @@ import FormAuthor from './FormAuthor'
 
 const CreateAuthor = () => {
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [authors, setAuthors] = useState([])

@@ -175,18 +175,50 @@ module.exports.productReivews = async (req, res) => {
   }
 }
 const handleQuery = async (req, res, query) => {
-  const products = await Product.find({ $text: { $search: query } })
-    .populate('category', '_id name')
-    .populate('subs', '_id name')
-    .populate('postedBy', '_id name')
-    .exec()
-  return res.status(200).json({ products })
+  try {
+    console.log('hello em ne', query)
+    const products = await Product.find({ $text: { $search: query } })
+      .populate('category', '_id name')
+      .populate('author', '_id name')
+      .populate('supplier', '_id name')
+      .populate('subs', '_id name')
+      .populate('postedBy', '_id name')
+      .exec()
+    return res.status(200).json({ products })
+  } catch (error) {
+    console.log('khong bit loi gi luon', error)
+  }
+}
+const handlePrice = async (req, res, price) => {
+  try {
+    let products = await Product.find({
+      price: {
+        $gte: price[0],
+        $lte: price[1],
+      },
+    })
+      .populate('category', '_id name')
+      .populate('author', '_id name')
+      .populate('supplier', '_id name')
+      .populate('subs', '_id name')
+      .populate('postedBy', '_id name')
+      .exec()
+
+    return res.status(200).json({ products })
+  } catch (err) {
+    console.log(err)
+  }
 }
 module.exports.productSearchFilters = async (req, res) => {
   try {
-    const { query } = req.body
+    const { query, price } = req.body
+    // text
     if (query) {
       await handleQuery(req, res, query.trim())
+    }
+    // price
+    if (price !== undefined) {
+      await handlePrice(req, res, price)
     }
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })

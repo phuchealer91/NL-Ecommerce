@@ -17,7 +17,7 @@ const FormCreateProduct = ({
   authors,
   setProduct,
 }) => {
-  const { languages, layouts, categories, subs, author, category } = product
+  const { languages, layouts, categories, subs, author } = product
   return (
     <React.Fragment>
       <Form.Item
@@ -151,7 +151,7 @@ const FormCreateProduct = ({
       </Form.Item>
       <Form.Item
         label="Ngôn ngữ"
-        name="language"
+        name="lang"
         rules={[
           {
             required: false,

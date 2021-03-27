@@ -1,5 +1,4 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Typography } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
 import React, { useEffect, useState } from 'react'
 import ModalImage from 'react-modal-image'
@@ -19,12 +18,11 @@ import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { appliedCoupon } from '../../redux/actions/coupon'
 
-const { Text } = Typography
 function CheckOut(props) {
   const dispatch = useDispatch()
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
-  const [isSubmitAddr, setIsSubmitAddr] = useState(false)
+  // const [isSubmitAddr, setIsSubmitAddr] = useState(false)
   const [addressSaved, setAddressSaved] = useState(null)
   const [listAddress, setListAddress] = useState([])
   const [addressId, setAddressId] = useState('')
@@ -32,12 +30,9 @@ function CheckOut(props) {
   const [visible, setVisible] = useState(false)
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
-  const [discountError, setDiscountError] = useState('')
+  // const [discountError, setDiscountError] = useState('')
 
-  // const [addressCart, setAddressCart] = useState(null)
-  // const [coupons, setCoupons] = useState('')
   const history = useHistory()
-  // const [errorss, setErrorss] = useState(errorApplyCode || '')
   console.log('product', products)
   useEffect(() => {
     getUserCarts().then((res) => {
@@ -67,7 +62,6 @@ function CheckOut(props) {
   function loadUserAddress() {
     getAddresss()
       .then((res) => {
-        console.log('hello dia chi', res)
         setListAddress(res.data.listUserAddress.address)
         setAddressSaved(res.data.listUserAddress.address[0])
         applyAddressCarts({
@@ -78,7 +72,6 @@ function CheckOut(props) {
         toast.error('Lỗi lấy địa chỉ', error)
       })
   }
-  console.log('totalAfterDiscount', totalAfterDiscount)
   function onHandleDelete(addressId) {
     setAddressId(addressId)
     setVisible(true)
@@ -86,7 +79,6 @@ function CheckOut(props) {
   function onHandleDeleted() {
     removeAddress(addressId)
       .then((res) => {
-        console.log('xóa cc', res)
         toast.success('Xóa địa chỉ thành công')
         setVisible(false)
         loadUserAddress()
@@ -97,7 +89,6 @@ function CheckOut(props) {
       })
   }
   function onHandleAddressSelected(deliveryAddress) {
-    console.log('hello dia chi', deliveryAddress)
     setAddressSaved(deliveryAddress)
 
     applyAddressCarts({ deliveryAddress })
@@ -105,17 +96,15 @@ function CheckOut(props) {
         console.log('deliveryAddressdeliveryAddress', res)
         if (res.data) {
           toast.success('Chọn địa chỉ giao hàng thành công')
-          setIsSubmitAddr(true)
+          // setIsSubmitAddr(true)
         }
       })
       .catch((error) => {
-        setIsSubmitAddr(false)
+        // setIsSubmitAddr(false)
         toast.error('Chọn địa chỉ giao hàng thất bại')
-        console.log('errror', error)
       })
   }
-  console.log('hello dia chi mac dinh', listAddress[0])
-  console.log('hello dia chi click', coupons)
+
   function onHandleApplyCoupon() {
     applyCouponCarts({ coupons })
       .then((res) => {

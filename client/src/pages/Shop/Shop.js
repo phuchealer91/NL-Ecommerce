@@ -2,36 +2,51 @@ import { DollarOutlined, DownSquareOutlined } from '@ant-design/icons'
 import { Col, Menu, Row, Slider, Spin } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
 import { CardItem } from '../../components/CardItem'
+import { formatPrice } from '../../helpers/formatPrice'
+import { searchQuery } from '../../redux/actions/search'
 
 function Shop(props) {
   const history = useHistory()
+  const dispatch = useDispatch()
+  const [price, setPrice] = useState([0, 0])
+  const [ok, setOk] = useState(false)
   const [productsAll, setProductsAll] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const { text } = useSelector((state) => state.search)
   useEffect(() => {
     loadAllProducts()
-  }, [history])
+  }, [])
   function loadAllProducts() {
     getListAllProducts(12).then(
       (res) => setProductsAll(res.data.products),
       setIsLoading(false)
     )
   }
+  function loadProductsFilter(value) {
+    fetchProductsSearch(value).then((res) => setProductsAll(res.data.products))
+  }
   useEffect(() => {
     let cleared = setTimeout(() => {
       loadProductsFilter({ query: text })
+      if (!text) {
+        loadAllProducts()
+      }
     }, 300)
     return () => clearTimeout(cleared)
   }, [text])
-  function loadProductsFilter(value) {
-    fetchProductsSearch(value).then(
-      (res) => setProductsAll(res.data.products),
-      setIsLoading(false)
-    )
+  useEffect(() => {
+    loadProductsFilter({ price: price })
+  }, [ok])
+  function handleSlider(value) {
+    dispatch(searchQuery(''))
+    setPrice(value)
+    setTimeout(() => {
+      setOk(!ok)
+    }, 300)
   }
   return (
     <React.Fragment>
@@ -57,11 +72,11 @@ function Shop(props) {
               <div>
                 <Slider
                   className="ml-4 mr-4"
-                  tipFormatter={(v) => `$${v}`}
+                  tipFormatter={(v) => `${v}đ`}
                   range
-                  // value={price}
-                  // onChange={handleSlider}
-                  max="4999"
+                  value={price}
+                  onChange={handleSlider}
+                  max="500000"
                 />
               </div>
             </SubMenu>
@@ -79,29 +94,25 @@ function Shop(props) {
           </Menu>
         </Col>
         <Col xs={18} sm={18} md={18} lg={18}>
-          {isLoading ? (
-            <Spin />
-          ) : (
-            <h3 className="text-2xl text-green-600 font-semibold pb-3 pl-3">
-              Products
-            </h3>
-          )}
+          <h3 className="text-2xl text-green-600 font-semibold pb-3 pl-3">
+            Products
+          </h3>
 
           {productsAll.length < 1 && (
             <span className="text-gray-700 font-semibold text-xl pl-3">
               No products found
             </span>
           )}
-          <Row gutter={[2, 12]}>
+          <div className="grid mx-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-4 mt-6">
             {productsAll &&
               productsAll.map((product) => {
                 return (
-                  <Col xs={24} sm={24} md={8} lg={8} key={product._id}>
+                  <div className="product-item" key={product._id}>
                     <CardItem product={product} />
-                  </Col>
+                  </div>
                 )
               })}
-          </Row>
+          </div>
         </Col>
       </Row>
     </React.Fragment>

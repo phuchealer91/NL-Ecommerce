@@ -10,7 +10,6 @@ function CategoryList(props) {
   useEffect(() => {
     dispatch(getCategories())
   }, [dispatch])
-  const newArrs = [...listCategories]
   return (
     <React.Fragment>
       <section className="categories sm:px-4 px-0 mt-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 md:gap-4 gap-2">
@@ -20,7 +19,7 @@ function CategoryList(props) {
               {listCategories &&
                 listCategories.slice(0, 2).map((category, idx) => {
                   return (
-                    <div className="row-span-1">
+                    <div className="row-span-1" key={category._id}>
                       <div className="hover-image-scale relative">
                         <Link
                           to={`${PATHS.CATEGORY}/${category.slug}`}

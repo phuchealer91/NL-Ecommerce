@@ -14,6 +14,7 @@ function WishList(props) {
 
   useEffect(() => {
     loadWishList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
   const loadWishList = () => {
     getWishLists(page)

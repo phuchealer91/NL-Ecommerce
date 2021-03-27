@@ -1,7 +1,5 @@
 import { Col, Form, Row, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
 import { getAuthors } from '../../../apis/author'
 import { getCategories, getCategorySubs } from '../../../apis/category'
@@ -33,21 +31,20 @@ const initialState = {
   layouts: ['Bìa Cứng', 'Bìa Mềm'],
   languages: ['Tiếng Việt', 'English'],
   layout: '',
-  language: '',
+  lang: '',
 }
 const CreateProducts = () => {
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
   const [product, setProduct] = useState(initialState)
   const [isLoading, setIsLoading] = useState(false)
   const [categorySubs, setCategorySubs] = useState([])
   const [authors, setAuthors] = useState([])
   const [suppliers, setSuppliers] = useState([])
   const [showSub, setShowSub] = useState(false)
-  const history = useHistory()
 
   useEffect(() => {
     loadCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
     loadAuthors()

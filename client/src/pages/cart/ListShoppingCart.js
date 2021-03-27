@@ -1,27 +1,18 @@
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons'
-import { Button, Form, Input, InputNumber, Select, Table } from 'antd'
+import { InputNumber } from 'antd'
 import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { ModalConfirm } from '../../components/ModalConfirm'
 import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
-const { Option } = Select
 const ListShoppingCart = ({ item }) => {
-  const [form] = Form.useForm()
-
   const [showModal, setShowModal] = useState(false)
   const [idDelete, setIdDelete] = useState('')
   const dispatch = useDispatch()
 
-  console.log('count ne', item.quantity)
   function onChangeCount(count) {
     let countX = count < 1 ? 1 : count
 
@@ -39,12 +30,11 @@ const ListShoppingCart = ({ item }) => {
       }
       cart.map((pro, i) => {
         if (pro._id === item._id) {
-          cart[i].count = countX
+          return (cart[i].count = countX)
         }
       })
       localStorage.setItem('cart', JSON.stringify(cart))
       dispatch(addToCart(cart))
-      console.log('hello đáibáhđấ', cart)
     }
   }
 
@@ -57,7 +47,7 @@ const ListShoppingCart = ({ item }) => {
       }
       cart.map((pro, i) => {
         if (pro._id === idDelete) {
-          cart.splice(i, 1)
+          return cart.splice(i, 1)
         }
       })
       localStorage.setItem('cart', JSON.stringify(cart))
@@ -65,9 +55,9 @@ const ListShoppingCart = ({ item }) => {
       dispatch(addToCart(cart))
     }
   }
-  function onFocus() {}
-  function onBlur() {}
-  function onSearch() {}
+  // function onFocus() {}
+  // function onBlur() {}
+  // function onSearch() {}
   function onHandleDelete(id) {
     setShowModal(true)
     setIdDelete(id)

@@ -41,6 +41,7 @@ function StripeCheckOut(props) {
       setTotalAfterDiscount(res.data.totalAfterDiscount)
       setPayable(res.data.payable)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function onHandlChange(e) {

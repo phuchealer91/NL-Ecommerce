@@ -1,19 +1,16 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import { userCart } from '../../redux/actions/cart'
-import { InputNumber } from 'antd'
-import './Cart.scss'
-import { EmptyCart } from '../../components/Empty'
-import ListShoppingCart from './ListShoppingCart'
-import { formatPrice } from '../../helpers/formatPrice'
-import { userCarts } from '../../apis/cart'
 import { toast } from 'react-toastify'
+import { userCarts } from '../../apis/cart'
+import { EmptyCart } from '../../components/Empty'
+import { formatPrice } from '../../helpers/formatPrice'
+import './Cart.scss'
+import ListShoppingCart from './ListShoppingCart'
 function Cart(props) {
   const { cart, user } = useSelector((state) => ({ ...state }))
-  let { cartLists, isCheckOut } = cart
+  let { cartLists } = cart
   const history = useHistory()
-  const dispatch = useDispatch()
   function getTotal() {
     return cartLists.reduce((curr, next) => {
       return curr + next.count * next.price

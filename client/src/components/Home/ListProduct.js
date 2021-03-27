@@ -19,6 +19,7 @@ function ListProduct(props) {
   useEffect(() => {
     // dispatch(getListProducts('createAt', 'desc', page))
     loadProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
   function loadProducts() {
@@ -31,6 +32,7 @@ function ListProduct(props) {
   }
   useEffect(() => {
     dispatch(getProductsCount())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>
@@ -41,7 +43,7 @@ function ListProduct(props) {
           {listproduct &&
             listproduct.map((product) => {
               return (
-                <div className="product-item">
+                <div className="product-item" key={product._id}>
                   <CardItem product={product} />
                 </div>
               )

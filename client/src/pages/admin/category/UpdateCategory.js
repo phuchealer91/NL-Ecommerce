@@ -16,6 +16,7 @@ const UpdateCategory = ({ match }) => {
   const { slug } = match.params
   useEffect(() => {
     dispatch(getCategory(slug))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
 
   function onFinish({ name }) {
@@ -27,6 +28,7 @@ const UpdateCategory = ({ match }) => {
     form.setFieldsValue({
       name: (categoryEditing && categoryEditing.name) || '',
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryEditing])
   return (
     <React.Fragment>

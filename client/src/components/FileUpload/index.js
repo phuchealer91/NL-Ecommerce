@@ -2,14 +2,13 @@ import { UploadOutlined } from '@ant-design/icons'
 import { Avatar, Badge, Input } from 'antd'
 import React from 'react'
 import Resizer from 'react-image-file-resizer'
-import { useSelector } from 'react-redux'
 import { deleteUploadImage, uploadFileImages } from '../../apis/cloudinary'
 import './FileUpload.scss'
 
 FileUpload.propTypes = {}
 
 function FileUpload({ product, setProduct, setIsLoading }) {
-  const { user, product: pro } = useSelector((state) => ({ ...state }))
+  // const { user, product: pro } = useSelector((state) => ({ ...state }))
   console.log('hello anh yeu', product)
   function handleUploadAndResize(e) {
     let files = e.target.files

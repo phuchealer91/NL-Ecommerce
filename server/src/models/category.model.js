@@ -9,6 +9,7 @@ const categorySchema = new schema(
       required: true,
       minlength: [3, 'Too short'],
       maxlength: [32, 'Too long'],
+      text: true,
     },
     slug: {
       type: String,

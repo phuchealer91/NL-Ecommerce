@@ -6,6 +6,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { Link } from 'react-router-dom'
 import emptyComment from '../../assets/images/empty-comment.png'
 import imageDefault from '../../assets/images/mac-default.png'
 import { addToCart } from '../../redux/actions/cart'
@@ -64,7 +65,7 @@ function SingleProduct({ productEditing }) {
                 <img
                   src={imageDefault}
                   className="mb-3 card-image"
-                  alt="image default"
+                  alt={imageDefault}
                 />
               }
             ></Card>
@@ -95,15 +96,15 @@ function SingleProduct({ productEditing }) {
           <Card
             actions={[
               <Tooltip placement="top" title="kk">
-                <a onClick={handleAddToCart} disabled={quantity < 1} href="#">
+                <Link onClick={handleAddToCart} disabled={quantity < 1} to="# ">
                   <ShoppingCartOutlined className="text-danger" />
                   <br />
                   {quantity < 1 ? 'Out of Stock' : 'Add To Cart'}
-                </a>
+                </Link>
               </Tooltip>,
-              <a onClick={handleAddToWishlist} href="#">
+              <Link onClick={handleAddToWishlist} to="# ">
                 <HeartOutlined className="text-info" /> <br /> Add to Wishlist
-              </a>,
+              </Link>,
 
               <ModalRating productId={productEditing?._id}>
                 {/* <StarRating

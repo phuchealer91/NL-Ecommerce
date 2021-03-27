@@ -15,6 +15,7 @@ function CategoryMainPage(props) {
   const { slug } = useParams()
   useEffect(() => {
     dispatch(getCategory(slug))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
   return (
     <React.Fragment>

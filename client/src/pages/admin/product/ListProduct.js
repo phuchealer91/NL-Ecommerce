@@ -1,7 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Avatar, Button, Col, Row, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { deleteProducts, getListAllProducts } from '../../../apis/product'
@@ -13,7 +12,6 @@ import './Product.scss'
 
 const ListProduct = () => {
   // const [form] = Form.useForm()
-  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
   const [productToDelete, setProductToDelete] = useState('')
   const [products, setProducts] = useState([])

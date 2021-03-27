@@ -1,4 +1,3 @@
-import { Typography } from 'antd'
 import { Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -9,11 +8,10 @@ import {
   getProvinces,
 } from '../../apis/province'
 
-const { Text } = Typography
 function Addressx(props) {
   const history = useHistory()
   const [province, setProvince] = useState('')
-  const [district, setDistrict] = useState('')
+  // const [district, setDistrict] = useState('')
   const [provinceDistrict, setProvinceDistrict] = useState('')
   const [districtWard, setDistrictWard] = useState('')
   const [valuesx, setValuesx] = useState([])

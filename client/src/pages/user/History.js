@@ -1,56 +1,40 @@
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  SyncOutlined,
-} from '@ant-design/icons'
-import { PDFDownloadLink } from '@react-pdf/renderer'
-import { Card, Col, Row, Statistic, Steps, Table, Tag } from 'antd'
+import { Steps, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { UserSideBar } from '../../components/navigation/SideBar'
-import Invoice from '../../components/Order/Invoice'
-import { formatPrice } from '../../helpers/formatPrice'
-import { userOrder } from '../../redux/actions/cart'
-import './Styles.scss'
-import imageDefault from '../../assets/images/default-image.jpg'
-import { Link } from 'react-router-dom'
 import ModalImage from 'react-modal-image'
-import { getOrders, updatedOrderStatus } from '../../apis/order'
-import { userOrders } from '../../apis/cart'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { userOrders } from '../../apis/cart'
+import { updatedOrderStatus } from '../../apis/order'
+import imageDefault from '../../assets/images/default-image.jpg'
+import { UserSideBar } from '../../components/navigation/SideBar'
+import { formatPrice } from '../../helpers/formatPrice'
+import './Styles.scss'
 const { Step } = Steps
 
 function History(props) {
-  const dispatch = useDispatch()
-  const [isReady, setIsReady] = useState(false)
+  // const [isReady, setIsReady] = useState(false)
   const [userOrder, setuserOrder] = useState([])
-  const [isBack, setIsBack] = useState(false)
   const [isCancel, setIsCancel] = useState(false)
   useEffect(() => {
     loaduserOrder()
   }, [userOrder])
-  // useEffect(() => {
 
-  // }, [])
   const loaduserOrder = () =>
     userOrders().then((res) => {
-      console.log('hello ress', res)
       setuserOrder(res.data.userOrders)
     })
 
-  console.log('userOrderuserOrderuserOrderuserOrder', userOrder)
-
-  const showPDFDownloadLink = (userOrder) => {
-    return (
-      <PDFDownloadLink
-        document={<Invoice userOrders={userOrder} />}
-        fileName="invoice.pdf"
-        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-      >
-        Download PDF
-      </PDFDownloadLink>
-    )
-  }
+  // const showPDFDownloadLink = (userOrder) => {
+  //   return (
+  //     <PDFDownloadLink
+  //       document={<Invoice userOrders={userOrder} />}
+  //       fileName="invoice.pdf"
+  //       className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+  //     >
+  //       Download PDF
+  //     </PDFDownloadLink>
+  //   )
+  // }
   function onHandleCancelOrder(orderId) {
     updatedOrderStatus(orderId, 'Hủy')
       .then((res) => {

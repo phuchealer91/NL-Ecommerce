@@ -55,7 +55,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ['Bìa Cứng', 'Bìa Mềm'],
     },
-    language: {
+    lang: {
       type: String,
       enum: ['Tiếng Việt', 'English'],
     },

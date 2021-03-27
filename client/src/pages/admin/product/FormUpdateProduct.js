@@ -159,7 +159,7 @@ const FormCreateProduct = ({
       </Form.Item>
       <Form.Item
         label="Ngôn ngữ"
-        name="language"
+        name="lang"
         rules={[
           {
             required: false,

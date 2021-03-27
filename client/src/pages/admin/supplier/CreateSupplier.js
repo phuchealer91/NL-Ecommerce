@@ -1,7 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Col, Form, Row, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import {
@@ -17,7 +16,6 @@ import './Suppliers.scss'
 
 const CreateSupplier = () => {
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [suppliers, setSuppliers] = useState([])

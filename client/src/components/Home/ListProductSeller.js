@@ -13,15 +13,12 @@ function ListProductSeller(props) {
   const [page, setPage] = useState(1)
   const [listproduct, setListproduct] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const { listProducts, issLoading, totalProducts } = useSelector(
-    (state) => state.product
-  )
+  const { totalProducts } = useSelector((state) => state.product)
   useEffect(() => {
-    // dispatch(getListProducts('sold', 'desc', page))
     loadProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
   function loadProducts() {
-    // dispatch(getListProducts('createAt', 'desc', page))
     setIsLoading(true)
     getListProductss('sold', 'desc', page).then((res) => {
       setListproduct(res.data.products)
@@ -30,6 +27,7 @@ function ListProductSeller(props) {
   }
   useEffect(() => {
     dispatch(getProductsCount())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>

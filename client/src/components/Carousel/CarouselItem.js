@@ -1,6 +1,5 @@
-import { Carousel, Select } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { getProvinceDistrict, getProvinces } from '../../apis/province'
+import { Carousel } from 'antd'
+import React from 'react'
 import slider2 from '../../assets/images/Slider2.png'
 import slider3 from '../../assets/images/Slider3.jpg'
 import slider4 from '../../assets/images/Slider4.jpg'
@@ -8,58 +7,7 @@ import slider5 from '../../assets/images/Slider5.jpg'
 import slider6 from '../../assets/images/Slider6.jpg'
 import slider7 from '../../assets/images/Slider7.jpg'
 
-const contentStyle = {
-  height: 'calc(100vh - 48px)',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-}
-
 function CarouselItem(props) {
-  const { Option } = Select
-  const [values, setValues] = useState([])
-  const [valuess, setValuess] = useState([])
-  const [province, setProvince] = useState('')
-  const [provinceDistrict, setProvinceDistrict] = useState('')
-
-  useEffect(() => {
-    getProvincess()
-  }, [])
-  useEffect(() => {
-    getProvinceDistrictss()
-  }, [valuess, province, provinceDistrict])
-  function getProvincess() {
-    getProvinces({})
-      .then((res) => {
-        setValues(res)
-      })
-      .catch((err) => console.log('Error anh em', err))
-  }
-  function getProvinceDistrictss() {
-    getProvinceDistrict(province)
-      .then((res) => {
-        setValuess(res)
-      })
-      .catch((err) => console.log('Error anh em', err))
-  }
-  function handleChangeProvinceDistrict(value) {
-    setProvinceDistrict(value)
-  }
-  function handleChange(value) {
-    setProvinceDistrict('')
-    setProvince(value)
-  }
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: 'block', background: 'red' }}
-        onClick={onClick}
-      />
-    )
-  }
   const settings = {
     dots: true,
     infinite: false,
@@ -218,50 +166,6 @@ function CarouselItem(props) {
             </div> */}
           </div>
         </Carousel>
-      </div>
-      <div>
-        <Select
-          // defaultValue={province ? provinceDistrict : 'No selected'}
-          value={provinceDistrict}
-          style={{
-            width: 204,
-            border: '0',
-            backgroundColor: 'transparent',
-          }}
-          onChange={handleChangeProvinceDistrict}
-          allowClear
-          // onClick={() => setSelects(userOrders._id)}
-        >
-          {valuess &&
-            valuess.data?.districts.map((arr) => {
-              return (
-                <Option key={arr._id} value={arr.code}>
-                  {arr.name.toUpperCase()}
-                </Option>
-              )
-            })}
-        </Select>
-      </div>
-      <div>
-        <Select
-          // defaultValue={userOrders?.orderStatus}
-          style={{
-            width: 204,
-            border: '0',
-            backgroundColor: 'transparent',
-          }}
-          onChange={handleChange}
-          // onClick={() => setSelects(userOrders._id)}
-        >
-          {values &&
-            values.data?.provinces.map((arr) => {
-              return (
-                <Option key={arr._id} value={arr.code}>
-                  {arr.name.toUpperCase()}
-                </Option>
-              )
-            })}
-        </Select>
       </div>
     </React.Fragment>
   )

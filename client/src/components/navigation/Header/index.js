@@ -1,27 +1,25 @@
 import {
-  HomeOutlined,
   LogoutOutlined,
   SettingOutlined,
-  ShopOutlined,
   ShoppingCartOutlined,
   UserAddOutlined,
   UserOutlined,
 } from '@ant-design/icons'
 import { Badge, Menu } from 'antd'
 import React, { useState } from 'react'
-import { auth } from '../../../firebase'
-import { Link, useHistory } from 'react-router-dom'
 // import './Header.scss'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import { auth } from '../../../firebase'
 import { logoutInUser } from '../../../redux/actions/users'
-import PATHS from '../../../redux/constants/paths'
 import { TOKEN } from '../../../redux/constants/keys'
+import PATHS from '../../../redux/constants/paths'
 import { Searchs } from '../../LocalSearch'
 import {
-  SubCategoryV,
   SubCategoryK,
-  SubCategoryT,
   SubCategoryN,
+  SubCategoryT,
+  SubCategoryV,
 } from '../../SubCategory/'
 
 const { SubMenu, Item } = Menu
@@ -140,12 +138,12 @@ const Header = () => {
                   </li>
 
                   <li className="mr-6 dropdown-hover">
-                    <a
-                      href
+                    <Link
+                      to="# "
                       className="stc text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
                     >
                       SÁCH TRONG NƯỚC
-                    </a>
+                    </Link>
                     <div className="dropdown-menu grid-rows-3">
                       <div className="grid row-span-2 ">
                         <div className="col-span-7 grid grid-cols-3">
@@ -178,12 +176,12 @@ const Header = () => {
                     </div>
                   </li>
                   <li className="mr-6 dropdown-hover">
-                    <a
-                      href
+                    <Link
+                      to="# "
                       className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
                     >
                       SÁCH NGOÀI NƯỚC
-                    </a>
+                    </Link>
                     <div className="dropdown-menu">
                       <div className="grid grid-cols-12 gap-5">
                         <div className="col-span-9 grid grid-cols-3 gap-4">
@@ -192,68 +190,68 @@ const Header = () => {
                               TOPS
                             </p>
                             <li className="mb-1">
-                              <a href>
+                              <Link to="# ">
                                 <img
                                   src="./assests/images/mm_04_400x.png"
                                   alt=""
                                 />
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Awesome
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Beachwear
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Beige
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Cool
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Dress
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Gap
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Guess
-                              </a>
+                              </Link>
                             </li>
                           </ul>
                           <ul className="group">
@@ -261,68 +259,68 @@ const Header = () => {
                               BOTTOMS
                             </p>
                             <li className="mb-1">
-                              <a href>
+                              <Link to="# ">
                                 <img
                                   src="./assests/images/mm_05_400x.png"
                                   alt=""
                                 />
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Jean
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Lacoste
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Levi's
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Model
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Nice
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Polo
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Pullover
-                              </a>
+                              </Link>
                             </li>
                           </ul>
                           <ul className="group">
@@ -330,75 +328,75 @@ const Header = () => {
                               ACCESSORIES
                             </p>
                             <li className="mb-1">
-                              <a href>
+                              <Link to="# ">
                                 <img
                                   src="./assests/images/mm_06_400x.png"
                                   alt=""
                                 />
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Scarf
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Shirt
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Shoes
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Shorts
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Summer
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Sunglasses
-                              </a>
+                              </Link>
                             </li>
                             <li>
-                              <a
-                                href
+                              <Link
+                                to="# "
                                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
                               >
                                 Vintage
-                              </a>
+                              </Link>
                             </li>
                           </ul>
                         </div>
                         <div className="col-span-3 relative">
-                          <a href className="mt-2 block">
+                          <Link to="# " className="mt-2 block">
                             <img src="./assests/images/mm_03_410x.png" alt="" />
-                          </a>
+                          </Link>
                           <div className="absolute top-8 left-6">
                             <div>
                               <p className="font-semibold text-white mt-1">
@@ -418,12 +416,12 @@ const Header = () => {
                   </li>
 
                   <li className="mr-6">
-                    <a
-                      href
+                    <Link
+                      to="# "
                       className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
                     >
                       CỘNG ĐỒNG
-                    </a>
+                    </Link>
                   </li>
                   {/* <li className="mr-6">
                     <a
@@ -564,36 +562,36 @@ const Header = () => {
               <span className="ml-1">Close</span>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 home
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 shop
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 pages
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 blog
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
               <a
@@ -619,12 +617,12 @@ const Header = () => {
               <i className="fal fa-angle-left" />
               <span className="ml-1">Back</span>
             </li>
-            <a
-              href="#"
+            <Link
+              to="/"
               className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
             >
               women
-            </a>
+            </Link>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
               <a
                 href="#mn4"
@@ -658,12 +656,12 @@ const Header = () => {
               <i className="fal fa-angle-left" />
               <span className="ml-1">Back</span>
             </li>
-            <a
-              href="#"
+            <Link
+              to="/"
               className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
             >
               men
-            </a>
+            </Link>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
               <a
                 href="#mn4"
@@ -697,12 +695,12 @@ const Header = () => {
               <i className="fal fa-angle-left" />
               <span className="ml-1">Back</span>
             </li>
-            <a
-              href="#"
+            <Link
+              to="/"
               className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
             >
               Văn học
-            </a>
+            </Link>
             {/* <SubCategoryV  /> */}
           </ul>
           <ul className="absolute inset-0 py-6 panel-menu__list mn5 hidden">
@@ -710,67 +708,67 @@ const Header = () => {
               <i className="fal fa-angle-left" />
               <span className="ml-1">Back</span>
             </li>
-            <a
-              href="#"
+            <Link
+              to="/"
               className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
             >
               bottoms
-            </a>
+            </Link>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 jeans
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 lacoste
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 levi's
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 model
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 nice
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 polo
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 pullover
-              </a>
+              </Link>
             </li>
           </ul>
           <ul className="absolute inset-0 py-6 panel-menu__list mn6 hidden">
@@ -778,67 +776,67 @@ const Header = () => {
               <i className="fal fa-angle-left" />
               <span className="ml-1">Back</span>
             </li>
-            <a
-              href="#"
+            <Link
+              to="/"
               className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
             >
               accessories
-            </a>
+            </Link>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 scarf
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 shirt
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 shoes
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 shorts
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 summer
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 sunglasess
-              </a>
+              </Link>
             </li>
             <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="uppercase font-light text-sm text-black group-hover:text-blue-600"
               >
                 vintage
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

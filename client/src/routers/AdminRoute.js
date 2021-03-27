@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Redirect, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Route } from 'react-router-dom'
 import LoadingRoute from './LoadingRoute'
+
 const AdminRoute = ({ children, ...rest }) => {
   const { user } = useSelector((state) => ({ ...state }))
   const [isAdmin, setIsAdmin] = useState(false)

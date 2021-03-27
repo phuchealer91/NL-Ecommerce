@@ -45,7 +45,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenUser = await user.getIdTokenResult()
-        const { token } = idTokenUser
         const data = {
           email: user.email,
           token: idTokenUser.token,

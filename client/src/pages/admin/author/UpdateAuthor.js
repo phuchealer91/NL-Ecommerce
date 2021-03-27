@@ -18,6 +18,7 @@ const UpdateAuthor = ({ match }) => {
   const { slug } = match.params
   useEffect(() => {
     loadAuthor()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const loadAuthor = () =>
     getAuthor(slug).then((au) => {

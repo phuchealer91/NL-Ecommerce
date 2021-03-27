@@ -7,7 +7,6 @@ import {
 import { Rate, Tooltip } from 'antd'
 import _ from 'lodash'
 import React from 'react'
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'

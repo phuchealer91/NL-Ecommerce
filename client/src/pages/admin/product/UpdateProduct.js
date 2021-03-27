@@ -1,8 +1,6 @@
 import { Col, Form, Row, Space, Spin } from 'antd'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
 import { getAuthors } from '../../../apis/author'
 import { getCategories, getCategorySubs } from '../../../apis/category'
 import { getProduct } from '../../../apis/product'
@@ -35,24 +33,22 @@ const initialState = {
   layouts: ['Bìa Cứng', 'Bìa Mềm'],
   languages: ['Tiếng Việt', 'English'],
   layout: '',
-  language: '',
+  lang: '',
 }
 const UpdateProductss = ({ match }) => {
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
   const [product, setProduct] = useState(initialState)
   const [arrayOfSubs, setArrayOfSubs] = useState([])
 
   const [arrayOfAuthors, setArrayOfAuthors] = useState([])
   const [categories, setCategories] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [selectedSupplier, setSelectedSupplier] = useState('')
+  // const [selectedCategory, setSelectedCategory] = useState('')
+  // const [selectedSupplier, setSelectedSupplier] = useState('')
   const [authors, setAuthors] = useState([])
   const [suppliers, setSuppliers] = useState([])
   const [categorySubs, setCategorySubs] = useState([])
   const [showSub] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const history = useHistory()
 
   const { slug } = match.params
 
@@ -62,6 +58,7 @@ const UpdateProductss = ({ match }) => {
     loadCategories()
     loadAuthors()
     loadSuppliers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
     form.setFieldsValue({
@@ -71,7 +68,7 @@ const UpdateProductss = ({ match }) => {
       shipping: (product && product.shipping) || '',
       quantity: (product && product.quantity) || '',
       layout: (product && product.layout) || '',
-      language: (product && product.language) || '',
+      // language: (product && product.language) || '',
       category: (product && product.category?.name) || '',
       pages: (product && product.pages) || '',
       publisher: (product && product.publisher) || '',
@@ -79,9 +76,10 @@ const UpdateProductss = ({ match }) => {
       supplier: (product && product.supplier?.name) || '',
       // category: (product && product.category?.name) || '',
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product])
 
-  const loadValues = () => {}
+  // const loadValues = () => {}
   console.log('single product', product)
   const loadProduct = () => {
     getProduct(slug).then((p) => {
@@ -97,11 +95,11 @@ const UpdateProductss = ({ match }) => {
       let arr = []
       let arrAuthors = []
       p.data.product.subs.map((s) => {
-        arr.push(s._id)
+        return arr.push(s._id)
       })
       setArrayOfSubs((prev) => arr) // required for ant design select to work
       p.data.product.author.map((s) => {
-        arrAuthors.push(s._id)
+        return arrAuthors.push(s._id)
       })
       setArrayOfAuthors((prev) => arrAuthors)
     }) // required for ant design select to work
@@ -147,7 +145,7 @@ const UpdateProductss = ({ match }) => {
   // }
   function onChangeCategory(_id) {
     console.log('ANH EM MINH', _id)
-    setSelectedCategory(_id)
+    // setSelectedCategory(_id)
     getCategorySubs(_id).then((res) => {
       setCategorySubs(res.data.subs)
     })

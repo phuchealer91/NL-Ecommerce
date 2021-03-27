@@ -33,10 +33,7 @@ function Invoice({ userOrders: order }) {
       marginLeft: 'auto',
       marginRight: 'auto',
     },
-    titleContainer: {
-      flexDirection: 'row',
-      marginTop: 24,
-    },
+
     reportTitle: {
       color: '#61dafb',
       letterSpacing: 4,
@@ -86,39 +83,7 @@ function Invoice({ userOrders: order }) {
       fontStyle: 'bold',
       flexGrow: 1,
     },
-    description: {
-      width: '60%',
-      borderRightColor: '#ccc',
-      borderRightWidth: 1,
-    },
-    qty: {
-      width: '10%',
-      borderRightColor: '#ccc',
-      borderRightWidth: 1,
-    },
-    rate: {
-      width: '15%',
-      borderRightColor: '#ccc',
-      borderRightWidth: 1,
-    },
-    amount: {
-      width: '15%',
-    },
-    row: {
-      flexDirection: 'row',
-      borderBottomColor: '#bff0fd',
-      borderBottomWidth: 1,
-      alignItems: 'center',
-      height: 24,
-      fontStyle: 'bold',
-    },
-    description: {
-      width: '60%',
-      textAlign: 'left',
-      borderRightColor: '#ccc',
-      borderRightWidth: 1,
-      paddingLeft: 8,
-    },
+
     qty: {
       width: '10%',
       borderRightColor: '#ccc',

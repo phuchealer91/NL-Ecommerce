@@ -1,27 +1,17 @@
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  SyncOutlined,
-} from '@ant-design/icons'
-import ModalImage from 'react-modal-image'
-import { Card, Col, Row, Select, Statistic, Steps, Table, Tag } from 'antd'
+import { Select, Steps } from 'antd'
 import React, { useEffect, useState } from 'react'
+import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { getOrders, updatedOrderStatus } from '../../../apis/order'
+import imageDefault from '../../../assets/images/default-image.jpg'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
 import { formatPrice } from '../../../helpers/formatPrice'
-import { getOrder, updateOrderStatus } from '../../../redux/actions/order'
-import imageDefault from '../../../assets/images/default-image.jpg'
-import { getOrders, updatedOrderStatus } from '../../../apis/order'
-import { toast } from 'react-toastify'
 const { Step } = Steps
 
 function OrdersList(props) {
   const { Option } = Select
-  const dispatch = useDispatch()
   const [orders, setOrders] = useState([])
-  const { ordersList, ordersListChange } = useSelector((state) => state.order)
-  const [values, setValues] = useState(null)
   useEffect(() => {
     loadAllOrders()
   }, [])
@@ -35,7 +25,6 @@ function OrdersList(props) {
     })
   }
   function handleChange(orderId, orderStatus) {
-    let value = { orderId, orderStatus }
     updatedOrderStatus(orderId, orderStatus)
       .then((res) => {
         if (res.data) {

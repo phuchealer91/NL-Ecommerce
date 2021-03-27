@@ -1,5 +1,5 @@
 import * as types from '../constants/search'
-// get category
+//
 export const searchQuery = (data) => {
   return {
     type: types.SEARCH_QUERY,

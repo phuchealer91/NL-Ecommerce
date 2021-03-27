@@ -4,7 +4,13 @@ const schema = mongoose.Schema
 
 const supplierSchema = new schema(
   {
-    name: { type: String, trim: true, required: true },
+    name: {
+      type: String,
+      trim: true,
+      required: 'Name is required',
+      minlength: [2, 'Too short'],
+      maxlength: [32, 'Too long'],
+    },
     slug: {
       type: String,
       trim: true,
@@ -14,6 +20,7 @@ const supplierSchema = new schema(
     },
     bio: {
       type: String,
+      text: true,
     },
     products: [{ type: ObjectId, ref: 'Product' }],
   },

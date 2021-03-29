@@ -307,8 +307,8 @@ const FormCreateProduct = ({
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
         >
-          <Option value="Yes">Yes</Option>
-          <Option value="No">No</Option>
+          <Option value="Có">Có</Option>
+          <Option value="Không">Không</Option>
         </Select>
       </Form.Item>
       <Button htmlType="submit" type="primary" className="category__btn">

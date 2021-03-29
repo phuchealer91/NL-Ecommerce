@@ -19,7 +19,7 @@ const initialState = {
   categories: [],
   category: '',
   subs: [],
-  shipping: ['Yes', 'No'],
+  shipping: ['Có', 'Không'],
   quantity: '',
   pages: '',
   author: [],
@@ -29,7 +29,7 @@ const initialState = {
 
   images: [],
   layouts: ['Bìa Cứng', 'Bìa Mềm'],
-  languages: ['Tiếng Việt', 'English'],
+  languages: ['Tiếng Việt', 'Tiếng Anh'],
   layout: '',
   lang: '',
 }

@@ -49,7 +49,7 @@ const productSchema = new mongoose.Schema(
     },
     shipping: {
       type: String,
-      enum: ['Yes', 'No'],
+      enum: ['Có', 'Không'],
     },
     layout: {
       type: String,
@@ -57,7 +57,7 @@ const productSchema = new mongoose.Schema(
     },
     lang: {
       type: String,
-      enum: ['Tiếng Việt', 'English'],
+      enum: ['Tiếng Việt', 'Tiếng Anh'],
     },
     author: [{ type: ObjectId, ref: 'Author', required: true }],
     // nha cung cap

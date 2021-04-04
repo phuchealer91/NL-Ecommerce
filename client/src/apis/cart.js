@@ -31,7 +31,10 @@ export const createOrders = (data) => {
 export const userOrders = (data) => {
   return axiosServices.get(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDERS}`, data)
 }
-
+// status total
+export const getTotalOrdersStatuss = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/${PATHS.CART}/totals/status`, data)
+}
 //api wish list
 export const addWishLists = (data) => {
   return axiosServices.post(`/${PATHS.USER}/${PATHS.WISHLIST}`, data)
@@ -55,4 +58,9 @@ export const getAddresss = (data) => {
 }
 export const removeAddress = (addressId, data) => {
   return axiosServices.put(`/${PATHS.USER}/${PATHS.ADDRESS}/${addressId}`, data)
+}
+
+// api get total user
+export const getTotalUserss = (data) => {
+  return axiosServices.get(`/${PATHS.USER}/total`, data)
 }

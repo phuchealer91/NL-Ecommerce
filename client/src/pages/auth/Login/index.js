@@ -19,7 +19,12 @@ const Login = (props) => {
       const result = await auth.signInWithEmailAndPassword(email, password)
       const { user } = result
       const idTokenUser = await user.getIdTokenResult()
-      const data = { email: user.email, token: idTokenUser.token }
+      const data = {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        token: idTokenUser.token,
+      }
       dispatch(registerOrUpdateUser(data))
       // dispatch(loginInUser(data))
       toast.success('Đăng nhập thành công !')
@@ -37,7 +42,9 @@ const Login = (props) => {
         const { user } = result
         const idTokenUser = await user.getIdTokenResult()
         const data = {
+          name: user.displayName,
           email: user.email,
+          photoURL: user.photoURL,
           token: idTokenUser.token,
         }
         dispatch(registerOrUpdateUser(data))

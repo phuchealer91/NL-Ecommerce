@@ -10,6 +10,12 @@ export const currentUsers = (data) => {
 export const currentAdmins = (data) => {
   return axiosServices.post(`/${PATHS.AUTH}/current-admin`, data)
 }
+export const getNotifications = (data) => {
+  return axiosServices.get(`/${PATHS.AUTH}/get-notifications`, data)
+}
+export const notificationUpdate = (data) => {
+  return axiosServices.get(`/${PATHS.AUTH}/notification-update-order`, data)
+}
 // export const registerOrUpdateUsers = async (authorization) => {
 //   return await axios.post(
 //     'http://localhost:8000/api/auth/create-or-update-user ',

@@ -41,6 +41,7 @@ function CheckOut(props) {
     })
     loadUserAddress()
   }, [])
+
   const onHandleEmptyCart = () => {
     // remove from local storage
     if (typeof window !== 'undefined') {
@@ -62,6 +63,7 @@ function CheckOut(props) {
   function loadUserAddress() {
     getAddresss()
       .then((res) => {
+        console.log('hello anh em', res)
         setListAddress(res.data.listUserAddress.address)
         setAddressSaved(res.data.listUserAddress.address[0])
         applyAddressCarts({
@@ -129,6 +131,7 @@ function CheckOut(props) {
       history.push('/payment')
     }
   }
+  console.log('listAddresslistAddresslistAddresslistAddress', listAddress)
   return (
     <div>
       <Modal

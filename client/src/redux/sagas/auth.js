@@ -2,6 +2,7 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import {
   currentAdmins,
   currentUsers,
+  notificationUpdate,
   registerOrUpdateUsers,
 } from '../../apis/auth'
 import {
@@ -9,6 +10,8 @@ import {
   currentAdminSuccess,
   currentUserFailed,
   currentUserSuccess,
+  notificationCountFailed,
+  notificationCountSuccess,
   registerOrUpdateUserFailed,
   registerOrUpdateUserSuccess,
 } from '../actions/users'
@@ -52,6 +55,17 @@ function* currentUser({ payload }) {
     yield put(currentUserFailed(error))
   }
 }
+function* notificationUpdatess({ payload }) {
+  console.log('hellopayloadpayloadpayloadpayload', payload)
+  try {
+    const resp = yield call(notificationUpdate)
+    console.log('hello', resp)
+    const data = { ...resp.data }
+    yield put(notificationCountSuccess(data))
+  } catch (error) {
+    yield put(notificationCountFailed(error))
+  }
+}
 
 function* currentAdmin({ payload }) {
   window.localStorage.setItem(TOKEN, payload)
@@ -72,6 +86,7 @@ function* currentAdmin({ payload }) {
 export function* watchLoggedUser() {
   yield takeEvery(types.CREATE_OR_UPDATE_USER, LoggedUser)
   yield takeEvery(types.CURRENT_USER, currentUser)
+  // yield takeEvery(types.NOTIFICATION_ORDER, notificationUpdatess)
   yield takeLatest(types.CURRENT_ADMIN, currentAdmin)
 }
 // export function* watchRegisterOrUpdateUser() {

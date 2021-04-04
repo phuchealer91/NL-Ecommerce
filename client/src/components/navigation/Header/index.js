@@ -11,6 +11,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { auth } from '../../../firebase'
+import UserLogined from '../../../pages/auth/Login/UserLogined'
 import { logoutInUser } from '../../../redux/actions/users'
 import { TOKEN } from '../../../redux/constants/keys'
 import PATHS from '../../../redux/constants/paths'
@@ -40,72 +41,6 @@ const Header = () => {
   }
 
   return (
-    // <Menu
-    //   onClick={handleClick}
-    //   selectedKeys={[current]}
-    //   mode="horizontal"
-    //   className="nav"
-    // >
-    //   <Item key="home" className="block flex items-center">
-    //     <span>
-    //       <ShopOutlined />
-    //     </span>
-    //     <Link to="/" className="">
-    //       HOME
-    //     </Link>
-    //   </Item>
-    //   <Item key="shop" icon={<ShopOutlined />}>
-    //     <Link to="/shop">SHOP</Link>
-    //   </Item>
-    //   <Item key="cart" icon={<ShoppingCartOutlined />}>
-    //     <Link to="/cart">
-    //       <Badge count={cartLists.length} offset={[9, 0]}>
-    //         CART
-    //       </Badge>
-    //     </Link>
-    //   </Item>
-
-    //   {user && user.token ? (
-    //     <SubMenu
-    //       key="SubMenu"
-    //       icon={<SettingOutlined />}
-    //       title={user && user.name ? user.name : ''}
-    //       className="nav__user"
-    //     >
-    //       {user && user.role === 'admin' ? (
-    //         <Item>
-    //           <Link to="/admin/dashboard">DashBoard</Link>
-    //         </Item>
-    //       ) : (
-    //         <Item>
-    //           <Link to="/user/history">DashBoard</Link>
-    //         </Item>
-    //       )}
-    //       <Item key="setting:2">Option 2</Item>
-    //       <Item icon={<LogoutOutlined />} onClick={logout}>
-    //         Logout
-    //       </Item>
-    //     </SubMenu>
-    //   ) : null}
-    //   <Item className="nav__login">
-    //     <Searchs />
-    //   </Item>
-
-    //   {user && !user.token ? (
-    //     <>
-    //       <Item key="login" icon={<UserOutlined />} className="nav__login">
-    //         <Link to="/login">LOGIN</Link>
-    //       </Item>
-    //       <Item
-    //         key="register"
-    //         icon={<UserAddOutlined />}
-    //         className="nav__register"
-    //       >
-    //         <Link to="/register">REGISTER</Link>
-    //       </Item>
-    //     </>
-    //   ) : null}
-    // </Menu>
     <>
       <header className="header">
         <div className="desktop-header bg-white hidden lg:block">
@@ -470,9 +405,11 @@ const Header = () => {
                         className="nav__user"
                       >
                         {user && user.role === 'admin' ? (
-                          <Item>
-                            <Link to="/admin/dashboard">DashBoard</Link>
-                          </Item>
+                          <>
+                            <Item>
+                              <Link to="/admin/dashboard">DashBoard</Link>
+                            </Item>
+                          </>
                         ) : (
                           <Item>
                             <Link to="/user/history">DashBoard</Link>

@@ -184,17 +184,17 @@ function OrdersList(props) {
                                       <ModalImage
                                         small={
                                           item
-                                            ? item.product.images[0]?.url
+                                            ? item.product?.images[0]?.url
                                             : imageDefault
                                         }
                                         large={
                                           item
-                                            ? item.product.images[0]?.url
+                                            ? item.product?.images[0]?.url
                                             : imageDefault
                                         }
                                         alt={`${
                                           item
-                                            ? item.product.images[0]?.url
+                                            ? item.product?.images[0]?.url
                                             : imageDefault
                                         }`}
                                       />
@@ -203,13 +203,13 @@ function OrdersList(props) {
                                 </div>
                                 <div className="flex flex-col justify-start items-start">
                                   <Link
-                                    to={`/product/${item.product.slug}`}
+                                    to={`/product/${item.product?.slug}`}
                                     className="font-hk text-secondary text-base"
                                   >
-                                    {item.product.title}
+                                    {item.product?.title}
                                   </Link>
                                   <span className="pt-1 text-gray-700 font-semibold ">
-                                    {formatPrice(item.product.price)}đ
+                                    {formatPrice(item.product?.price)}đ
                                   </span>
                                 </div>
                               </div>
@@ -227,7 +227,9 @@ function OrdersList(props) {
                                   <span className="text-xs text-gray-500">
                                     Thành tiền:
                                   </span>{' '}
-                                  {formatPrice(item.product.price * item.count)}
+                                  {formatPrice(
+                                    item.product?.price * item.count
+                                  )}
                                   đ
                                 </div>
                               </div>

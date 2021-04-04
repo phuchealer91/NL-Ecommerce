@@ -80,3 +80,22 @@ export const logoutInUser = () => {
     type: types.LOGOUT_IN_USER,
   }
 }
+// create order notify
+export const notificationCount = (data) => {
+  return {
+    type: types.NOTIFICATION_ORDER,
+    payload: data,
+  }
+}
+export const notificationCountSuccess = (data) => {
+  return {
+    type: types.NOTIFICATION_ORDER_SUCCESS,
+    payload: { data },
+  }
+}
+export const notificationCountFailed = (error) => {
+  return {
+    type: types.NOTIFICATION_ORDER_FAILED,
+    payload: { error },
+  }
+}

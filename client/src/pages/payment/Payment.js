@@ -2,8 +2,10 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import React from 'react'
 import { StripeCheckOut } from '../../components/StripeCheckOut'
+
 function Payment(props) {
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
+
   return (
     <div className="">
       <div className="xl:max-w-7xl mx-auto bg-white rounded">

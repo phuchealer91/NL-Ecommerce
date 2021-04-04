@@ -25,3 +25,11 @@ module.exports.orderStatus = async (req, res) => {
     return res.status(500).json({ Error: 'Server error' })
   }
 }
+module.exports.getTotalOrders = async (req, res) => {
+  try {
+    let totals = await Order.find({}).estimatedDocumentCount().exec()
+    return res.status(200).json({ total: totals })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

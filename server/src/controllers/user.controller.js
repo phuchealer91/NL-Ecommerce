@@ -3,7 +3,8 @@ const Product = require('../models/product.model')
 const User = require('../models/user.model')
 const Coupon = require('../models/coupon.model')
 const Order = require('../models/order.model')
-
+const Log = require('../models/log.model')
+const socketIO = require('../../io')
 module.exports.userCart = async (req, res) => {
   const { cartLists: cart } = req.body
   console.log(cart)
@@ -117,7 +118,7 @@ module.exports.createOrder = async (req, res) => {
     const { products, deliveryAddress } = await Cart.findOne({
       orderedBy: user._id,
     }).exec()
-    let newOrder = await new Order({
+    const newOrder = await new Order({
       products,
       paymentIntent,
       deliveryAddress,
@@ -134,6 +135,33 @@ module.exports.createOrder = async (req, res) => {
     })
     // SD bulkWrite (Thực hiện nhiều thao tác)
     await Product.bulkWrite(bulk, {})
+    const userOrder = await User.findById(user._id, 'name email photoURL')
+    const io = socketIO.getIO()
+    // io.emit('update order', {
+    //   orderedBy: userOrder,
+    //   newOrder,
+    // })
+    // TODO: Ghi log
+    const log = new Log({
+      userId: user._id,
+      rootId: newOrder._id,
+      type: 'create order',
+    })
+    await log.save()
+    // TODO: push notification
+    const orderByUser = await User.findById(
+      '5f8f2684bc42094a801edfa6',
+      'notifications'
+    )
+    orderByUser.notifications.newNotifications++
+    orderByUser.notifications.list.push({ logId: log })
+    await orderByUser.save()
+
+    io.emit('create order', {
+      user: userOrder,
+      orderId: newOrder._id,
+      content: newOrder,
+    })
     return res.status(200).json({ order: newOrder })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
@@ -143,15 +171,29 @@ module.exports.createOrder = async (req, res) => {
 module.exports.getOrders = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.user.email }).exec()
-    // console.log('hello products', products)
-    console.log('hello ussedsadsadsarrrrr', user)
-    console.log('hello dsada dasdsa', user.address[0])
+
     let userOrders = await Order.find({ orderedBy: user._id })
       .populate('products.product')
       .exec()
-    console.log('get orrder', userOrders)
     return res.status(200).json({ userOrders })
   } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+module.exports.getTotalOrdersStatus = async (req, res) => {
+  const { status } = req.body
+  try {
+    let user = await User.findOne({ email: req.user.email }).exec()
+
+    let totalStatus = await Order.find({
+      orderedBy: user._id,
+      orderStatus: status,
+    })
+      .countDocuments()
+      .exec()
+    return res.status(200).json({ totalStatus })
+  } catch (error) {
+    console.log('loi gi the', error)
     return res.status(500).json({ Error: 'Server error' })
   }
 }
@@ -256,4 +298,12 @@ module.exports.getAddressSelected = async (req, res) => {
   if (!addressDeleted)
     return res.status(400).json({ error: 'Không thấy người dùng' })
   return res.status(200).json({ msg: 'Xóa thành công' })
+}
+module.exports.getTotalUsers = async (req, res) => {
+  try {
+    let totals = await User.find({}).estimatedDocumentCount().exec()
+    return res.status(200).json({ total: totals })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
 }

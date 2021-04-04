@@ -41,12 +41,15 @@ import UserRoute from '../routers/UserRoute'
 
 function App() {
   const dispatch = useDispatch()
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenUser = await user.getIdTokenResult()
         const data = {
+          name: user.displayName,
           email: user.email,
+          photoURL: user.photoURL,
           token: idTokenUser.token,
         }
         dispatch(registerOrUpdateUser(data))
@@ -56,7 +59,7 @@ function App() {
       }
     })
     return () => unsubscribe()
-  }, [dispatch])
+  }, [])
   return (
     <React.Fragment>
       <Header />

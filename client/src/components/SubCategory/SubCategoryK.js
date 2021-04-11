@@ -23,7 +23,7 @@ function SubCategoryK() {
           return (
             <li key={subCategory._id} className="group">
               <Link
-                to={`${PATHS.SUB_CATEGORY}/${subCategory.slug}`}
+                to={`/${PATHS.SUB_CATEGORY}/${subCategory.slug}`}
                 // onClick={() => onhandleClick(subCategory.slug)}
                 className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
               >

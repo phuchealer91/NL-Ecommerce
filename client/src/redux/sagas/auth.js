@@ -20,7 +20,7 @@ import * as types from '../constants/users'
 
 function* LoggedUser({ payload }) {
   const { token } = payload
-  window.localStorage.setItem(TOKEN, token)
+  window.localStorage.setItem('token', token)
 
   try {
     // yield put(showLoading())
@@ -58,9 +58,7 @@ function* currentUser({ payload }) {
 function* notificationUpdatess({ payload }) {
   console.log('hellopayloadpayloadpayloadpayload', payload)
   try {
-    const resp = yield call(notificationUpdate)
-    console.log('hello', resp)
-    const data = { ...resp.data }
+    const data = payload.count
     yield put(notificationCountSuccess(data))
   } catch (error) {
     yield put(notificationCountFailed(error))
@@ -84,10 +82,10 @@ function* currentAdmin({ payload }) {
 //   yield takeEvery(types.LOGOUT_IN_USER, flogout)
 // }
 export function* watchLoggedUser() {
-  yield takeEvery(types.CREATE_OR_UPDATE_USER, LoggedUser)
-  yield takeEvery(types.CURRENT_USER, currentUser)
-  // yield takeEvery(types.NOTIFICATION_ORDER, notificationUpdatess)
-  yield takeLatest(types.CURRENT_ADMIN, currentAdmin)
+  // yield takeLatest(types.CREATE_OR_UPDATE_USER, LoggedUser)
+  // yield takeLatest(types.CURRENT_USER, currentUser)
+  // yield takeLatest(types.NOTIFICATION_ORDER, notificationUpdatess)
+  // yield takeLatest(types.CURRENT_ADMIN, currentAdmin)
 }
 // export function* watchRegisterOrUpdateUser() {
 //   // yield takeEvery(types.CREATE_OR_UPDATE_USER, registerOrUpdate)

@@ -13,24 +13,26 @@ const initialState = {
 }
 
 const UserReducer = (state = initialState, action) => {
+  console.log('actionactionactionactionactionaction', action.payload)
   switch (action.type) {
-    case types.CREATE_OR_UPDATE_USER:
+    // case types.CREATE_OR_UPDATE_USER:
     case types.NOTIFICATION_ORDER:
-      console.log(
-        'NOTIFICATION_ORDERNOTIFICATION_ORDERNOTIFICATION_ORDER',
-        action.payload
-      )
       return {
         ...state,
         notificationsCount: action.payload.count,
       }
-    // return {...state,notificationsCount: action.payload}
-    case types.CURRENT_USER:
-      return { ...state }
-    case types.LOGGIN_IN_USER_SUCCESS:
-    case types.CURRENT_USER_SUCCESS:
+    // case types.CURRENT_USER:
+    //   return { ...state }
     case types.NOTIFICATION_ORDER_SUCCESS:
-    case types.CREATE_OR_UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        // notificationsCount: action.payload.data,
+      }
+    case types.LOGGIN_IN_USER:
+      // case types.LOGGIN_IN_USER_SUCCESS:
+      // case types.CURRENT_USER_SUCCESS:
+      // case types.NOTIFICATION_ORDER_SUCCESS:
+      // case types.CREATE_OR_UPDATE_USER_SUCCESS:
       const {
         email,
         token,
@@ -38,7 +40,8 @@ const UserReducer = (state = initialState, action) => {
         role,
         _id,
         notifications,
-      } = action.payload.data
+        userDatas,
+      } = action.payload
       return {
         ...state,
         email,
@@ -46,8 +49,8 @@ const UserReducer = (state = initialState, action) => {
         name,
         role,
         _id,
-        notificationsCount: notifications.newNotifications,
-        userDatas: action.payload.data,
+        notifications,
+        userDatas,
       }
     case types.CURRENT_ADMIN_SUCCESS:
       return { ...state, isAdmin: true }

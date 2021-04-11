@@ -15,7 +15,7 @@ function SubCategoryMainPage(props) {
   useEffect(() => {
     dispatch(getSubCategory(slug))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  }, [dispatch, slug])
   return (
     <React.Fragment>
       <div className="sub-category-main">

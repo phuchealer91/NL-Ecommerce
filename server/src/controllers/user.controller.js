@@ -169,11 +169,15 @@ module.exports.createOrder = async (req, res) => {
 }
 
 module.exports.getOrders = async (req, res) => {
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100
+  let skip = parseInt(req.body.skip)
   try {
     let user = await User.findOne({ email: req.user.email }).exec()
 
     let userOrders = await Order.find({ orderedBy: user._id })
       .populate('products.product')
+      .skip(skip)
+      .limit(limit)
       .exec()
     return res.status(200).json({ userOrders })
   } catch (error) {

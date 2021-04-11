@@ -1,6 +1,6 @@
 import { BellOutlined, WalletTwoTone } from '@ant-design/icons'
 import { Avatar, Badge, Button, Dropdown, Menu, notification } from 'antd'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import OpenSocket from 'socket.io-client'
@@ -14,20 +14,20 @@ const UserLogined = (props) => {
   const [notifications, setNotifications] = useState([])
   const [hasFirstFetch, setHasFirstFetch] = useState(false)
   const [visibleNoti, setVisibleNoti] = useState(false)
+  const [isChangeCount, setIsChangeCount] = useState('')
   const dispatch = useDispatch()
-  const userData = useSelector((state) => state.user)
-  const { notificationsCount, userDatas } = userData
-  console.log('hello userDatauserDatauserDatauserData', userData)
+
+  console.log('hello userDatauserDatauserDatauserData')
   const openNotification = useCallback(
     (type, data) => {
-      let action = 'thích bài đăng'
-      let description = `"${data.content}..."`
+      let action = 'đã thanh toán thành công đơn hàng.'
+      // let description = `"${data.content}..."`
       let url
 
       switch (type) {
         case 'create order':
           action = `đã thanh toán thành công đơn hàng #${data.content?.paymentIntent.id}.`
-          description = `"${data.content}..."`
+          // description = `"${data.content}..."`
           url = `/order-detail/${data.orderId}`
           break
 
@@ -35,52 +35,60 @@ const UserLogined = (props) => {
           break
       }
 
-      notification.open({
-        message: (
-          <span>
-            <strong>{data.user.name}</strong> đã {action}
-          </span>
-        ),
-        description,
-        placement: 'bottomLeft',
-        icon: <Avatar alt="avatar user" src={data.user.photoURL} />,
-        duration: 10,
-        key: Math.random(),
-        closeIcon: null,
-        style: {
-          borderRadius: 5,
-          boxShadow: '0 0 20px #ccc',
-          cursor: 'pointer',
-        },
-        onClick() {
-          props.history.push(url)
-        },
-      })
+      if (data) {
+        notification.open({
+          message: (
+            <span>
+              <strong>{data.user.name}</strong> đã {action}
+            </span>
+          ),
+          // description,
+          placement: 'bottomLeft',
+          icon: <Avatar alt="avatar user" src={data.user.photoURL} />,
+          duration: 10,
+          key: Math.random(),
+          closeIcon: null,
+          style: {
+            borderRadius: 5,
+            boxShadow: '0 0 20px #ccc',
+            cursor: 'pointer',
+          },
+          onClick() {
+            props.history.push(url)
+          },
+        })
+      }
     },
     [props]
   )
-
+  const userData = useSelector((state) => state.user)
+  const { notificationsCount, userDatas } = userData
+  const [notifyCount, setNotifyCount] = useState(notificationsCount)
   useEffect(() => {
-    const socket = OpenSocket('http://localhost:8000')
-
+    setNotifyCount(notificationsCount)
+  }, [notificationsCount])
+  useEffect(() => {
+    openNotification('create order', isChangeCount)
+  }, [isChangeCount, setNotifyCount])
+  useEffect(() => {
+    const socket = OpenSocket('http://localhost:8000', {
+      auth: {
+        userId: userData._id,
+      },
+    })
     socket.on('create order', (orderUser) => {
-      openNotification('create order', orderUser)
-      console.log(
-        'orderUserorderUserorderUserorderUserorderUserorderUser',
-        orderUser
-      )
-
       dispatch(
         notificationCount({
-          count: notificationsCount + 1,
+          count: notifyCount + 1,
         })
       )
+      setIsChangeCount(orderUser)
     })
 
     return () => {
       socket.emit('logout')
     }
-  }, [dispatch])
+  }, [dispatch, setIsChangeCount, notifyCount])
 
   const openNotificationsDropdown = () => {
     // Nếu có notifications mới hoặc chưa fetch lần nào thì sẽ fetch notifications
@@ -144,7 +152,7 @@ const UserLogined = (props) => {
     <div className="user-group desktop-screen">
       <div className="notify-btn">
         <Button type="link" size="large" onClick={openNotificationsDropdown}>
-          <Badge count={notificationsCount}>
+          <Badge count={notifyCount}>
             <BellOutlined className="notify-button" style={{ color: '#333' }} />
           </Badge>
         </Button>

@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { registerOrUpdateUsers } from '../../../apis/auth'
 import { auth } from '../../../firebase'
-import { registerOrUpdateUser } from '../../../redux/actions/users'
+import { loginInUser } from '../../../redux/actions/users'
 import { EMAIL_FOR_REGISTER } from '../../../redux/constants/keys'
 import PATHS from '../../../redux/constants/paths'
 import FormRegisterComplete from './FormRegisterComplete'
@@ -36,7 +37,20 @@ const RegisterComplete = (props) => {
       // const { token } = idTokenUser
       // save email & token with redux store
       const data = { token: idTokenUser.token }
-      dispatch(registerOrUpdateUser(data))
+      registerOrUpdateUsers(idTokenUser.token).then((res) => {
+        if (res.data) {
+          const data = {
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            token: idTokenUser.token,
+            role: res.data.role,
+            _id: res.data._id,
+          }
+
+          dispatch(loginInUser(data))
+        }
+      })
       // dispatch(loginInUser(data))
       toast.success('Đăng ký thành công !')
       // redirect

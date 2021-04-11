@@ -1,5 +1,7 @@
 import { Col, Form, Row } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
 import { auth } from '../../../firebase'
 import { useAuthUser } from '../../../hooks/useAuthUser'
@@ -7,8 +9,13 @@ import { EMAIL_FOR_REGISTER } from '../../../redux/constants/keys'
 import FormRegister from './FormRegister'
 import './Register.scss'
 const Register = (props) => {
-  useAuthUser()
+  // useAuthUser()
   const [form] = Form.useForm()
+  const { user } = useSelector((state) => ({ ...state }))
+  const history = useHistory()
+  useEffect(() => {
+    if (user && user.token) history.push('/')
+  }, [user, history])
   const onFinish = async ({ email }) => {
     // Config dùng trong TH ấn vào link sẽ redirect về url trong config
     const config = {

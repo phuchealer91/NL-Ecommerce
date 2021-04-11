@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { currentUsers } from '../apis/auth'
 import SideDrawer from '../components/Drawer/SideDrawer'
 import GlobalLoading from '../components/GlobalLoading/GlobalLoading'
-import Header from '../components/navigation/Header'
+import { HeaderAdmin, HeaderUser } from '../components/navigation/Header'
 import { auth } from '../firebase'
 import Addressx from '../pages/address'
 import { DashBoard } from '../pages/admin'
@@ -34,35 +35,49 @@ import { Product } from '../pages/product'
 import Shop from '../pages/Shop/Shop'
 import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 import { History, Password, WishList } from '../pages/user'
-import { currentUser, registerOrUpdateUser } from '../redux/actions/users'
+import {
+  currentUser,
+  loginInUser,
+  registerOrUpdateUser,
+} from '../redux/actions/users'
 import PATHS from '../redux/constants/paths'
 import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
 
 function App() {
   const dispatch = useDispatch()
-
+  let { user } = useSelector((state) => ({ ...state }))
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenUser = await user.getIdTokenResult()
-        const data = {
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          token: idTokenUser.token,
-        }
-        dispatch(registerOrUpdateUser(data))
-        dispatch(currentUser(data))
-
-        // dispatch(loginInUser(data))
+        currentUsers(idTokenUser.token).then((res) => {
+          if (res.data) {
+            console.log(
+              'datadatadatadatadatadatadatadatadatadatadata',
+              res.data
+            )
+            const data = {
+              name: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+              token: idTokenUser.token,
+              userDatas: res.data,
+              notificationsCount: res.data.notifications.newNotifications,
+              role: res.data.role,
+              _id: res.data._id,
+            }
+            dispatch(loginInUser(data))
+          }
+        })
       }
     })
     return () => unsubscribe()
-  }, [])
+  }, [dispatch])
   return (
     <React.Fragment>
-      <Header />
+      {user && user.role === 'admin' ? <HeaderAdmin /> : <HeaderUser />}
+
       <div className="pt-2 mb-4">
         <Switch>
           <Route exact path={`/${PATHS.LOGIN}`} component={Login} />

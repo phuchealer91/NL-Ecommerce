@@ -36,6 +36,8 @@ const PATHS = {
   AUTHOR: 'author',
   SUPPLIER: 'supplier',
   WISHLISTS: 'wishlists',
+  COMMUNITY: 'community',
+  PROFILE: 'profile',
 }
 
 export default PATHS

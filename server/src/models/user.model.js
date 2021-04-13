@@ -8,11 +8,26 @@ const userSchema = new schema(
     email: { type: String, required: true, unique: true, index: true },
     role: { type: String, default: 'user' },
     cart: { type: Array, default: [] },
+    gender: { type: String, default: 'male' },
+    mobile: { type: String, default: '' },
+    story: { type: String, default: '', maxlength: 200  },
     photoURL: {
       type: String,
       default:
         'https://res.cloudinary.com/ecommerce-mp/image/upload/v1617474206/avatar-default_fodabq.png',
     },
+    followers: [
+      {
+        type: schema.Types.ObjectId,
+        ref: 'user'
+      }
+    ],
+    following: [
+      {
+        type: schema.Types.ObjectId,
+        ref: 'user'
+      }
+    ],
     address: [
       {
         name: { type: String, required: true },

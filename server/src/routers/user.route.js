@@ -18,6 +18,8 @@ const {
   applyAddressToCart,
   getTotalOrdersStatus,
   getTotalUsers,
+  searchUser,
+  getUser,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
@@ -46,5 +48,8 @@ router.put('/address/:addressId', isAuth, removeAddress)
 
 // get user
 router.get('/total', isAuth, isAdmin, getTotalUsers)
+// get search
+router.get('/search', isAuth, searchUser)
+router.get('/:id', isAuth, getUser)
 
 module.exports = router

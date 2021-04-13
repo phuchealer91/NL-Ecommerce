@@ -22,7 +22,6 @@ module.exports.createOrUpdateUser = async (req, res) => {
 module.exports.currentUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.user.email })
-    console.log('hello usser', user)
     if (!user) return res.status(400).json({ error: 'User does not exits' })
     return res.status(200).json(user)
   } catch (error) {

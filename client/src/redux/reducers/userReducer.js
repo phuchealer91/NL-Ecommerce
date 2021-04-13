@@ -13,7 +13,6 @@ const initialState = {
 }
 
 const UserReducer = (state = initialState, action) => {
-  console.log('actionactionactionactionactionaction', action.payload)
   switch (action.type) {
     // case types.CREATE_OR_UPDATE_USER:
     case types.NOTIFICATION_ORDER:

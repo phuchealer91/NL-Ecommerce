@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { registerOrUpdateUsers } from '../../../apis/auth'
 import { auth, googleAuthProvider } from '../../../firebase'
 import { useCheckAdmin } from '../../../hooks/useCheckAdmin'
+import { notify } from '../../../redux/actions/notify'
 import { loginInUser, registerOrUpdateUser } from '../../../redux/actions/users'
 import FormLogin from './FormLogin'
 import './Login.scss'
@@ -78,13 +79,13 @@ const Login = (props) => {
         const { user } = result
         const idTokenUser = await user.getIdTokenResult()
         window.localStorage.setItem('token', idTokenUser.token)
-
+        dispatch(notify(true))
         registerOrUpdateUsers(idTokenUser.token).then((res) => {
           if (res.data) {
             const data = {
-              name: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL,
+              name: res.data.name,
+              email: res.data.email,
+              photoURL: res.data.photoURL,
               token: idTokenUser.token,
               userDatas: res.data,
               notificationsCount: res.data.notifications.newNotifications,
@@ -92,11 +93,11 @@ const Login = (props) => {
               _id: res.data._id,
             }
             dispatch(loginInUser(data))
+            dispatch(notify(false))
           }
+          toast.success('Đăng nhập thành công !')
           roleBasedRedirect(res)
         })
-
-        toast.success('Đăng nhập thành công !')
         // history.push(`${PATHS.HOME}`)
       })
       .catch((error) => {

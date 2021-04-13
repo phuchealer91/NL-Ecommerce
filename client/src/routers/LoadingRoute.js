@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import GlobalLoading from '../components/GlobalLoading/GlobalLoading'
+import Notify from '../components/Notify/Notify'
 
 const LoadingRoute = () => {
   const [count, setCount] = useState(5)
@@ -16,7 +16,7 @@ const LoadingRoute = () => {
     return () => clearInterval(interval)
   }, [count, history])
 
-  return <GlobalLoading />
+  return <Notify />
 }
 
 export default LoadingRoute

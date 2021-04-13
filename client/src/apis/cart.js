@@ -67,3 +67,8 @@ export const removeAddress = (addressId, data) => {
 export const getTotalUserss = (data) => {
   return axiosServices.get(`/${PATHS.USER}/total`, data)
 }
+
+// Search user name
+export const searchUsers = (data) => {
+  return axiosServices.get(`/${PATHS.USER}/search?name=${data}`)
+}

@@ -311,3 +311,25 @@ module.exports.getTotalUsers = async (req, res) => {
     return res.status(500).json({ Error: 'Server error' })
   }
 }
+// search user
+module.exports.searchUser = async (req, res) => {
+  try {
+    const users = await User.find({ name: { $regex: req.query.name } })
+      .limit(10)
+      .select('name photoURL email')
+      .exec()
+    return res.status(200).json({ users })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+// get users
+module.exports.getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).exec()
+    if (!user) return res.status(400).json({ msg: 'Không tìm thấy người dùng' })
+    return res.status(200).json({ user })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

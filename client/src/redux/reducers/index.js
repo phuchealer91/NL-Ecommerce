@@ -9,6 +9,8 @@ import couponReducer from './couponReducer'
 import stripeReducer from './stripeReducer'
 import orderReducer from './orderReducer'
 import searchReducer from './searchReducer'
+import notifyReducer from './notifyReducer'
+import profileReducer from './profileReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   order: orderReducer,
   stripe: stripeReducer,
   search: searchReducer,
+  notify: notifyReducer,
+  profile: profileReducer,
 })
 
 export default rootReducer

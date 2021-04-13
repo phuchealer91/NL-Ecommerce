@@ -42,7 +42,7 @@ const HeaderUser = () => {
 
   return (
     <>
-      <header className="header">
+      <header className="header sticky top-0 z-50">
         <div className="desktop-header bg-white hidden lg:block">
           <div className="container mx-auto px-11">
             <nav className="nav flex justify-between relative">
@@ -95,13 +95,13 @@ const HeaderUser = () => {
                             <SubCategoryK />
                           </ul>
                           <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all transition-all">
+                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500  transition-all">
                               THIẾU NHI
                             </p>
                             <SubCategoryT />
                           </ul>
                           <ul className="group mt-6">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all transition-all">
+                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500  transition-all">
                               NGOẠI NGỮ
                             </p>
                             <SubCategoryN />
@@ -110,249 +110,10 @@ const HeaderUser = () => {
                       </div>
                     </div>
                   </li>
-                  <li className="mr-6 dropdown-hover">
-                    <Link
-                      to="# "
-                      className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
-                    >
-                      SÁCH NGOÀI NƯỚC
-                    </Link>
-                    <div className="dropdown-menu">
-                      <div className="grid grid-cols-12 gap-5">
-                        <div className="col-span-9 grid grid-cols-3 gap-4">
-                          <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all">
-                              TOPS
-                            </p>
-                            <li className="mb-1">
-                              <Link to="# ">
-                                <img
-                                  src="./assests/images/mm_04_400x.png"
-                                  alt=""
-                                />
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Awesome
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Beachwear
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Beige
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Cool
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Dress
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Gap
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Guess
-                              </Link>
-                            </li>
-                          </ul>
-                          <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all transition-all">
-                              BOTTOMS
-                            </p>
-                            <li className="mb-1">
-                              <Link to="# ">
-                                <img
-                                  src="./assests/images/mm_05_400x.png"
-                                  alt=""
-                                />
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Jean
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Lacoste
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Levi's
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Model
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Nice
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Polo
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Pullover
-                              </Link>
-                            </li>
-                          </ul>
-                          <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all transition-all">
-                              ACCESSORIES
-                            </p>
-                            <li className="mb-1">
-                              <Link to="# ">
-                                <img
-                                  src="./assests/images/mm_06_400x.png"
-                                  alt=""
-                                />
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Scarf
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Shirt
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Shoes
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Shorts
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Summer
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Sunglasses
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="# "
-                                className="capitalize leading-5 c-text-1 hover:text-blue-500 transition-all"
-                              >
-                                Vintage
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="col-span-3 relative">
-                          <Link to="# " className="mt-2 block">
-                            <img src="./assests/images/mm_03_410x.png" alt="" />
-                          </Link>
-                          <div className="absolute top-8 left-6">
-                            <div>
-                              <p className="font-semibold text-white mt-1">
-                                SALE
-                              </p>
-                              <p className="font-semibold text-white mt-1 text-3xl">
-                                70% OFF
-                              </p>
-                            </div>
-                            <p className="font-light text-white mt-1 text-sm">
-                              Free shipping on all US order or order above $99
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
 
-                  <li className="mr-6">
+                  <li>
                     <Link
-                      to="# "
+                      to="/community"
                       className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
                     >
                       CỘNG ĐỒNG

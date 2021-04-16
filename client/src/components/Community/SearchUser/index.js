@@ -61,6 +61,7 @@ function SearchUser(props) {
         <input
           type="text"
           name="search"
+          autoComplete="off"
           placeholder="Search by user name"
           value={search}
           onChange={(e) =>

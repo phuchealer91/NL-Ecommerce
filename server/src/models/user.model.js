@@ -10,7 +10,8 @@ const userSchema = new schema(
     cart: { type: Array, default: [] },
     gender: { type: String, default: 'male' },
     mobile: { type: String, default: '' },
-    story: { type: String, default: '', maxlength: 200  },
+    website: { type: String, default: '' },
+    story: { type: String, default: '', maxlength: 200 },
     photoURL: {
       type: String,
       default:
@@ -19,14 +20,14 @@ const userSchema = new schema(
     followers: [
       {
         type: schema.Types.ObjectId,
-        ref: 'user'
-      }
+        ref: 'user',
+      },
     ],
     following: [
       {
         type: schema.Types.ObjectId,
-        ref: 'user'
-      }
+        ref: 'user',
+      },
     ],
     address: [
       {

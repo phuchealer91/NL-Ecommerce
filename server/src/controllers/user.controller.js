@@ -333,3 +333,23 @@ module.exports.getUser = async (req, res) => {
     return res.status(500).json({ Error: 'Server error' })
   }
 }
+// update profile user
+module.exports.updateUser = async (req, res) => {
+  try {
+    const { name, mobile, website, story, gender, avatar } = req.body
+    const userUpdated = await User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        name,
+        mobile,
+        website,
+        story,
+        gender,
+        photoURL: avatar,
+      }
+    )
+    return res.status(200).json({ userUpdated })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

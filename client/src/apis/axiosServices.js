@@ -33,6 +33,9 @@ class AxiosServices {
   put(url, data) {
     return this.instance.put(url, data)
   }
+  patch(url, data) {
+    return this.instance.patch(url, data)
+  }
   delete(url) {
     return this.instance.delete(url)
   }

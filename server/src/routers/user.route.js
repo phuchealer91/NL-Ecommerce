@@ -20,6 +20,7 @@ const {
   getTotalUsers,
   searchUser,
   getUser,
+  updateUser,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
@@ -51,5 +52,6 @@ router.get('/total', isAuth, isAdmin, getTotalUsers)
 // get search
 router.get('/search', isAuth, searchUser)
 router.get('/:id', isAuth, getUser)
+router.patch('/', isAuth, updateUser)
 
 module.exports = router

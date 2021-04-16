@@ -1,10 +1,13 @@
+import { Spin } from 'antd'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Info from '../../../components/Community/Profile/Info'
 import Posts from '../../../components/Community/Profile/Posts'
 import LeftMenu from '../../../components/navigation/LeftMenu'
 import RightMenu from '../../../components/navigation/RightMenu'
 
 const Profile = () => {
+  const { profile } = useSelector((state) => state)
   return (
     <React.Fragment>
       <div
@@ -66,8 +69,18 @@ const Profile = () => {
                 style={{ maxWidth: '100%' }}
               >
                 {/*Content (Center)*/}
+                {profile.loading ? (
+                  <div className="py-5 px-5 m-auto text-center">
+                    <Spin
+                      tip="Đang tải dữ liệu"
+                      size="large"
+                      style={{ color: '#fff' }}
+                    />
+                  </div>
+                ) : (
+                  <Info />
+                )}
 
-                <Info />
                 <ul className="list-none">
                   <li>
                     {/*second tweet*/}

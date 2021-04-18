@@ -19,14 +19,14 @@ const userSchema = new schema(
     },
     followers: [
       {
-        type: schema.Types.ObjectId,
-        ref: 'user',
+        type: ObjectId,
+        ref: 'User',
       },
     ],
     following: [
       {
-        type: schema.Types.ObjectId,
-        ref: 'user',
+        type: ObjectId,
+        ref: 'User',
       },
     ],
     address: [

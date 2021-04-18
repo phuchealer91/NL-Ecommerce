@@ -4,6 +4,7 @@ import PATHS from '../constants/paths'
 import * as types from '../constants/users'
 import { auth } from '../../firebase'
 import { loginInUser } from './users'
+import { DeleteData } from '../../helpers/shortFunctions'
 export const getUsers = (data) => {
   return axiosServices.get(`/${PATHS.USER}/${data}`)
 }
@@ -20,6 +21,7 @@ export const getProfileUsers = ({ users, id }) => async (dispatch) => {
         type: types.GET_USER,
         payload: res.data,
       })
+
       dispatch({
         type: types.LOADING,
         payload: false,
@@ -66,4 +68,62 @@ export const updateProfileUser = ({ userData, avatar, user }) => async (
   } catch (error) {
     console.log('error', error)
   }
+}
+
+export const followUsers = ({ users, userx, user }) => async (dispatch) => {
+  let newUsers = {
+    ...userx,
+    followers: [...userx.followers, user.userDatas],
+  }
+
+  dispatch({
+    type: types.FOLLOW,
+    payload: newUsers,
+  })
+  const value = {
+    ...user,
+    userDatas: {
+      ...user.userDatas,
+
+      following: [...user.userDatas.following, newUsers],
+    },
+  }
+  dispatch(loginInUser(value))
+  try {
+    await axiosServices.patch(
+      `${PATHS.USER}/${userx._id}/${PATHS.FOLLOW}`,
+      null
+    )
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
+export const unFollowUsers = ({ users, userx, user }) => async (dispatch) => {
+  let newUsers = {
+    ...userx,
+    followers: DeleteData(userx.followers, user.userDatas._id),
+  }
+  console.log('newUsersnewUsersnewUsers', newUsers)
+  dispatch({
+    type: types.UNFOLLOW,
+    payload: newUsers,
+  })
+  const value = {
+    ...user,
+    userDatas: {
+      ...user.userDatas,
+      following: DeleteData(user.userDatas.following, newUsers._id),
+    },
+  }
+  dispatch(loginInUser(value))
+  try {
+    await axiosServices.patch(
+      `${PATHS.USER}/${userx._id}/${PATHS.UNFOLLOW}`,
+      null
+    )
+  } catch (error) {
+    console.log('error', error)
+  }
+  // console.log('newUsersnewUsersnewUsers', newUsers)
 }

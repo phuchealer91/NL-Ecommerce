@@ -19,7 +19,7 @@ function EditProfile({ visible, handleCancel, setVisible }) {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state)
   useEffect(() => {
-    setUserData(user.userDatas)
+    setUserData(user?.userDatas)
   }, [user])
   console.log('userDatauserDatauserDatauserData', userData)
   function onHandleSubmit(e) {
@@ -63,7 +63,7 @@ function EditProfile({ visible, handleCancel, setVisible }) {
                                 src={
                                   avatar
                                     ? URL.createObjectURL(avatar)
-                                    : user.userDatas.photoURL
+                                    : user?.userDatas.photoURL
                                 }
                                 alt="avatar"
                               />
@@ -149,6 +149,7 @@ function EditProfile({ visible, handleCancel, setVisible }) {
                             id="gender"
                             name="gender"
                             autoComplete="gender"
+                            value={gender}
                             onChange={onHandleInput}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >

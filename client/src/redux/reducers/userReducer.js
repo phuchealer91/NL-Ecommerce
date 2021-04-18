@@ -1,16 +1,20 @@
 import { toast } from 'react-toastify'
 import * as types from '../constants/users'
 const initialState = {
-  userDatas: [],
-  name: '',
-  email: '',
-  photoURL: '',
-  notificationsCount: 0,
   token: null,
-  role: '',
-  _id: '',
-  isAdmin: false,
+  userDatas: [],
 }
+// const initialState = {
+//   userDatas: [],
+//   name: '',
+//   email: '',
+//   photoURL: '',
+//   notificationsCount: 0,
+//   token: null,
+//   role: '',
+//   _id: '',
+//   isAdmin: false,
+// }
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,28 +32,19 @@ const UserReducer = (state = initialState, action) => {
         // notificationsCount: action.payload.data,
       }
     case types.LOGGIN_IN_USER:
+      console.log(
+        'action.payloadaction.payloadaction.payloadaction.payloadaction.payload',
+        action.payload
+      )
       // case types.LOGGIN_IN_USER_SUCCESS:
       // case types.CURRENT_USER_SUCCESS:
       // case types.NOTIFICATION_ORDER_SUCCESS:
       // case types.CREATE_OR_UPDATE_USER_SUCCESS:
-      const {
-        email,
-        token,
-        name,
-        role,
-        _id,
-        notifications,
-        userDatas,
-      } = action.payload
+
       return {
         ...state,
-        email,
-        token,
-        name,
-        role,
-        _id,
-        notifications,
-        userDatas,
+        token: action.payload.token,
+        userDatas: action.payload.userDatas,
       }
     case types.CURRENT_ADMIN_SUCCESS:
       return { ...state, isAdmin: true }

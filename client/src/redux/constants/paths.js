@@ -38,6 +38,9 @@ const PATHS = {
   WISHLISTS: 'wishlists',
   COMMUNITY: 'community',
   PROFILE: 'profile',
+  FOLLOW: 'follow',
+  UNFOLLOW: 'unfollow',
+  FOLLOWING: 'following',
 }
 
 export default PATHS

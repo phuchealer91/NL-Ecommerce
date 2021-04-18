@@ -21,6 +21,8 @@ const {
   searchUser,
   getUser,
   updateUser,
+  follow,
+  unfollow,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
@@ -53,5 +55,7 @@ router.get('/total', isAuth, isAdmin, getTotalUsers)
 router.get('/search', isAuth, searchUser)
 router.get('/:id', isAuth, getUser)
 router.patch('/', isAuth, updateUser)
+router.patch('/:id/follow', isAuth, follow)
+router.patch('/:id/unfollow', isAuth, unfollow)
 
 module.exports = router

@@ -313,8 +313,12 @@ module.exports.getTotalUsers = async (req, res) => {
 }
 // search user
 module.exports.searchUser = async (req, res) => {
+  console.log('req.query.namereq.query.name ,', req.query.name)
   try {
-    const users = await User.find({ name: { $regex: req.query.name } })
+    const users = await User.find({
+      name: { $regex: req.query.name, $options: 'i' },
+    })
+      // const users = await User.find({name: /.*f.*/})
       .limit(10)
       .select('name photoURL email')
       .exec()
@@ -326,10 +330,13 @@ module.exports.searchUser = async (req, res) => {
 // get users
 module.exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).exec()
+    const user = await User.findById({ _id: req.params.id })
+      .populate('followers following')
+      .exec()
     if (!user) return res.status(400).json({ msg: 'Không tìm thấy người dùng' })
     return res.status(200).json({ user })
   } catch (error) {
+    console.log('errorerrorerrorerrorerror', error)
     return res.status(500).json({ Error: 'Server error' })
   }
 }
@@ -349,6 +356,60 @@ module.exports.updateUser = async (req, res) => {
       }
     )
     return res.status(200).json({ userUpdated })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+module.exports.follow = async (req, res) => {
+  console.log('req.user._idreq.user._idreq.user._id', req.user)
+  try {
+    const isUser = await User.findOne({ email: req.user.email }).exec()
+    const user = await User.find({
+      _id: req.params.id,
+      followers: isUser._id,
+    }).exec()
+    console.log('useruseruseruseruseruser', user)
+    if (user.length > 0)
+      return res.status(400).json({ msg: 'Bạn đã theo dõi người dùng này.' })
+    await User.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { followers: isUser._id },
+      },
+      { new: true }
+    )
+    await User.findOneAndUpdate(
+      { _id: isUser._id },
+      {
+        $push: { following: req.params.id },
+      },
+      { new: true }
+    )
+    return res.status(200).json({ msg: 'Theo dõi thành công' })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+module.exports.unfollow = async (req, res) => {
+  try {
+    const isUser = await User.findOne({ email: req.user.email }).exec()
+    await User.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $pull: { followers: isUser._id },
+      },
+      { new: true }
+    )
+    await User.findOneAndUpdate(
+      { _id: isUser._id },
+      {
+        $pull: { following: req.params.id },
+      },
+      { new: true }
+    )
+    return res.status(200).json({ msg: 'Bỏ theo dõi thành công' })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }

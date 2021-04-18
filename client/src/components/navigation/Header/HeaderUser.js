@@ -162,7 +162,11 @@ const HeaderUser = () => {
                       <SubMenu
                         key="SubMenu"
                         icon={<SettingOutlined />}
-                        title={user && user.name ? user.name : ''}
+                        title={
+                          user.userDatas && user.userDatas.name
+                            ? user.userDatas.name
+                            : ''
+                        }
                         className="nav__user"
                       >
                         <Item>

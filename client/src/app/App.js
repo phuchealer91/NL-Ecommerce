@@ -52,29 +52,27 @@ function App() {
   const dispatch = useDispatch()
   let { user: users } = useSelector((state) => ({ ...state }))
   useEffect(() => {
-    dispatch(notify(true))
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        dispatch(notify(true))
         const idTokenUser = await user.getIdTokenResult(true)
         await window.localStorage.setItem('token', idTokenUser.token)
         currentUsers()
           .then((res) => {
             if (res.data) {
               const data = {
-                name: res.data.name,
-                email: res.data.email,
-                photoURL: res.data.photoURL,
                 token: idTokenUser.token,
                 userDatas: res.data,
-                notificationsCount: res.data.notifications.newNotifications,
-                role: res.data.role,
-                _id: res.data._id,
               }
-              dispatch(loginInUser(data))
+              dispatch({
+                type: 'LOGGIN_IN_USER',
+                payload: data,
+              })
               dispatch(notify(false))
             }
           })
           .catch((error) => {
+            dispatch(notify(false))
             console.log('errorerrorerrorerrorerrorerror', error)
           })
       }

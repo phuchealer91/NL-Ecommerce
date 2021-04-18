@@ -5,6 +5,7 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import { getProfileUsers } from '../../../redux/actions/profile'
 
 import EditProfile from './EditProfile'
+import FollowBtn from './FollowBtn'
 
 const Info = () => {
   const { id } = useParams()
@@ -17,11 +18,11 @@ const Info = () => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (id === user.userDatas._id) {
-      setUserData([user.userDatas])
+    if (id === user?.userDatas._id) {
+      setUserData([user?.userDatas])
     } else {
       dispatch(getProfileUsers({ users: profile.users, id }))
-      const newData = profile.users.filter((user) => user._id === id)
+      const newData = profile.users.filter((item) => item._id === id)
       setUserData(newData)
     }
   }, [id, dispatch, profile.users])
@@ -101,7 +102,7 @@ const Info = () => {
                     </div>
                     {/* Follow Button */}
                     <div className="flex flex-col text-right">
-                      {item._id === user.userDatas?._id ? (
+                      {item._id === user?.userDatas?._id ? (
                         <button
                           onClick={showModal}
                           className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-white border-solid  text-white hover:bg-blue-400   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
@@ -109,9 +110,7 @@ const Info = () => {
                           Chỉnh sửa
                         </button>
                       ) : (
-                        <button className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-white border-solid  text-white hover:bg-blue-400   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto">
-                          Theo dõi
-                        </button>
+                        <FollowBtn userx={item} />
                       )}
                     </div>
                   </div>
@@ -153,24 +152,27 @@ const Info = () => {
                           />
                         </span>
                         <span className="leading-5 ml-1 text-white pl-2">
-                          {item.address &&
-                            item.address[0]?.fullAddress &&
-                            'Chưa cập nhật địa chỉ.'}
+                          {item.address
+                            ? item.address[0]?.fullAddress
+                            : 'Chưa cập nhật địa chỉ.'}
                         </span>
                       </div>
                     </div>
                     <div className="pt-3 flex justify-start items-start w-full divide-x divide-gray-800 divide-solid">
                       <div className="text-center pr-3">
+                        <span className="text-gray-600 pr-1"> Theo dõi</span>
                         <span className="font-bold text-white">
-                          {item.following?.length}
+                          ({item.following?.length})
                         </span>
-                        <span className="text-gray-600"> Following</span>
                       </div>
                       <div className="text-center px-3">
-                        <span className="font-bold text-white">
-                          {item.followers?.length}{' '}
+                        <span className="text-gray-600 pr-1">
+                          {' '}
+                          Người theo dõi
                         </span>
-                        <span className="text-gray-600"> Followers</span>
+                        <span className="font-bold text-white">
+                          ({item.followers?.length})
+                        </span>
                       </div>
                     </div>
                   </div>

@@ -16,7 +16,7 @@ function SearchUser(props) {
     } else {
       setUsers([])
     }
-  }, [search, user.token])
+  }, [search, user?.token])
   const loadSearhUser = () => {
     setIsLoading(true)
     searchUsers(search)

@@ -24,3 +24,5 @@ export const LOGOUT_IN_USER = 'LOGOUT_IN_USER'
 // user profile
 export const LOADING = 'LOADING'
 export const GET_USER = 'GET_USER'
+export const FOLLOW = 'FOLLOW'
+export const UNFOLLOW = 'UNFOLLOW'

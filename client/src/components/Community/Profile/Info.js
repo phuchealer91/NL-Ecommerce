@@ -6,6 +6,8 @@ import { getProfileUsers } from '../../../redux/actions/profile'
 
 import EditProfile from './EditProfile'
 import FollowBtn from './FollowBtn'
+import Followers from './Followers'
+import Following from './Following'
 
 const Info = () => {
   const { id } = useParams()
@@ -16,6 +18,10 @@ const Info = () => {
   const dispatch = useDispatch()
   const [userData, setUserData] = useState([])
   const [visible, setVisible] = useState(false)
+  const [visible1, setVisible1] = useState(false)
+  const [visible2, setVisible2] = useState(false)
+  const [showFollowers, setShowFollowers] = useState(true)
+  const [showFollowing, setShowFollowing] = useState(true)
 
   useEffect(() => {
     if (id === user?.userDatas._id) {
@@ -31,6 +37,20 @@ const Info = () => {
   }
   const handleCancel = () => {
     setVisible(false)
+  }
+  const showModal1 = () => {
+    setVisible1(true)
+    setShowFollowers(true)
+  }
+  const handleCancel1 = () => {
+    setVisible1(false)
+  }
+  const showModal2 = () => {
+    setVisible2(true)
+    setShowFollowing(true)
+  }
+  const handleCancel2 = () => {
+    setVisible2(false)
   }
   return (
     <aside>
@@ -58,7 +78,7 @@ const Info = () => {
                   </button>
                 </div>
                 <div className="mx-2">
-                  <h2 className="mb-0 text-xl font-bold text-white">
+                  <h2 className="mb-0 text-base pt-2 font-bold text-white">
                     {item.name}
                   </h2>
                   <p className="mb-0 w-48 text-xs text-gray-400">9,416 Posts</p>
@@ -160,16 +180,25 @@ const Info = () => {
                     </div>
                     <div className="pt-3 flex justify-start items-start w-full divide-x divide-gray-800 divide-solid">
                       <div className="text-center pr-3">
-                        <span className="text-gray-600 pr-1"> Theo dõi</span>
+                        <button
+                          className="text-gray-600 pr-1 hover:text-white"
+                          onClick={showModal2}
+                        >
+                          {' '}
+                          Theo dõi
+                        </button>
                         <span className="font-bold text-white">
                           ({item.following?.length})
                         </span>
                       </div>
                       <div className="text-center px-3">
-                        <span className="text-gray-600 pr-1">
+                        <button
+                          className="text-gray-600 pr-1 hover:text-white"
+                          onClick={showModal1}
+                        >
                           {' '}
                           Người theo dõi
-                        </span>
+                        </button>
                         <span className="font-bold text-white">
                           ({item.followers?.length})
                         </span>
@@ -184,6 +213,22 @@ const Info = () => {
                   handleCancel={handleCancel}
                   setVisible={setVisible}
                 />
+                {showFollowers && (
+                  <Followers
+                    visible1={visible1}
+                    users={item.followers}
+                    handleCancel1={handleCancel1}
+                    setShowFollowers={setShowFollowers}
+                  />
+                )}
+                {showFollowing && (
+                  <Following
+                    visible2={visible2}
+                    users={item.following}
+                    handleCancel2={handleCancel2}
+                    setShowFollowing={setShowFollowing}
+                  />
+                )}
               </div>
             </>
           )

@@ -71,11 +71,19 @@ export const updateProfileUser = ({ userData, avatar, user }) => async (
 }
 
 export const followUsers = ({ users, userx, user }) => async (dispatch) => {
-  let newUsers = {
-    ...userx,
-    followers: [...userx.followers, user.userDatas],
+  let newUsers
+  if (users.every((item) => item._id !== userx._id)) {
+    newUsers = { ...userx, followers: [...userx.followers, user.userDatas] }
+  } else {
+    users.forEach((item) => {
+      if (item._id === userx._id) {
+        newUsers = {
+          ...item,
+          followers: [...item.followers, user.userDatas],
+        }
+      }
+    })
   }
-
   dispatch({
     type: types.FOLLOW,
     payload: newUsers,
@@ -100,11 +108,23 @@ export const followUsers = ({ users, userx, user }) => async (dispatch) => {
 }
 
 export const unFollowUsers = ({ users, userx, user }) => async (dispatch) => {
-  let newUsers = {
-    ...userx,
-    followers: DeleteData(userx.followers, user.userDatas._id),
+  let newUsers
+  if (users.every((item) => item._id !== userx._id)) {
+    newUsers = {
+      ...userx,
+      followers: DeleteData(userx.followers, user.userDatas._id),
+    }
+  } else {
+    users.forEach((item) => {
+      if (item._id === userx._id) {
+        newUsers = {
+          ...item,
+          followers: DeleteData(item.followers, user.userDatas._id),
+        }
+      }
+    })
   }
-  console.log('newUsersnewUsersnewUsers', newUsers)
+
   dispatch({
     type: types.UNFOLLOW,
     payload: newUsers,

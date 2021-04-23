@@ -7,9 +7,9 @@ const Notify = () => {
   const { notify } = useSelector((state) => state)
   return (
     <div>
-      {notify.loading && <Loading />}
-      {notify.error && <Toaster msg={notify.error} status="error" />}
-      {notify.success && <Toaster msg={notify.success} status="success" />}
+      {notify?.loading && <Loading />}
+      {notify?.error && <Toaster msg={notify.error} status="error" />}
+      {notify?.success && <Toaster msg={notify.success} status="success" />}
     </div>
   )
 }

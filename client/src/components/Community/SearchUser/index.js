@@ -1,7 +1,6 @@
 import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { searchUsers } from '../../../apis/cart'
 import UserCard from '../UserCard'
 
@@ -78,16 +77,7 @@ function SearchUser(props) {
           ) : (
             users &&
             users.map((item) => {
-              return (
-                <Link
-                  key={item._id}
-                  to={`/community/profile/${item._id}`}
-                  onClick={onHandleClose}
-                  className="py-3 px-3 block hover:bg-gray-100 border-gray-400 border-b"
-                >
-                  <UserCard user={item} />
-                </Link>
-              )
+              return <UserCard user={item} onHandleClose={onHandleClose} />
             })
           )}
         </div>

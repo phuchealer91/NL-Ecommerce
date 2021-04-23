@@ -1,11 +1,10 @@
 import * as types from '../constants/notify'
-let initialState = {
-  loading: false,
-}
-const notifyReducer = (state = initialState, action) => {
+
+const notifyReducer = (state = null, action) => {
+  console.log(action.payload)
   switch (action.type) {
     case types.NOTIFY:
-      return { ...state, loading: action.payload }
+      return action.payload
     default:
       return state
   }

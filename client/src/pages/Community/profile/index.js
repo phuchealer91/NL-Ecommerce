@@ -2,7 +2,6 @@ import { Spin } from 'antd'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Info from '../../../components/Community/Profile/Info'
-import Posts from '../../../components/Community/Profile/Posts'
 import LeftMenu from '../../../components/navigation/LeftMenu'
 import RightMenu from '../../../components/navigation/RightMenu'
 
@@ -531,7 +530,7 @@ const Profile = () => {
                     </article>
                   </li>
                 </ul>
-                <Posts />
+                {/* <Posts /> */}
               </section>
               <RightMenu />
             </div>

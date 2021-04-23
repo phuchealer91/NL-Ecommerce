@@ -7,17 +7,6 @@ const FollowBtn = ({ userx }) => {
   const [followed, setFollowed] = useState(false)
   const { user, profile } = useSelector((state) => state)
   const dispatch = useDispatch()
-  console.log(
-    'useruseruseruseruseruseruseruseruseruseruser',
-    user.userDatas.following
-  )
-  console.log('userxuserxuserxuserxuserxuserxuserx', userx)
-  if (user && user.userDatas !== undefined) {
-    console.log(
-      'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-      user.userDatas.following?.find((x) => x._id === userx._id)
-    )
-  }
   useEffect(() => {
     if (user.userDatas.following?.find((x) => x._id === userx._id)) {
       setFollowed(true)
@@ -36,14 +25,14 @@ const FollowBtn = ({ userx }) => {
       {followed ? (
         <button
           onClick={onHandleUnFollow}
-          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-red-600 border-solid  text-white hover:bg-red-600   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
+          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-red-600 border-solid  text-red-600 hover:bg-red-200   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
         >
           Bỏ theo dõi
         </button>
       ) : (
         <button
           onClick={onHandleFollow}
-          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-white border-solid  text-white hover:bg-blue-400   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
+          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-blue-600 border-solid  text-blue-600 hover:bg-blue-200   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
         >
           Theo dõi
         </button>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Image } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -47,10 +48,11 @@ import PATHS from '../redux/constants/paths'
 import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
 import Profile from '../pages/Community/profile'
+import { getPostsx } from '../redux/actions/post'
 
-function App() {
+export default function App() {
   const dispatch = useDispatch()
-  let { user: users } = useSelector((state) => ({ ...state }))
+  let { user: users, homePost } = useSelector((state) => state)
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -79,10 +81,22 @@ function App() {
     })
     return () => unsubscribe()
   }, [dispatch])
+  useEffect(() => {
+    if (users.token) dispatch(getPostsx())
+  }, [dispatch, users.token])
   return (
     <React.Fragment>
       {users && users.role === 'admin' ? <HeaderAdmin /> : <HeaderUser />}
-
+      {/* <Image.PreviewGroup>
+        <Image
+          width={200}
+          src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+        />
+        <Image
+          width={200}
+          src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
+        />
+      </Image.PreviewGroup> */}
       <Switch>
         <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
         <Route exact path={`/${PATHS.REGISTER}`} component={Register} />
@@ -223,5 +237,3 @@ function App() {
     </React.Fragment>
   )
 }
-
-export default App

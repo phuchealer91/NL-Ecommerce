@@ -89,6 +89,9 @@ function LeftMenu() {
     { label: 'Tin nhắn', icon: messagesx, path: '/community/message' },
     { label: 'Khám phá', icon: discoversx, path: '/community/discover' },
   ]
+  function ScrollToTop() {
+    window.scrollTo({ top: 0 })
+  }
   return (
     <nav className="mt-5 px-2">
       {navLinks &&
@@ -99,6 +102,7 @@ function LeftMenu() {
               to={item.path}
               className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full text-white hover:bg-gray-800 hover:text-blue-500"
               activeClassName="text-blue-300"
+              onClick={idx === 0 && ScrollToTop}
             >
               {item.icon}
               {item.label}

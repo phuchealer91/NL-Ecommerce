@@ -11,6 +11,7 @@ import orderReducer from './orderReducer'
 import searchReducer from './searchReducer'
 import notifyReducer from './notifyReducer'
 import profileReducer from './profileReducer'
+import postReducer from './postReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   notify: notifyReducer,
   profile: profileReducer,
+  homePost: postReducer,
 })
 
 export default rootReducer

@@ -41,6 +41,7 @@ const PATHS = {
   FOLLOW: 'follow',
   UNFOLLOW: 'unfollow',
   FOLLOWING: 'following',
+  POST: 'post',
 }
 
 export default PATHS

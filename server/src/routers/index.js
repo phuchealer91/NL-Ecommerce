@@ -13,6 +13,7 @@ const stripeRoute = require('./stripe.route')
 const orderRoute = require('./order.route')
 const provinceRoute = require('./province.route')
 const wardRoute = require('./district.route')
+const postRoute = require('./post.route')
 
 // router.use('/', uploadRoute)
 router.use('/v1', cloudinaryRoute)
@@ -28,5 +29,6 @@ router.use('/payment', stripeRoute)
 router.use('/order', orderRoute)
 router.use('/province', provinceRoute)
 router.use('/district', wardRoute)
+router.use('/post', postRoute)
 
 module.exports = router

@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "antd": "^4.7.0",
+    "antd": "^4.15.2",
     "axios": "^0.20.0",
     "date-fns": "^2.19.0",
     "firebase": "^7.23.0",

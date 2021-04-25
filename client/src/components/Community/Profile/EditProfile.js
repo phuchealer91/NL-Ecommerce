@@ -21,7 +21,6 @@ function EditProfile({ visible, handleCancel, setVisible }) {
   useEffect(() => {
     setUserData(user?.userDatas)
   }, [user])
-  console.log('userDatauserDatauserDatauserData', userData)
   function onHandleSubmit(e) {
     e.preventDefault()
     dispatch(updateProfileUser({ userData, avatar, user }))

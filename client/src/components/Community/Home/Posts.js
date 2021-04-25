@@ -1,18 +1,21 @@
-import React from 'react'
-import {
-  CopyOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-} from '@ant-design/icons'
-import moment from 'moment'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Dropdown, Image, Menu } from 'antd'
+import CardHeader from '../CardHeader/CardHeader'
 import { ImagePreview } from '../ImagePreview/ImagePreview'
+import LikeButton from '../LikeButton/LikeButton'
 
 function Posts() {
   const { homePost, user } = useSelector((state) => state)
+  const [isLike, setIsLike] = useState(false)
+  const [loadLike, setLoadLike] = useState(false)
+  function onHandleLike() {
+    setIsLike(true)
+  }
+  function onHandleUnLike() {
+    setIsLike(false)
+  }
+
   return (
     <>
       <ul className="list-none">
@@ -20,94 +23,7 @@ function Posts() {
           homePost.posts.map((item, idx) => (
             <li key={item._id}>
               <article className="transition">
-                <div className="flex  p-4 pb-0">
-                  <div className=" w-full block">
-                    <div className="flex">
-                      <Link
-                        to={`/community/profile/${item.postBy._id}`}
-                        className="block"
-                      >
-                        <img
-                          className="inline-block h-10 w-10 rounded-full border-2 border-blue-500"
-                          src={item.postBy.photoURL}
-                          alt={item.postBy.photoURL}
-                        />
-                      </Link>
-                      <div className="pl-3 flex flex-col w-full">
-                        <div className="flex items-start justify-between">
-                          <span>
-                            <Link
-                              to={`/community/profile/${item.postBy._id}`}
-                              className="hover:underline text-white  block"
-                            >
-                              <p className="text-base  font-semibold text-white ">
-                                {item.postBy.name}
-                              </p>
-                            </Link>
-                          </span>
-                          <span>
-                            <Dropdown
-                              overlay={
-                                <Menu>
-                                  {user.userDatas._id === item.postBy._id && (
-                                    <>
-                                      <Menu.Item>
-                                        <div className="flex items-center">
-                                          <EditOutlined
-                                            className="text-blue-600"
-                                            style={{ fontSize: '16px' }}
-                                          />{' '}
-                                          <span className="ml-2 text-base text-gray-600">
-                                            Chỉnh sửa
-                                          </span>
-                                        </div>
-                                      </Menu.Item>
-
-                                      <Menu.Item>
-                                        <div className="flex items-center">
-                                          <DeleteOutlined
-                                            className="text-red-600"
-                                            style={{ fontSize: '16px' }}
-                                          />{' '}
-                                          <span className="ml-2 text-base text-gray-600">
-                                            Xóa bài viết
-                                          </span>
-                                        </div>
-                                      </Menu.Item>
-                                    </>
-                                  )}
-                                  <Menu.Item>
-                                    <div className="flex items-center">
-                                      <CopyOutlined
-                                        className="text-green-600"
-                                        style={{ fontSize: '16px' }}
-                                      />{' '}
-                                      <span className="ml-2 text-base text-gray-600">
-                                        Sao chép bài viết
-                                      </span>
-                                    </div>
-                                  </Menu.Item>
-                                </Menu>
-                              }
-                            >
-                              <span className="text-white hover:text-blue-600 transition">
-                                <EllipsisOutlined
-                                  style={{
-                                    fontSize: '24px',
-                                    cursor: 'pointer',
-                                  }}
-                                />
-                              </span>
-                            </Dropdown>
-                          </span>
-                        </div>
-                        <span className="text-xs  font-medium text-gray-300  transition ease-in-out duration-150">
-                          {moment(item.createdAt).fromNow()}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <CardHeader post={item} />
                 <div className="p-4">
                   <p className="text-sm width-auto font-medium text-gray-100 flex-shrink">
                     {item.content}
@@ -116,17 +32,31 @@ function Posts() {
                     <ImagePreview data={item.images} />
                   </div>
                   <div className="flex items-center py-4">
+                    <div className="flex-1 flex items-center">
+                      <LikeButton
+                        isLike={isLike}
+                        onHandleLike={onHandleLike}
+                        onHandleUnLike={onHandleUnLike}
+                      />
+                      <span className="text-white font-semibold pl-2">
+                        {item.likes.length}
+                      </span>
+                    </div>
                     <div className="flex-1 flex items-center text-white text-xs hover:text-blue-400 transition duration-350 ease-in-out">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-5 h-5 mr-2"
-                      >
-                        <g>
-                          <path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z" />
-                        </g>
-                      </svg>
-                      12.3 k
+                      <Link to={`/post/${item._id}`}>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-5 h-5 mr-2"
+                        >
+                          <g>
+                            <path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z" />
+                          </g>
+                        </svg>
+                      </Link>
+                      <span className="text-white font-semibold pl-2">
+                        {item.comments.length}
+                      </span>
                     </div>
                     <div className="flex-1 flex items-center text-white text-xs hover:text-green-400 transition duration-350 ease-in-out">
                       <svg
@@ -140,18 +70,7 @@ function Posts() {
                       </svg>
                       14 k
                     </div>
-                    <div className="flex-1 flex items-center text-white text-xs hover:text-red-600 transition duration-350 ease-in-out">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-5 h-5 mr-2"
-                      >
-                        <g>
-                          <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z" />
-                        </g>
-                      </svg>
-                      14 k
-                    </div>
+
                     <div className="flex-1 flex items-center text-white text-xs  hover:text-blue-400 transition duration-350 ease-in-out">
                       <svg
                         viewBox="0 0 24 24"

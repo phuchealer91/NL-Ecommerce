@@ -25,6 +25,34 @@ export const createPosts = ({ content, images, user }) => async (dispatch) => {
     dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })
   }
 }
+export const updatePosts = ({ content, images, user, status }) => async (
+  dispatch
+) => {
+  let media = []
+  const imageNewUrl = images.filter((img) => !img.url)
+  const imageOldUrl = images.filter((img) => img.url)
+  if (
+    status.conent === content &&
+    imageNewUrl.length === 0 &&
+    imageOldUrl.length === status.images.length
+  )
+    return
+  try {
+    dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: true } })
+    if (imageNewUrl.length > 0) media = await ImageUpload(images)
+    const res = await axiosServices.patch(`${PATHS.POST}/${status._id}`, {
+      content,
+      images: [...imageOldUrl, ...media],
+    })
+    dispatch({
+      type: types.UPDATE_POST,
+      payload: res.data.posts,
+    })
+    dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })
+  } catch (error) {
+    dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })
+  }
+}
 export const getPostsx = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOADING_POST, payload: true })

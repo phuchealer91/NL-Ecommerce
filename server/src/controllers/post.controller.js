@@ -16,6 +16,26 @@ module.exports.createPost = async (req, res) => {
     return res.status(500).json({ msg: 'Server error' })
   }
 }
+module.exports.updatePost = async (req, res) => {
+  const { content, images } = req.body
+
+  try {
+    const newPost = await Post.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        content,
+        images,
+      },
+      { new: true }
+    )
+      .populate('postBy likes', 'name photoURL role')
+      .sort('-createdAt')
+      .exec()
+    return res.status(200).json({ posts: { ...newPost._doc, content, images } })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
 module.exports.getPosts = async (req, res) => {
   try {
     const user = await User.findOne({
@@ -28,7 +48,7 @@ module.exports.getPosts = async (req, res) => {
         { postBy: { $eq: admins[0]._id } },
       ],
     })
-      .populate('postBy', 'name photoURL role')
+      .populate('postBy likes', 'name photoURL role')
       .sort([['createdAt', 'desc']])
       .exec()
     return res.status(200).json({ posts, result: posts.length })

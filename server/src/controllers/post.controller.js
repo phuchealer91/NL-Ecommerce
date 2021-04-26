@@ -56,3 +56,33 @@ module.exports.getPosts = async (req, res) => {
     return res.status(500).json({ msg: 'Server error' })
   }
 }
+
+module.exports.likePost = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec()
+    const post = await Post.find({ _id: req.params.id, likes: user._id })
+    if (post.length > 0)
+      return res.status(400).json({ msg: 'Bạn đã thích bài viết này rồi !' })
+    const posts = await Post.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { likes: user._id } },
+      { new: true }
+    ).exec()
+    return res.status(200).json({ posts })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+module.exports.unLikePost = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec()
+    const posts = await Post.findOneAndUpdate(
+      { _id: req.params.id },
+      { $pull: { likes: user._id } },
+      { new: true }
+    ).exec()
+    return res.status(200).json({ posts })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}

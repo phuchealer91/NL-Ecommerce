@@ -42,6 +42,8 @@ const PATHS = {
   UNFOLLOW: 'unfollow',
   FOLLOWING: 'following',
   POST: 'post',
+  LIKE: 'like',
+  UNLIKE: 'unlike',
 }
 
 export default PATHS

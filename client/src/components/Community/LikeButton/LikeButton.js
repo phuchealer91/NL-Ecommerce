@@ -9,7 +9,7 @@ function LikeButton({ isLike, onHandleLike, onHandleUnLike }) {
       {isLike ? (
         <div
           onClick={onHandleUnLike}
-          className=" flex items-center text-white text-xs hover:text-red-600 transition duration-350 ease-in-out"
+          className=" cursor-pointer flex items-center text-white text-xs hover:text-red-600 transition duration-350 ease-in-out"
         >
           <svg viewBox="0 0 24 24" className="w-5 h-5 mr-2 " fill="#e0245e">
             <g>
@@ -20,7 +20,7 @@ function LikeButton({ isLike, onHandleLike, onHandleUnLike }) {
       ) : (
         <div
           onClick={onHandleLike}
-          className=" flex items-center text-white text-xs hover:text-red-600 transition duration-350 ease-in-out"
+          className=" cursor-pointer flex items-center text-white text-xs hover:text-red-600 transition duration-350 ease-in-out"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 mr-2">
             <g>

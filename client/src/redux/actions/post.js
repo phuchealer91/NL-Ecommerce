@@ -39,7 +39,7 @@ export const updatePosts = ({ content, images, user, status }) => async (
     return
   try {
     dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: true } })
-    if (imageNewUrl.length > 0) media = await ImageUpload(images)
+    if (imageNewUrl.length > 0) media = await ImageUpload(imageNewUrl)
     const res = await axiosServices.patch(`${PATHS.POST}/${status._id}`, {
       content,
       images: [...imageOldUrl, ...media],
@@ -61,5 +61,34 @@ export const getPostsx = () => async (dispatch) => {
     dispatch({ type: types.LOADING_POST, payload: false })
   } catch (error) {
     dispatch({ type: types.LOADING_POST, payload: false })
+  }
+}
+
+export const likePosts = ({ post, user }) => async (dispatch) => {
+  try {
+    const posts = { ...post, likes: [...post.likes, user.userDatas] }
+    dispatch({
+      type: types.UPDATE_POST,
+      payload: posts,
+    })
+    await axiosServices.patch(`${PATHS.POST}/${post._id}/${PATHS.LIKE}`, null)
+  } catch (error) {
+    dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })
+  }
+}
+export const unLikePosts = ({ post, user }) => async (dispatch) => {
+  try {
+    const posts = {
+      ...post,
+      likes: post.likes.filter((like) => like._id !== user.userDatas._id),
+    }
+
+    dispatch({
+      type: types.UPDATE_POST,
+      payload: posts,
+    })
+    await axiosServices.patch(`${PATHS.POST}/${post._id}/${PATHS.UNLIKE}`, null)
+  } catch (error) {
+    dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })
   }
 }

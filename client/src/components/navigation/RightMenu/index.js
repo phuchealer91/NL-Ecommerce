@@ -4,14 +4,17 @@ import SearchUser from '../../Community/SearchUser'
 function RightMenu() {
   return (
     <>
-      <aside className="h-full  relative">
+      <aside
+        className="h-full  relative"
+        style={{ width: 'calc(100% - 700px)' }}
+      >
         {/*Aside menu (right side)*/}
         <div style={{ with: '100%' }}>
           <div className="h-screen  ">
             <SearchUser />
             {/*trending tweet section*/}
             <div className="max-w-sm rounded-lg bg-dim-700 overflow-hidden shadow-lg m-4">
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1 m-2">
                   <h2 className="px-4 py-2 text-xl w-48 font-semibold text-white">
                     Germany trends
@@ -36,10 +39,10 @@ function RightMenu() {
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*first trending tweet*/}
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1">
                   <p className="px-4 ml-2 mt-3 w-48 text-xs ">1 . Trending</p>
                   <h2 className="px-4 ml-2 w-48 font-bold text-white">
@@ -65,10 +68,10 @@ function RightMenu() {
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*second trending tweet*/}
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1">
                   <p className="px-4 ml-2 mt-3 w-48 text-xs ">
                     2 . Politics . Trending
@@ -96,10 +99,10 @@ function RightMenu() {
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*third trending tweet*/}
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1">
                   <p className="px-4 ml-2 mt-3 w-48 text-xs ">
                     3 . Rock . Trending
@@ -127,10 +130,10 @@ function RightMenu() {
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*forth trending tweet*/}
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1">
                   <p className="px-4 ml-2 mt-3 w-48 text-xs ">
                     4 . Auto Racing . Trending
@@ -158,29 +161,29 @@ function RightMenu() {
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*show more*/}
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1 p-4">
                   <h2 className="px-4 ml-2 w-48 font-bold text-blue-400">
                     Show more
                   </h2>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/*people suggetion to follow section*/}
             <div className="max-w-sm rounded-lg  bg-dim-700 overflow-hidden shadow-lg m-4">
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex-1 m-2">
                   <h2 className="px-4 py-2 text-xl w-48 font-semibold text-white">
                     Who to follow
                   </h2>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*first person who to follow*/}
-              <div className="flex flex-shrink-0">
+              {/* <div className="flex flex-shrink-0">
                 <div className="flex-1 ">
                   <div className="flex items-center w-48">
                     <div>
@@ -207,10 +210,10 @@ function RightMenu() {
                     </button>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*second person who to follow*/}
-              <div className="flex flex-shrink-0">
+              {/* <div className="flex flex-shrink-0">
                 <div className="flex-1 ">
                   <div className="flex items-center w-48">
                     <div>
@@ -237,31 +240,9 @@ function RightMenu() {
                     </button>
                   </a>
                 </div>
-              </div>
+              </div> */}
               <hr className="border-gray-800" />
               {/*show more*/}
-              <div className="flex">
-                <div className="flex-1 p-4">
-                  <h2 className="px-4 ml-2 w-48 font-bold text-blue-400">
-                    Show more
-                  </h2>
-                </div>
-              </div>
-            </div>
-            <div className="m-6 inline">
-              <div className="flex-1">
-                <a href="#">
-                  <p className="text-sm leading-6 font-medium text-gray-500">
-                    Terms Privacy Policy Cookies Imprint Ads info
-                  </p>
-                </a>
-              </div>
-              <div className="flex-2">
-                <p className="text-sm leading-6 font-medium text-gray-600">
-                  {' '}
-                  © 2020 Twitter, Inc.
-                </p>
-              </div>
             </div>
           </div>
         </div>

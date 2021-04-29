@@ -8,6 +8,7 @@ import SubMenu from 'antd/lib/menu/SubMenu'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { useSpeechRecognition } from '../../useSpeechRecognition'
 import { getCategories } from '../../apis/category'
 import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
 import { getSubCategories } from '../../apis/subCategory'
@@ -207,6 +208,18 @@ function Shop(props) {
     setLayout(e.target.value)
     loadProductsFilter({ layout: e.target.value })
   }
+  // speech.transcript
+  const speech = useSpeechRecognition()
+
+  console.log(
+    ' e.target.value e.target.value e.target.value e.target.value',
+    speech.transcript
+  )
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(searchQuery({ text: speech.transcript }))
+    }, 2000)
+  }, [speech.transcript, dispatch])
   return (
     <React.Fragment>
       <Row gutter={[2, 12]}>
@@ -214,6 +227,30 @@ function Shop(props) {
           <h4 className="p-3 pl-2 text-green-600 font-semibold text-lg">
             Tìm kiếm/Lọc
           </h4>
+          <div className="px-4">
+            <button onClick={speech.startListening}>
+              Listen <i className="fa fa-microphone" />
+            </button>
+            <input
+              type="text"
+              readOnly
+              // onChange={handleChange}
+              value={speech.transcript}
+              style={{ width: '100%' }}
+            />
+            <p>
+              <code>listening: {speech.listening.toString()}</code>{' '}
+              {speech.listening ? (
+                <span style={{ color: 'green' }}>
+                  <i className="fa fa-circle" />
+                </span>
+              ) : (
+                <span style={{ color: 'red' }}>
+                  <i className="fa fa-stop-circle" />
+                </span>
+              )}
+            </p>
+          </div>
 
           <Menu
             defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7']}

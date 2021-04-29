@@ -110,9 +110,9 @@ function LeftMenu() {
           )
         })}
 
-      <button className="bg-blue-400 hover:bg-blue-500 w-full mt-5 text-white font-bold py-2 px-4 rounded-full">
+      {/* <button className="bg-blue-400 hover:bg-blue-500 w-full mt-5 text-white font-bold py-2 px-4 rounded-full">
         Tweet
-      </button>
+      </button> */}
     </nav>
   )
 }

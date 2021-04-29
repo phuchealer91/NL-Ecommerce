@@ -49,6 +49,12 @@ module.exports.getPosts = async (req, res) => {
       ],
     })
       .populate('postBy likes', 'name photoURL role')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'postBy likes',
+        },
+      })
       .sort([['createdAt', 'desc']])
       .exec()
     return res.status(200).json({ posts, result: posts.length })

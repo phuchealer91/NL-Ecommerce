@@ -1,32 +1,51 @@
+import moment from 'moment'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { formatPrice } from '../../helpers/formatPrice'
 import './ProductListItem.scss'
 function ProductListItem({ productEditing }) {
+  console.log('productEditing', productEditing)
   const {
     price,
     quantity,
     sold,
     category,
-    brand,
-    color,
+    publisher,
     shipping,
     subs,
+    author,
+    layout,
+    pages,
+    publication,
   } = productEditing ? productEditing : ''
 
   return (
     <>
       <ul className="list-group">
         <li className="list-group-item">
-          Price{' '}
+          Giá{' '}
           <span className="list-group__right font-semibold">
             {formatPrice(price)} VND
+          </span>
+        </li>
+        <li className="list-group-item">
+          Nhà xuất bản{' '}
+          <span className="list-group__right font-semibold">{publisher}</span>
+        </li>
+        <li className="list-group-item">
+          Số trang{' '}
+          <span className="list-group__right font-semibold">{pages}</span>
+        </li>
+        <li className="list-group-item">
+          Ngày sản xuất{' '}
+          <span className="list-group__right font-semibold">
+            {moment(publication).format('DD/MM/YYYY')}
           </span>
         </li>
 
         {category && (
           <li className="list-group-item">
-            Category{' '}
+            Loại{' '}
             <Link
               to={`/category/${category.slug}`}
               className="font-semibold list-group__right text-green-600 underline"
@@ -38,7 +57,7 @@ function ProductListItem({ productEditing }) {
 
         {subs && (
           <li className="list-group-item">
-            Sub Categories
+            Danh mục
             {subs.map((s) => (
               <Link
                 key={s._id}
@@ -52,27 +71,39 @@ function ProductListItem({ productEditing }) {
         )}
 
         <li className="list-group-item">
-          Shipping{' '}
+          Ship{' '}
           <span className="list-group__right font-semibold">{shipping}</span>
         </li>
 
+        {author && (
+          <li className="list-group-item">
+            Tác giả
+            {author.map((s) => (
+              <Link
+                key={s._id}
+                to={`/author/${s.slug}`}
+                className="font-semibold list-group__right text-green-600 underline"
+              >
+                {s.name}
+              </Link>
+            ))}
+          </li>
+        )}
+
         <li className="list-group-item">
-          Color <span className="list-group__right font-semibold">{color}</span>
+          Bố cục{' '}
+          <span className="list-group__right font-semibold">{layout}</span>
         </li>
 
         <li className="list-group-item">
-          Brand <span className="list-group__right font-semibold">{brand}</span>
-        </li>
-
-        <li className="list-group-item">
-          Available{' '}
+          Số lượng trong kho{' '}
           <span className="list-group__right font-semibold">
             {formatPrice(quantity)}
           </span>
         </li>
 
         <li className="list-group-item">
-          Sold <span className="list-group__right font-semibold">{sold}</span>
+          Đã bán <span className="list-group__right font-semibold">{sold}</span>
         </li>
       </ul>
     </>

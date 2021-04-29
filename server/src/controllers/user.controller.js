@@ -176,8 +176,8 @@ module.exports.getOrders = async (req, res) => {
 
     let userOrders = await Order.find({ orderedBy: user._id })
       .populate('products.product')
-      .skip(skip)
-      .limit(limit)
+      // .skip(skip)
+      // .limit(limit)
       .exec()
     return res.status(200).json({ userOrders })
   } catch (error) {

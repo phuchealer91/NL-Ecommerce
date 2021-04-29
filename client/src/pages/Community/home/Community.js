@@ -38,7 +38,7 @@ const Community = (props) => {
                   </g>
                 </svg>
                 <LeftMenu />
-                <div className="absolute" style={{ bottom: '2rem' }}>
+                {/* <div className="absolute" style={{ bottom: '2rem' }}>
                   <div className="flex-shrink-0 flex hover:bg-gray-800 rounded-full px-4 py-3 mt-12 mr-2">
                     <a href="#" className="flex-shrink-0 group block">
                       <div className="flex items-center">
@@ -60,19 +60,19 @@ const Community = (props) => {
                       </div>
                     </a>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex" style={{ width: 'calc(100% - 275px)' }}>
               <section
                 className="w-full border border-y-0 border-gray-800"
-                style={{ maxWidth: '100%' }}
+                style={{ maxWidth: '700px' }}
               >
                 <aside>
                   <div className="flex">
                     <div className="flex-1 mx-2">
                       <h2 className="px-4 py-2 text-xl font-semibold text-white">
-                        Home
+                        Bản Tin
                       </h2>
                     </div>
                     <div className="flex-1 px-4 py-2 mx-2">

@@ -44,6 +44,7 @@ const PATHS = {
   POST: 'post',
   LIKE: 'like',
   UNLIKE: 'unlike',
+  COMMENT: 'comment',
 }
 
 export default PATHS

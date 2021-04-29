@@ -81,9 +81,9 @@ const Profile = () => {
                 )}
 
                 <ul className="list-none">
-                  <li>
-                    {/*second tweet*/}
-                    <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
+                  {/* <li> */}
+                  {/*second tweet*/}
+                  {/* <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
                       <div className="flex flex-shrink-0 p-4 pb-0">
                         <a href="#" className="flex-shrink-0 group block">
                           <div className="flex items-center">
@@ -192,10 +192,10 @@ const Profile = () => {
                       </div>
                       <hr className="border-gray-800" />
                     </article>
-                  </li>
-                  <li>
-                    {/*second tweet*/}
-                    <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
+                  </li> */}
+                  {/* <li> */}
+                  {/*second tweet*/}
+                  {/* <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
                       <div className="flex flex-shrink-0 p-4 pb-0">
                         <a href="#" className="flex-shrink-0 group block">
                           <div className="flex items-center">
@@ -304,10 +304,10 @@ const Profile = () => {
                       </div>
                       <hr className="border-gray-800" />
                     </article>
-                  </li>
-                  <li>
-                    {/*second tweet*/}
-                    <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
+                  </li> */}
+                  {/* <li> */}
+                  {/*second tweet*/}
+                  {/* <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
                       <div className="flex flex-shrink-0 p-4 pb-0">
                         <a href="#" className="flex-shrink-0 group block">
                           <div className="flex items-center">
@@ -416,10 +416,10 @@ const Profile = () => {
                       </div>
                       <hr className="border-gray-800" />
                     </article>
-                  </li>
-                  <li>
-                    {/*second tweet*/}
-                    <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
+                  </li> */}
+                  {/* <li> */}
+                  {/*second tweet*/}
+                  {/* <article className="hover:bg-gray-800 transition duration-350 ease-in-out">
                       <div className="flex flex-shrink-0 p-4 pb-0">
                         <a href="#" className="flex-shrink-0 group block">
                           <div className="flex items-center">
@@ -528,7 +528,7 @@ const Profile = () => {
                       </div>
                       <hr className="border-gray-800" />
                     </article>
-                  </li>
+                  </li> */}
                 </ul>
                 {/* <Posts /> */}
               </section>

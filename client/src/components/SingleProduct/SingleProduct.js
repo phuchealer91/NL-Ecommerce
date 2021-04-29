@@ -337,7 +337,11 @@ function SingleProduct({ productEditing }) {
               >
                 <Image
                   url={images && images[0]?.url}
-                  backUrl={images && images[1]?.url}
+                  backUrl={
+                    images && images[1]?.url
+                      ? images[1]?.url
+                      : images && images[0]?.url
+                  }
                   {...props}
                   onClick={onHandleClick}
                   rotation={rotation}
@@ -365,7 +369,7 @@ function SingleProduct({ productEditing }) {
             productEditing.reviews.length > 0 ? (
               ShowRatings(productEditing)
             ) : (
-              <div className="single__rating">No rating yet</div>
+              <div className="single__rating">Chưa có đánh giá nào</div>
             )}
           </div>
           <Card
@@ -378,7 +382,7 @@ function SingleProduct({ productEditing }) {
                 </Link>
               </Tooltip>,
               <Link onClick={handleAddToWishlist} to="# ">
-                <HeartOutlined className="text-info" /> <br /> Add to Wishlist
+                <HeartOutlined className="text-info" /> <br /> Yêu thích
               </Link>,
 
               <ModalRating productId={productEditing?._id}>
@@ -412,7 +416,7 @@ function SingleProduct({ productEditing }) {
         </Col>
         <Col xs={24} sm={24} md={24} lg={24}>
           <h3 className="my-3 text-2xl font-semibold">
-            Rating and reviews (
+            Bình luận và đánh giá (
             <span className="text-red-600">
               {productEditing?.reviews.length}
             </span>
@@ -448,7 +452,7 @@ function SingleProduct({ productEditing }) {
           ) : (
             <img
               src={emptyComment}
-              style={{ width: '120px', color: 'gray' }}
+              style={{ width: '80px', color: 'gray' }}
               alt="hello"
             />
           )}

@@ -17,7 +17,6 @@ const UserLogined = (props) => {
   const [isChangeCount, setIsChangeCount] = useState('')
   const dispatch = useDispatch()
 
-  console.log('hello userDatauserDatauserDatauserData')
   const openNotification = useCallback(
     (type, data) => {
       let action = 'đã thanh toán thành công đơn hàng.'
@@ -63,13 +62,12 @@ const UserLogined = (props) => {
   )
   const userData = useSelector((state) => state.user)
   const { notificationsCount, userDatas } = userData
-  const [notifyCount, setNotifyCount] = useState(notificationsCount)
-  useEffect(() => {
-    setNotifyCount(notificationsCount)
-  }, [notificationsCount])
-  useEffect(() => {
-    openNotification('create order', isChangeCount)
-  }, [isChangeCount, setNotifyCount])
+  console.log('hello userDatauserDatauserDatauserData')
+
+  // useEffect(() => {
+  //   setNotifyCount(notificationsCount)
+  // }, [notificationsCount])
+
   useEffect(() => {
     const socket = OpenSocket('http://localhost:8000', {
       auth: {
@@ -77,18 +75,18 @@ const UserLogined = (props) => {
       },
     })
     socket.on('create order', (orderUser) => {
+      openNotification('create order', orderUser)
       dispatch(
         notificationCount({
-          count: notifyCount + 1,
+          count: notificationsCount + 1,
         })
       )
-      setIsChangeCount(orderUser)
     })
 
     return () => {
       socket.emit('logout')
     }
-  }, [dispatch, setIsChangeCount, notifyCount])
+  }, [dispatch, notificationsCount])
 
   const openNotificationsDropdown = () => {
     // Nếu có notifications mới hoặc chưa fetch lần nào thì sẽ fetch notifications
@@ -152,7 +150,7 @@ const UserLogined = (props) => {
     <div className="user-group desktop-screen">
       <div className="notify-btn">
         <Button type="link" size="large" onClick={openNotificationsDropdown}>
-          <Badge count={notifyCount}>
+          <Badge count={notificationsCount}>
             <BellOutlined className="notify-button" style={{ color: '#333' }} />
           </Badge>
         </Button>
@@ -168,7 +166,7 @@ const UserLogined = (props) => {
           />
         )}
       </div>
-      <Dropdown overlay={menuAccount} placement="bottomCenter">
+      {/* <Dropdown overlay={menuAccount} placement="bottomCenter">
         <Button
           type="link"
           size="large"
@@ -177,7 +175,7 @@ const UserLogined = (props) => {
         >
           {userDatas.name}
         </Button>
-      </Dropdown>
+      </Dropdown> */}
       {/* <Cart /> */}
     </div>
   )

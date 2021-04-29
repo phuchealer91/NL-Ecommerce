@@ -53,7 +53,7 @@ const HeaderAdmin = () => {
                 <div>
                   <a href="/" className="inline-block mb-2 mr-2">
                     <img
-                      src="./assests/images/Logo_95x.png"
+                      // src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/fahasa-logo.png"
                       alt="Wokiee"
                       className="mr-6"
                     />

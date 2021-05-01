@@ -13,3 +13,9 @@ export const updatedOrderStatus = (orderId, orderStatus) => {
     orderStatus,
   })
 }
+export const StatisticalOrders = (data) => {
+  return axiosServices.post(`/${PATHS.ORDER}/order-by-date`, data)
+}
+export const StatisticalOrderFilters = (data) => {
+  return axiosServices.post(`/${PATHS.ORDER}/order-filters`, data)
+}

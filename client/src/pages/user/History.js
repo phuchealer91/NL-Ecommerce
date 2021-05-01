@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { getTotalOrdersStatuss, userOrders } from '../../apis/cart'
 import { UserSideBar } from '../../components/navigation/SideBar'
 import TableOrder from '../../components/ViewOrder/TableOrder'
-import ViewOrder from '../../components/ViewOrder/ViewOrder'
 import './Styles.scss'
 const { Step } = Steps
 
@@ -24,7 +23,6 @@ function History(props) {
     loadTotalProcess()
     loadTotalCompleted()
     loadTotalCancel()
-    loaduserOrder()
   }, [userOrder])
   useEffect(() => {
     loaduserOrder()
@@ -82,8 +80,8 @@ function History(props) {
         console.log(error)
       })
   }
-  const loaduserOrder = (variables) =>
-    userOrders(variables)
+  const loaduserOrder = () =>
+    userOrders()
       .then((res) => {
         if (res.data) {
           setuserOrder(res.data.userOrders)
@@ -136,7 +134,7 @@ function History(props) {
                 <div className="text-gray-600 text-2xl font-semibold">
                   {totalProcess}
                 </div>
-                <div className="text-gray-700 text-base">ĐANG CHỜ XỬ LÝ</div>
+                <div className="text-gray-700 text-base">ĐANG XỬ LÝ</div>
               </div>
             </div>
             <div className="shadow-lg bg-white border-l-8 border-green-600  mb-2 p-2 md:w-1/4 mr-2">
@@ -182,7 +180,13 @@ function History(props) {
                       </thead>
                       {userOrder &&
                         userOrder.map((order, idx) => {
-                          return <TableOrder order={order} idx={idx} />
+                          return (
+                            <TableOrder
+                              order={order}
+                              idx={idx}
+                              loaduserOrder={loaduserOrder}
+                            />
+                          )
                         })}
                     </table>
                   </div>

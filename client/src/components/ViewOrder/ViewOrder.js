@@ -3,13 +3,12 @@ import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { userOrders } from '../../apis/cart'
 import { updatedOrderStatus } from '../../apis/order'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { formatPrice } from '../../helpers/formatPrice'
 ViewOrder.propTypes = {}
 const { Step } = Steps
-function ViewOrder({ order, idx }) {
+function ViewOrder({ order, idx, loaduserOrder }) {
   const [isChange, setIsChange] = useState(false)
   const [userOrder, setuserOrder] = useState([])
   const [isCancel, setIsCancel] = useState(false)
@@ -42,14 +41,7 @@ function ViewOrder({ order, idx }) {
         toast.error('Đặt lại đơn hàng thất bại')
       })
   }
-  const loaduserOrder = (variables) =>
-    userOrders(variables)
-      .then((res) => {
-        if (res.data) {
-          setuserOrder([...userOrder, ...res.data.userOrders])
-        }
-      })
-      .catch((error) => {})
+
   return (
     <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded shadow-md">
       <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">

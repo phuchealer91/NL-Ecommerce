@@ -9,7 +9,8 @@ import { getTotalUserss } from '../../apis/cart'
 import { getTotalOrderss } from '../../apis/order'
 import { getProductsCounts } from '../../apis/product'
 import AdminSideBar from '../../components/navigation/SideBar/AdminSideBar'
-import UserLogined from '../auth/Login/UserLogined'
+import StatisticalOrder from '../../components/StatisticalOrder/StatisticalOrder'
+import StatisticalOrderFilter from '../../components/StatisticalOrder/StatisticalOrderFilter'
 
 DashBoard.propTypes = {}
 
@@ -58,6 +59,11 @@ function DashBoard(props) {
         </div>
         {/* Thông báo: <UserLogined /> */}
         <div className="w-3/4 mx-auto rounded mt-8">
+          <div className="w-full">
+            <div className="py-3">
+              <StatisticalOrder />
+            </div>
+          </div>
           <div className="uppercase pb-4 text-gray-700 font-semibold  border-solid">
             TỔNG QUAN TRẠNG THÁI CÁC ĐƠN HÀNG
           </div>

@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Tag } from 'antd'
 import { EyeOutlined } from '@ant-design/icons'
+import { Tag } from 'antd'
+import Modal from 'antd/lib/modal/Modal'
+import React, { useState } from 'react'
 import { formatPrice } from '../../helpers/formatPrice'
 import ViewOrder from './ViewOrder'
-import Modal from 'antd/lib/modal/Modal'
 
 TableOrder.propTypes = {}
 
-function TableOrder({ order, idx }) {
+function TableOrder({ order, idx, loaduserOrder }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const showModal = () => {
@@ -71,7 +70,7 @@ function TableOrder({ order, idx }) {
         width="80%"
         height="auto"
       >
-        <ViewOrder order={order} idx={idx} />
+        <ViewOrder order={order} idx={idx} loaduserOrder={loaduserOrder} />
       </Modal>
     </>
   )

@@ -4,10 +4,10 @@ const User = require('../models/user.model')
 const Coupon = require('../models/coupon.model')
 const Order = require('../models/order.model')
 const Log = require('../models/log.model')
+const Receipt = require('../models/receipt.model')
 const socketIO = require('../../io')
 module.exports.userCart = async (req, res) => {
   const { cartLists: cart } = req.body
-  console.log(cart)
   let products = []
   // get user currently
   const user = await User.findOne({ email: req.user.email }).exec()
@@ -96,8 +96,6 @@ module.exports.applyCouponToCart = async (req, res) => {
 }
 module.exports.applyAddressToCart = async (req, res) => {
   const { deliveryAddress } = req.body
-  console.log('hello', req.body)
-  console.log('hello', deliveryAddress)
   try {
     const user = await User.findOne({ email: req.user.email }).exec()
     const updateCart = await Cart.findOneAndUpdate(
@@ -413,4 +411,48 @@ module.exports.unfollow = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }
+}
+
+module.exports.userReceipt = async (req, res) => {
+  const { newReceipt } = req.body
+  const receipt = newReceipt.receipts
+  let products = []
+  const user = await User.findOne({ email: req.user.email }).exec()
+
+  // for loop receipt
+  for (let i = 0; i < receipt.length; i++) {
+    let obj = {}
+    obj.product = receipt[i]._id
+    obj.inQuatity = receipt[i].inQuatity
+    obj.inPrice = receipt[i].inPrice
+    // Get price tu db tránh trường hợp sửa ở local (ko bảo mật)
+    let productById = await Product.findById(receipt[i]._id)
+      .select('price')
+      .exec()
+    obj.price = productById.price
+    products.push(obj)
+  }
+
+  let newReceipts = await new Receipt({
+    products,
+    receiptTotal: newReceipt.receiptTotal,
+    supplier: newReceipt.supplier,
+    receiptPayment: newReceipt.receiptPayment,
+    statusReceipt: newReceipt.statusReceipt,
+    orderedBy: user._id,
+  }).save()
+  return res.status(200).json({ newReceipts })
+}
+
+module.exports.getUserReceipt = async (req, res) => {
+  const receipts = await Receipt.find()
+    .populate(
+      'products.product',
+      '_id title inQuatity inPrice images receiptTotal receiptPayment statusReceipt'
+    )
+    .populate('supplier')
+    .exec()
+  // const { products, cartTotal, totalAfterDiscount } = receipts
+
+  return res.status(200).json({ receipts })
 }

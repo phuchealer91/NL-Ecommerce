@@ -1,4 +1,5 @@
 const Supplier = require('../models/supplier.model')
+const Product = require('../models/product.model')
 const slugify = require('slugify')
 var { validationResult } = require('express-validator')
 // const Product = require('../models/product.model')
@@ -24,18 +25,18 @@ module.exports.createSupplier = async (req, res) => {
   }
 }
 module.exports.getSupplier = async (req, res) => {
-  const { slug } = req.params
+  const { _id } = req.body
   try {
-    const supplier = await Supplier.findOne({ slug }).exec()
+    const supplier = await Supplier.findOne({ _id }).exec()
     if (!supplier)
       return res.status(400).json({ error: 'Supplier không tồn tại' })
-    // get related products
-    // const products = await Product.find({ category })
-    //   .populate('category')
-    //   .exec()
-    // return res.status(200).json({ category, products: { data: products } })
-    return res.status(200).json({ supplier })
-  } catch (error) {}
+    const products = await Product.find({ supplier })
+      .populate('supplier')
+      .exec()
+    return res.status(200).json({ products })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
 }
 module.exports.getSuppliers = async (req, res) => {
   try {

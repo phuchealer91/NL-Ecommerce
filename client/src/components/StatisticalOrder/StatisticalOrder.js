@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { DatePicker, Select } from 'antd'
-import moment from 'moment'
-import { StatisticalOrderFilters, StatisticalOrders } from '../../apis/order'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
-  BarChart,
   Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Area,
-  Legend,
-  Line,
-  ResponsiveContainer,
   CartesianGrid,
   ComposedChart,
   LabelList,
-  Label,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from 'recharts'
+import { StatisticalOrderFilters, StatisticalOrders } from '../../apis/order'
 StatisticalOrder.propTypes = {}
 const { Option } = Select
 

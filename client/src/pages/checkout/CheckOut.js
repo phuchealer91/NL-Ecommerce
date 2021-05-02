@@ -31,9 +31,8 @@ function CheckOut(props) {
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
   // const [discountError, setDiscountError] = useState('')
-
+  console.log('hello enh ', products)
   const history = useHistory()
-  console.log('product', products)
   useEffect(() => {
     getUserCarts().then((res) => {
       setProducts(res.data.products)
@@ -63,7 +62,6 @@ function CheckOut(props) {
   function loadUserAddress() {
     getAddresss()
       .then((res) => {
-        console.log('hello anh em', res)
         setListAddress(res.data.listUserAddress.address)
         setAddressSaved(res.data.listUserAddress.address[0])
         applyAddressCarts({
@@ -123,15 +121,12 @@ function CheckOut(props) {
       })
   }
   function onHandlePayMent() {
-    console.log('dcmmmmmmmm', !addressSaved)
-    console.log('dcmmmmmmmm 2', !products.length)
     if (!addressSaved || !products.length) {
       return toast.error('Vui lòng cập nhật địa chỉ giao hàng')
     } else {
       history.push('/payment')
     }
   }
-  console.log('listAddresslistAddresslistAddresslistAddress', listAddress)
   return (
     <div>
       <Modal

@@ -13,6 +13,6 @@ export const deleteSuppliers = (slug) => {
 export const getSuppliers = (data) => {
   return axiosServices.get(`/${PATHS.SUPPLIER}/${PATHS.LIST}`, data)
 }
-export const getSupplier = (slug, data) => {
-  return axiosServices.get(`/${PATHS.SUPPLIER}/${slug}`, data)
+export const getSupplier = (data) => {
+  return axiosServices.post(`/${PATHS.SUPPLIER}/slug`, data)
 }

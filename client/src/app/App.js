@@ -49,6 +49,8 @@ import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
 import Profile from '../pages/Community/profile'
 import { getPostsx } from '../redux/actions/post'
+import { CreateReceipt } from '../pages/admin/warehouse'
+import WareHouseList from '../pages/admin/warehouse/WareHouseList'
 
 export default function App() {
   const dispatch = useDispatch()
@@ -190,6 +192,16 @@ export default function App() {
           exact
           path={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
           component={ListProduct}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.WAREHOUSE}`}
+          component={CreateReceipt}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.LIST_WAREHOUSE}`}
+          component={WareHouseList}
         />
         <AdminRoute
           exact

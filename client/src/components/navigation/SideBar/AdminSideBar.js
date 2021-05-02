@@ -97,6 +97,22 @@ const AdminSideBar = () => {
           Tất cả sản phẩm
         </Menu.Item>
       </SubMenu>
+      <SubMenu key="sub6" icon={<AppstoreOutlined />} title="Nhập hàng">
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.WAREHOUSE}`}
+          icon={<ShoppingOutlined />}
+          className="flex items-center"
+        >
+          Tạo phiếu nhập hàng
+        </Menu.Item>
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.LIST_WAREHOUSE}`}
+          icon={<HeartOutlined />}
+          className="flex items-center"
+        >
+          Tất cả đơn hàng
+        </Menu.Item>
+      </SubMenu>
       <Menu.Item
         icon={<ShoppingOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.ORDER}`}

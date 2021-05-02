@@ -69,3 +69,7 @@ export const getTotalUserss = (data) => {
 export const searchUsers = (data) => {
   return axiosServices.get(`/${PATHS.USER}/search?name=${data}`)
 }
+
+export const userReceipts = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/receipt`, data)
+}

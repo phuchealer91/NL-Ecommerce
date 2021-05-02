@@ -45,6 +45,8 @@ const PATHS = {
   LIKE: 'like',
   UNLIKE: 'unlike',
   COMMENT: 'comment',
+  WAREHOUSE: 'warehouse',
+  LIST_WAREHOUSE: 'list-warehouse',
 }
 
 export default PATHS

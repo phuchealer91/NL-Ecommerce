@@ -10,7 +10,6 @@ import { getTotalOrderss } from '../../apis/order'
 import { getProductsCounts } from '../../apis/product'
 import AdminSideBar from '../../components/navigation/SideBar/AdminSideBar'
 import StatisticalOrder from '../../components/StatisticalOrder/StatisticalOrder'
-import StatisticalOrderFilter from '../../components/StatisticalOrder/StatisticalOrderFilter'
 
 DashBoard.propTypes = {}
 

@@ -23,11 +23,15 @@ const {
   updateUser,
   follow,
   unfollow,
+  userReceipt,
+  getUserReceipt,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
 router.post('/cart', isAuth, userCart)
 router.get('/cart', isAuth, getUserCart)
+router.post('/receipt', isAuth, userReceipt)
+router.get('/receipt', isAuth, getUserReceipt)
 router.delete('/cart', isAuth, emptyCart)
 router.post('/cart/address', isAuth, applyAddressToCart)
 // Coupon

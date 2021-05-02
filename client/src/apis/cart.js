@@ -73,3 +73,6 @@ export const searchUsers = (data) => {
 export const userReceipts = (data) => {
   return axiosServices.post(`/${PATHS.USER}/receipt`, data)
 }
+export const getUserReceipts = (data) => {
+  return axiosServices.get(`/${PATHS.USER}/receipt`, data)
+}

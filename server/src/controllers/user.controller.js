@@ -448,7 +448,7 @@ module.exports.getUserReceipt = async (req, res) => {
   const receipts = await Receipt.find()
     .populate(
       'products.product',
-      '_id title inQuatity inPrice images receiptTotal receiptPayment statusReceipt'
+      '_id title slug inQuatity inPrice images receiptTotal receiptPayment statusReceipt'
     )
     .populate('supplier')
     .exec()

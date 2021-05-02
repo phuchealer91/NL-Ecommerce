@@ -86,7 +86,7 @@ const CreateReceipt = () => {
     userReceipts({ newReceipt })
       .then((res) => {
         if (res.data.newReceipts) {
-          history.push('/list-warehouse')
+          history.push('/admin/list-warehouse')
         }
       })
       .catch((error) => {

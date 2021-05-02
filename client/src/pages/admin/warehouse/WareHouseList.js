@@ -2,11 +2,28 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Col, Row } from 'antd'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import { useState } from 'react'
+import TableReceipts from './TableReceipts'
+import { getUserReceipts } from '../../../apis/cart'
 
 WareHouseList.propTypes = {}
 
 function WareHouseList(props) {
-  useEffect()
+  const [userReceipts, setUserReceipts] = useState([])
+  useEffect(() => {
+    loadUserReceipts()
+  }, [])
+  const loadUserReceipts = () => {
+    getUserReceipts()
+      .then((res) => {
+        if (res.data) {
+          setUserReceipts(res.data.receipts)
+        }
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
+  }
   return (
     <div>
       {' '}
@@ -20,26 +37,18 @@ function WareHouseList(props) {
               <table className=" w-full table-auto">
                 <thead>
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Nhà CC</th>
-                    <th className="py-3 px-6 text-left">Sản phẩm</th>
-                    <th className="py-3 px-6 text-center">SL nhập</th>
-                    <th className="py-3 px-6 text-center">Giá nhập</th>
-                    <th className="py-3 px-6 text-center">Tổng tiền</th>
-                    <th className="py-3 px-6 text-center">Đã thanh toán</th>
-                    <th className="py-3 px-6 text-center">Dư nợ</th>
+                    <th className="py-3 px-6 text-left">Mã đơn hàng</th>
+                    <th className="py-3 px-6 text-left">Nhà cung cấp</th>
+                    <th className="py-3 px-6 text-center">Ngày lập</th>
+                    <th className="py-3 px-6 text-center">Trạng thái</th>
+                    <th className="py-3 px-6 text-center">Chi tiết</th>
                     <th className="py-3 px-6 text-center">Thao tác</th>
                   </tr>
                 </thead>
-                {/* {userOrder &&
-                        userOrder.map((order, idx) => {
-                          return (
-                            <TableOrder
-                              order={order}
-                              idx={idx}
-                              loaduserOrder={loaduserOrder}
-                            />
-                          )
-                        })} */}
+                {userReceipts &&
+                  userReceipts.map((receipt, idx) => {
+                    return <TableReceipts receipt={receipt} idx={idx} />
+                  })}
               </table>
             </div>
           </div>

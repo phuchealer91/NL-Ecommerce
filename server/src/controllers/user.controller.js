@@ -495,7 +495,7 @@ module.exports.userReceiptUpdate = async (req, res) => {
 module.exports.removeReceipt = async (req, res) => {
   const { _id } = req.body
   try {
-    const ressss = await Receipt.findOneAndRemove({ _id }).exec()
+    await Receipt.findOneAndRemove({ _id }).exec()
     return res.status(200).json({ msg: 'Delete success' })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })

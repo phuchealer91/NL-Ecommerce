@@ -1,27 +1,41 @@
-import { Col, Row } from 'antd'
-import React, { useState } from 'react'
+import { Col, Pagination, Row } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { AdminSideBar } from '../../../../components/navigation/SideBar'
+import { getProductsCount } from '../../../../redux/actions/product'
 import TableReceipts from '../TableReceipts'
-
+import TableInventoryWarehouse from './TableInventoryWarehouse'
+import { getListProductss } from '../../../../apis/product'
 InventoryWareHouseList.propTypes = {}
 
 function InventoryWareHouseList(props) {
-  const [userReceipts, setUserReceipts] = useState([])
-  // useEffect(() => {
-  //   loadUserReceipts()
-  // }, [])
-  // const loadUserReceipts = () => {
-  //   getUserReceipts()
-  //     .then((res) => {
-  //       if (res.data) {
-  //         setUserReceipts(res.data.receipts)
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log('error', error)
-  //     })
-  // }
+  const [page, setPage] = useState(1)
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch()
+  const { totalProducts } = useSelector((state) => state.product)
+  useEffect(() => {
+    dispatch(getProductsCount())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
+    loadAllProducts()
+  }, [page])
+
+  const loadAllProducts = () => {
+    setIsLoading(true)
+    getListProductss('sold', 'desc', page)
+      .then((res) => {
+        if (res.data) {
+          setProducts(res.data.products)
+          setIsLoading(false)
+        }
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
+  }
   return (
     <div>
       {' '}
@@ -35,37 +49,37 @@ function InventoryWareHouseList(props) {
               <span className="text-gray-600 font-semibold text-lg">
                 Quản lý nhập hàng
               </span>
-              <Link
-                to="/admin/warehouse"
-                className="no-underline px-4 py-2 font-semibold bg-blue-600 hover:bg-white hover:text-blue-600 transition rounded border border-blue-600 text-white"
-              >
-                Nhập hàng
-              </Link>
             </div>
             <div className="bg-white shadow-md rounded mx-auto">
               <table className=" w-full table-auto">
                 <thead>
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Mã đơn hàng</th>
-                    <th className="py-3 px-6 text-left">Nhà cung cấp</th>
-                    <th className="py-3 px-6 text-center">Ngày lập</th>
-                    <th className="py-3 px-6 text-center">Trạng thái</th>
-                    <th className="py-3 px-6 text-center">Chi tiết</th>
-                    <th className="py-3 px-6 text-center">Thao tác</th>
+                    <th className="py-3 px-6 text-left">Mã</th>
+                    <th className="py-3 px-6 text-left">Tên SP</th>
+                    <th className="py-3 px-6 text-center">Danh mục</th>
+                    <th className="py-3 px-6 text-center">Ảnh</th>
+                    <th className="py-3 px-6 text-center">Số lượng nhập</th>
+                    <th className="py-3 px-6 text-center">Số lượng còn lại</th>
+                    <th className="py-3 px-6 text-center">Giá</th>
                   </tr>
                 </thead>
-                {/* {userReceipts &&
-                  userReceipts.map((receipt, idx) => {
+                {products &&
+                  products.map((product) => {
                     return (
-                      <TableReceipts
-                        key={receipt._id}
-                        receipt={receipt}
-                        idx={idx}
-                        loadUserReceipts={loadUserReceipts}
+                      <TableInventoryWarehouse
+                        key={product._id}
+                        product={product}
                       />
                     )
-                  })} */}
+                  })}
               </table>
+              <div className="pagination">
+                <Pagination
+                  current={page}
+                  total={(totalProducts / 8) * 10}
+                  onChange={(value) => setPage(value)}
+                />
+              </div>
             </div>
           </div>
         </Col>

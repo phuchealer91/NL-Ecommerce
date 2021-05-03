@@ -21,6 +21,7 @@ const initialState = {
   subs: [],
   shipping: ['Có', 'Không'],
   quantity: '',
+  totalQuantity: '',
   pages: '',
   author: [],
   supplier: '',
@@ -65,6 +66,7 @@ const CreateProducts = () => {
     const values = {
       ...product,
       ...value,
+      totalQuantity: value['quantity'],
       publication: value['publication']
         ? value['publication'].format('DD-MM-YYYY')
         : null,

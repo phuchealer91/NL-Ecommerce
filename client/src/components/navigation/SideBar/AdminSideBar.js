@@ -109,6 +109,12 @@ const AdminSideBar = () => {
         >
           Xuất kho
         </Menu.Item>
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.INVENTORY_WAREHOUSE}`}
+          icon={<HeartOutlined />}
+        >
+          Tồn kho
+        </Menu.Item>
       </SubMenu>
       <Menu.Item
         icon={<ShoppingOutlined />}

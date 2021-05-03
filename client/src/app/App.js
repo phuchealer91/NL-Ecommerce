@@ -210,11 +210,11 @@ export default function App() {
           path={`/${PATHS.ADMIN}/${PATHS.OUT_WAREHOUSE}`}
           component={OutWareHouseList}
         />
-        {/* <AdminRoute
+        <AdminRoute
           exact
           path={`/${PATHS.ADMIN}/${PATHS.INVENTORY_WAREHOUSE}`}
           component={InventoryWareHouseList}
-        /> */}
+        />
         <AdminRoute
           exact
           path={`/${PATHS.ADMIN}/${PATHS.COUPON}`}

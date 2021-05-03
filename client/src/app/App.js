@@ -51,6 +51,8 @@ import Profile from '../pages/Community/profile'
 import { getPostsx } from '../redux/actions/post'
 import { CreateReceipt } from '../pages/admin/warehouse'
 import WareHouseList from '../pages/admin/warehouse/WareHouseList'
+import OutWareHouseList from '../pages/admin/warehouse/OutWareHouseList/OutWareHouseList'
+import InventoryWareHouseList from '../pages/admin/warehouse/InventoryWareHouseList/InventoryWareHouseList'
 
 export default function App() {
   const dispatch = useDispatch()
@@ -203,6 +205,16 @@ export default function App() {
           path={`/${PATHS.ADMIN}/${PATHS.LIST_WAREHOUSE}`}
           component={WareHouseList}
         />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.OUT_WAREHOUSE}`}
+          component={OutWareHouseList}
+        />
+        {/* <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.INVENTORY_WAREHOUSE}`}
+          component={InventoryWareHouseList}
+        /> */}
         <AdminRoute
           exact
           path={`/${PATHS.ADMIN}/${PATHS.COUPON}`}

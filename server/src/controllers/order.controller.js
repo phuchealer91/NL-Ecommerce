@@ -224,3 +224,17 @@ module.exports.orderStatisticalFilters = (req, res) => {
     return res.status(500).json({ msg: 'Server error' })
   }
 }
+
+module.exports.getOrdersCompleted = async (req, res) => {
+  try {
+    let OrdersCompleted = await Order.find({ orderStatus: 'Đã bàn giao' })
+      .sort('-createdAt')
+      .populate('products.product')
+      .populate('applyCoupon')
+      .exec()
+
+    return res.status(200).json({ orders: OrdersCompleted })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

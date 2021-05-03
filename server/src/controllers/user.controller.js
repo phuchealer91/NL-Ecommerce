@@ -86,7 +86,7 @@ module.exports.applyCouponToCart = async (req, res) => {
     )
     const updateCart = await Cart.findOneAndUpdate(
       { orderedBy: user._id },
-      { totalAfterDiscount },
+      { totalAfterDiscount, applyCoupon: validateCoupon._id },
       { new: true }
     ).exec()
     return res.status(200).json({ totalAfterDiscount: updateCart })
@@ -113,13 +113,14 @@ module.exports.createOrder = async (req, res) => {
   try {
     const { paymentIntent } = req.body
     const user = await User.findOne({ email: req.user.email }).exec()
-    const { products, deliveryAddress } = await Cart.findOne({
+    const { products, deliveryAddress, applyCoupon } = await Cart.findOne({
       orderedBy: user._id,
     }).exec()
     const newOrder = await new Order({
       products,
       paymentIntent,
       deliveryAddress,
+      applyCoupon: applyCoupon._id,
       orderedBy: user._id,
     }).save()
     // increment sold, decrement quantity
@@ -174,6 +175,7 @@ module.exports.getOrders = async (req, res) => {
 
     let userOrders = await Order.find({ orderedBy: user._id })
       .populate('products.product')
+      .populate('applyCoupon')
       // .skip(skip)
       // .limit(limit)
       .exec()

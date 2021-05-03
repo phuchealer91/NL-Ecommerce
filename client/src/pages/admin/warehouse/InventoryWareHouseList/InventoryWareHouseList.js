@@ -1,30 +1,27 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Col, Row } from 'antd'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import { useState } from 'react'
-import TableReceipts from './TableReceipts'
-import { getUserReceipts } from '../../../apis/cart'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AdminSideBar } from '../../../../components/navigation/SideBar'
+import TableReceipts from '../TableReceipts'
 
-WareHouseList.propTypes = {}
+InventoryWareHouseList.propTypes = {}
 
-function WareHouseList(props) {
+function InventoryWareHouseList(props) {
   const [userReceipts, setUserReceipts] = useState([])
-  useEffect(() => {
-    loadUserReceipts()
-  }, [])
-  const loadUserReceipts = () => {
-    getUserReceipts()
-      .then((res) => {
-        if (res.data) {
-          setUserReceipts(res.data.receipts)
-        }
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
+  // useEffect(() => {
+  //   loadUserReceipts()
+  // }, [])
+  // const loadUserReceipts = () => {
+  //   getUserReceipts()
+  //     .then((res) => {
+  //       if (res.data) {
+  //         setUserReceipts(res.data.receipts)
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log('error', error)
+  //     })
+  // }
   return (
     <div>
       {' '}
@@ -57,7 +54,7 @@ function WareHouseList(props) {
                     <th className="py-3 px-6 text-center">Thao tác</th>
                   </tr>
                 </thead>
-                {userReceipts &&
+                {/* {userReceipts &&
                   userReceipts.map((receipt, idx) => {
                     return (
                       <TableReceipts
@@ -67,7 +64,7 @@ function WareHouseList(props) {
                         loadUserReceipts={loadUserReceipts}
                       />
                     )
-                  })}
+                  })} */}
               </table>
             </div>
           </div>
@@ -77,4 +74,4 @@ function WareHouseList(props) {
   )
 }
 
-export default WareHouseList
+export default InventoryWareHouseList

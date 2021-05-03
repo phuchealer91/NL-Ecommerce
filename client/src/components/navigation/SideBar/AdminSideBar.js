@@ -42,7 +42,6 @@ const AdminSideBar = () => {
       <Menu.Item
         icon={<HistoryOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.DASHBOARD}`}
-        className="flex items-center"
       >
         Tổng quan
       </Menu.Item>
@@ -51,14 +50,12 @@ const AdminSideBar = () => {
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
           icon={<TagsOutlined />}
-          className="flex items-center"
         >
           Tất cả danh mục
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
           icon={<TagOutlined />}
-          className="flex items-center"
         >
           Danh mục con
         </Menu.Item>
@@ -67,7 +64,6 @@ const AdminSideBar = () => {
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.AUTHOR}`}
           icon={<TagsOutlined />}
-          className="flex items-center"
         >
           Tất cả tác giả
         </Menu.Item>
@@ -76,7 +72,6 @@ const AdminSideBar = () => {
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.SUPPLIER}`}
           icon={<TagsOutlined />}
-          className="flex items-center"
         >
           Tất cả nhà cung cấp
         </Menu.Item>
@@ -85,38 +80,39 @@ const AdminSideBar = () => {
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
           icon={<ShoppingOutlined />}
-          className="flex items-center"
         >
           Tạo mới sản phẩm
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
           icon={<HeartOutlined />}
-          className="flex items-center"
         >
           Tất cả sản phẩm
         </Menu.Item>
       </SubMenu>
-      <SubMenu key="sub6" icon={<AppstoreOutlined />} title="Nhập hàng">
+      <SubMenu key="sub6" icon={<AppstoreOutlined />} title="Kho">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.WAREHOUSE}`}
           icon={<ShoppingOutlined />}
-          className="flex items-center"
         >
-          Tạo phiếu nhập hàng
+          Nhập kho
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.LIST_WAREHOUSE}`}
           icon={<HeartOutlined />}
-          className="flex items-center"
         >
           Tất cả đơn hàng
+        </Menu.Item>
+        <Menu.Item
+          key={`/${PATHS.ADMIN}/${PATHS.OUT_WAREHOUSE}`}
+          icon={<HeartOutlined />}
+        >
+          Xuất kho
         </Menu.Item>
       </SubMenu>
       <Menu.Item
         icon={<ShoppingOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.ORDER}`}
-        className="flex items-center"
       >
         Đơn đặt hàng
       </Menu.Item>
@@ -124,14 +120,12 @@ const AdminSideBar = () => {
       <Menu.Item
         icon={<HistoryOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.COUPON}`}
-        className="flex items-center"
       >
         Mã giảm giá
       </Menu.Item>
       <Menu.Item
         icon={<HistoryOutlined />}
         key={`/${PATHS.USER}/${PATHS.PASSWORD}`}
-        className="flex items-center"
       >
         Đổi mật khẩu
       </Menu.Item>

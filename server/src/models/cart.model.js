@@ -18,6 +18,7 @@ const cartSchema = new schema(
     deliveryAddress: {},
     cartTotal: Number,
     totalAfterDiscount: Number,
+    applyCoupon: { type: ObjectId, ref: 'Coupon' },
     orderedBy: {
       type: ObjectId,
       ref: 'User',

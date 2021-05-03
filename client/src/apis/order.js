@@ -19,3 +19,6 @@ export const StatisticalOrders = (data) => {
 export const StatisticalOrderFilters = (data) => {
   return axiosServices.post(`/${PATHS.ORDER}/order-filters`, data)
 }
+export const getOrdersCompleteds = (data) => {
+  return axiosServices.get(`/${PATHS.ORDER}/order-completed`, data)
+}

@@ -1,15 +1,19 @@
+import { CheckCircleOutlined } from '@ant-design/icons'
 import { Steps, Tag } from 'antd'
 import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
+import { userReceiptAccepts } from '../../../apis/cart'
 import imageDefault from '../../../assets/images/default-image.jpg'
 import { formatPrice } from '../../../helpers/formatPrice'
 ViewReceipts.propTypes = {}
-const { Step } = Steps
-function ViewReceipts({ receipt, idx }) {
-  const [isChange, setIsChange] = useState(false)
-  const [userOrder, setuserOrder] = useState([])
-  const [isCancel, setIsCancel] = useState(false)
+function ViewReceipts({ receipt, idx, loadUserReceipts }) {
+  function onHandleAccept() {
+    userReceiptAccepts({ receipt }).then((res) => {
+      console.log('hello res', res)
+      loadUserReceipts()
+    })
+  }
 
   return (
     <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded shadow-md">
@@ -122,13 +126,20 @@ function ViewReceipts({ receipt, idx }) {
         </div>
       </div>
 
-      <div className="px-4 my-4 ">
-        <button
-          // onClick={() => onHandleCancelOrder(order._id)}
-          className="bg-red-500 hover:bg-white text-white font-semibold hover:text-red-500 py-2 px-4 hover:border border-solid border-red-500 rounded"
-        >
-          Duyệt đơn hàng
-        </button>
+      <div className="px-4 my-4 flex justify-end items-center">
+        {receipt.statusReceipt === true ? (
+          <div className="flex items-center">
+            <CheckCircleOutlined style={{ color: 'green' }} size={32} />{' '}
+            <span className="pl-1">Đã duyệt đơn hàng</span>
+          </div>
+        ) : (
+          <button
+            onClick={onHandleAccept}
+            className="bg-blue-600 hover:bg-white text-white font-semibold hover:text-blue-700 py-2 px-4 hover:border border-solid border-blue-500 rounded"
+          >
+            Duyệt đơn hàng
+          </button>
+        )}
       </div>
     </div>
   )

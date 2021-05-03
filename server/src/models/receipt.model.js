@@ -23,6 +23,11 @@ const receiptSchema = new schema(
     receiptTotal: Number,
     receiptPayment: Number,
     statusReceipt: Boolean,
+    logs: [
+      {
+        receiptPay: Number,
+      },
+    ],
     orderedBy: {
       type: ObjectId,
       ref: 'User',

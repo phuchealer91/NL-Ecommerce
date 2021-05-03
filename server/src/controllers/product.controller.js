@@ -8,7 +8,6 @@ module.exports.createProduct = async (req, res) => {
     if (productExists)
       return res.status(400).json({ error: 'Product đã tồn tại' })
     const newProduct = new Product(req.body)
-    console.log('day ne', newProduct)
     await newProduct.save()
     return res.status(201).json({ product: newProduct })
   } catch (error) {
@@ -113,7 +112,6 @@ module.exports.updateProduct = async (req, res) => {
       req.body,
       { new: true }
     ).exec()
-    console.log('CDCfsfsdfsdfsfsdfMMM', req.body)
     if (!productUpdated)
       return res.status(400).json({ error: 'Update product failed' })
     return res.status(200).json({ product: productUpdated })
@@ -176,7 +174,6 @@ module.exports.productReivews = async (req, res) => {
 }
 const handleQuery = async (req, res, query) => {
   try {
-    console.log('hello em ne', query)
     const products = await Product.find({ $text: { $search: query } })
       .populate('category', '_id name')
       .populate('author', '_id name')

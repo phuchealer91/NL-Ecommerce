@@ -38,6 +38,7 @@ const productSchema = new mongoose.Schema(
         ref: 'subCategories',
       },
     ],
+    totalQuantity: { type: Number },
     quantity: { type: Number },
     pages: { type: Number, required: true, trim: true, maxlength: 5 },
     sold: {

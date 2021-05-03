@@ -47,7 +47,13 @@ function WareHouseList(props) {
                 </thead>
                 {userReceipts &&
                   userReceipts.map((receipt, idx) => {
-                    return <TableReceipts receipt={receipt} idx={idx} />
+                    return (
+                      <TableReceipts
+                        receipt={receipt}
+                        idx={idx}
+                        loadUserReceipts={loadUserReceipts}
+                      />
+                    )
                   })}
               </table>
             </div>

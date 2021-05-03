@@ -76,3 +76,6 @@ export const userReceipts = (data) => {
 export const getUserReceipts = (data) => {
   return axiosServices.get(`/${PATHS.USER}/receipt`, data)
 }
+export const userReceiptAccepts = (data) => {
+  return axiosServices.put(`/${PATHS.USER}/receipt`, data)
+}

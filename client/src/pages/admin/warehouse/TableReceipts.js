@@ -6,7 +6,7 @@ import ViewReceipts from './ViewReceipts'
 
 TableReceipts.propTypes = {}
 
-function TableReceipts({ receipt, idx }) {
+function TableReceipts({ receipt, idx, loadUserReceipts }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const showModal = () => {
@@ -74,7 +74,11 @@ function TableReceipts({ receipt, idx }) {
         width="80%"
         height="auto"
       >
-        <ViewReceipts receipt={receipt} idx={idx} />
+        <ViewReceipts
+          receipt={receipt}
+          idx={idx}
+          loadUserReceipts={loadUserReceipts}
+        />
       </Modal>
     </>
   )

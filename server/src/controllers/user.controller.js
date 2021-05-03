@@ -425,11 +425,6 @@ module.exports.userReceipt = async (req, res) => {
     obj.product = receipt[i]._id
     obj.inQuatity = receipt[i].inQuatity
     obj.inPrice = receipt[i].inPrice
-    // Get price tu db tránh trường hợp sửa ở local (ko bảo mật)
-    let productById = await Product.findById(receipt[i]._id)
-      .select('price')
-      .exec()
-    obj.price = productById.price
     products.push(obj)
   }
 
@@ -452,7 +447,32 @@ module.exports.getUserReceipt = async (req, res) => {
     )
     .populate('supplier')
     .exec()
-  // const { products, cartTotal, totalAfterDiscount } = receipts
 
   return res.status(200).json({ receipts })
+}
+
+module.exports.userReceiptAccept = async (req, res) => {
+  const { receipt } = req.body
+  for (let i = 0; i < receipt.products.length; i++) {
+    let quantityId = await Product.findById(receipt.products[i].product._id)
+      .select('quantity')
+      .exec()
+    let total = quantityId.quantity + receipt.products[i].inQuatity
+    await Product.findOneAndUpdate(
+      { _id: receipt.products[i].product._id },
+      { quantity: total, totalQuantity: total },
+      { new: true }
+    ).exec()
+  }
+
+  await Receipt.findOneAndUpdate(
+    {
+      _id: receipt._id,
+    },
+    {
+      statusReceipt: true,
+    },
+    { new: true }
+  ).exec()
+  return res.status(200).json({ msg: 'Cập nhật thành công' })
 }

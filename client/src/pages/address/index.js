@@ -25,7 +25,6 @@ function Addressx(props) {
     getProvinces({})
       .then((res) => {
         setValuesx(res.data.provinces)
-        console.log('tinh thanh pho res', res)
       })
       .catch((err) => console.log('Error anh em', err))
   }
@@ -33,7 +32,6 @@ function Addressx(props) {
     getProvinceDistrict(idProvince)
       .then((res) => {
         setValuess(res.data.districts)
-        console.log('quan huyen res', res)
       })
       .catch((err) => console.log('Error anh em', err))
   }
@@ -41,7 +39,6 @@ function Addressx(props) {
     getDistrictWards(idDistrict)
       .then((res) => {
         setValuesss(res.data.wards)
-        console.log('phuong xa res', res)
       })
       .catch((err) => console.log('Error anh em', err))
   }
@@ -51,7 +48,6 @@ function Addressx(props) {
     const idProvince = e.target.value
     setProvince(idProvince)
     getProvinceDistrictss(idProvince)
-    console.log('tinh thanh pho', e.target.value)
   }
   function handleChangeProvinceDistrict(e) {
     const idDistrict = e.target.value
@@ -60,11 +56,9 @@ function Addressx(props) {
       setDistrictWard('')
     }
     getDistrictWardss(idDistrict)
-    console.log('quan huyen', e.target.value)
   }
   function handleChangeDistrictWard(e) {
     setDistrictWard(e.target.value)
-    console.log('phuong xa', e.target.value)
   }
   return (
     <div>

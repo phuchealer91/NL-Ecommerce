@@ -45,7 +45,6 @@ function CardItem({ product }) {
     e.preventDefault()
     addWishLists({ productId: product._id })
       .then((res) => {
-        console.log('sssssssssssssssssssssss', res)
         if (res) {
           toast.success('Đã thêm vào yêu thích')
           history.push('/user/wishlist')

@@ -18,7 +18,6 @@ function UpdateStatus() {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const videoRefEdit = useRef()
   const canvasRefEdit = useRef()
-  console.log('hello imagesEdit', imagesEdit)
   const onHandleChangeUploadEdit = (e) => {
     const files = [...e.target.files]
     let errors = ''

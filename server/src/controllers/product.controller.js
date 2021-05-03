@@ -11,7 +11,6 @@ module.exports.createProduct = async (req, res) => {
     await newProduct.save()
     return res.status(201).json({ product: newProduct })
   } catch (error) {
-    console.log('day ne', error)
     return res.status(500).json({ msg: 'Server error' })
   }
 }
@@ -74,8 +73,6 @@ module.exports.getListProducts = async (req, res) => {
       .sort([[sort, order]])
       .limit(perPage)
       .exec()
-    console.log('listProductslistProducts', listProducts)
-
     return res.status(200).json({ products: listProducts })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
@@ -116,7 +113,6 @@ module.exports.updateProduct = async (req, res) => {
       return res.status(400).json({ error: 'Update product failed' })
     return res.status(200).json({ product: productUpdated })
   } catch (error) {
-    console.log('CDCMMM', error)
     return res.status(500).json({ msg: 'Server error' })
   }
 }
@@ -183,7 +179,7 @@ const handleQuery = async (req, res, query) => {
       .exec()
     return res.status(200).json({ products })
   } catch (error) {
-    console.log('khong bit loi gi luon', error)
+    console.log('error', error)
   }
 }
 const handlePrice = async (req, res, price) => {

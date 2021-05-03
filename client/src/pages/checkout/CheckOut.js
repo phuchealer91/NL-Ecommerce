@@ -93,7 +93,6 @@ function CheckOut(props) {
 
     applyAddressCarts({ deliveryAddress })
       .then((res) => {
-        console.log('deliveryAddressdeliveryAddress', res)
         if (res.data) {
           toast.success('Chọn địa chỉ giao hàng thành công')
           // setIsSubmitAddr(true)
@@ -108,7 +107,6 @@ function CheckOut(props) {
   function onHandleApplyCoupon() {
     applyCouponCarts({ coupons })
       .then((res) => {
-        console.log('res', res)
         if (res.data) {
           setTotalAfterDiscount(res.data.totalAfterDiscount.totalAfterDiscount)
           dispatch(appliedCoupon(true))

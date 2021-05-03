@@ -49,6 +49,7 @@ function WareHouseList(props) {
                   userReceipts.map((receipt, idx) => {
                     return (
                       <TableReceipts
+                        key={receipt._id}
                         receipt={receipt}
                         idx={idx}
                         loadUserReceipts={loadUserReceipts}

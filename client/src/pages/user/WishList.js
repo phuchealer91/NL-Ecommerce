@@ -19,7 +19,6 @@ function WishList(props) {
   const loadWishList = () => {
     getWishLists(page)
       .then((res) => {
-        console.log('Lỗi get wishList', res)
         if (res) {
           setWishList(res.data.list.wishlist)
         }
@@ -36,7 +35,6 @@ function WishList(props) {
       }
     })
   }
-  console.log('Lỗi get wishList', wishList)
 
   return (
     <React.Fragment>

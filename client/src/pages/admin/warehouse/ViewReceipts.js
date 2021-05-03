@@ -10,7 +10,6 @@ ViewReceipts.propTypes = {}
 function ViewReceipts({ receipt, idx, loadUserReceipts }) {
   function onHandleAccept() {
     userReceiptAccepts({ receipt }).then((res) => {
-      console.log('hello res', res)
       loadUserReceipts()
     })
   }
@@ -43,19 +42,19 @@ function ViewReceipts({ receipt, idx, loadUserReceipts }) {
         </div>
         <div className="mt-3">
           Tổng tiền:{' '}
-          <span className="text-sm text-gray-600 font-semibold">
+          <span className="text-sm text-white font-semibold bg-gray-500 rounded px-4 py-1">
             {formatPrice(receipt?.receiptTotal)}đ
           </span>
         </div>
         <div className="mt-3">
           Đã thanh toán:{' '}
-          <span className="text-sm text-gray-600 font-semibold">
+          <span className="text-sm text-green-600 font-semibold">
             {formatPrice(receipt?.receiptPayment)}đ
           </span>
         </div>
         <div className="mt-3">
           Dư nợ:{' '}
-          <span className="text-sm text-gray-600 font-semibold">
+          <span className="text-sm text-red-600 font-semibold">
             {formatPrice(receipt?.receiptTotal - receipt?.receiptPayment)}đ
           </span>
         </div>

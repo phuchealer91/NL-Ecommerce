@@ -195,7 +195,6 @@ module.exports.getTotalOrdersStatus = async (req, res) => {
       .exec()
     return res.status(200).json({ totalStatus })
   } catch (error) {
-    console.log('loi gi the', error)
     return res.status(500).json({ Error: 'Server error' })
   }
 }
@@ -223,11 +222,8 @@ module.exports.getWishList = async (req, res) => {
       // .limit(perPage)
       .exec()
     // const wishL = list.limit(4).exec()
-    // console.log('wishLwishL', wishL)
-    console.log('wishLwishL', list)
     return res.status(200).json({ list })
   } catch (error) {
-    console.log('LOI wishLwishL', error)
     return res.status(500).json({ Error: 'Server error' })
   }
 }
@@ -246,8 +242,6 @@ module.exports.removeWishList = async (req, res) => {
 
 module.exports.addAddress = async (req, res) => {
   const { name, phone, mainAddress, fullAddress } = req.body
-  console.log('dcmmm add ', req.body)
-  console.log('dcmmm add address', fullAddress)
   const userAddress = await User.findOneAndUpdate(
     { email: req.user.email },
     {
@@ -276,12 +270,11 @@ module.exports.getAddress = async (req, res) => {
       return res.status(400).json({ error: 'Không thấy người dùng' })
     return res.status(200).json({ listUserAddress })
   } catch (error) {
-    console.log('loi gi the', error)
+    return res.status(500).json({ Error: 'Server error' })
   }
 }
 module.exports.removeAddress = async (req, res) => {
   const { addressId } = req.params
-  console.log('addđ', addressId)
   const addressDeleted = await User.findOneAndUpdate(
     { email: req.user.email },
     { $pull: { address: { _id: addressId } } },
@@ -294,7 +287,6 @@ module.exports.removeAddress = async (req, res) => {
 }
 module.exports.getAddressSelected = async (req, res) => {
   const { addressId } = req.params
-  console.log('addđ', addressId)
   const addressDeleted = await User.findOne({ email: req.user.email })
 
   if (!addressDeleted)
@@ -311,7 +303,6 @@ module.exports.getTotalUsers = async (req, res) => {
 }
 // search user
 module.exports.searchUser = async (req, res) => {
-  console.log('req.query.namereq.query.name ,', req.query.name)
   try {
     const users = await User.find({
       name: { $regex: req.query.name, $options: 'i' },
@@ -334,7 +325,6 @@ module.exports.getUser = async (req, res) => {
     if (!user) return res.status(400).json({ msg: 'Không tìm thấy người dùng' })
     return res.status(200).json({ user })
   } catch (error) {
-    console.log('errorerrorerrorerrorerror', error)
     return res.status(500).json({ Error: 'Server error' })
   }
 }
@@ -360,14 +350,12 @@ module.exports.updateUser = async (req, res) => {
 }
 
 module.exports.follow = async (req, res) => {
-  console.log('req.user._idreq.user._idreq.user._id', req.user)
   try {
     const isUser = await User.findOne({ email: req.user.email }).exec()
     const user = await User.find({
       _id: req.params.id,
       followers: isUser._id,
     }).exec()
-    console.log('useruseruseruseruseruser', user)
     if (user.length > 0)
       return res.status(400).json({ msg: 'Bạn đã theo dõi người dùng này.' })
     await User.findOneAndUpdate(
@@ -417,6 +405,7 @@ module.exports.userReceipt = async (req, res) => {
   const { newReceipt } = req.body
   const receipt = newReceipt.receipts
   let products = []
+  let transaction = []
   const user = await User.findOne({ email: req.user.email }).exec()
 
   // for loop receipt
@@ -427,11 +416,15 @@ module.exports.userReceipt = async (req, res) => {
     obj.inPrice = receipt[i].inPrice
     products.push(obj)
   }
+  transaction.push({
+    transaction: newReceipt.receiptPayment,
+  })
 
   let newReceipts = await new Receipt({
     products,
     receiptTotal: newReceipt.receiptTotal,
     supplier: newReceipt.supplier,
+    logs: transaction,
     receiptPayment: newReceipt.receiptPayment,
     statusReceipt: newReceipt.statusReceipt,
     orderedBy: user._id,
@@ -475,4 +468,34 @@ module.exports.userReceiptAccept = async (req, res) => {
     { new: true }
   ).exec()
   return res.status(200).json({ msg: 'Cập nhật thành công' })
+}
+module.exports.userReceiptUpdate = async (req, res) => {
+  const { receipt, nextPrice } = req.body
+
+  let totalPrice = receipt.receiptPayment + nextPrice
+  await Receipt.findOneAndUpdate(
+    {
+      _id: receipt._id,
+    },
+    {
+      receiptPayment: totalPrice,
+      $push: {
+        logs: {
+          transaction: nextPrice,
+        },
+      },
+    },
+    { new: true }
+  ).exec()
+  return res.status(200).json({ msg: 'Cập nhật thành công' })
+}
+
+module.exports.removeReceipt = async (req, res) => {
+  const { _id } = req.body
+  try {
+    const ressss = await Receipt.findOneAndRemove({ _id }).exec()
+    return res.status(200).json({ msg: 'Delete success' })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
 }

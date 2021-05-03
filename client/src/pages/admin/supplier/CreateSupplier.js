@@ -34,13 +34,11 @@ const CreateSupplier = () => {
   function onFinish({ name }) {
     createSuppliers({ name })
       .then((res) => {
-        console.log('hello', res)
         setLoading(false)
         toast.success(`Tạo ${res.data.supplier.name} thành công `)
         loadSuppliers()
       })
       .catch((error) => {
-        console.log('hello', error.response.data)
         if (error.response.status === 400) {
           setLoading(false)
           toast.error(error.response.data.error)

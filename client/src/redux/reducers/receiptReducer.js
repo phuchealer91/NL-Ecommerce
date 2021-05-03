@@ -13,7 +13,6 @@ let initialState = {
 //   }
 // }
 const receiptReducer = (state = initialState, action) => {
-  console.log('hello', action.payload)
   switch (action.type) {
     case types.ADD_TO_RECEIPT:
       // let total = 0

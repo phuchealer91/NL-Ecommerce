@@ -25,7 +25,11 @@ const receiptSchema = new schema(
     statusReceipt: Boolean,
     logs: [
       {
-        receiptPay: Number,
+        transaction: { type: Number },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
     orderedBy: {

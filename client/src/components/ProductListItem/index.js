@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { formatPrice } from '../../helpers/formatPrice'
 import './ProductListItem.scss'
 function ProductListItem({ productEditing }) {
-  console.log('productEditing', productEditing)
   const {
     price,
     quantity,

@@ -69,7 +69,6 @@ const CreateProducts = () => {
         ? value['publication'].format('DD-MM-YYYY')
         : null,
     }
-    // console.log('ANH EYU EMMMMMMMMM', values)
     createProducts(values)
       .then((res) => {
         toast.success(`Tạo ${res.data.product.title} thành công `)
@@ -83,7 +82,6 @@ const CreateProducts = () => {
   function onChangeCategory(_id) {
     setProduct({ ...product, subs: [] })
     getCategorySubs(_id).then((res) => {
-      console.log('SUB OPTIONS ON CATGORY CLICK', res)
       setCategorySubs(res.data.subs)
     })
     setShowSub(true)

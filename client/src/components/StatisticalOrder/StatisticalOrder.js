@@ -53,7 +53,6 @@ function StatisticalOrder(props) {
       }
     })
   }
-  console.log('orderFitersorderFitersorderFitersorderFiters', orderFiters)
   return (
     <div>
       <form onSubmit={onHandleSubmit}>

@@ -145,5 +145,4 @@ export const unFollowUsers = ({ users, userx, user }) => async (dispatch) => {
   } catch (error) {
     console.log('error', error)
   }
-  // console.log('newUsersnewUsersnewUsers', newUsers)
 }

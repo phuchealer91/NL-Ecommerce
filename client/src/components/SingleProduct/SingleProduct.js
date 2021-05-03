@@ -152,7 +152,6 @@ function Image({ url, backUrl, rotation, ...props }) {
     ]
   }, [url, backUrl, invalidate])
 
-  console.log('texturestexturestexturestextures', textures)
   const { hoverValue } = useSpring({
     hoverValue: hovered ? 1 : 0,
     config: config.molasses,
@@ -164,7 +163,6 @@ function Image({ url, backUrl, rotation, ...props }) {
     leave: { opacity: 0 },
     config: config.default,
   })
-  console.log('texturestexturestexturestextures', transitions)
 
   return transitions.map(({ item, props, key }) => (
     <Texture
@@ -191,7 +189,6 @@ function SingleProduct({ productEditing }) {
   const { title, quantity, images, description } = productEditing
     ? productEditing
     : ''
-  console.log('hello images', images)
   function handleAddToCart() {
     let cart = []
     if (typeof window !== 'undefined') {

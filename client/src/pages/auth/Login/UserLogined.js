@@ -62,7 +62,6 @@ const UserLogined = (props) => {
   )
   const userData = useSelector((state) => state.user)
   const { notificationsCount, userDatas } = userData
-  console.log('hello userDatauserDatauserDatauserData')
 
   // useEffect(() => {
   //   setNotifyCount(notificationsCount)

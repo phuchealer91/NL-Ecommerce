@@ -13,7 +13,6 @@ const Info = () => {
   const { id } = useParams()
   const { user, profile } = useSelector((state) => state)
 
-  console.log('idididid', id)
   const history = useHistory()
   const dispatch = useDispatch()
   const [userData, setUserData] = useState([])

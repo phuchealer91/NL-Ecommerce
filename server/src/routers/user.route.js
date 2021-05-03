@@ -26,6 +26,8 @@ const {
   userReceipt,
   getUserReceipt,
   userReceiptAccept,
+  userReceiptUpdate,
+  removeReceipt,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
@@ -34,7 +36,9 @@ router.get('/cart', isAuth, getUserCart)
 router.post('/receipt', isAuth, userReceipt)
 router.get('/receipt', isAuth, getUserReceipt)
 router.put('/receipt', isAuth, userReceiptAccept)
+router.put('/receipt-transaction', isAuth, userReceiptUpdate)
 router.delete('/cart', isAuth, emptyCart)
+router.post('/receipt-remove', isAuth, removeReceipt)
 router.post('/cart/address', isAuth, applyAddressToCart)
 // Coupon
 router.post('/cart/coupon', isAuth, applyCouponToCart)

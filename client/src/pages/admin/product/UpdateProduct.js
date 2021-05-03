@@ -80,7 +80,6 @@ const UpdateProductss = ({ match }) => {
   }, [product])
 
   // const loadValues = () => {}
-  console.log('single product', product)
   const loadProduct = () => {
     getProduct(slug).then((p) => {
       // 1 load single proudct
@@ -124,8 +123,6 @@ const UpdateProductss = ({ match }) => {
         : null,
       ...value,
     }
-    console.log('TUI KHONG BIT LOI O DAU 1', value)
-    console.log('TUI KHONG BIT LOI O DAU', productUpdate)
 
     // updateProducts(slug, productUpdate)
     //   .then((res) => {
@@ -144,7 +141,6 @@ const UpdateProductss = ({ match }) => {
   //   setSelectedSupplier(value)
   // }
   function onChangeCategory(_id) {
-    console.log('ANH EM MINH', _id)
     // setSelectedCategory(_id)
     getCategorySubs(_id).then((res) => {
       setCategorySubs(res.data.subs)

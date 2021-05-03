@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom'
 import ModalImage from 'react-modal-image'
 import { useDispatch, useSelector } from 'react-redux'
 import * as types from '../../redux/constants/receipt'
+import { CheckCircleOutlined } from '@ant-design/icons'
 ViewProductCard.propTypes = {}
 
 function ViewProductCard({ product }) {
   const { receipt } = useSelector((state) => state)
-  console.log('hello warehousewarehousewarehousewarehouse', receipt)
+  const isAddStore =
+    receipt.receiptLists.length > 0 &&
+    receipt.receiptLists.some((item) => item._id === product._id)
   const dispatch = useDispatch()
   function onHandleAddStore() {
     let warehouse = []
@@ -56,21 +59,11 @@ function ViewProductCard({ product }) {
               </div>
             </div>
             <div className="flex flex-col justify-start items-start">
-              <Link
-                to={`/product/${product.slug}`}
-                className="font-hk text-secondary text-base"
-              >
-                {product.title}
-              </Link>
+              <span className="text-secondary text-base"> {product.title}</span>
+
               {/* <span className="pt-1 text-gray-700 font-semibold ">
                                   {formatPrice(product.price)}đ
                                 </span> */}
-              <span
-                className="pt-1 text-blue-600 cursor-pointer hover:underline"
-                // onClick={() => onHandleDelete(product?._id)}
-              >
-                Xóa
-              </span>
             </div>
           </div>
 
@@ -84,12 +77,20 @@ function ViewProductCard({ product }) {
                                     className="opacity-100"
                                   />
                                 </div> */}
-            <button
-              onClick={onHandleAddStore}
-              className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5 mt-2"
-            >
-              Thêm
-            </button>
+            {isAddStore ? (
+              <div className="flex items-center">
+                <CheckCircleOutlined style={{ color: 'green' }} size={48} />{' '}
+                <span className="pl-1 text-base">Đã thêm</span>
+              </div>
+            ) : (
+              <button
+                onClick={onHandleAddStore}
+                className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5 mt-2"
+              >
+                Thêm
+              </button>
+            )}
+
             {/* <div className=" text-blue-700 text-base font-semibold">
                                 <span className="text-xs text-gray-500">
                                   Thành tiền:

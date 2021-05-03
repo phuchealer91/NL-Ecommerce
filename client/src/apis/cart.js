@@ -79,3 +79,9 @@ export const getUserReceipts = (data) => {
 export const userReceiptAccepts = (data) => {
   return axiosServices.put(`/${PATHS.USER}/receipt`, data)
 }
+export const userReceiptTransactions = (data) => {
+  return axiosServices.put(`/${PATHS.USER}/receipt-transaction`, data)
+}
+export const removeReceipts = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/receipt-remove`, data)
+}

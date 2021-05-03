@@ -21,7 +21,6 @@ function SearchUser(props) {
     searchUsers(search)
       .then((res) => {
         setIsLoading(false)
-        console.log('resresresresres', res.data)
         setUsers(res.data.users)
       })
       .catch((error) => {

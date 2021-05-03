@@ -36,7 +36,6 @@ const UpdateAuthor = ({ match }) => {
       })
       .catch((error) => {
         setLoading(false)
-        console.log(error.response.data)
         if (error.response.status === 400)
           toast.error(error.response.data.error)
       })

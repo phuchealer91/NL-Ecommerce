@@ -107,23 +107,35 @@ const CreateReceipt = () => {
             <div className="py-4">
               <form>
                 <div>
-                  <div>Nhà cung cấp *</div>
+                  <div>
+                    Nhà cung cấp <span className="text-red-600">*</span>
+                  </div>
                   <Select
-                    defaultValue="lucy"
+                    defaultValue="Chọn nhà cung cấp"
                     style={{ width: '300px' }}
                     onChange={onHandleChange}
                   >
                     {suppliers &&
                       suppliers.map((supplier) => (
-                        <Option value={supplier._id}>{supplier.name}</Option>
+                        <Option key={supplier._id} value={supplier._id}>
+                          {supplier.name}
+                        </Option>
                       ))}
                   </Select>
-                  <div>Chọn sản phẩm cần nhập hàng: </div>
-                  <div
-                    onClick={showModal}
-                    className="px-3 py-1 bg-blue-600 inline-block"
-                  >
-                    <PlusCircleOutlined size={48} style={{ color: 'white' }} />
+                  <div className="my-3 flex items-center">
+                    <div className="text-sm font-semibold text-gray-600 pr-2">
+                      Chọn sản phẩm cần nhập hàng:{' '}
+                    </div>
+                    <div
+                      onClick={showModal}
+                      className="px-4 py-2 bg-blue-500 inline-block hover:bg-blue-600 rounded cursor-pointer"
+                    >
+                      <PlusCircleOutlined
+                        size={48}
+                        style={{ color: 'white' }}
+                      />
+                      <span className="pl-1 text-white">Chọn sản phẩm</span>
+                    </div>
                   </div>
                   <div>
                     <Modal
@@ -131,11 +143,13 @@ const CreateReceipt = () => {
                       visible={isModalVisible}
                       footer={null}
                       onCancel={handleCancel}
+                      width="50%"
+                      height="auto"
                     >
-                      <div className="w-full pt-8 bg-white rounded">
+                      <div className="w-full bg-white rounded">
                         {products &&
                           products.map((item) => (
-                            <ViewProductCard product={item} />
+                            <ViewProductCard key={item._id} product={item} />
                           ))}
                       </div>
                     </Modal>
@@ -146,14 +160,14 @@ const CreateReceipt = () => {
             <div className="py-4">
               <div className="w-full pt-8 bg-white rounded">
                 {!receipts.length ? (
-                  <div className="shopping__wrap">
+                  <div className="shopping__wrap flex items-center justify-center py-12">
                     <EmptyCart />
                   </div>
                 ) : (
                   receipts &&
                   receipts.map((item) => (
                     <>
-                      <div className="hidden md:block">
+                      <div key={item._id} className="hidden md:block">
                         <div className="py-3 flex-row justify-between items-center mb-0 hidden md:flex">
                           <div className="w-1/2 lg:w-3/5 xl:w-3/5 flex flex-row items-start border-b-0 border-grey-dark pt-0 pb-0 pl-3 text-left">
                             <div className="w-20 mx-0 relative pr-0 mr-3 ">
@@ -174,20 +188,9 @@ const CreateReceipt = () => {
                               </div>
                             </div>
                             <div className="flex flex-col justify-start items-start">
-                              <Link
-                                to={`/product/${item.slug}`}
-                                className="font-hk text-secondary text-base"
-                              >
+                              <span className="text-gray-600 text-base ">
+                                {' '}
                                 {item.title}
-                              </Link>
-                              <span className="pt-1 text-gray-700 font-semibold ">
-                                {formatPrice(item.price)}đ
-                              </span>
-                              <span
-                                className="pt-1 text-blue-600 cursor-pointer hover:underline"
-                                // onClick={() => onHandleDelete(item?._id)}
-                              >
-                                Xóa
                               </span>
                             </div>
                           </div>
@@ -261,42 +264,47 @@ const CreateReceipt = () => {
                     </>
                   ))
                 )}
-                <div className="py-4 px-3">
-                  <div className=" text-blue-700 text-base font-semibold">
-                    <span className="text-xs text-gray-500">Thành tiền:</span>{' '}
-                    <input
-                      type="text"
-                      className="px-4 py-2"
-                      disabled
-                      value={formatPrice(onHandleTotal()) + 'đ'}
-                    />
-                  </div>
-                  <div className=" text-blue-700 text-base font-semibold flex items-center">
-                    <span className="text-xs text-gray-500">
-                      Số tiền đã thanh toán:{' '}
-                    </span>{' '}
-                    <div className="custom-number-input h-10 w-32">
-                      <InputNumber
-                        size="middle"
-                        min={1}
-                        defaultValue={1}
-                        className="opacity-100"
-                        onChange={(price) => {
-                          setPricePayment(price)
-                        }}
-                      />
+                {receipts.length > 0 && (
+                  <>
+                    <div className="py-4 px-3 ">
+                      <div className=" text-blue-700 text-base font-semibold mr-6">
+                        <span className="text-sm text-gray-500">
+                          Thành tiền:{' '}
+                        </span>{' '}
+                        <span className="text-base text-white font-semibold bg-gray-500 rounded px-4 py-1">
+                          {formatPrice(onHandleTotal())}đ
+                        </span>
+                      </div>
+                      <div className=" text-blue-700 text-base font-semibold flex items-center pt-3">
+                        <div className="text-sm text-gray-500">
+                          Số tiền đã thanh toán{' '}
+                          <span className="text-red-600">*</span>:{' '}
+                        </div>{' '}
+                        <div className="custom-number-input h-10 w-3/6">
+                          <InputNumber
+                            size="middle"
+                            min={1}
+                            max={onHandleTotal()}
+                            defaultValue={1}
+                            className="opacity-100 w-3/6 text-gray-600"
+                            onChange={(price) => {
+                              setPricePayment(price)
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="py-4 px-4">
-                  <button
-                    type="button"
-                    onClick={onHandleCreateReceipt}
-                    className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5 mt-2"
-                  >
-                    Tạo phiếu nhập hàng
-                  </button>
-                </div>
+                    <div className="py-4 px-4">
+                      <button
+                        type="button"
+                        onClick={onHandleCreateReceipt}
+                        className="btn btn-primary btn-addToCart uppercase mx-auto w-1/4 mt-2"
+                      >
+                        Tạo phiếu nhập hàng
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

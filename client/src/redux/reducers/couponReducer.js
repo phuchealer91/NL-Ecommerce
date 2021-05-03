@@ -6,7 +6,6 @@ let initialState = {
 }
 
 const couponReducer = (state = initialState, action) => {
-  // console.log('helllo', action.payload)
   switch (action.type) {
     case types.APPLIED_COUPON:
       return { ...state, isCoupons: action.payload }

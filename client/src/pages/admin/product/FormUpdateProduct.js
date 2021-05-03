@@ -24,7 +24,6 @@ const FormCreateProduct = ({
   selectedCategory,
 }) => {
   const { languages, layouts } = product
-  console.log('UPDATE NE', product)
   return (
     <React.Fragment>
       <Form.Item

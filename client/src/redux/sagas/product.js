@@ -83,12 +83,9 @@ function* deleteProductss({ payload }) {
   yield put(hideLoading())
 }
 function* updateProductss({ payload }) {
-  console.log(payload)
   try {
     const product = yield select((state) => state.product.productEditing)
-    console.log(product)
     const resp = yield call(updateProducts, product.slug, payload)
-    console.log(resp)
     yield put(showLoading())
     const { data } = resp
     yield put(updateProductSuccess(data))

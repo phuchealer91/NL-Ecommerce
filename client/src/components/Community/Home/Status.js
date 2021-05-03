@@ -18,7 +18,6 @@ function Status() {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const videoRef = useRef()
   const canvasRef = useRef()
-  console.log('hello images', images)
   const onHandleChangeUpload = (e) => {
     const files = [...e.target.files]
     let errors = ''
@@ -45,7 +44,6 @@ function Status() {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: false })
         .then((mediaStream) => {
-          console.log('mediaStreammediaStreammediaStream', mediaStream)
           videoRef.current.srcObject = mediaStream
           const track = mediaStream.getTracks()
           setTracks(track[0])

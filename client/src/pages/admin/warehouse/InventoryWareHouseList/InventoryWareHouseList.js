@@ -50,17 +50,21 @@ function InventoryWareHouseList(props) {
                 Quản lý nhập hàng
               </span>
             </div>
+            <div className="pb-4 text-gray-600">
+              Tổng số lượng sản phẩm:{' '}
+              <span className="font-semibold">{totalProducts}</span>
+            </div>
             <div className="bg-white shadow-md rounded mx-auto">
               <table className=" w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Mã</th>
-                    <th className="py-3 px-6 text-left">Tên SP</th>
-                    <th className="py-3 px-6 text-center">Danh mục</th>
-                    <th className="py-3 px-6 text-center">Ảnh</th>
-                    <th className="py-3 px-6 text-center">Số lượng nhập</th>
-                    <th className="py-3 px-6 text-center">Số lượng còn lại</th>
-                    <th className="py-3 px-6 text-center">Giá</th>
+                  <tr className="bg-gray-200 text-gray-600 text-xs leading-normal">
+                    <th className="py-3 px-3 text-left">Mã</th>
+                    <th className="py-3 px-3 text-left">Tên SP</th>
+                    <th className="py-3 px-3 text-left">Danh mục</th>
+                    <th className="py-3 px-3 text-left">Ảnh</th>
+                    <th className="py-3 px-3 text-left">Số lượng nhập</th>
+                    <th className="py-3 px-3 text-left">Số lượng còn lại</th>
+                    <th className="py-3 px-3 text-left">Giá</th>
                   </tr>
                 </thead>
                 {products &&
@@ -73,7 +77,7 @@ function InventoryWareHouseList(props) {
                     )
                   })}
               </table>
-              <div className="pagination">
+              <div className="flex items-center justify-center py-6 px-6">
                 <Pagination
                   current={page}
                   total={(totalProducts / 8) * 10}

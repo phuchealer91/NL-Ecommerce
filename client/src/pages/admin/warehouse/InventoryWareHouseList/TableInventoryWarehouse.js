@@ -1,3 +1,4 @@
+import { Tag } from 'antd'
 import React from 'react'
 import { formatPrice } from '../../../../helpers/formatPrice'
 TableInventoryWarehouse.propTypes = {}
@@ -15,14 +16,16 @@ function TableInventoryWarehouse({ product }) {
             </div>
           </td>
           <td className="py-3 px-6 text-left">
-            <div className="flex items-center">
+            <div className="flex items-center text-blue-600">
               <span> {product?.title.substring(0, 20)}</span>
             </div>
           </td>
 
           <td className="py-3 px-6 text-left">
             <div className="flex items-center">
-              <span> {product?.category?.name.substring(0, 30)}</span>
+              <Tag color="green-inverse">
+                {product?.category?.name.substring(0, 30)}
+              </Tag>
             </div>
           </td>
           <td className="py-3 px-6 text-left">
@@ -44,7 +47,11 @@ function TableInventoryWarehouse({ product }) {
             <div className="flex items-center">
               <span>
                 {' '}
-                {product?.quantity > 0 ? product?.quantity : 'Hết hàng'}
+                {product?.quantity > 0 ? (
+                  product?.quantity
+                ) : (
+                  <span className="text-red-600 font-semibold">Hết hàng</span>
+                )}
               </span>
             </div>
           </td>

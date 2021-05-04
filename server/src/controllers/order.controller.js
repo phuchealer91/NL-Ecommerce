@@ -1,5 +1,6 @@
 const Order = require('../models/order.model')
 const moment = require('moment')
+const Product = require('../models/product.model')
 module.exports.getOrders = async (req, res) => {
   try {
     let allOrders = await Order.find({})
@@ -135,13 +136,14 @@ const handleYear365 = (req, res) => {
       },
       {
         $group: {
-          _id: { $dateToString: { format: '%d-%m-%Y', date: '$createdAt' } },
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
           count: { $sum: 1 },
           total: { $sum: '$paymentIntent.amount' },
         },
       },
+      { $sort: { _id: 1 } }, // and this will sort based on your date
     ])
-      .sort({ _id: 1 })
+      // .sort({ _id: 1 })
       .then((orderFilters) => {
         return res.status(200).json({ orderFilters })
       })
@@ -168,11 +170,10 @@ const handleDay7Ago = (req, res) => {
           total: { $sum: '$paymentIntent.amount' },
         },
       },
-    ])
-      .sort({ _id: 1 })
-      .then((orderFilters) => {
-        return res.status(200).json({ orderFilters })
-      })
+      { $sort: { _id: -1 } }, // and this will sort based on your date
+    ]).then((orderFilters) => {
+      return res.status(200).json({ orderFilters })
+    })
   } catch (err) {
     return res.status(500).json({ msg: 'Server error' })
   }
@@ -238,3 +239,213 @@ module.exports.getOrdersCompleted = async (req, res) => {
     return res.status(500).json({ Error: 'Server error' })
   }
 }
+
+module.exports.getTotalPriceDay = async (req, res) => {
+  const startOfDay = new Date(new Date().setUTCHours(0, 0, 0, 0)).toISOString()
+  const endOfDay = new Date(
+    new Date().setUTCHours(23, 59, 59, 999)
+  ).toISOString()
+  try {
+    Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Đã bàn giao',
+          createdAt: {
+            $gte: new Date(startOfDay),
+            $lte: new Date(endOfDay),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%d-%m-%Y', date: '$createdAt' } },
+          total: { $sum: '$paymentIntent.amount' },
+        },
+      },
+    ])
+      .sort({ _id: 1 })
+      .then((orderPriceTotal) => {
+        return res.status(200).json({ orderPriceTotal })
+      })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+module.exports.getTotalPriceWeek = async (req, res) => {
+  let currentDate = moment()
+  let monthStart = currentDate.clone().startOf('week')
+  let monthEnd = currentDate.clone().endOf('week')
+  try {
+    Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Đã bàn giao',
+          createdAt: {
+            $gte: new Date(monthStart),
+            $lte: new Date(monthEnd),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%d-%m-%Y', date: '$createdAt' } },
+          total: { $sum: '$paymentIntent.amount' },
+        },
+      },
+    ])
+      .sort({ _id: 1 })
+      .then((orderPriceTotal) => {
+        return res.status(200).json({ orderPriceTotal })
+      })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+module.exports.getTotalPriceMonth = async (req, res) => {
+  let currentDate = moment()
+  let weekStart = currentDate.clone().startOf('month')
+  let weekEnd = currentDate.clone().endOf('month')
+  try {
+    Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Đã bàn giao',
+          createdAt: {
+            $gte: new Date(weekStart),
+            $lte: new Date(weekEnd),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%d-%m-%Y', date: '$createdAt' } },
+          total: { $sum: '$paymentIntent.amount' },
+        },
+      },
+    ])
+      .sort({ _id: 1 })
+      .then((orderPriceTotal) => {
+        return res.status(200).json({ orderPriceTotal })
+      })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+module.exports.getTotalPriceYear = async (req, res) => {
+  let currentDate = moment()
+  let yearStart = currentDate.clone().startOf('year')
+  let yearEnd = currentDate.clone().endOf('year')
+  try {
+    Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Đã bàn giao',
+          createdAt: {
+            $gte: new Date(yearStart),
+            $lte: new Date(yearEnd),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%d-%m-%Y', date: '$createdAt' } },
+          total: { $sum: '$paymentIntent.amount' },
+        },
+      },
+    ])
+      .sort({ _id: 1 })
+      .then((orderPriceTotal) => {
+        return res.status(200).json({ orderPriceTotal })
+      })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+// Thong ke trang thai don hang
+module.exports.getTotalOrderStatusMonth = async (req, res) => {
+  let currentDate = moment()
+  let monthStart = currentDate.clone().startOf('month')
+  let monthEnd = currentDate.clone().endOf('month')
+  try {
+    Order.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: new Date(monthStart),
+            $lte: new Date(monthEnd),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: '$orderStatus',
+          count: { $sum: 1 },
+        },
+      },
+    ])
+      .sort({ _id: -1 })
+      .then((orderStatus) => {
+        return res.status(200).json({ orderStatus })
+      })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+// Thong ke top san pham ban chay
+module.exports.getTopSellers = async (req, res) => {
+  let currentDate = moment()
+  let monthStart = currentDate.clone().startOf('month')
+  let monthEnd = currentDate.clone().endOf('month')
+  try {
+    Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Đã bàn giao',
+          createdAt: {
+            $gte: new Date(monthStart),
+            $lte: new Date(monthEnd),
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'products.product',
+          foreignField: '_id',
+          as: 'products.product',
+        },
+      },
+      { $unwind: '$products' },
+      { $sort: { 'products.product.sold': -1 } },
+      {
+        $limit: 8,
+      },
+    ]).then((products) => {
+      return res.status(200).json({ products })
+    })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
+// module.exports.getTopSellers = async (req, res) => {
+//   let currentDate = moment()
+//   let monthStart = currentDate.clone().startOf('month')
+//   let monthEnd = currentDate.clone().endOf('month')
+//   try {
+//     const products = await Order.find({
+//       orderStatus: 'Đã bàn giao',
+//       createdAt: {
+//         $gte: new Date(monthStart),
+//         $lte: new Date(monthEnd),
+//       },
+//     })
+//       .populate('products.product', '_id title images price sold')
+//       .sort({ products: -1 })
+//       .exec()
+//     return res.status(200).json({ products })
+//   } catch (error) {
+//     console.log('error', error)
+//     return res.status(500).json({ msg: 'Server error' })
+//   }
+// }

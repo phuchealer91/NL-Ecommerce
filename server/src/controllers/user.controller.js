@@ -172,18 +172,23 @@ module.exports.createOrder = async (req, res) => {
 }
 
 module.exports.getOrders = async (req, res) => {
-  let limit = req.body.limit ? parseInt(req.body.limit) : 100
-  let skip = parseInt(req.body.skip)
+  const { page } = req.body
+  const currentPage = page || 1
+  const perPage = 10
   try {
     let user = await User.findOne({ email: req.user.email }).exec()
 
     let userOrders = await Order.find({ orderedBy: user._id })
-      .populate('products.product')
+      .skip((currentPage - 1) * perPage)
+      .sort('-createdAt')
       .populate('applyCoupon')
-      // .skip(skip)
-      // .limit(limit)
+      .populate('products.product')
+      .limit(perPage)
       .exec()
-    return res.status(200).json({ userOrders })
+    const orderTotal = await Order.find({ orderedBy: user._id })
+      .estimatedDocumentCount()
+      .exec()
+    return res.status(200).json({ userOrders, orderTotal })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }

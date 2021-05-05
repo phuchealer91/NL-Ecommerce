@@ -3,7 +3,6 @@ const moment = require('moment')
 const Product = require('../models/product.model')
 module.exports.getOrders = async (req, res) => {
   const { page } = req.body
-  console.log('hello page', page)
   const currentPage = page || 1
   const perPage = 10
   try {

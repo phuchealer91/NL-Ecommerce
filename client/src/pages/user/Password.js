@@ -2,7 +2,12 @@ import { Col, Form, Row } from 'antd'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import {
+  Layouts,
+  UserLayouts,
+} from '../../components/navigation/Layouts/Layouts'
 import { UserSideBar } from '../../components/navigation/SideBar'
+import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import { auth } from '../../firebase'
 import { hideLoading, showLoading } from '../../redux/actions/ui'
 import FormUpdatePassword from './FormUpdatePassword'
@@ -26,19 +31,15 @@ function Password(props) {
   }
   return (
     <React.Fragment>
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <UserSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={10} lg={10}>
-          <div className="update-password">
-            <h3> Cập Nhật Mật Khẩu</h3>
-            <Form form={form} onFinish={onFinish}>
-              <FormUpdatePassword />
-            </Form>
-          </div>
-        </Col>
-      </Row>
+      <UserLayouts>
+        <SectionTitle>Quản lý mật khẩu</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2"> Cập nhật mật khẩu</h3>
+          <Form form={form} onFinish={onFinish}>
+            <FormUpdatePassword />
+          </Form>
+        </div>
+      </UserLayouts>
     </React.Fragment>
   )
 }

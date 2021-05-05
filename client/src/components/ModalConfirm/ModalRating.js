@@ -34,13 +34,24 @@ function ModalRating({ children, productId }) {
     toast.success('Thanks for your review. It will apper soon')
   }
   return (
-    <React.Fragment>
-      <div onClick={handleModal}>
-        <StarOutlined className="text-red-600" /> <br />{' '}
-        {user && user.token ? 'Leave rating' : 'Login to leave rating'}
-      </div>
+    <>
+      <button
+        onClick={handleModal}
+        className="bg-white border border-solid flex items-center px-4 py-3 font-semibold  border-blue-600 rounded text-blue-600 hover:bg-blue-600 hover:text-white transaction"
+      >
+        <StarOutlined
+          className="text-blue-600 pr-2 hover:text-white"
+          style={{ fontSize: '16px' }}
+        />{' '}
+        <br />{' '}
+        {user && user.token ? (
+          <span>Để lại đánh giá</span>
+        ) : (
+          <span>Đăng nhập để đánh giá</span>
+        )}
+      </button>
       <Modal
-        title="Leave your rating"
+        title="Đánh giá sản phẩm"
         centered
         visible={isOpen}
         onOk={onHandleSubmit}
@@ -51,7 +62,7 @@ function ModalRating({ children, productId }) {
           {children}
         </Form>
       </Modal>
-    </React.Fragment>
+    </>
   )
 }
 ModalRating.propTypes = {}

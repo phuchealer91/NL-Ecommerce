@@ -56,7 +56,7 @@ function CardItem({ product }) {
   }
   return (
     <>
-      <div className="relative p-4">
+      <div className="relative p-4 shadow-lg">
         <Link to={`/product/${slug}`} className="block">
           <img
             src={image ? image : imageDefault}

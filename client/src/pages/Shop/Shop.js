@@ -1,4 +1,6 @@
 import {
+  AimOutlined,
+  AudioOutlined,
   DollarOutlined,
   DownSquareOutlined,
   StarOutlined,
@@ -227,26 +229,25 @@ function Shop(props) {
           <h4 className="p-3 pl-2 text-green-600 font-semibold text-lg">
             Tìm kiếm/Lọc
           </h4>
-          <div className="px-4">
+          <div className="px-4 flex items-center">
             <button onClick={speech.startListening}>
-              Listen <i className="fa fa-microphone" />
+              <AudioOutlined style={{ fontSize: '32px' }} />
             </button>
-            <input
+            {/* <input
               type="text"
               readOnly
               // onChange={handleChange}
               value={speech.transcript}
               style={{ width: '100%' }}
-            />
-            <p>
-              <code>listening: {speech.listening.toString()}</code>{' '}
+            /> */}
+            <p className="pl-3">
               {speech.listening ? (
                 <span style={{ color: 'green' }}>
-                  <i className="fa fa-circle" />
+                  <AimOutlined color="green" /> Đang ghi......
                 </span>
               ) : (
                 <span style={{ color: 'red' }}>
-                  <i className="fa fa-stop-circle" />
+                  <AimOutlined color="red" /> Dừng ghi.
                 </span>
               )}
             </p>

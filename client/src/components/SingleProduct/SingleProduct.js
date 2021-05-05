@@ -4,6 +4,7 @@ import {
   ConsoleSqlOutlined,
   HeartOutlined,
   ShoppingCartOutlined,
+  ShoppingOutlined,
 } from '@ant-design/icons'
 import { Card, Col, Divider, Form, Input, Rate, Row, Tabs, Tooltip } from 'antd'
 import { format } from 'date-fns'
@@ -11,7 +12,7 @@ import _ from 'lodash'
 import Lightbox from 'react-image-lightbox'
 import 'react-image-lightbox/style.css'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { animated, config, useSpring, useTransition } from 'react-spring/three'
 import { Canvas, useThree } from 'react-three-fiber'
 import { useDrag } from 'react-use-gesture'
@@ -22,6 +23,10 @@ import { showDrawer } from '../../redux/actions/ui'
 import ModalRating from '../ModalConfirm/ModalRating'
 import ProductListItem from '../ProductListItem/index'
 import ShowRatings from '../Ratings/ShowRatings'
+import { ImagePreviewList } from '../Community/ImagePreview/ImagePreview'
+import { formatPrice } from '../../helpers/formatPrice'
+import { addWishLists } from '../../apis/cart'
+import { toast } from 'react-toastify'
 // import HoverImageShader from '../shaders/HoverImageShader'
 // import './SingleProduct.scss'
 const image =
@@ -185,10 +190,18 @@ function SingleProduct({ productEditing }) {
   const [photoIndex, setPhotoIndex] = useState(0)
   const [isOpen, setIsOpen] = useState(false)
   const dragDelta = useRef(0)
+  const history = useHistory()
 
-  const { title, quantity, images, description } = productEditing
-    ? productEditing
-    : ''
+  const {
+    title,
+    quantity,
+    images,
+    description,
+    layout,
+    publisher,
+    author,
+    price,
+  } = productEditing ? productEditing : ''
   function handleAddToCart() {
     let cart = []
     if (typeof window !== 'undefined') {
@@ -209,7 +222,19 @@ function SingleProduct({ productEditing }) {
     dispatch(addToCart(unique))
     dispatch(showDrawer())
   }
-  function handleAddToWishlist() {}
+  function handleAddToWishlist(e) {
+    e.preventDefault()
+    addWishLists({ productId: productEditing._id })
+      .then((res) => {
+        if (res) {
+          toast.success('Đã thêm vào yêu thích')
+          // history.push('/user/wishlist')
+        }
+      })
+      .catch((error) => {
+        toast.error('Lỗi thêm yêu thích', error)
+      })
+  }
 
   const [props, set] = useSpring(() => ({
     pos: [0, 0, 0],
@@ -275,115 +300,138 @@ function SingleProduct({ productEditing }) {
   )
   return (
     <>
-      <Row gutter={[2, 12]}>
-        <Col xs={24} sm={24} md={24} lg={14}>
-          {images && images.length && isOpen ? (
-            <Lightbox
-              mainSrc={images[photoIndex].url}
-              nextSrc={images[(photoIndex + 1) % images.length].url}
-              prevSrc={
-                images[(photoIndex + images.length - 1) % images.length].url
-              }
-              onCloseRequest={() => setIsOpen(false)}
-              onMovePrevRequest={() =>
-                setPhotoIndex((photoIndex + images.length - 1) % images.length)
-              }
-              onMoveNextRequest={() =>
-                setPhotoIndex((photoIndex + 1) % images.length)
-              }
-            />
-          ) : (
-            ''
-          )}
-          <button type="button" onClick={() => setIsOpen(true)}>
-            Xem chi tiết
-          </button>
-          {/* {images &&
-                images.map((i) => (
-                  <img src={i.url} key={i.public_id} alt={i.public_id} />
-                ))}
-          ) : (
-            <Card
-              cover={
-                <img
-                  src={imageDefault}
-                  className="mb-3 card-image"
-                  alt={imageDefault}
-                />
-              }
-            ></Card>
-          )} */}
-          {
-            <div
-              className="main"
-              {...bind()}
-              onMouseMove={({ clientX, clientY }) => {
-                const x = (clientX / window.innerWidth) * 2 - 1
-                const y = -(clientY / window.innerHeight) * 2 + 1
-
-                set({
-                  pos: [x, 0, 0],
-                  scale: [1 - y * 0.1, 1 - y * 0.1, 1],
-                })
-              }}
-            >
-              <Canvas
-                pixelRatio={window.devicePixelRatio || 1}
-                style={{ background: 'transparent', height: '450px' }}
-                camera={{ fov: 75, position: [0, 0, 7] }}
-              >
-                <Image
-                  url={images && images[0]?.url}
-                  backUrl={
-                    images && images[1]?.url
-                      ? images[1]?.url
-                      : images && images[0]?.url
-                  }
-                  {...props}
-                  onClick={onHandleClick}
-                  rotation={rotation}
-                />
-              </Canvas>
+      <div className="px-4 py-4 bg-white flex">
+        <div className="px-4 w-2/5">
+          <div className="flex justify-center">
+            <div className="w-28 border-r-0 border border-gray-200">
+              <div className="p-2">
+                {' '}
+                <ImagePreviewList data={images} />
+              </div>
             </div>
-          }
+            <div
+              className="border border-gray-200 h-96 p-2"
+              style={{ width: 'calc(100% - 112px)' }}
+            >
+              <div
+                className="main"
+                {...bind()}
+                onMouseMove={({ clientX, clientY }) => {
+                  const x = (clientX / window.innerWidth) * 2 - 1
+                  const y = -(clientY / window.innerHeight) * 2 + 1
 
-          <Tabs type="card">
-            <TabPane tab="Description" key="1">
-              {description && description}
-            </TabPane>
-            <TabPane tab="More" key="2">
-              Call use on xxxx xxx xxx to learn more about this product.
-            </TabPane>
-          </Tabs>
-        </Col>
-        <Col xs={24} sm={24} md={24} lg={10}>
-          <h2 className="text-2xl font-semibold text-green-600">
-            {title?.toUpperCase()}
-          </h2>
-          <div className="py-3 text-center">
+                  set({
+                    pos: [x, 0, 0],
+                    scale: [1 - y * 0.1, 1 - y * 0.1, 1],
+                  })
+                }}
+              >
+                <Canvas
+                  pixelRatio={window.devicePixelRatio || 1}
+                  style={{ background: 'transparent', height: '384px' }}
+                  camera={{ fov: 75, position: [0, 0, 7] }}
+                >
+                  <Image
+                    url={images && images[0]?.url}
+                    backUrl={
+                      images && images[1]?.url
+                        ? images[1]?.url
+                        : images && images[0]?.url
+                    }
+                    {...props}
+                    onClick={onHandleClick}
+                    rotation={rotation}
+                  />
+                </Canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="px-4 w-3/5">
+          <h2 className="text-gray-700 text-lg font-semibold pb-2">{title}</h2>
+          <div className="pb-1">
+            <div className="inline-block w-3/5 pr-4 whitespace-nowrap overflow-hidden overflow-ellipsis">
+              <span>Nhà cung cấp: </span>
+              <Link to="/" className="no-underline">
+                NHã nam
+              </Link>
+            </div>
+            <div className="inline-block w-2/5 pl-4 whitespace-nowrap overflow-hidden overflow-ellipsis">
+              <span>Tác giả: </span>
+
+              {author &&
+                author.map((s) => (
+                  <Link
+                    key={s._id}
+                    to={`/author/${s.slug}`}
+                    className="px-1 font-semibold no-underline text-gray-600 text-sm"
+                  >
+                    {s.name},
+                  </Link>
+                ))}
+            </div>
+          </div>
+          <div className="pb-2">
+            <div className="inline-block w-3/5 pr-4 whitespace-nowrap overflow-hidden overflow-ellipsis">
+              <span>Nhà xuất bản:</span>
+              <span className="font-semibold pl-1 text-sm">{publisher}</span>
+            </div>
+            <div className="inline-block w-2/5 pl-4 whitespace-nowrap overflow-hidden overflow-ellipsis">
+              <span>Hình thức bìa: </span>
+              <span className="font-semibold pl-1 text-sm">{layout}</span>
+            </div>
+          </div>
+          <div className="pb-3">
+            {' '}
             {productEditing &&
             productEditing.reviews &&
             productEditing.reviews.length > 0 ? (
               ShowRatings(productEditing)
             ) : (
-              <div className="single__rating">Chưa có đánh giá nào</div>
+              <>
+                {' '}
+                <Rate disabled style={{ fontSize: '24px' }} />{' '}
+                <span className="text-blue-600 text-xs">(0 đánh giá)</span>
+              </>
             )}
           </div>
-          <Card
-            actions={[
-              <Tooltip placement="top" title="kk">
-                <Link onClick={handleAddToCart} disabled={quantity < 1} to="# ">
-                  <ShoppingCartOutlined className="text-danger" />
+          <div className="pb-2 flex items-center justify-between">
+            <div className="text-blue-600 font-semibold text-3xl">
+              {formatPrice(price)} đ
+            </div>
+            <div className="text-blue-600 font-semibold ">
+              <Tooltip placement="left" title="Yêu thích">
+                <button
+                  onClick={handleAddToWishlist}
+                  className="w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-2xl flex items-center justify-center"
+                >
+                  <HeartOutlined
+                    className="text-red-600"
+                    style={{ fontSize: '24px' }}
+                  />{' '}
                   <br />
-                  {quantity < 1 ? 'Out of Stock' : 'Add To Cart'}
-                </Link>
-              </Tooltip>,
-              <Link onClick={handleAddToWishlist} to="# ">
-                <HeartOutlined className="text-info" /> <br /> Yêu thích
-              </Link>,
-
-              <ModalRating productId={productEditing?._id}>
-                {/* <StarRating
+                </button>
+                ,
+              </Tooltip>
+            </div>
+          </div>
+          <div className="pb-2 flex items-center">
+            <button
+              onClick={handleAddToCart}
+              disabled={quantity < 1}
+              className=" btn btn-primary btn-addToCart uppercase mr-4"
+            >
+              <span className="mr-2">
+                {' '}
+                <ShoppingOutlined
+                  className="leading-none"
+                  style={{ fontSize: '20px' }}
+                />
+              </span>
+              <span>{quantity < 1 ? 'Tạm hết hàng' : 'Thêm vào giỏ hàng'}</span>
+            </button>
+            <ModalRating productId={productEditing?._id}>
+              {/* <StarRating
                   name={_id}
                   numberOfStars={5}
                   rating={star}
@@ -391,70 +439,22 @@ function SingleProduct({ productEditing }) {
                   isSelectable={true}
                   starRatedColor="red"
                 /> */}
-                <Form.Item
-                  name="rating"
-                  rules={[{ required: true, message: 'Please choose rating!' }]}
-                >
-                  <Rate size className="pb-2" />
-                </Form.Item>
-                <Form.Item
-                  name="comment"
-                  rules={[
-                    { required: true, message: 'Please input your comment!' },
-                  ]}
-                >
-                  <Input.TextArea />
-                </Form.Item>
-              </ModalRating>,
-            ]}
-          >
-            <ProductListItem productEditing={productEditing} />
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={24} lg={24}>
-          <h3 className="my-3 text-2xl font-semibold">
-            Bình luận và đánh giá (
-            <span className="text-red-600">
-              {productEditing?.reviews.length}
-            </span>
-            )
-          </h3>
-          <Divider dashed />
-          {productEditing && productEditing?.reviews.length > 0 ? (
-            productEditing.reviews.map((rating, idx) => {
-              return (
-                <div className="pb-2" key={idx}>
-                  <div className="flex items-end">
-                    <div className="flex items-center content-center">
-                      <div className="py-1 px-2 bg-gray-300 rounded-sm font-semibold">
-                        {rating.name.slice(0, 1).toUpperCase()}
-                      </div>
-                      <h3 className="text-xl font-semibold mx-2">
-                        {rating.name}
-                      </h3>
-                    </div>
-                    <p className="text-gray-600">
-                      {format(
-                        new Date(productEditing?.updatedAt),
-                        'dd/MM/yyyy'
-                      )}
-                    </p>
-                  </div>
-                  <Rate value={rating.rating} disabled />
-                  <p className="text-lg">{rating.comment}</p>
-                  <Divider dashed />
-                </div>
-              )
-            })
-          ) : (
-            <img
-              src={emptyComment}
-              style={{ width: '80px', color: 'gray' }}
-              alt="hello"
-            />
-          )}
-        </Col>
-      </Row>
+              <Form.Item
+                name="rating"
+                rules={[{ required: true, message: 'Vui lòng chọn số điểm!' }]}
+              >
+                <Rate size className="pb-2" />
+              </Form.Item>
+              <Form.Item
+                name="comment"
+                rules={[{ required: true, message: 'Vui lòng nhập nội dung!' }]}
+              >
+                <Input.TextArea />
+              </Form.Item>
+            </ModalRating>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

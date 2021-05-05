@@ -32,7 +32,7 @@ const UserSideBar = () => {
   return (
     <Menu
       onClick={handleClick}
-      style={{ width: 275 }}
+      style={{ width: 256, height: '100vh' }}
       defaultOpenKeys={['sub1', 'sub2']}
       mode="inline"
       selectedKeys={selectedKey}

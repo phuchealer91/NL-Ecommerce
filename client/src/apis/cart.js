@@ -29,7 +29,10 @@ export const createOrders = (data) => {
   return axiosServices.post(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDER}`, data)
 }
 export const userOrders = (data) => {
-  return axiosServices.get(`/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDERS}`, data)
+  return axiosServices.post(
+    `/${PATHS.USER}/${PATHS.CART}/${PATHS.ORDERS}`,
+    data
+  )
 }
 // status total
 export const getTotalOrdersStatuss = (data) => {

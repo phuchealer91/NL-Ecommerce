@@ -1,4 +1,5 @@
 import {
+  HomeOutlined,
   LogoutOutlined,
   SettingOutlined,
   ShoppingCartOutlined,
@@ -169,13 +170,14 @@ const HeaderUser = () => {
                         }
                         className="nav__user"
                       >
-                        <Item>
-                          <Link to="/user/history">DashBoard</Link>
+                        <Item icon={<HomeOutlined />}>
+                          <Link to="/user/history">Trang chủ</Link>
                         </Item>
-
-                        <Item key="setting:2">Option 2</Item>
+                        <Item icon={<UserOutlined />}>
+                          <Link to="/user/history">Thông tin cá nhân</Link>
+                        </Item>
                         <Item icon={<LogoutOutlined />} onClick={logout}>
-                          Logout
+                          Đăng xuất
                         </Item>
                       </SubMenu>
                     ) : null}
@@ -187,14 +189,14 @@ const HeaderUser = () => {
                           icon={<UserOutlined />}
                           className="nav__login"
                         >
-                          <Link to="/login">LOGIN</Link>
+                          <Link to="/login">Đăng nhập</Link>
                         </Item>
                         <Item
                           key="register"
                           icon={<UserAddOutlined />}
                           className="nav__register"
                         >
-                          <Link to="/register">REGISTER</Link>
+                          <Link to="/register">Đăng ký</Link>
                         </Item>
                       </>
                     ) : null}
@@ -307,233 +309,6 @@ const HeaderUser = () => {
                 <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
               </a>
             </li> */}
-          </ul>
-          <ul className="absolute inset-0 py-6 panel-menu__list mn2 hidden">
-            <li className="cursor-pointer pb-4 pl-6 mb-6 panel-menu__back">
-              <i className="fal fa-angle-left" />
-              <span className="ml-1">Back</span>
-            </li>
-            <Link
-              to="/"
-              className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
-            >
-              women
-            </Link>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
-              <a
-                href="#mn4"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600 inline-flex items-center justify-between w-full"
-              >
-                top
-                <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
-              </a>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
-              <a
-                href="#mn5"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600 inline-flex items-center justify-between w-full"
-              >
-                bottoms
-                <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
-              </a>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
-              <a
-                href="#mn6"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600 inline-flex items-center justify-between w-full"
-              >
-                accessories
-                <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
-              </a>
-            </li>
-          </ul>
-          <ul className="absolute inset-0 py-6 panel-menu__list mn3 hidden">
-            <li className="cursor-pointer pb-4 pl-6 mb-6 panel-menu__back">
-              <i className="fal fa-angle-left" />
-              <span className="ml-1">Back</span>
-            </li>
-            <Link
-              to="/"
-              className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
-            >
-              men
-            </Link>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
-              <a
-                href="#mn4"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600 inline-flex items-center justify-between w-full"
-              >
-                top
-                <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
-              </a>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
-              <a
-                href="#mn5"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600 inline-flex items-center justify-between w-full"
-              >
-                bottoms
-                <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
-              </a>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group panel-menu__item">
-              <a
-                href="#mn6"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600 inline-flex items-center justify-between w-full"
-              >
-                accessories
-                <i className="fal fa-angle-right text-xl font-light group-hover:text-blue-600" />
-              </a>
-            </li>
-          </ul>
-          <ul className="absolute inset-0 py-6 panel-menu__list mn4 hidden">
-            <li className="cursor-pointer pb-4 pl-6 mb-6 panel-menu__back">
-              <i className="fal fa-angle-left" />
-              <span className="ml-1">Back</span>
-            </li>
-            <Link
-              to="/"
-              className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
-            >
-              Văn học
-            </Link>
-            {/* <SubCategoryV  /> */}
-          </ul>
-          <ul className="absolute inset-0 py-6 panel-menu__list mn5 hidden">
-            <li className="cursor-pointer pb-4 pl-6 mb-6 panel-menu__back">
-              <i className="fal fa-angle-left" />
-              <span className="ml-1">Back</span>
-            </li>
-            <Link
-              to="/"
-              className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
-            >
-              bottoms
-            </Link>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                jeans
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                lacoste
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                levi's
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                model
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                nice
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                polo
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                pullover
-              </Link>
-            </li>
-          </ul>
-          <ul className="absolute inset-0 py-6 panel-menu__list mn6 hidden">
-            <li className="cursor-pointer pb-4 pl-6 mb-6 panel-menu__back">
-              <i className="fal fa-angle-left" />
-              <span className="ml-1">Back</span>
-            </li>
-            <Link
-              to="/"
-              className="uppercase font-medium text-sm mt-5 pl-6 hover:text-blue-600"
-            >
-              accessories
-            </Link>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                scarf
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                shirt
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                shoes
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                shorts
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                summer
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                sunglasess
-              </Link>
-            </li>
-            <li className="mt-5 flex items-center pl-6 pr-7 cursor-pointer group">
-              <Link
-                to="/"
-                className="uppercase font-light text-sm text-black group-hover:text-blue-600"
-              >
-                vintage
-              </Link>
-            </li>
           </ul>
         </nav>
         {/* hello main*/}

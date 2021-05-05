@@ -44,7 +44,7 @@ router.post('/cart/address', isAuth, applyAddressToCart)
 router.post('/cart/coupon', isAuth, applyCouponToCart)
 // order
 router.post('/cart/order', isAuth, createOrder)
-router.get('/cart/orders', isAuth, getOrders)
+router.post('/cart/orders', isAuth, getOrders)
 // get total status
 router.post('/cart/totals/status', isAuth, getTotalOrdersStatus)
 

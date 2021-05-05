@@ -8,7 +8,7 @@ function ShowRatings(product) {
   return (
     <div className="">
       <Rate disabled value={result} style={{ fontSize: '20px' }} />
-      <span className="text-gray-700 pl-2">({len} reviews)</span>
+      <span className="text-blue-700 pl-2">({len} đánh giá)</span>
     </div>
   )
 }

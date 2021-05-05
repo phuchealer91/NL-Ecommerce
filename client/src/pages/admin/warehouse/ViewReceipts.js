@@ -15,7 +15,7 @@ function ViewReceipts({ receipt, idx, loadUserReceipts }) {
   }
 
   return (
-    <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded shadow-md">
+    <div className="px-4 pb-8 bg-white rounded shadow-md">
       <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">
         CHI TIẾT ĐƠN HÀNG{' '}
         <span className="text-lg text-red-600">{`#${idx + 1}`}</span>

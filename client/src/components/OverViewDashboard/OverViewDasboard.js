@@ -1,23 +1,22 @@
 import {
   ApartmentOutlined,
+  DollarOutlined,
   ShoppingCartOutlined,
-  TagOutlined,
   UsergroupAddOutlined,
 } from '@ant-design/icons'
-import { Layout } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getTotalUserss } from '../../apis/cart'
-import { getTotalOrderss } from '../../apis/order'
+import {
+  getTotalOrderss,
+  getTotalPriceDays,
+  getTotalPriceMonths,
+  getTotalPriceWeeks,
+  getTotalPriceYears,
+} from '../../apis/order'
 import { getProductsCounts } from '../../apis/product'
-import NavBar from '../../components/navigation/NavBar/NavBar'
-import SideBars from '../../components/navigation/SideBars/SideBars'
 import AdminSideBar from '../../components/navigation/SideBar/AdminSideBar'
-import StatisticalOrder from '../../components/StatisticalOrder/StatisticalOrder'
-import StatisticalOrderStatus from '../../components/StatisticalOrder/StatisticalOrderStatus'
-import TopicMenu from '../../components/navigation/TopicMenu'
-import HeaderAdmin from '../../components/navigation/Header/HeaderAdmin'
-import PageTitle from '../../components/SectionTitle/PageTitle'
+import { countTotalPrice } from '../../helpers/countTotalPrice'
 
 OverViewDashboard.propTypes = {}
 
@@ -25,21 +24,20 @@ function OverViewDashboard(props) {
   const [totalProduct, setTotalProduct] = useState(0)
   const [totalOrder, setTotalOrder] = useState(0)
   const [totalUser, setTotalUser] = useState(0)
-  const topics = ['First topic', 'Second topic', 'Third topic']
-  const [contentIndex, setContentIndex] = useState(0)
-  const [selectedKey, setSelectedKey] = useState('0')
-  const changeSelectedKey = (event) => {
-    const key = event.key
-    setSelectedKey(key)
-    setContentIndex(+key)
-  }
-  const Menu = <AdminSideBar />
-
+  const [totalDay, setTotalDay] = useState([])
+  const [totalWeek, setTotalWeek] = useState([])
+  const [totalMonth, setTotalMonth] = useState([])
+  const [totalYear, setTotalYear] = useState([])
   useEffect(() => {
     loadTotalProduct()
     loadTotalOrders()
     loadTotalUsers()
+    loadTotalPriceDay()
+    loadTotalPriceWeek()
+    loadTotalPriceMonth()
+    loadTotalPriceYear()
   }, [])
+
   const loadTotalProduct = () => {
     getProductsCounts()
       .then((res) => {
@@ -67,16 +65,49 @@ function OverViewDashboard(props) {
         console.log('Lỗi', error)
       })
   }
+  const loadTotalPriceDay = () => {
+    getTotalPriceDays()
+      .then((res) => {
+        setTotalDay(countTotalPrice(res.data.orderPriceTotal))
+      })
+      .catch((error) => {
+        console.log('Lỗi', error)
+      })
+  }
+  const loadTotalPriceWeek = () => {
+    getTotalPriceWeeks()
+      .then((res) => {
+        setTotalWeek(countTotalPrice(res.data.orderPriceTotal))
+      })
+      .catch((error) => {
+        console.log('Lỗi', error)
+      })
+  }
+  const loadTotalPriceMonth = () => {
+    getTotalPriceMonths()
+      .then((res) => {
+        setTotalMonth(countTotalPrice(res.data.orderPriceTotal))
+      })
+      .catch((error) => {
+        console.log('Lỗi', error)
+      })
+  }
+  const loadTotalPriceYear = () => {
+    getTotalPriceYears()
+      .then((res) => {
+        setTotalYear(countTotalPrice(res.data.orderPriceTotal))
+      })
+      .catch((error) => {
+        console.log('Lỗi', error)
+      })
+  }
   return (
     <>
-      <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-6 mb-4 md:grid-cols-2 xl:grid-cols-4">
         {/* Card */}
-        <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-          <div className="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full dark:text-yellow-100 dark:bg-yellow-500">
-            <ApartmentOutlined
-              size={20}
-              style={{ width: '20px', height: '20px' }}
-            />
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full dark:text-yellow-100 dark:bg-yellow-500">
+            <ApartmentOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
           </div>
 
           <div>
@@ -94,12 +125,9 @@ function OverViewDashboard(props) {
         </div>
 
         {/* Card */}
-        <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-          <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-            <ShoppingCartOutlined
-              size={20}
-              style={{ width: '20px', height: '20px' }}
-            />
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+            <ShoppingCartOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
           </div>
 
           <div>
@@ -116,12 +144,9 @@ function OverViewDashboard(props) {
           </div>
         </div>
         {/* Card */}
-        <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-          <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
-            <UsergroupAddOutlined
-              size={20}
-              style={{ width: '20px', height: '20px' }}
-            />
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
+            <UsergroupAddOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
           </div>
 
           <div>
@@ -138,8 +163,8 @@ function OverViewDashboard(props) {
           </div>
         </div>
         {/* Card */}
-        <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-          <div className="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
@@ -154,6 +179,71 @@ function OverViewDashboard(props) {
             </p>
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
               35
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="grid gap-6 mb-4 md:grid-cols-2 xl:grid-cols-4">
+        {/* Card */}
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+            <DollarOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
+          </div>
+
+          <div>
+            <p className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+              Doanh thu ngày
+            </p>
+
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+              {totalDay} VND
+            </p>
+          </div>
+        </div>
+
+        {/* Card */}
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-purple-500 bg-purple-100 rounded-full dark:text-purple-100 dark:bg-purple-500">
+            <DollarOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
+          </div>
+
+          <div>
+            <p className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+              Doanh thu tuần
+            </p>
+
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+              {totalWeek} VND
+            </p>
+          </div>
+        </div>
+        {/* Card */}
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-pink-500 bg-pink-100 rounded-full dark:text-pink-100 dark:bg-pink-500">
+            <DollarOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
+          </div>
+
+          <div>
+            <p className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+              Doanh thu tháng
+            </p>
+
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+              {totalMonth} VND
+            </p>
+          </div>
+        </div>
+        {/* Card */}
+        <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="w-12 h-12 flex items-center justify-center p-3 mr-4 text-indigo-500 bg-indigo-100 rounded-full dark:text-indigo-100 dark:bg-indigo-500">
+            <DollarOutlined style={{ fontSize: '20px', lineHeight: 0 }} />
+          </div>
+          <div>
+            <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+              Doanh thu năm
+            </p>
+            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+              {totalYear} VND
             </p>
           </div>
         </div>

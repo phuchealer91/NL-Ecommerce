@@ -308,3 +308,30 @@ module.exports.productSearchFilters = async (req, res) => {
     return res.status(500).json({ Error: 'Server error' })
   }
 }
+
+module.exports.getProductsRating = (req, res) => {
+  try {
+    Product.aggregate([
+      {
+        $match: {},
+      },
+      // {
+      //   $project: { reviews: 1 },
+      // },
+      {
+        $unwind: '$reviews',
+      },
+      {
+        $group: {
+          _id: 0,
+          count: { $sum: 1 },
+        },
+      },
+    ]).then((err, ratings) => {
+      console.log('raitngs', err)
+      return res.status(200).json({ ratings })
+    })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

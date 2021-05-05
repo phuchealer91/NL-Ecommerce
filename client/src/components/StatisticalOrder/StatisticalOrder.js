@@ -56,16 +56,38 @@ function StatisticalOrder(props) {
   return (
     <div>
       <form onSubmit={onHandleSubmit}>
-        <DatePicker onChange={onHanleStartDate} />
-        <DatePicker onChange={onHanleEndDate} />
-        <button type="submit" className="bg-blue-600 px-3 py-2 text-white">
-          Lọc
-        </button>
+        <div className="my-3 flex items-end">
+          <div className="mr-3 ">
+            <label htmlFor="">
+              Chọn ngày bắt đầu <span className="text-red-700">*</span>
+            </label>
+            <p className="pt-2">
+              <DatePicker onChange={onHanleStartDate} />
+            </p>
+          </div>
+          <div className="mx-3 ">
+            <label htmlFor="">
+              Chọn ngày kết thúc <span className="text-red-700">*</span>
+            </label>
+            <p className="pt-2">
+              <DatePicker onChange={onHanleEndDate} />
+            </p>
+          </div>
+          <button
+            type="submit"
+            className="mx-3 w-1/4 font-semibold px-4 py-2 bg-blue-500 hover:bg-blue-600  rounded text-white  border border-gray-300"
+          >
+            Lọc
+          </button>
+        </div>
       </form>
-      <div className="py-7">
+      <div className="pt-4 pb-3">
+        <label htmlFor="" className="pr-3">
+          Chọn thống kê theo:
+        </label>
         <Select
           defaultValue="day7Ago"
-          style={{ width: 'auto' }}
+          style={{ width: '50%' }}
           onChange={handleChange}
         >
           <Option value="day7Ago">7 ngày trước</Option>
@@ -75,7 +97,7 @@ function StatisticalOrder(props) {
           <Option value="year365">365 ngày qua</Option>
         </Select>
       </div>
-      <div className="my-8 ">
+      <div className="my-6 ">
         <ResponsiveContainer width="100%" height={400} className="py-3">
           <ComposedChart data={orderFiters} className="py-3">
             <CartesianGrid strokeDasharray="3 3" />
@@ -84,17 +106,17 @@ function StatisticalOrder(props) {
 
             <YAxis />
             <Tooltip />
-            <Legend />
+            <Legend style={{ paddingTop: '24px' }} />
             {/* <Area
               type="monotone"
               dataKey="count"
               fill="#8884d8"
               stroke="#8884d8"
             /> */}
-            <Bar dataKey="count" fill="#8884d8">
+            <Bar dataKey="count" name="Số đơn hàng" fill="#8884d8">
               <LabelList dataKey="count" position="top" />
             </Bar>
-            <Bar dataKey="total" fill="#82ca9d">
+            <Bar dataKey="total" name="Tổng doanh thu" fill="#82ca9d">
               <LabelList dataKey="total" position="top" />
             </Bar>
           </ComposedChart>

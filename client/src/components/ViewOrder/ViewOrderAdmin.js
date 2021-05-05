@@ -27,7 +27,7 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
       })
   }
   return (
-    <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded">
+    <div className="px-4 pb-8 bg-white rounded">
       <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">
         CHI TIẾT ĐƠN HÀNG
       </div>
@@ -36,7 +36,7 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
           <Select
             defaultValue={order?.orderStatus}
             onChange={(e) => handleChange(order._id, e)}
-            className="border-red-600 border-dashed border w-2/6"
+            className="border-green-600 border-dashed border w-2/6"
             size="middle"
           >
             {arrStatus.map((arr) => {

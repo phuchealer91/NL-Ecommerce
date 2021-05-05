@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import {
   createCategory,
   deleteCategories,
@@ -109,32 +111,28 @@ const CreateCategory = () => {
         title="danh mục"
         categoryToDelete={categoryToDelete}
       />
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            <h3> Tạo mới danh mục</h3>
-            <Form form={form} onFinish={onFinish}>
-              <div className="category__form">
-                <FormCategory />
-              </div>
-            </Form>
-            <h3>Tất cả danh mục ({totalCategory})</h3>
-            {/* Search */}
-            <div className="category__search">
-              <SearchItem keyword={keyword} setKeyword={setKeyword} />
+      <Layouts>
+        <SectionTitle>Loại sản phẩm</SectionTitle>
+        <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-1"> Tạo mới danh mục</h3>
+          <Form form={form} onFinish={onFinish}>
+            <div className="category__form">
+              <FormCategory />
             </div>
-            <Table
-              dataSource={dataSource}
-              columns={columns}
-              rowKey="Id"
-              tableLayout="auto"
-            />
+          </Form>
+          <h3>Tất cả danh mục ({totalCategory})</h3>
+          {/* Search */}
+          <div className="category__search">
+            <SearchItem keyword={keyword} setKeyword={setKeyword} />
           </div>
-        </Col>
-      </Row>
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey="Id"
+            tableLayout="auto"
+          />
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

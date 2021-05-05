@@ -43,14 +43,22 @@ function ViewOrder({ order, idx, loaduserOrder }) {
   }
 
   return (
-    <div className="px-4 pt-4 pb-8 bg-white mt-4 rounded shadow-md">
+    <div className="px-4 pb-8 bg-white rounded shadow-md">
       <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">
         CHI TIẾT ĐƠN HÀNG{' '}
         <span className="text-lg text-red-600">{`#${idx + 1}`}</span>
       </div>
       <div className="bg-white rounded my-3">
         <div className="flex items-center justify-between">
-          <Tag color="warning">{order?.orderStatus?.toUpperCase()}</Tag>
+          {order?.orderStatus === 'Đang chờ xác nhận' ? (
+            <Tag color="#999">{order?.orderStatus}</Tag>
+          ) : order?.orderStatus === 'Đang xử lý' ? (
+            <Tag color="orange-inverse">{order?.orderStatus}</Tag>
+          ) : order?.orderStatus === 'Đã bàn giao' ? (
+            <Tag color="green-inverse">{order?.orderStatus}</Tag>
+          ) : (
+            <Tag color="red-inverse">{order?.orderStatus}</Tag>
+          )}
           {/* {showPDFDownloadLink(order)} */}
         </div>
 

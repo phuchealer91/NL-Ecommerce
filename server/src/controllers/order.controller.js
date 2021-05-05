@@ -2,12 +2,19 @@ const Order = require('../models/order.model')
 const moment = require('moment')
 const Product = require('../models/product.model')
 module.exports.getOrders = async (req, res) => {
+  const { page } = req.body
+  console.log('hello page', page)
+  const currentPage = page || 1
+  const perPage = 10
   try {
     let allOrders = await Order.find({})
+      .skip((currentPage - 1) * perPage)
       .sort('-createdAt')
       .populate('products.product')
+      .limit(perPage)
       .exec()
-    return res.status(200).json({ orders: allOrders })
+    const orderTotal = await Order.find({}).estimatedDocumentCount().exec()
+    return res.status(200).json({ orders: allOrders, orderTotal })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }
@@ -449,3 +456,16 @@ module.exports.getTopSellers = async (req, res) => {
 //     return res.status(500).json({ msg: 'Server error' })
 //   }
 // }
+
+module.exports.getNewOrders = async (req, res) => {
+  try {
+    let newOrders = await Order.find({})
+      .sort('-createdAt')
+      .populate('products.product')
+      .limit(6)
+      .exec()
+    return res.status(200).json({ orders: newOrders })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}

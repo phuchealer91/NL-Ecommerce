@@ -66,7 +66,7 @@ function StatisticalOrderStatus(props) {
   }
   return (
     <>
-      <div className="my-8 ">
+      <div className="my-6 flex justify-center">
         {/* <ResponsiveContainer width="100%" height="100%" className="py-4"> */}
         <PieChart width={400} height={400}>
           <Pie

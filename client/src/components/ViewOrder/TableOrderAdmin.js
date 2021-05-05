@@ -50,9 +50,15 @@ function TableOrderAdmin({ order, loadAllOrders }) {
             </span>
           </td>
           <td className="py-3 px-6 text-center">
-            {/* <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs"> */}
-            <Tag color="warning">{order?.orderStatus?.toUpperCase()}</Tag>
-            {/* </span> */}
+            {order?.orderStatus === 'Đang chờ xác nhận' ? (
+              <Tag color="#999">{order?.orderStatus}</Tag>
+            ) : order?.orderStatus === 'Đang xử lý' ? (
+              <Tag color="orange-inverse">{order?.orderStatus}</Tag>
+            ) : order?.orderStatus === 'Đã bàn giao' ? (
+              <Tag color="green-inverse">{order?.orderStatus}</Tag>
+            ) : (
+              <Tag color="red-inverse">{order?.orderStatus}</Tag>
+            )}
           </td>
           <td className="py-3 px-6 text-center">
             <div

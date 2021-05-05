@@ -7,7 +7,9 @@ import { deleteProducts, getListAllProducts } from '../../../apis/product'
 import imageDefault from '../../../assets/images/default-image.jpg'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import './Product.scss'
 
 const ListProduct = () => {
@@ -62,7 +64,7 @@ const ListProduct = () => {
   const dataSource =
     products &&
     products?.filter(searched(keyword)).map((item) => ({
-      Id: item._id,
+      Id: item._id.substring(0, 10),
       Title: item.title,
       Slug: item.slug,
       Price: item.price,
@@ -71,33 +73,33 @@ const ListProduct = () => {
     }))
   const columns = [
     {
-      title: 'Id',
+      title: 'Mã',
       dataIndex: 'Id',
       key: 'id',
     },
     {
-      title: 'Title',
+      title: 'Tên',
       dataIndex: 'Title',
       key: 'title',
     },
     {
-      title: 'Slug',
+      title: 'Viết Tắt',
       dataIndex: 'Slug',
       key: 'slug',
     },
     {
-      title: 'Price',
+      title: 'Giá',
       dataIndex: 'Price',
       key: 'price',
     },
     {
-      title: 'Image',
+      title: 'Hình ảnh',
       dataIndex: 'Image',
       key: 'image',
       render: (image) => <Avatar size={64} src={image} />,
     },
     {
-      title: 'Author',
+      title: 'Tác giả',
       dataIndex: 'Author',
       key: 'author',
       render: (author) => (
@@ -115,7 +117,7 @@ const ListProduct = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="mr">
+          <Button type="primary" className="rounded mr-1">
             <Link to={`/admin/product/${record.Slug}`} className="sub__edit">
               <span className="product__icon">
                 <EditOutlined />
@@ -130,6 +132,7 @@ const ListProduct = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
+            className="rounded"
           >
             Xóa
           </Button>
@@ -146,26 +149,28 @@ const ListProduct = () => {
         title="sản phẩm"
         categoryToDelete={productToDelete}
       />
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="product">
-            <h3>Tất cả sản phẩm ({totalProducts})</h3>
-            {/* Search */}
-            <div className="product__search">
-              <SearchItem keyword={keyword} setKeyword={setKeyword} />
-            </div>
-            <Table
-              dataSource={dataSource}
-              columns={columns}
-              rowKey="Id"
-              tableLayout="auto"
-            />
-          </div>
-        </Col>
-      </Row>
+
+      <Layouts>
+        <SectionTitle>Sản phẩm</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-1">
+            {' '}
+            Danh sách loại sản phẩm{' '}
+            <span className="font-semibold">({totalProducts})</span>
+          </h3>
+          {/* Search */}
+          <SearchItem keyword={keyword} setKeyword={setKeyword} />
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey="Id"
+            tableLayout="auto"
+            bordered
+            className="rounded"
+            pagination={{ position: ['bottomCenter'] }}
+          />
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import { getCategories } from '../../../redux/actions/category'
 import {
   createSubCategory,
@@ -39,6 +41,7 @@ const CreateSubCategory = () => {
     const values = { name, parent: subcategory }
     dispatch(createSubCategory(values))
     form.resetFields()
+    setSubcategory('')
   }
   function onHandleDelete(slug) {
     setShowModal(true)
@@ -79,17 +82,17 @@ const CreateSubCategory = () => {
     }))
   const columns = [
     {
-      title: 'Id',
+      title: 'Mã',
       dataIndex: 'Id',
       key: 'id',
     },
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'Name',
       key: 'name',
     },
     {
-      title: 'Slug',
+      title: 'Viết Tắt',
       dataIndex: 'Slug',
       key: 'slug',
     },
@@ -100,7 +103,7 @@ const CreateSubCategory = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="mr">
+          <Button type="primary" className="rounded mr-1">
             <Link
               to={`/admin/sub-category/${record.Slug}`}
               className="sub__edit"
@@ -118,6 +121,7 @@ const CreateSubCategory = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
+            className="rounded"
           >
             Xóa
           </Button>
@@ -134,57 +138,63 @@ const CreateSubCategory = () => {
         title="danh mục"
         categoryToDelete={categoryToDelete}
       />
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="sub">
-            <h3> Tạo mới danh mục con</h3>
-            <Form form={form} onFinish={onFinish}>
-              <div className="sub__form">
-                <div className="sub__select">
-                  Chọn danh mục chính:{' '}
-                  <Select
-                    showSearch
-                    style={{ width: 400 }}
-                    placeholder="Chọn danh mục"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                    onSearch={onSearch}
-                    filterOption={(input, option) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    {categories.length > 0 &&
-                      categories.map((category) => (
-                        <Option key={category._id} value={category._id}>
-                          {category.name}
-                        </Option>
-                      ))}
-                  </Select>
-                </div>
-                <FormCategory />
+      <Layouts>
+        <SectionTitle>Danh mục sản phẩm</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2">
+            {' '}
+            Tạo mới danh mục sản phẩm
+          </h3>
+          <Form form={form} onFinish={onFinish}>
+            <div className="sub__form">
+              <div className="sub__select">
+                Chọn loại sản phẩm:{' '}
+                <Select
+                  showSearch
+                  style={{ width: 400, padding: '8px 0' }}
+                  placeholder="Chọn danh mục"
+                  optionFilterProp="children"
+                  onChange={onChange}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  className="rounded py-2 text-base"
+                >
+                  {categories.length > 0 &&
+                    categories.map((category) => (
+                      <Option key={category._id} value={category._id}>
+                        {category.name}
+                      </Option>
+                    ))}
+                </Select>
               </div>
-            </Form>
-            <h3>Tất cả danh mục con ({totalCategory})</h3>
-            {/* Search */}
-            <div className="category__search">
-              <SearchItem keyword={keyword} setKeyword={setKeyword} />
+              <div className="pb-2">Chọn loại danh mục sản phẩm</div>
+              <FormCategory />
             </div>
-            <Table
-              dataSource={dataSource}
-              columns={columns}
-              rowKey="Id"
-              tableLayout="auto"
-            />
-          </div>
-        </Col>
-      </Row>
+          </Form>
+          <h3 className="text-sm text-gray-600 pb-1">
+            {' '}
+            Danh sách danh mục sản phẩm{' '}
+            <span className="font-semibold">({totalCategory})</span>
+          </h3>
+          {/* Search */}
+          <SearchItem keyword={keyword} setKeyword={setKeyword} />
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey="Id"
+            tableLayout="auto"
+            bordered
+            className="rounded"
+            pagination={{ position: ['bottomCenter'] }}
+          />
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

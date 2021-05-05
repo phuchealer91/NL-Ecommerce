@@ -56,17 +56,17 @@ const CreateCategory = () => {
     }))
   const columns = [
     {
-      title: 'Id',
+      title: 'Mã',
       dataIndex: 'Id',
       key: 'id',
     },
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'Name',
       key: 'name',
     },
     {
-      title: 'Slug',
+      title: 'Viết Tắt',
       dataIndex: 'Slug',
       key: 'slug',
     },
@@ -77,7 +77,7 @@ const CreateCategory = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="mr">
+          <Button type="primary" className="rounded mr-1">
             <Link
               to={`/admin/category/${record.Slug}`}
               className="category__edit"
@@ -95,6 +95,7 @@ const CreateCategory = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
+            className="rounded"
           >
             Xóa
           </Button>
@@ -108,28 +109,31 @@ const CreateCategory = () => {
         showModal={showModal}
         closeModal={closeModal}
         onHandleDeleteItem={onHandleDeleteItem}
-        title="danh mục"
+        title="loại"
         categoryToDelete={categoryToDelete}
       />
       <Layouts>
         <SectionTitle>Loại sản phẩm</SectionTitle>
-        <div className="px-4 py-3 mt-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <h3 className="text-sm text-gray-600 pb-1"> Tạo mới danh mục</h3>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2"> Tạo mới loại sản phẩm</h3>
           <Form form={form} onFinish={onFinish}>
-            <div className="category__form">
-              <FormCategory />
-            </div>
+            <FormCategory />
           </Form>
-          <h3>Tất cả danh mục ({totalCategory})</h3>
+          <h3 className="text-sm text-gray-600 pb-1">
+            {' '}
+            Danh sách loại sản phẩm{' '}
+            <span className="font-semibold">({totalCategory})</span>
+          </h3>
           {/* Search */}
-          <div className="category__search">
-            <SearchItem keyword={keyword} setKeyword={setKeyword} />
-          </div>
+          <SearchItem keyword={keyword} setKeyword={setKeyword} />
           <Table
             dataSource={dataSource}
             columns={columns}
             rowKey="Id"
             tableLayout="auto"
+            bordered
+            className="rounded"
+            pagination={{ position: ['bottomCenter'] }}
           />
         </div>
       </Layouts>

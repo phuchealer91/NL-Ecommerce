@@ -2,7 +2,9 @@ import { Col, Form, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import { getCategories } from '../../../redux/actions/category'
 import {
   getSubCategory,
@@ -56,48 +58,48 @@ const UpdateSubCategory = ({ match }) => {
 
   return (
     <React.Fragment>
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="sub">
-            <h3> Cập nhật danh mục con</h3>
-            <Form form={form} onFinish={onFinish}>
-              <div className="sub__form">
-                <div className="sub__select">
-                  Chọn danh mục chính:{' '}
-                  <Select
-                    showSearch
-                    style={{ width: 400 }}
-                    placeholder="Chọn danh mục"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                    onSearch={onSearch}
-                    filterOption={(input, option) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                    value={subcategory}
-                  >
-                    {category.listCategories.length > 0 &&
-                      category.listCategories.map((category) => (
-                        <Option key={category._id} value={category._id}>
-                          {category.name}
-                        </Option>
-                      ))}
-                  </Select>
-                </div>
-
-                <FormCategory />
+      <Layouts>
+        <SectionTitle>Danh mục sản phẩm</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2">
+            {' '}
+            Cập nhật danh mục sản phẩm
+          </h3>
+          <Form form={form} onFinish={onFinish}>
+            <div className="sub__form">
+              <div className="sub__select">
+                <div className="pb-2"> Chọn loại sản phẩm: </div>
+                <Select
+                  showSearch
+                  style={{ width: 400 }}
+                  placeholder="Chọn danh mục"
+                  optionFilterProp="children"
+                  onChange={onChange}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  value={subcategory}
+                  className="rounded py-2"
+                >
+                  {category.listCategories.length > 0 &&
+                    category.listCategories.map((category) => (
+                      <Option key={category._id} value={category._id}>
+                        {category.name}
+                      </Option>
+                    ))}
+                </Select>
               </div>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+              <div className="pb-2">Chọn loại danh mục sản phẩm</div>
+              <FormCategory />
+            </div>
+          </Form>
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

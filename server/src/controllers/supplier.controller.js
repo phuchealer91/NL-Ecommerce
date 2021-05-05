@@ -25,15 +25,16 @@ module.exports.createSupplier = async (req, res) => {
   }
 }
 module.exports.getSupplier = async (req, res) => {
-  const { _id } = req.body
+  const { slug } = req.params
+  console.log('slugslugslugslugslug', req.params)
   try {
-    const supplier = await Supplier.findOne({ _id }).exec()
+    const supplier = await Supplier.findOne({ slug }).exec()
     if (!supplier)
       return res.status(400).json({ error: 'Supplier không tồn tại' })
-    const products = await Product.find({ supplier })
-      .populate('supplier')
-      .exec()
-    return res.status(200).json({ products })
+    // const products = await Product.find({ supplier })
+    //   .populate('supplier')
+    //   .exec()
+    return res.status(200).json({ supplier })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
   }
@@ -76,6 +77,21 @@ module.exports.deleteSupplier = async (req, res) => {
     return res
       .status(200)
       .json({ msg: `Xóa ${supplierDeleted.name} thành công` })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
+module.exports.getSupplierss = async (req, res) => {
+  const { _id } = req.body
+  try {
+    const supplier = await Supplier.findOne({ _id }).exec()
+    if (!supplier)
+      return res.status(400).json({ error: 'Supplier không tồn tại' })
+    const products = await Product.find({ supplier })
+      .populate('supplier')
+      .exec()
+    return res.status(200).json({ products })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
   }

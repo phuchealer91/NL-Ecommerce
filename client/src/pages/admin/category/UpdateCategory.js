@@ -2,7 +2,9 @@ import { Col, Form, Row } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import { getCategory, updateCategories } from '../../../redux/actions/category'
 import './Categories.scss'
 import FormCategory from './FormCategory'
@@ -32,21 +34,18 @@ const UpdateCategory = ({ match }) => {
   }, [categoryEditing])
   return (
     <React.Fragment>
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            <h3> Cập nhật danh mục</h3>
-            <Form form={form} onFinish={onFinish}>
-              <div className="category__form">
-                <FormCategory />
-              </div>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+      <Layouts>
+        <SectionTitle>Loại sản phẩm</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2">
+            {' '}
+            Cập nhật loại sản phẩm
+          </h3>
+          <Form form={form} onFinish={onFinish}>
+            <FormCategory />
+          </Form>
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

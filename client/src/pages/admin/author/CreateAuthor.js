@@ -7,7 +7,9 @@ import { toast } from 'react-toastify'
 import { createAuthors, deleteAuthors, getAuthors } from '../../../apis/author'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 // import {
 //   createAuthor,
 //   deleteAuthors,
@@ -89,17 +91,17 @@ const CreateAuthor = () => {
     }))
   const columns = [
     {
-      title: 'Id',
+      title: 'Mã',
       dataIndex: 'Id',
       key: 'id',
     },
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'Name',
       key: 'name',
     },
     {
-      title: 'Slug',
+      title: 'Viết Tắt',
       dataIndex: 'Slug',
       key: 'slug',
     },
@@ -110,7 +112,7 @@ const CreateAuthor = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="mr">
+          <Button type="primary" className="rounded mr-1">
             <Link
               to={`/admin/author/${record.Slug}`}
               className="category__edit"
@@ -128,6 +130,7 @@ const CreateAuthor = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
+            className="rounded"
           >
             Xóa
           </Button>
@@ -144,41 +147,51 @@ const CreateAuthor = () => {
         title="tác giả"
         categoryToDelete={authorToDelete}
       />
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            {loading ? <Spin tip="Loading..." /> : <h3> Tạo mới tác giả</h3>}
-            <Form form={form} onFinish={onFinish}>
-              <FormAuthor />
-              <label htmlFor="">Thông tin của tác giả</label>
-              <ReactQuill
-                value={bio}
-                onChange={onHandleChange}
-                placeholder="Điền thông tin của tác giả"
-              />
-              <Button htmlType="submit" type="primary" className="mt-3">
-                Thêm
-              </Button>
-            </Form>
-            <h3>Tất cả tác giả ({totalAuthor})</h3>
-            {/* Search */}
-            <div className="category__search">
-              <SearchItem keyword={keyword} setKeyword={setKeyword} />
-            </div>
-            {
-              <Table
-                dataSource={dataSource}
-                columns={columns}
-                rowKey="Id"
-                tableLayout="auto"
-              />
-            }
-          </div>
-        </Col>
-      </Row>
+
+      <Layouts>
+        <SectionTitle>Tác giả</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          {loading ? (
+            <Spin tip="Loading..." />
+          ) : (
+            <h3 className="text-sm text-gray-600 pb-2"> Tạo mới tác giả</h3>
+          )}
+          <Form form={form} onFinish={onFinish}>
+            <FormAuthor />
+            <div className="pb-2 -mt-2">Thông tin của tác giả</div>
+            <ReactQuill
+              value={bio}
+              onChange={onHandleChange}
+              placeholder="Điền thông tin của tác giả"
+              className="mb-3"
+            />
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="large"
+              className="py-2 rounded font-semibold"
+            >
+              Thêm
+            </Button>
+          </Form>
+          <h3 className="text-sm text-gray-600 pb-1 mt-3">
+            {' '}
+            Danh sách tác giả{' '}
+            <span className="font-semibold">({totalAuthor})</span>
+          </h3>
+          {/* Search */}
+          <SearchItem keyword={keyword} setKeyword={setKeyword} />
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey="Id"
+            tableLayout="auto"
+            bordered
+            className="rounded"
+            pagination={{ position: ['bottomCenter'] }}
+          />
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

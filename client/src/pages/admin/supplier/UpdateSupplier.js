@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getSupplier, updateSuppliers } from '../../../apis/supplier'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import FormSupplier from './FormSupplier'
 import './Suppliers.scss'
 
@@ -38,30 +40,24 @@ const UpdateSupplier = ({ match }) => {
 
   return (
     <React.Fragment>
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            <h3> Cập nhật nhà cung cấp</h3>
-            <Form
-              form={form}
-              onFinish={onFinish}
-              fields={[
-                {
-                  name: ['name'],
-                  value: name,
-                },
-              ]}
-            >
-              <div className="category__form">
-                <FormSupplier />
-              </div>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+      <Layouts>
+        <SectionTitle>Nhà cung cấp</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2">Cập nhật nhà cung cấp</h3>
+          <Form
+            form={form}
+            onFinish={onFinish}
+            fields={[
+              {
+                name: ['name'],
+                value: name,
+              },
+            ]}
+          >
+            <FormSupplier />
+          </Form>
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

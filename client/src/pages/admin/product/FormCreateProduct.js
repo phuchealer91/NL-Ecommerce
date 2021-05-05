@@ -311,7 +311,12 @@ const FormCreateProduct = ({
           <Option value="Không">Không</Option>
         </Select>
       </Form.Item>
-      <Button htmlType="submit" type="primary" className="category__btn">
+      <Button
+        htmlType="submit"
+        type="primary"
+        size="large"
+        className="py-2 rounded font-semibold"
+      >
         Thêm
       </Button>
     </React.Fragment>

@@ -1,10 +1,12 @@
-import { Button, Col, Form, Row } from 'antd'
+import { Button, Col, Form, Row, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getAuthor, updateAuthors } from '../../../apis/author'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import './Authors.scss'
 import FormAuthor from './FormAuthor'
 
@@ -46,36 +48,43 @@ const UpdateAuthor = ({ match }) => {
 
   return (
     <React.Fragment>
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            <h3> Cập nhật tác giả</h3>
-            <Form
-              form={form}
-              onFinish={onFinish}
-              fields={[
-                {
-                  name: ['name'],
-                  value: name,
-                },
-              ]}
+      <Layouts>
+        <SectionTitle>Tác giả</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          {loading ? (
+            <Spin tip="Loading..." />
+          ) : (
+            <h3 className="text-sm text-gray-600 pb-2"> Cập nhật tác giả</h3>
+          )}
+          <Form
+            form={form}
+            onFinish={onFinish}
+            fields={[
+              {
+                name: ['name'],
+                value: name,
+              },
+            ]}
+          >
+            <FormAuthor />
+            <div className="pb-2 -mt-2">Thông tin của tác giả</div>
+            <ReactQuill
+              value={bio}
+              onChange={onHandleChange}
+              placeholder="Điền thông tin của tác giả"
+              className="mb-3"
+            />
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="large"
+              className="py-2 rounded font-semibold"
             >
-              <FormAuthor />
-              <ReactQuill
-                value={bio}
-                onChange={onHandleChange}
-                placeholder="Điền thông tin của tác giả"
-              />
-              <Button htmlType="submit" type="primary" className="mt-3">
-                Thêm
-              </Button>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+              Thêm
+            </Button>
+          </Form>
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

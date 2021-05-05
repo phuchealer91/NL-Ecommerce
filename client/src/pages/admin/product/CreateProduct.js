@@ -6,7 +6,9 @@ import { getCategories, getCategorySubs } from '../../../apis/category'
 import { createProducts } from '../../../apis/product'
 import { getSuppliers } from '../../../apis/supplier'
 import FileUpload from '../../../components/FileUpload'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import FormCreateProduct from './FormCreateProduct'
 const layout = {
   labelCol: { span: 6 },
@@ -88,6 +90,11 @@ const CreateProducts = () => {
     })
     setShowSub(true)
   }
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  }
+
   return (
     <React.Fragment>
       {/* <ModalConfirm
@@ -97,42 +104,39 @@ const CreateProducts = () => {
         title="danh mục"
         categoryToDelete={categoryToDelete}
       /> */}
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="product">
-            {isLoading ? (
-              <Space size="middle">
-                <Spin size="large" />
-              </Space>
-            ) : (
-              <h3> Tạo mới sản phẩm</h3>
-            )}
 
-            <Form {...layout} form={form} onFinish={onFinish}>
-              <div className="product__form">
-                <FileUpload
-                  setIsLoading={setIsLoading}
-                  product={product}
-                  setProduct={setProduct}
-                />
-                <FormCreateProduct
-                  product={product}
-                  onChange={onChange}
-                  onChangeCategory={onChangeCategory}
-                  categorySubss={categorySubs}
-                  showSub={showSub}
-                  setProduct={setProduct}
-                  authors={authors}
-                  suppliers={suppliers}
-                />
-              </div>
-            </Form>
-          </div>
-        </Col>
-      </Row>
+      <Layouts>
+        <SectionTitle>Sản phẩm</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          {isLoading ? (
+            <Space size="middle">
+              <Spin size="large" />
+            </Space>
+          ) : (
+            <h3 className="text-sm text-gray-600 pb-2"> Tạo mới sản phẩm</h3>
+          )}
+
+          <Form {...layout} form={form} onFinish={onFinish}>
+            <div className="product__form">
+              <FileUpload
+                setIsLoading={setIsLoading}
+                product={product}
+                setProduct={setProduct}
+              />
+              <FormCreateProduct
+                product={product}
+                onChange={onChange}
+                onChangeCategory={onChangeCategory}
+                categorySubss={categorySubs}
+                showSub={showSub}
+                setProduct={setProduct}
+                authors={authors}
+                suppliers={suppliers}
+              />
+            </div>
+          </Form>
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

@@ -10,7 +10,9 @@ import {
 } from '../../../apis/supplier'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import FormSupplier from './FormSupplier'
 import './Suppliers.scss'
 
@@ -81,17 +83,17 @@ const CreateSupplier = () => {
     }))
   const columns = [
     {
-      title: 'Id',
+      title: 'Mã',
       dataIndex: 'Id',
       key: 'id',
     },
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'Name',
       key: 'name',
     },
     {
-      title: 'Slug',
+      title: 'Viết Tắt',
       dataIndex: 'Slug',
       key: 'slug',
     },
@@ -102,7 +104,7 @@ const CreateSupplier = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="mr">
+          <Button type="primary" className="rounded mr-1">
             <Link
               to={`/admin/supplier/${record.Slug}`}
               className="category__edit"
@@ -120,6 +122,7 @@ const CreateSupplier = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
+            className="rounded"
           >
             Xóa
           </Button>
@@ -136,38 +139,39 @@ const CreateSupplier = () => {
         title="Nhà cung cấp"
         categoryToDelete={supplierToDelete}
       />
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            {loading ? (
-              <Spin tip="Loading..." />
-            ) : (
-              <h3> Tạo mới nhà cung cấp</h3>
-            )}
-            <Form form={form} onFinish={onFinish}>
-              <div className="category__form">
-                <FormSupplier />
-              </div>
-            </Form>
-            <h3>Tất cả nhà cung cấp ({totalSupplier})</h3>
-            {/* Search */}
-            <div className="category__search">
-              <SearchItem keyword={keyword} setKeyword={setKeyword} />
-            </div>
-            {
-              <Table
-                dataSource={dataSource}
-                columns={columns}
-                rowKey="Id"
-                tableLayout="auto"
-              />
-            }
-          </div>
-        </Col>
-      </Row>
+
+      <Layouts>
+        <SectionTitle>Nhà cung cấp</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          {loading ? (
+            <Spin tip="Loading..." />
+          ) : (
+            <h3 className="text-sm text-gray-600 pb-2">
+              {' '}
+              Tạo mới nhà cung cấp
+            </h3>
+          )}
+          <Form form={form} onFinish={onFinish}>
+            <FormSupplier />
+          </Form>
+          <h3 className="text-sm text-gray-600 pb-1">
+            {' '}
+            Danh sách nhà cung cấp{' '}
+            <span className="font-semibold">({totalSupplier})</span>
+          </h3>
+          {/* Search */}
+          <SearchItem keyword={keyword} setKeyword={setKeyword} />
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey="Id"
+            tableLayout="auto"
+            bordered
+            className="rounded"
+            pagination={{ position: ['bottomCenter'] }}
+          />
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

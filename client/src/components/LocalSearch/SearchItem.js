@@ -8,13 +8,14 @@ const SearchItem = ({ keyword, setKeyword }) => {
     setKeyword(e.target.value.toLowerCase())
   }
   return (
-    <div className="form-input">
+    <div className="py-2 mb-4">
       <Input
         type="search"
         placeholder="Tìm kiếm"
         name="key"
         value={keyword}
         onChange={onHandleChangeSearch}
+        className="rounded py-2 text-base"
       />
     </div>
   )

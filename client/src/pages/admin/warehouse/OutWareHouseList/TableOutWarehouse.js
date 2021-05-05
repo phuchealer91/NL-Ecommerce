@@ -13,7 +13,10 @@ function TableOutWarehouse({ order }) {
             <tr className="border-b border-gray-200 hover:bg-gray-100">
               <td className="py-3 px-6 text-left whitespace-nowrap">
                 <div className="flex items-center">
-                  <span className="font-medium"> {item?.product?._id}</span>
+                  <span className="font-medium">
+                    {' '}
+                    {item?.product?._id.substring(0, 10)}
+                  </span>
                 </div>
               </td>
               <td className="py-3 px-6 text-left">

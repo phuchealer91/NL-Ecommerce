@@ -64,7 +64,7 @@ function TableReceipts({ receipt, idx, loadUserReceipts }) {
             <div className="flex items-center">
               <span className="font-medium">
                 {' '}
-                {receipt?._id.substring(0, 6)}
+                {receipt?._id.substring(0, 10)}
               </span>
             </div>
           </td>

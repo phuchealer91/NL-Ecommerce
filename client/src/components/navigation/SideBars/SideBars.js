@@ -4,7 +4,7 @@ import './SideBar.css'
 const SideBar = ({ menu }) => {
   return (
     <div
-      className="fixed pb-4 text-gray-500 dark:text-gray-400"
+      className="fixed pb-4 text-gray-500 dark:text-gray-400 overflow-y-auto"
       breakpoint={'lg'}
       theme="light"
       collapsedWidth={0}

@@ -4,18 +4,13 @@ import {
   AppstoreOutlined,
   BarcodeOutlined,
   GroupOutlined,
-  HeartOutlined,
-  HistoryOutlined,
   HomeOutlined,
   MedicineBoxOutlined,
   PlusCircleOutlined,
   SafetyOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
-  ShoppingOutlined,
   SyncOutlined,
-  TagOutlined,
-  TagsOutlined,
   UnorderedListOutlined,
   UserSwitchOutlined,
 } from '@ant-design/icons'
@@ -51,6 +46,7 @@ const AdminSideBar = () => {
       defaultOpenKeys={['sub1', 'sub2', 'sub3']}
       mode="inline"
       selectedKeys={selectedKey}
+      activeKey={selectedKey}
     >
       <Menu.Item
         icon={<HomeOutlined />}
@@ -144,7 +140,7 @@ const AdminSideBar = () => {
       </Menu.Item>
       <Menu.Item
         icon={<SafetyOutlined />}
-        key={`/${PATHS.USER}/${PATHS.PASSWORD}`}
+        key={`/${PATHS.ADMIN}/${PATHS.PASSWORD}`}
       >
         Đổi mật khẩu
       </Menu.Item>

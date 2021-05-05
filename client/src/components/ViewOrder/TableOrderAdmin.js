@@ -37,9 +37,13 @@ function TableOrderAdmin({ order, loadAllOrders }) {
             </div>
           </td>
           <td className="py-3 px-6 text-left">
-            <div className="flex items-center">
-              <span>{order?.deliveryAddress?.name}</span>
-            </div>
+            <ul className="list-disc text-xs">
+              <li className="pb-1">Tên: {order?.deliveryAddress?.name}</li>
+              <li className="pb-1">
+                ĐC: {order?.deliveryAddress?.mainAddress}
+              </li>
+              <li className="pb-1">SĐT: {order?.deliveryAddress?.phone}</li>
+            </ul>
           </td>
           <td className="py-3 px-6 text-center">
             <div className="">{formatPrice(order?.paymentIntent?.amount)}đ</div>

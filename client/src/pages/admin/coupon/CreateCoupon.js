@@ -1,10 +1,12 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Button, Col, Form, Row, Table } from 'antd'
+import { Button, Col, Form, Row, Table, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import { AdminSideBar } from '../../../components/navigation/SideBar'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import {
   createCoupon,
   deleteCoupon,
@@ -53,28 +55,39 @@ const CreateCoupon = () => {
       Id: item._id,
       Name: item.name,
       Discount: item.discount,
-      Expiry: item.expiry,
+      Expiry: new Date(item.expiry).toLocaleString(),
+      Status:
+        new Date(item.expiry).toLocaleString() > new Date().toLocaleString() ? (
+          <Tag color="green-inverse">Còn hạn</Tag>
+        ) : (
+          <Tag color="red-inverse">Hết hạn</Tag>
+        ),
     }))
   const columns = [
     {
-      title: 'Id',
+      title: 'Mã',
       dataIndex: 'Id',
       key: 'id',
     },
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'Name',
       key: 'name',
     },
     {
-      title: 'Discount (%)',
+      title: 'Phần trăm (%)',
       dataIndex: 'Discount',
       key: 'discount',
     },
     {
-      title: 'Expiry',
+      title: 'Hạn sử dụng',
       dataIndex: 'Expiry',
       key: 'expiry',
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'Status',
+      key: 'status',
     },
     {
       title: 'Thao tác',
@@ -100,7 +113,7 @@ const CreateCoupon = () => {
             onClick={(e) => {
               onHandleDelete(record.Id, e)
             }}
-            className="flex items-center"
+            className="flex items-center rounded"
           >
             <DeleteOutlined />
             <span> Xóa</span>
@@ -118,32 +131,32 @@ const CreateCoupon = () => {
         title="Mã giảm giá"
         categoryToDelete={couponDelete}
       />
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="category">
-            <h3 className="text-2xl mb-5"> Tạo mới mã giảm giá</h3>
-            <Form form={form} onFinish={onFinish}>
-              <div className="category__form">
-                <FormCoupon />
-              </div>
-            </Form>
-            <h3 className="text-2xl mb-3">Tất cả mã giảm giá({totalCoupon})</h3>
-            <h5 className="text-xl">Search</h5>
-            <div className="category__search">
-              <SearchItem keyword={keyword} setKeyword={setKeyword} />
-            </div>
-            <Table
-              dataSource={dataSource}
-              columns={columns}
-              rowKey="Id"
-              tableLayout="auto"
-            />
-          </div>
-        </Col>
-      </Row>
+
+      <Layouts>
+        <SectionTitle>Quản lý mã khuyến mãi/giảm giá</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-3"> Tạo mới mã khuyến mãi</h3>
+          <Form form={form} onFinish={onFinish}>
+            <FormCoupon />
+          </Form>
+          <h3 className="text-sm text-gray-600 pb-1">
+            {' '}
+            Danh sách các mã khuyến mãi{' '}
+            <span className="font-semibold">({totalCoupon})</span>
+          </h3>
+          {/* Search */}
+          <SearchItem keyword={keyword} setKeyword={setKeyword} />
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            rowKey="Id"
+            tableLayout="auto"
+            bordered
+            className="rounded"
+            pagination={{ position: ['bottomCenter'] }}
+          />
+        </div>
+      </Layouts>
     </React.Fragment>
   )
 }

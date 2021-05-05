@@ -53,6 +53,7 @@ import { CreateReceipt } from '../pages/admin/warehouse'
 import WareHouseList from '../pages/admin/warehouse/WareHouseList'
 import OutWareHouseList from '../pages/admin/warehouse/OutWareHouseList/OutWareHouseList'
 import InventoryWareHouseList from '../pages/admin/warehouse/InventoryWareHouseList/InventoryWareHouseList'
+import AdminPassword from '../pages/admin/AdminPassword'
 
 export default function App() {
   const dispatch = useDispatch()
@@ -129,6 +130,11 @@ export default function App() {
           exact
           path={`/${PATHS.USER}/${PATHS.WISHLIST}`}
           component={WishList}
+        />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.PASSWORD}`}
+          component={AdminPassword}
         />
         <AdminRoute
           exact

@@ -6,6 +6,8 @@ import { useState } from 'react'
 import TableReceipts from './TableReceipts'
 import { getUserReceipts } from '../../../apis/cart'
 import { Link } from 'react-router-dom'
+import { Layouts } from '../../../components/navigation/Layouts/Layouts'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 
 WareHouseList.propTypes = {}
 
@@ -27,52 +29,45 @@ function WareHouseList(props) {
   }
   return (
     <div>
-      {' '}
-      <Row>
-        <Col xs={24} sm={24} md={5} lg={5}>
-          <AdminSideBar />
-        </Col>
-        <Col xs={24} sm={24} md={19} lg={19}>
-          <div className="w-full my-6 mx-3">
-            <div className="flex items-center justify-between py-4 mx-4">
-              <span className="text-gray-600 font-semibold text-lg">
-                Quản lý nhập hàng
-              </span>
-              <Link
-                to="/admin/warehouse"
-                className="no-underline px-4 py-2 font-semibold bg-blue-600 hover:bg-white hover:text-blue-600 transition rounded border border-blue-600 text-white"
-              >
-                Nhập hàng
-              </Link>
-            </div>
-            <div className="bg-white shadow-md rounded mx-auto">
-              <table className=" w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Mã đơn hàng</th>
-                    <th className="py-3 px-6 text-left">Nhà cung cấp</th>
-                    <th className="py-3 px-6 text-center">Ngày lập</th>
-                    <th className="py-3 px-6 text-center">Trạng thái</th>
-                    <th className="py-3 px-6 text-center">Chi tiết</th>
-                    <th className="py-3 px-6 text-center">Thao tác</th>
-                  </tr>
-                </thead>
-                {userReceipts &&
-                  userReceipts.map((receipt, idx) => {
-                    return (
-                      <TableReceipts
-                        key={receipt._id}
-                        receipt={receipt}
-                        idx={idx}
-                        loadUserReceipts={loadUserReceipts}
-                      />
-                    )
-                  })}
-              </table>
-            </div>
+      <Layouts>
+        <SectionTitle>Quản lý nhập hàng</SectionTitle>
+        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h3 className="text-sm text-gray-600 pb-2 my-4 text-right">
+            {' '}
+            <Link
+              to="/admin/warehouse"
+              className="no-underline px-4 py-2 font-semibold bg-blue-600 hover:bg-white hover:text-blue-600 transition rounded border border-blue-600 text-white"
+            >
+              Nhập hàng
+            </Link>
+          </h3>
+          <div className="bg-white shadow-md rounded mx-auto">
+            <table className=" w-full table-auto">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">Mã đơn hàng</th>
+                  <th className="py-3 px-6 text-left">Nhà cung cấp</th>
+                  <th className="py-3 px-6 text-center">Ngày lập</th>
+                  <th className="py-3 px-6 text-center">Trạng thái</th>
+                  <th className="py-3 px-6 text-center">Chi tiết</th>
+                  <th className="py-3 px-6 text-center">Thao tác</th>
+                </tr>
+              </thead>
+              {userReceipts &&
+                userReceipts.map((receipt, idx) => {
+                  return (
+                    <TableReceipts
+                      key={receipt._id}
+                      receipt={receipt}
+                      idx={idx}
+                      loadUserReceipts={loadUserReceipts}
+                    />
+                  )
+                })}
+            </table>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </Layouts>
     </div>
   )
 }

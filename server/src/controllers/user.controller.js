@@ -72,8 +72,12 @@ module.exports.saveUserAddress = async (req, res) => {
 
 module.exports.applyCouponToCart = async (req, res) => {
   const { coupons } = req.body
+
   try {
-    const validateCoupon = await Coupon.findOne({ name: coupons }).exec()
+    const validateCoupon = await Coupon.findOne({
+      name: coupons,
+      expiry: { $gt: new ISODate() },
+    }).exec()
     if (validateCoupon === null) {
       return res.status(400).json({ Error: 'Invalid Coupon !' })
     }

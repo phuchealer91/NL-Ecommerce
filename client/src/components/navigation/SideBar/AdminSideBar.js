@@ -1,10 +1,23 @@
 import {
+  ApartmentOutlined,
+  AppstoreAddOutlined,
   AppstoreOutlined,
+  BarcodeOutlined,
+  GroupOutlined,
   HeartOutlined,
   HistoryOutlined,
+  HomeOutlined,
+  MedicineBoxOutlined,
+  PlusCircleOutlined,
+  SafetyOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
   ShoppingOutlined,
+  SyncOutlined,
   TagOutlined,
   TagsOutlined,
+  UnorderedListOutlined,
+  UserSwitchOutlined,
 } from '@ant-design/icons'
 import { Menu } from 'antd'
 import React, { useEffect, useState } from 'react'
@@ -34,103 +47,103 @@ const AdminSideBar = () => {
   return (
     <Menu
       onClick={handleClick}
-      style={{ width: 275, height: '100vh' }}
+      style={{ width: 256, height: '100vh' }}
       defaultOpenKeys={['sub1', 'sub2', 'sub3']}
       mode="inline"
       selectedKeys={selectedKey}
     >
       <Menu.Item
-        icon={<HistoryOutlined />}
+        icon={<HomeOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.DASHBOARD}`}
       >
         Tổng quan
       </Menu.Item>
 
-      <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Danh mục">
+      <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Loại">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
-          icon={<TagsOutlined />}
+          icon={<UnorderedListOutlined />}
         >
-          Tất cả danh mục
+          Tất cả các loại
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
-          icon={<TagOutlined />}
+          icon={<AppstoreAddOutlined />}
         >
-          Danh mục con
+          Danh mục
         </Menu.Item>
       </SubMenu>
-      <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Tác giả">
+      <SubMenu key="sub3" icon={<UserSwitchOutlined />} title="Tác giả">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.AUTHOR}`}
-          icon={<TagsOutlined />}
+          icon={<UnorderedListOutlined />}
         >
           Tất cả tác giả
         </Menu.Item>
       </SubMenu>
-      <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Nhà cung cấp">
+      <SubMenu key="sub4" icon={<ShopOutlined />} title="Nhà cung cấp">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.SUPPLIER}`}
-          icon={<TagsOutlined />}
+          icon={<UnorderedListOutlined />}
         >
           Tất cả nhà cung cấp
         </Menu.Item>
       </SubMenu>
-      <SubMenu key="sub5" icon={<AppstoreOutlined />} title="Sản phẩm">
+      <SubMenu key="sub5" icon={<ApartmentOutlined />} title="Sản phẩm">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.PRODUCT}`}
-          icon={<ShoppingOutlined />}
+          icon={<PlusCircleOutlined />}
         >
           Tạo mới sản phẩm
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.LIST_PRODUCTS}`}
-          icon={<HeartOutlined />}
+          icon={<UnorderedListOutlined />}
         >
           Tất cả sản phẩm
         </Menu.Item>
       </SubMenu>
-      <SubMenu key="sub6" icon={<AppstoreOutlined />} title="Kho">
+      <SubMenu key="sub6" icon={<MedicineBoxOutlined />} title="Kho">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.WAREHOUSE}`}
-          icon={<ShoppingOutlined />}
+          icon={<PlusCircleOutlined />}
         >
           Nhập kho
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.LIST_WAREHOUSE}`}
-          icon={<HeartOutlined />}
+          icon={<UnorderedListOutlined />}
         >
           Tất cả đơn hàng
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.OUT_WAREHOUSE}`}
-          icon={<HeartOutlined />}
+          icon={<SyncOutlined />}
         >
           Xuất kho
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.INVENTORY_WAREHOUSE}`}
-          icon={<HeartOutlined />}
+          icon={<GroupOutlined />}
         >
           Tồn kho
         </Menu.Item>
       </SubMenu>
       <Menu.Item
-        icon={<ShoppingOutlined />}
+        icon={<ShoppingCartOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.ORDER}`}
       >
         Đơn đặt hàng
       </Menu.Item>
 
       <Menu.Item
-        icon={<HistoryOutlined />}
+        icon={<BarcodeOutlined />}
         key={`/${PATHS.ADMIN}/${PATHS.COUPON}`}
       >
         Mã giảm giá
       </Menu.Item>
       <Menu.Item
-        icon={<HistoryOutlined />}
+        icon={<SafetyOutlined />}
         key={`/${PATHS.USER}/${PATHS.PASSWORD}`}
       >
         Đổi mật khẩu

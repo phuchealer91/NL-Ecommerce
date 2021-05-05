@@ -22,3 +22,6 @@ export const StatisticalOrderFilters = (data) => {
 export const getOrdersCompleteds = (data) => {
   return axiosServices.get(`/${PATHS.ORDER}/order-completed`, data)
 }
+export const getTotalOrderStatusMonths = (data) => {
+  return axiosServices.get(`/${PATHS.ORDER}/order-status-month`, data)
+}

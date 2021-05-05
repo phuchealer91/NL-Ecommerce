@@ -36,7 +36,7 @@ const Login = (props) => {
       if (res.data.role === 'admin') {
         history.push('/admin/dashboard')
       } else {
-        history.push('/user/history')
+        history.push('/')
       }
     }
   }
@@ -48,6 +48,7 @@ const Login = (props) => {
       const idTokenUser = await user.getIdTokenResult()
       window.localStorage.setItem('token', idTokenUser.token)
       registerOrUpdateUsers(idTokenUser.token).then((res) => {
+        console.log('hellohellohellohello res', res)
         if (res.data) {
           const data = {
             name: user.displayName,

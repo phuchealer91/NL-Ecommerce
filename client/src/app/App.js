@@ -90,11 +90,7 @@ export default function App() {
   }, [dispatch, users.token])
   return (
     <React.Fragment>
-      {users && users.userDatas.role === 'admin' ? (
-        <HeaderAdmin />
-      ) : (
-        <HeaderUser />
-      )}
+      {users && users.userDatas.role !== 'admin' && <HeaderUser />}
       {/* <Image.PreviewGroup>
         <Image
           width={200}

@@ -36,7 +36,7 @@ function StatisticalOrderStatus(props) {
       }
     })
   }, [])
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
+  const COLORS = ['#00C49F', '#FFBB28', '#F04949', '#888888']
 
   const RADIAN = Math.PI / 180
   const renderCustomizedLabel = ({

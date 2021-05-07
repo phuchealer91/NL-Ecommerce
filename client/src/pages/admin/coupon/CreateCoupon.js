@@ -56,12 +56,6 @@ const CreateCoupon = () => {
       Name: item.name,
       Discount: item.discount,
       Expiry: new Date(item.expiry).toLocaleString(),
-      Status:
-        new Date(item.expiry).toLocaleString() > new Date().toLocaleString() ? (
-          <Tag color="green-inverse">Còn hạn</Tag>
-        ) : (
-          <Tag color="red-inverse">Hết hạn</Tag>
-        ),
     }))
   const columns = [
     {
@@ -84,11 +78,11 @@ const CreateCoupon = () => {
       dataIndex: 'Expiry',
       key: 'expiry',
     },
-    {
-      title: 'Trạng thái',
-      dataIndex: 'Status',
-      key: 'status',
-    },
+    // {
+    //   title: 'Trạng thái',
+    //   dataIndex: 'Status',
+    //   key: 'status',
+    // },
     {
       title: 'Thao tác',
       dataIndex: '',

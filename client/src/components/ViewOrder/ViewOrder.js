@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { updatedOrderStatus } from '../../apis/order'
+import { updatedOrderCancelStatus, updatedOrderStatus } from '../../apis/order'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { formatPrice } from '../../helpers/formatPrice'
 ViewOrder.propTypes = {}
@@ -14,7 +14,7 @@ function ViewOrder({ order, idx, loaduserOrder }) {
   const [isCancel, setIsCancel] = useState(false)
 
   function onHandleCancelOrder(orderId) {
-    updatedOrderStatus(orderId, 'Hủy')
+    updatedOrderCancelStatus(orderId, 'Hủy')
       .then((res) => {
         if (res.data) {
           toast.success('Hủy đơn hàng thành công')
@@ -28,7 +28,7 @@ function ViewOrder({ order, idx, loaduserOrder }) {
       })
   }
   function onHandleBackOrder(orderId) {
-    updatedOrderStatus(orderId, 'Đang chờ xác nhận')
+    updatedOrderCancelStatus(orderId, 'Đang chờ xác nhận')
       .then((res) => {
         if (res.data) {
           toast.success('Đặt lại đơn hàng thành công')
@@ -222,20 +222,22 @@ function ViewOrder({ order, idx, loaduserOrder }) {
       </div>
 
       <div className="px-4 my-4 ">
-        {isCancel ? (
+        {order?.orderStatus === 'Hủy' ? (
           <button
             onClick={() => onHandleBackOrder(order._id)}
             className="bg-blue-500 hover:bg-white text-white font-semibold hover:text-blue-500 py-2 px-4 hover:border border-solid border-blue-500 rounded"
           >
             Đặt lại đơn hàng
           </button>
-        ) : (
+        ) : order?.orderStatus === 'Đang chờ xác nhận' ? (
           <button
             onClick={() => onHandleCancelOrder(order._id)}
             className="bg-red-500 hover:bg-white text-white font-semibold hover:text-red-500 py-2 px-4 hover:border border-solid border-red-500 rounded"
           >
             Hủy đơn hàng
           </button>
+        ) : (
+          ''
         )}
       </div>
     </div>

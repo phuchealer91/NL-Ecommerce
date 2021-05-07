@@ -21,11 +21,27 @@ module.exports.getOrders = async (req, res) => {
 module.exports.orderStatus = async (req, res) => {
   const { orderId, orderStatus } = req.body
   try {
+    const { products } = await Order.findOne({
+      _id: orderId,
+    }).exec()
     let updatedOrderStatus = await Order.findByIdAndUpdate(
       orderId,
       { orderStatus },
       { new: true }
     ).exec()
+    // increment sold, decrement quantity
+    if (orderStatus === 'Hủy') {
+      let bulk = products.map((item) => {
+        return {
+          updateOne: {
+            filter: { _id: item.product._id },
+            update: { $inc: { quantity: +item.count, sold: -item.count } },
+          },
+        }
+      })
+      // SD bulkWrite (Thực hiện nhiều thao tác)
+      await Product.bulkWrite(bulk, {})
+    }
     return res.status(200).json({ updatedOrderStatus, msg: 'Updated Success' })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
@@ -464,6 +480,79 @@ module.exports.getNewOrders = async (req, res) => {
       .limit(6)
       .exec()
     return res.status(200).json({ orders: newOrders })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+// Hủy đơn hàng
+module.exports.orderCancelStatus = async (req, res) => {
+  const { orderId, orderStatus } = req.body
+  try {
+    const { products } = await Order.findOne({
+      _id: orderId,
+    }).exec()
+    let updatedOrderStatus = await Order.findByIdAndUpdate(
+      orderId,
+      { orderStatus },
+      { new: true }
+    ).exec()
+    // increment sold, decrement quantity
+    if (orderStatus === 'Hủy') {
+      let bulk = products.map((item) => {
+        return {
+          updateOne: {
+            filter: { _id: item.product._id },
+            update: { $inc: { quantity: +item.count, sold: -item.count } },
+          },
+        }
+      })
+      // SD bulkWrite (Thực hiện nhiều thao tác)
+      await Product.bulkWrite(bulk, {})
+    } else {
+      let bulk = products.map((item) => {
+        return {
+          updateOne: {
+            filter: { _id: item.product._id },
+            update: { $inc: { quantity: -item.count, sold: +item.count } },
+          },
+        }
+      })
+      // SD bulkWrite (Thực hiện nhiều thao tác)
+      await Product.bulkWrite(bulk, {})
+    }
+
+    return res.status(200).json({ updatedOrderStatus, msg: 'Updated Success' })
+  } catch (error) {
+    return res.status(500).json({ Error: 'Server error' })
+  }
+}
+
+module.exports.removeOrder = async (req, res) => {
+  const { orderId, orderStatus } = req.body
+  try {
+    const { products } = await Order.findOne({
+      _id: orderId,
+    }).exec()
+    await Order.findOneAndRemove({
+      _id: orderId,
+    }).exec()
+
+    // Không cộng lại
+    if (orderStatus !== 'Đã bàn giao' && orderStatus !== 'Hủy') {
+      let bulk = products.map((item) => {
+        return {
+          updateOne: {
+            filter: { _id: item.product._id },
+            update: { $inc: { quantity: +item.count, sold: -item.count } },
+          },
+        }
+      })
+      // SD bulkWrite (Thực hiện nhiều thao tác)
+      await Product.bulkWrite(bulk, {})
+    }
+
+    return res.status(200).json({ msg: 'Delete success' })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }

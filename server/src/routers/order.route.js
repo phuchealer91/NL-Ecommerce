@@ -15,12 +15,16 @@ const {
   getTotalOrderStatusMonth,
   getTopSellers,
   getNewOrders,
+  orderCancelStatus,
+  removeOrder,
 } = require('../controllers/order.controller')
 const { isAuth, isAdmin } = require('../middlewares/auth')
 
 router.post('/list', isAuth, isAdmin, getOrders)
 router.get('/list/total', isAuth, isAdmin, getTotalOrders)
-router.put('/order-status', isAuth, orderStatus)
+router.put('/order-status', isAuth, isAdmin, orderStatus)
+router.put('/order-cancel-status', isAuth, orderCancelStatus)
+router.post('/remove-order', isAuth, isAdmin, removeOrder)
 router.post('/order-filters', isAuth, isAdmin, orderStatisticalFilters)
 router.post('/order-by-date', isAuth, isAdmin, orderStatisticalByDate)
 router.get('/order-completed', isAuth, isAdmin, getOrdersCompleted)

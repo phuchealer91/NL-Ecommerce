@@ -46,8 +46,11 @@ const HeaderAdmin = () => {
       <header className="header  bg-white ">
         <div className="desktop-header hidden lg:block ">
           <div className="container mx-auto px-11 py-2">
-            <nav className="nav flex  relative">
-              <UserLogined />
+            <nav className="nav flex items-center  relative">
+              <div>
+                {' '}
+                <UserLogined />
+              </div>
               <div className="right-0 absolute">
                 <Menu
                   onClick={handleClick}
@@ -55,9 +58,9 @@ const HeaderAdmin = () => {
                   mode="horizontal"
                   className="nav"
                 >
-                  <Item className="nav__login">
+                  {/* <Item className="nav__login">
                     <Searchs />
-                  </Item>
+                  </Item> */}
                   {user && user.token ? (
                     <SubMenu
                       key="SubMenu"

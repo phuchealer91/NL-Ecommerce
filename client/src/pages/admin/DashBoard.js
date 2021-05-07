@@ -92,8 +92,8 @@ function DashBoard(props) {
               <StatisticalTopSellers />
             </div>
             <div>
-              {/* <PageTitle>Top sản phẩm đã bán trong tháng</PageTitle>
-                    <StatisticalTopSellers /> */}
+              <PageTitle>Top sản phẩm bán chạy</PageTitle>
+              {/* <StatisticalTopSellers /> */}
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import * as types from '../constants/users'
 const initialState = {
   token: null,
   userDatas: [],
+  notificationsCount: 0,
 }
 // const initialState = {
 //   userDatas: [],
@@ -32,10 +33,6 @@ const UserReducer = (state = initialState, action) => {
         // notificationsCount: action.payload.data,
       }
     case types.LOGGIN_IN_USER:
-      console.log(
-        'action.payloadaction.payloadaction.payloadaction.payloadaction.payload',
-        action.payload
-      )
       // case types.LOGGIN_IN_USER_SUCCESS:
       // case types.CURRENT_USER_SUCCESS:
       // case types.NOTIFICATION_ORDER_SUCCESS:
@@ -45,6 +42,7 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         token: action.payload.token,
         userDatas: action.payload.userDatas,
+        notificationsCount: action.payload.notificationsCount,
       }
     case types.CURRENT_ADMIN_SUCCESS:
       return { ...state, isAdmin: true }

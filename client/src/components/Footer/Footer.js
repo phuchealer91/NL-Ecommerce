@@ -4,23 +4,9 @@ function Footer() {
     <React.Fragment>
       {/* hidden */}
       <footer className="mt-16">
-        <div className="w-full bg-blue-500 h-14 flex items-center  md:flex">
+        <div className="w-full bg-blue-600 h-1 flex items-center  md:flex">
           <div className="container px-4 mx-auto sm:px-6 lg:px-11">
             <div className="flex items-center justify-between">
-              <p className="uppercase text-base font-medium text-white">
-                Liên hệ với chúng tôi
-              </p>
-              <form action className="w-2/4">
-                <input
-                  type="text"
-                  name
-                  placeholder="Enter your e-mail"
-                  className="w-4/5 h-9 rounded-l px-3 py-1 contact-input"
-                />
-                <button className="btn-secondary text-white text-center -m-1 uppercase rounded-r">
-                  Gửi
-                </button>
-              </form>
               <ul className="flex items-center">
                 <li className="mr-5">
                   <a href className="text-white">

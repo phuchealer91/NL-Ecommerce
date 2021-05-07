@@ -13,6 +13,15 @@ export const updatedOrderStatus = (orderId, orderStatus) => {
     orderStatus,
   })
 }
+export const updatedOrderCancelStatus = (orderId, orderStatus) => {
+  return axiosServices.put(`/${PATHS.ORDER}/order-cancel-status`, {
+    orderId,
+    orderStatus,
+  })
+}
+export const removeOrders = (orderId) => {
+  return axiosServices.post(`/${PATHS.ORDER}/remove-order`, orderId)
+}
 export const StatisticalOrders = (data) => {
   return axiosServices.post(`/${PATHS.ORDER}/order-by-date`, data)
 }

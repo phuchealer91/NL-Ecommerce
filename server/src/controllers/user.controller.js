@@ -76,7 +76,7 @@ module.exports.applyCouponToCart = async (req, res) => {
   try {
     const validateCoupon = await Coupon.findOne({
       name: coupons,
-      expiry: { $gt: new ISODate() },
+      // expiry: { $gt: new ISODate() },
     }).exec()
     if (validateCoupon === null) {
       return res.status(400).json({ Error: 'Invalid Coupon !' })

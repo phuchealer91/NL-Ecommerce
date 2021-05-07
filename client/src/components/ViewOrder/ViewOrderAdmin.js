@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { updatedOrderStatus } from '../../apis/order'
+import { updatedOrderCancelStatus, updatedOrderStatus } from '../../apis/order'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { formatPrice } from '../../helpers/formatPrice'
 ViewOrderAdmin.propTypes = {}
@@ -26,6 +26,18 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
         toast.error('Cập nhật trạng thái đơn hàng thất bại')
       })
   }
+  function onHandleBackOrder(orderId) {
+    updatedOrderCancelStatus(orderId, 'Đang chờ xác nhận')
+      .then((res) => {
+        if (res.data) {
+          toast.success('Khôi phục lại đơn hàng thành công')
+          loadAllOrders()
+        }
+      })
+      .catch((error) => {
+        toast.error('Đặt lại đơn hàng thất bại')
+      })
+  }
   return (
     <div className="px-4 pb-8 bg-white rounded">
       <div className="uppercase pb-1 text-gray-700 font-semibold  border-solid">
@@ -33,20 +45,29 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
       </div>
       <div className="bg-white rounded my-3">
         <div className="flex items-center justify-between">
-          <Select
-            defaultValue={order?.orderStatus}
-            onChange={(e) => handleChange(order._id, e)}
-            className="border-green-600 border-dashed border w-2/6"
-            size="middle"
-          >
-            {arrStatus.map((arr) => {
-              return (
-                <Option key={arr} value={arr}>
-                  {arr.toUpperCase()}
-                </Option>
-              )
-            })}
-          </Select>
+          {order?.orderStatus === 'Hủy' ? (
+            <button
+              onClick={() => onHandleBackOrder(order._id)}
+              className="bg-blue-500 hover:bg-white text-white font-semibold hover:text-blue-500 py-2 px-4 hover:border border-solid border-blue-500 rounded"
+            >
+              Khôi phục lại đơn hàng đã hủy
+            </button>
+          ) : (
+            <Select
+              defaultValue={order?.orderStatus}
+              onChange={(e) => handleChange(order._id, e)}
+              className="border-green-600 border-dashed border w-2/6"
+              size="middle"
+            >
+              {arrStatus.map((arr) => {
+                return (
+                  <Option key={arr} value={arr}>
+                    {arr.toUpperCase()}
+                  </Option>
+                )
+              })}
+            </Select>
+          )}
         </div>
 
         {/* <Tag color="warning">{

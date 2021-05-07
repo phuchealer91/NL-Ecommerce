@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Tag } from 'antd'
-import { EyeOutlined } from '@ant-design/icons'
+import { Button, Tag } from 'antd'
+import { DeleteOutlined, EyeOutlined } from '@ant-design/icons'
 import { formatPrice } from '../../helpers/formatPrice'
 import ViewOrder from './ViewOrder'
 import Modal from 'antd/lib/modal/Modal'
 import ViewOrderAdmin from './ViewOrderAdmin'
+import { ModalConfirm } from '../ModalConfirm'
+import { toast } from 'react-toastify'
+import { removeOrders } from '../../apis/order'
 
 TableOrderAdmin.propTypes = {}
 
 function TableOrderAdmin({ order, loadAllOrders }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [orderIds, setOrderId] = useState('')
 
   const showModal = () => {
     setIsModalVisible(true)
@@ -19,13 +24,38 @@ function TableOrderAdmin({ order, loadAllOrders }) {
   const handleOk = () => {
     setIsModalVisible(false)
   }
+  const closeModal = () => {
+    setIsVisible(false)
+  }
 
   const handleCancel = () => {
     setIsModalVisible(false)
   }
-
+  function onHandleDelete(orderId) {
+    setIsVisible(true)
+    setOrderId(orderId)
+  }
+  function onHandleDeleteItem() {
+    removeOrders({ orderId: orderIds, orderStatus: order.orderStatus })
+      .then((res) => {
+        toast.success(`Xóa đơn hàng thành công`)
+        loadAllOrders()
+        setIsVisible(false)
+      })
+      .catch((err) => {
+        toast.error('Xóa đơn hàng thất bại')
+        setIsVisible(false)
+      })
+  }
   return (
     <>
+      <ModalConfirm
+        showModal={isVisible}
+        closeModal={closeModal}
+        onHandleDeleteItem={onHandleDeleteItem}
+        title="đơn hàng"
+        categoryToDelete=""
+      />
       <tbody className="text-gray-600 text-sm font-light">
         <tr className="border-b border-gray-200 hover:bg-gray-100">
           <td className="py-3 px-6 text-left whitespace-nowrap">
@@ -65,11 +95,20 @@ function TableOrderAdmin({ order, loadAllOrders }) {
             )}
           </td>
           <td className="py-3 px-6 text-center">
-            <div
-              className="flex item-center justify-center cursor-pointer"
-              onClick={showModal}
-            >
-              <EyeOutlined className="cursor-pointer" />
+            <div className="flex item-center justify-between">
+              <EyeOutlined
+                onClick={showModal}
+                className="cursor-pointer mr-2"
+              />
+              <Button
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
+                onClick={() => onHandleDelete(order._id)}
+                className="rounded"
+              >
+                Xóa
+              </Button>
             </div>
           </td>
         </tr>

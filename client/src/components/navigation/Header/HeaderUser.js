@@ -174,7 +174,9 @@ const HeaderUser = () => {
                           <Link to="/user/history">Trang chủ</Link>
                         </Item>
                         <Item icon={<UserOutlined />}>
-                          <Link to="/user/history">Thông tin cá nhân</Link>
+                          <Link to={`/community/profile/${user.userDatas._id}`}>
+                            Thông tin cá nhân
+                          </Link>
                         </Item>
                         <Item icon={<LogoutOutlined />} onClick={logout}>
                           Đăng xuất

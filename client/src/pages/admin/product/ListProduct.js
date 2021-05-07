@@ -66,10 +66,11 @@ const ListProduct = () => {
     products?.filter(searched(keyword)).map((item) => ({
       Id: item._id.substring(0, 10),
       Title: item.title,
-      Slug: item.slug,
+      Sold: item.sold,
       Price: item.price,
       Author: item.author,
       Image: item.images[0] ? item.images[0].url : imageDefault,
+      Quantity: item.quantity,
     }))
   const columns = [
     {
@@ -83,9 +84,14 @@ const ListProduct = () => {
       key: 'title',
     },
     {
-      title: 'Viết Tắt',
-      dataIndex: 'Slug',
-      key: 'slug',
+      title: 'Đã bán',
+      dataIndex: 'Sold',
+      key: 'sold',
+    },
+    {
+      title: 'Số lượng',
+      dataIndex: 'Quantity',
+      key: 'quantity',
     },
     {
       title: 'Giá',

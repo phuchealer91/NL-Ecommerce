@@ -97,9 +97,9 @@ const ListShoppingCart = ({ cartLists }) => {
       />
       <div className="flex flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
         <div className="lg:w-2/3 pr-6">
-          <div className="pt-8 bg-white rounded">
+          <div className="pt-8 bg-white  rounded">
             {!cartLists.length ? (
-              <div className="shopping__wrap">
+              <div className="flex items-center justify-center">
                 <EmptyCart />
                 <Link to="/shop">Tiếp tục mua hàng</Link>{' '}
               </div>
@@ -146,6 +146,7 @@ const ListShoppingCart = ({ cartLists }) => {
                         <InputNumber
                           size="middle"
                           min={1}
+                          // max={item.quantity + 1}
                           defaultValue={1}
                           onChange={(count) => {
                             let countX = count < 1 ? 1 : count
@@ -153,6 +154,7 @@ const ListShoppingCart = ({ cartLists }) => {
                             if (count && item.quantity > 0) {
                               if (count > item.quantity) {
                                 setIsCheck(true)
+
                                 setTimeout(() => {
                                   return toast.warning(
                                     `Sản phẩm chỉ còn: ${item.quantity} `
@@ -220,13 +222,13 @@ const ListShoppingCart = ({ cartLists }) => {
                   >
                     Thanh Toán
                   </button>
-                  <button
+                  {/* <button
                     onClick={onHandleCheckOut}
                     disabled={!cartLists.length}
                     className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5 mt-2"
                   >
                     Thanh Toán Tiền Mặt
-                  </button>
+                  </button> */}
                 </>
               ) : (
                 <Link

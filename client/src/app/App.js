@@ -70,6 +70,7 @@ export default function App() {
               const data = {
                 token: idTokenUser.token,
                 userDatas: res.data,
+                notificationsCount: res.data.notifications.newNotifications,
               }
               dispatch({
                 type: 'LOGGIN_IN_USER',

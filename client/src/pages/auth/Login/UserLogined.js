@@ -60,8 +60,8 @@ const UserLogined = (props) => {
     },
     [props]
   )
-  const userData = useSelector((state) => state.user)
-  const { notificationsCount, userDatas } = userData
+  const { user } = useSelector((state) => state)
+  const { notificationsCount, userDatas } = user
 
   // useEffect(() => {
   //   setNotifyCount(notificationsCount)
@@ -70,7 +70,7 @@ const UserLogined = (props) => {
   useEffect(() => {
     const socket = OpenSocket('http://localhost:8000', {
       auth: {
-        userId: userData._id,
+        userId: userDatas._id,
       },
     })
     socket.on('create order', (orderUser) => {

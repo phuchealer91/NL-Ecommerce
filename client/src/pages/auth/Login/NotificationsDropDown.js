@@ -21,7 +21,7 @@ export default function NotificationsDropDown(props) {
   return (
     <List
       className={props.className}
-      dataSource={props.notifications}
+      dataSource={props.notifications.slice(0, 5)}
       renderItem={(notify, index) => {
         let title
         let url = '/'
@@ -51,6 +51,7 @@ export default function NotificationsDropDown(props) {
         )
       }}
       footer={props.footer}
+      header={props.header}
     >
       {props.loading &&
         [1, 2, 3, 4].map((ske) => (

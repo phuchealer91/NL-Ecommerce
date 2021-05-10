@@ -48,7 +48,7 @@ function InventoryWareHouseList(props) {
             Danh sách các sản phẩm tồn kho{' '}
             <span className="font-semibold">({totalProducts})</span>
           </h3>
-          <div className="bg-white shadow-md rounded mx-auto">
+          <div className="bg-white shadow-md rounded mx-auto overflow-x-auto">
             <table className=" w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 text-xs leading-normal">

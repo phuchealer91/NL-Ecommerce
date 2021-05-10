@@ -150,7 +150,10 @@ const UserLogined = (props) => {
       <div className="notify-btn">
         <Button type="link" size="large" onClick={openNotificationsDropdown}>
           <Badge count={notificationsCount}>
-            <BellOutlined className="notify-button" style={{ color: '#333' }} />
+            <BellOutlined
+              className="notify-button"
+              style={{ color: '#888', fontSize: '24px' }}
+            />
           </Badge>
         </Button>
         {visibleNoti && (
@@ -161,6 +164,9 @@ const UserLogined = (props) => {
             setVisibleNoti={setVisibleNoti}
             markAsReadHandler={markAsReadHandler}
             className="notifications-dropdown"
+            header={
+              <span className="px-4 font-semibold">Thông báo đơn hàng</span>
+            }
             footer={<Link to="/thong-bao">Tất cả thông báo</Link>}
           />
         )}

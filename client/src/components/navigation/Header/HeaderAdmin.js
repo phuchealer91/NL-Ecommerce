@@ -1,4 +1,5 @@
 import {
+  DownOutlined,
   HomeOutlined,
   LogoutOutlined,
   SettingOutlined,
@@ -6,7 +7,7 @@ import {
   UserAddOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Badge, Menu } from 'antd'
+import { Badge, Dropdown, Menu } from 'antd'
 import React, { useState } from 'react'
 // import './HeaderAdmin.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,9 +32,7 @@ const HeaderAdmin = () => {
   const dispatch = useDispatch()
   let { user, cart } = useSelector((state) => state)
   let { cartLists } = cart
-  function handleClick(e) {
-    setCurrent(e.key)
-  }
+
   function logout() {
     auth.signOut()
     localStorage.removeItem(TOKEN)
@@ -46,59 +45,43 @@ const HeaderAdmin = () => {
       <header className="header  bg-white ">
         <div className="desktop-header hidden lg:block ">
           <div className="container mx-auto px-11 py-2">
-            <nav className="nav flex items-center  relative">
+            <nav className="nav flex items-center justify-end">
               <div>
                 {' '}
                 <UserLogined />
               </div>
-              <div className="right-0 absolute">
-                <Menu
-                  onClick={handleClick}
-                  selectedKeys={[current]}
-                  mode="horizontal"
-                  className="nav"
-                >
-                  {/* <Item className="nav__login">
-                    <Searchs />
-                  </Item> */}
-                  {user && user.token ? (
-                    <SubMenu
-                      key="SubMenu"
-                      icon={() => <img src={user.userDatas.photoURL} />}
-                      title={
-                        user && user.userDatas.name ? user.userDatas.name : ''
-                      }
-                      className="nav__user"
-                    >
-                      <Item icon={<HomeOutlined />}>
-                        <Link to="/admin/dashboard">Trang chủ</Link>
-                      </Item>
-                      <Item icon={<LogoutOutlined />} onClick={logout}>
-                        Đăng xuất
-                      </Item>
-                    </SubMenu>
-                  ) : null}
-
-                  {user && !user.token ? (
-                    <Item>
-                      <Item
-                        key="login"
-                        icon={<UserOutlined />}
-                        className="nav__login"
-                      >
-                        <Link to="/login">Đăng nhập</Link>
-                      </Item>
-                      <Item
-                        key="register"
-                        icon={<UserAddOutlined />}
-                        className="nav__register"
-                      >
-                        <Link to="/register">Đăng ký</Link>
-                      </Item>
+              <Dropdown
+                overlay={
+                  <Menu>
+                    <Item icon={<HomeOutlined />}>
+                      <Link to="/admin/dashboard" className="py-2 px-3">
+                        Trang chủ
+                      </Link>
                     </Item>
-                  ) : null}
-                </Menu>
-              </div>
+                    <Item icon={<LogoutOutlined />} onClick={logout}>
+                      <span className="py-2 px-3">Đăng xuất</span>
+                    </Item>
+                  </Menu>
+                }
+                trigger={['click']}
+              >
+                <button className="cursor-pointer flex items-center">
+                  <img
+                    className="w-8 h-8 rounded-full mr-2"
+                    src={user?.userDatas?.photoURL}
+                    width={32}
+                    height={32}
+                    alt="User"
+                  />
+                  <div className="flex items-center">
+                    {' '}
+                    <span className="pr-2 text-gray-600 font-semibold">
+                      {user && user.userDatas.name}
+                    </span>{' '}
+                    <DownOutlined style={{ fontSize: '14px' }} />
+                  </div>
+                </button>
+              </Dropdown>
             </nav>
           </div>
         </div>

@@ -77,15 +77,12 @@ const CreateCategory = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="rounded mr-1">
+          <Button type="primary" className="rounded mr-1 mb-1">
             <Link
               to={`/admin/category/${record.Slug}`}
               className="category__edit"
             >
-              <span className="category__icon">
-                <EditOutlined />
-              </span>
-              Sửa
+              <EditOutlined />
             </Link>
           </Button>
           <Button
@@ -96,9 +93,7 @@ const CreateCategory = () => {
               onHandleDelete(record.Slug, e)
             }}
             className="rounded"
-          >
-            Xóa
-          </Button>
+          ></Button>
         </>
       ),
     },
@@ -134,6 +129,8 @@ const CreateCategory = () => {
             bordered
             className="rounded"
             pagination={{ position: ['bottomCenter'] }}
+            scroll={{ x: '374px' }}
+            sticky
           />
         </div>
       </Layouts>

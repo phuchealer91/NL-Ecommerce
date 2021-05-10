@@ -38,7 +38,7 @@ function OrdersList(props) {
             Danh sách các đơn hàng{' '}
             <span className="font-semibold">({ordersTotal})</span>
           </h3>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 overflow-x-auto">
             <table className=" w-full table-auto text-center ">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">

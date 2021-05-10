@@ -84,14 +84,14 @@ function DashBoard(props) {
           <StatisticalOrder />
           <PageTitle>Thống kê trạng thái đơn hàng</PageTitle>
           <StatisticalOrderStatus />
-          <div className="grid gap-4 mb-8 grid-cols-3">
-            <div className="col-span-2">
+          <div className="grid gap-4 mb-8 grid-cols-1 md:grid-cols-3">
+            <div className="md:col-span-2">
               <PageTitle>Danh sách đơn hàng mới</PageTitle>
               <StatisticalNewOrder />
               <PageTitle>Top sản phẩm đã bán trong tháng</PageTitle>
               <StatisticalTopSellers />
             </div>
-            <div>
+            <div className="">
               <PageTitle>Top sản phẩm bán chạy</PageTitle>
               {/* <StatisticalTopSellers /> */}
             </div>

@@ -9,6 +9,9 @@
   width: 150px;
   float: left;
 }
+img {
+  max-width: none;
+}
 
 .logo a {
   display: inline-block;

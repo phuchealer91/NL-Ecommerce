@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 const initialState = {
   listProducts: [],
   listAllProducts: [],
-  productEditing: null,
+  // productEditing: null,
   productRelated: [],
   isLoading: true,
   totalProducts: 0,
@@ -44,11 +44,11 @@ const productReducer = (state = initialState, action) => {
     //     ...state,
     //     listCategories: action.payload.data.categories,
     //   }
-    case types.GET_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        productEditing: action.payload.data.product,
-      }
+    // case types.GET_PRODUCT_SUCCESS:
+    //   return {
+    //     ...state,
+    //     productEditing: action.payload.data.product,
+    //   }
     case types.GET_RELATED_SUCCESS:
       return {
         ...state,

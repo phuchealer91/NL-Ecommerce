@@ -2,23 +2,32 @@ import { Col, Divider, Rate, Row, Tabs } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useRouteMatch } from 'react-router-dom'
+import { getProduct } from '../../apis/product'
 import { CardItem } from '../../components/CardItem'
 import LoadingCard from '../../components/LoadingCard'
 import { SingleProduct } from '../../components/SingleProduct'
+import SingleProductZoom from '../../components/SingleProduct/SingleProductZoom'
 import { EmptyBox } from '../../helpers/icons'
-import { getProduct, getRelated } from '../../redux/actions/product'
+import { getRelated } from '../../redux/actions/product'
 import './Product.scss'
 const { TabPane } = Tabs
 function Product(props) {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
-  const { productEditing, productRelated, reviews } = useSelector(
-    (state) => state.product
-  )
+  const [productEditing, setProductEditing] = useState()
+  const { productRelated, reviews } = useSelector((state) => state.product)
   const { slug } = useRouteMatch().params
+  console.log('slug', slug)
   useEffect(() => {
-    dispatch(getProduct(slug))
-  }, [dispatch, reviews, slug])
+    loadProduct()
+  }, [])
+  const loadProduct = () => {
+    getProduct(slug).then((res) => {
+      if (res.data) {
+        setProductEditing(res.data.product)
+      }
+    })
+  }
   useEffect(() => {
     setIsLoading(true)
     if (productEditing && productEditing._id) {
@@ -26,11 +35,17 @@ function Product(props) {
       setIsLoading(false)
     }
   }, [dispatch, productEditing])
+  console.log(
+    'productEditingproductEditingproductEditingproductEditing',
+    productEditing
+  )
   return (
     <React.Fragment>
       <div className="block w-full ">
         <div className="mx-4 my-4 ">
-          <SingleProduct productEditing={productEditing} />
+          {productEditing && (
+            <SingleProductZoom productEditing={productEditing} />
+          )}
         </div>
         <div className="mx-4 my-4 rounded rounded-b-none rounded-l-none">
           <div className="px-4 py-4 bg-white">
@@ -115,7 +130,14 @@ function Product(props) {
                     </tbody>
                   </table>
                 </div>
-                {productEditing?.description && productEditing?.description}
+                <div className="px-4 my-2">
+                  <div className="text-base text-gray-600 font-semibold pb-2">
+                    Thông tin ngắn về sách
+                  </div>
+                  <p>
+                    {productEditing?.description && productEditing?.description}
+                  </p>
+                </div>
               </TabPane>
               <TabPane
                 tab={`Khách hàng nhận xét (${productEditing?.reviews.length})`}

@@ -4,7 +4,6 @@ import { formatPrice } from '../../../../helpers/formatPrice'
 TableOutWarehouse.propTypes = {}
 
 function TableOutWarehouse({ order }) {
-  console.log('hello order', order)
   return (
     <>
       {order &&
@@ -44,7 +43,7 @@ function TableOutWarehouse({ order }) {
               </td>
               <td className="py-3 px-6 text-center">
                 <span>
-                  <Tag color="green">Đã bàn giao</Tag>
+                  <Tag color="green-inverse">Đã bàn giao</Tag>
                 </span>
               </td>
               <td className="py-3 px-6 text-center">

@@ -31,6 +31,11 @@ function OutWareHouseList(props) {
       return curr + next.paymentIntent.amount
     }, 0)
   }
+  function getTotalOutWare() {
+    return ordersCompleted.reduce((curr, next) => {
+      return curr + next.products.length
+    }, 0)
+  }
   return (
     <div>
       <Layouts>
@@ -39,23 +44,23 @@ function OutWareHouseList(props) {
           <h3 className="text-sm text-gray-600 my-4">
             {' '}
             Danh sách các sản phẩm bán ra{' '}
-            <span className="font-semibold">({ordersCompleted.length})</span>
+            <span className="font-semibold">({getTotalOutWare()})</span>
           </h3>
-          <div className="bg-white shadow-md rounded mx-auto">
+          <div className="bg-white shadow-md rounded mx-auto overflow-x-auto">
             <table className=" w-full table-auto">
               <thead>
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Mã sản phẩm</th>
-                  <th className="py-3 px-6 text-left">Tên sản phẩm</th>
-                  <th className="py-3 px-6 text-center">Số lượng</th>
-                  <th className="py-3 px-6 text-center">Tổng tiền</th>
-                  <th className="py-3 px-6 text-center">Trạng thái</th>
-                  <th className="py-3 px-6 text-center">Ngày mua</th>
+                <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
+                  <th className="py-3 px-4 text-left">Mã sản phẩm</th>
+                  <th className="py-3 px-4 text-left">Tên sản phẩm</th>
+                  <th className="py-3 px-4 text-left">Số lượng</th>
+                  <th className="py-3 px-4 text-left">Tổng tiền</th>
+                  <th className="py-3 px-4 text-left">Trạng thái</th>
+                  <th className="py-3 px-4 text-left">Ngày mua</th>
                 </tr>
               </thead>
               {ordersCompleted &&
-                ordersCompleted.map((order) => {
-                  return <TableOutWarehouse key={order._id} order={order} />
+                ordersCompleted.map((order, idx) => {
+                  return <TableOutWarehouse key={idx} order={order} />
                 })}
             </table>
             <div className="py-4 px-4 text-gray-600  text-base">

@@ -112,15 +112,12 @@ const CreateAuthor = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="rounded mr-1">
+          <Button type="primary" className="rounded mr-1 mb-1">
             <Link
               to={`/admin/author/${record.Slug}`}
               className="category__edit"
             >
-              <span className="category__icon">
-                <EditOutlined />
-              </span>
-              Sửa
+              <EditOutlined />
             </Link>
           </Button>
           <Button
@@ -130,10 +127,8 @@ const CreateAuthor = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
-            className="rounded"
-          >
-            Xóa
-          </Button>
+            className="rounded mb-1"
+          ></Button>
         </>
       ),
     },
@@ -189,6 +184,8 @@ const CreateAuthor = () => {
             bordered
             className="rounded"
             pagination={{ position: ['bottomCenter'] }}
+            scroll={{ x: '374px' }}
+            sticky
           />
         </div>
       </Layouts>

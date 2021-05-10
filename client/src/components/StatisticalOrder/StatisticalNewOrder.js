@@ -37,7 +37,7 @@ function StatisticalNewOrder(props) {
     <>
       <div className="my-4 flex justify-center">
         <div className="w-full">
-          <div className="bg-white shadow-md rounded my-4">
+          <div className="bg-white shadow-md rounded my-4 overflow-x-auto">
             <table className=" w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">

@@ -106,9 +106,7 @@ function TableOrderAdmin({ order, loadAllOrders }) {
                 icon={<DeleteOutlined />}
                 onClick={() => onHandleDelete(order._id)}
                 className="rounded"
-              >
-                Xóa
-              </Button>
+              ></Button>
             </div>
           </td>
         </tr>

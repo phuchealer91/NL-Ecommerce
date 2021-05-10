@@ -66,31 +66,34 @@ function StatisticalOrderStatus(props) {
   }
   return (
     <>
-      <div className="my-6 flex justify-center">
-        {/* <ResponsiveContainer width="100%" height="100%" className="py-4"> */}
-        <PieChart width={400} height={400}>
-          <Pie
-            data={orderStatus}
-            cx="50%"
-            cy="50%"
-            // labelLine={true}
-            label={renderCustomizedLabel}
-            // outerRadius={80}
-            fill="#8884d8"
-            dataKey="count"
-            nameKey="_id"
-          >
-            {orderStatus.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-        {/* </ResponsiveContainer> */}
+      <div
+        className="flex justify-center"
+        style={{ width: '100%', height: '400px' }}
+      >
+        <ResponsiveContainer>
+          <PieChart>
+            <Pie
+              data={orderStatus}
+              cx="50%"
+              cy="50%"
+              // labelLine={true}
+              label={renderCustomizedLabel}
+              // outerRadius={80}
+              fill="#8884d8"
+              dataKey="count"
+              nameKey="_id"
+            >
+              {orderStatus.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
     </>
   )

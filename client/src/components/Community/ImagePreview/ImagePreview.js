@@ -36,23 +36,17 @@ export const ImagePreviewList = ({ data }) => {
       <Image.PreviewGroup>
         {data &&
           data.map((cover, idx) => (
-            <Image
-              src={cover.url}
-              alt={cover.url}
-              preview={true}
-              className="px-3"
-              placeholder="Xem chi tiết"
-              width={
-                data.length === 1
-                  ? '100%'
-                  : data.length === 2
-                  ? '50%'
-                  : data.length === 3
-                  ? '33.33%'
-                  : '25%'
-              }
-              key={idx}
-            />
+            <div className="flex flex-col items-center">
+              <Image
+                src={cover.url}
+                alt={cover.url}
+                preview={true}
+                className="px-3 py-3"
+                placeholder="Xem chi tiết"
+                width="100%"
+                key={idx}
+              />
+            </div>
           ))}
       </Image.PreviewGroup>
     </div>

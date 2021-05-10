@@ -162,7 +162,7 @@ export function* watchProduct() {
   yield takeEvery(types.CREATE_PRODUCT, createProductss)
   yield takeEvery(types.GET_ALL_PRODUCT, getListAllProductss)
   yield takeEvery(types.GET_PRODUCTS, getListProductsss)
-  yield takeEvery(types.GET_PRODUCT, getProducts)
+  // yield takeEvery(types.GET_PRODUCT, getProducts)
   yield takeEvery(types.GET_RELATED, getRelateds)
   yield takeEvery(types.GET_PRODUCT_COUNT, getProductsCountss)
   yield takeEvery(types.DELETE_PRODUCT, deleteProductss)

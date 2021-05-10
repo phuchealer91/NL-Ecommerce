@@ -110,7 +110,6 @@ const CreateCoupon = () => {
             className="flex items-center rounded"
           >
             <DeleteOutlined />
-            <span> Xóa</span>
           </Button>
         </>
       ),
@@ -148,6 +147,8 @@ const CreateCoupon = () => {
             bordered
             className="rounded"
             pagination={{ position: ['bottomCenter'] }}
+            scroll={{ x: '374px' }}
+            sticky
           />
         </div>
       </Layouts>

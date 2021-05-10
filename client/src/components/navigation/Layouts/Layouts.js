@@ -19,7 +19,7 @@ export const Layouts = ({ children }) => {
         </div>
         <HeaderAdmin />
         <div className=" h-full overflow-y-auto">
-          <div className=" container px-6 mx-auto grid">{children}</div>
+          <div className=" container px-6 mx-auto">{children}</div>
         </div>
       </div>
     </div>

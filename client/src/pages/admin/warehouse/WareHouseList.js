@@ -41,7 +41,7 @@ function WareHouseList(props) {
               Nhập hàng
             </Link>
           </h3>
-          <div className="bg-white shadow-md rounded mx-auto">
+          <div className="bg-white shadow-md rounded mx-auto overflow-x-auto">
             <table className=" w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

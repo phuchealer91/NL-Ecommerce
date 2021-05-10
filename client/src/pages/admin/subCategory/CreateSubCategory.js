@@ -103,15 +103,12 @@ const CreateSubCategory = () => {
       width: '200px',
       render: (text, record) => (
         <>
-          <Button type="primary" className="rounded mr-1">
+          <Button type="primary" className="rounded mr-1 mb-1">
             <Link
               to={`/admin/sub-category/${record.Slug}`}
               className="sub__edit"
             >
-              <span className="sub__icon">
-                <EditOutlined />
-              </span>
-              Sửa
+              <EditOutlined />
             </Link>
           </Button>
           <Button
@@ -121,10 +118,8 @@ const CreateSubCategory = () => {
             onClick={(e) => {
               onHandleDelete(record.Slug, e)
             }}
-            className="rounded"
-          >
-            Xóa
-          </Button>
+            className="rounded mb-1"
+          ></Button>
         </>
       ),
     },
@@ -146,33 +141,30 @@ const CreateSubCategory = () => {
             Tạo mới danh mục sản phẩm
           </h3>
           <Form form={form} onFinish={onFinish}>
-            <div className="sub__form">
-              <div className="sub__select">
-                Chọn loại sản phẩm:{' '}
-                <Select
-                  showSearch
-                  style={{ width: 400, padding: '8px 0' }}
-                  placeholder="Chọn danh mục"
-                  optionFilterProp="children"
-                  onChange={onChange}
-                  onFocus={onFocus}
-                  onBlur={onBlur}
-                  onSearch={onSearch}
-                  filterOption={(input, option) =>
-                    option.children
-                      .toLowerCase()
-                      .indexOf(input.toLowerCase()) >= 0
-                  }
-                  className="rounded py-2 text-base"
-                >
-                  {categories.length > 0 &&
-                    categories.map((category) => (
-                      <Option key={category._id} value={category._id}>
-                        {category.name}
-                      </Option>
-                    ))}
-                </Select>
-              </div>
+            <div className="">
+              Chọn loại sản phẩm:{' '}
+              <Select
+                showSearch
+                style={{ padding: '8px 0' }}
+                placeholder="Chọn danh mục"
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+                className="rounded py-2 text-base w-72 md:w-96"
+              >
+                {categories.length > 0 &&
+                  categories.map((category) => (
+                    <Option key={category._id} value={category._id}>
+                      {category.name}
+                    </Option>
+                  ))}
+              </Select>
               <div className="pb-2">Chọn loại danh mục sản phẩm</div>
               <FormCategory />
             </div>
@@ -192,6 +184,8 @@ const CreateSubCategory = () => {
             bordered
             className="rounded"
             pagination={{ position: ['bottomCenter'] }}
+            scroll={{ x: '374px' }}
+            sticky
           />
         </div>
       </Layouts>

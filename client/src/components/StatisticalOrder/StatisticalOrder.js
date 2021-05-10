@@ -54,7 +54,7 @@ function StatisticalOrder(props) {
     })
   }
   return (
-    <div>
+    <div className="mb-3">
       <form onSubmit={onHandleSubmit}>
         <div className="my-3 flex items-end">
           <div className="mr-3 ">
@@ -97,9 +97,9 @@ function StatisticalOrder(props) {
           <Option value="year365">365 ngày qua</Option>
         </Select>
       </div>
-      <div className="my-6 ">
-        <ResponsiveContainer width="100%" height={400} className="py-3">
-          <ComposedChart data={orderFiters} className="py-3">
+      <div className="my-6" style={{ width: '100%', height: '400px' }}>
+        <ResponsiveContainer className="py-3">
+          <ComposedChart data={orderFiters}>
             <CartesianGrid strokeDasharray="3 3" />
 
             <XAxis dataKey="_id" type="category" />

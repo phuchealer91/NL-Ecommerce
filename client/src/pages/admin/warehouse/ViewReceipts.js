@@ -1,6 +1,5 @@
 import { CheckCircleOutlined } from '@ant-design/icons'
-import { Steps, Tag } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
 import { userReceiptAccepts } from '../../../apis/cart'

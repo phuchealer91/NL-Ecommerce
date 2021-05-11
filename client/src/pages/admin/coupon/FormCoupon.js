@@ -1,4 +1,4 @@
-import { BarcodeOutlined, TagOutlined } from '@ant-design/icons'
+import { BarcodeOutlined } from '@ant-design/icons'
 import { DatePicker, Form, Input, InputNumber } from 'antd'
 import Button from 'antd/lib/button'
 import React from 'react'

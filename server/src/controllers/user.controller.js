@@ -23,13 +23,17 @@ module.exports.userCart = async (req, res) => {
     obj.count = cart[i].count
 
     // Get price tu db tránh trường hợp sửa ở local (ko bảo mật)
-    let productById = await Product.findById(cart[i]._id).select('price').exec()
+    let productById = await Product.findById(cart[i]._id)
+      .select('price sale')
+      .exec()
     obj.price = productById.price
+    obj.sale = productById.sale
     products.push(obj)
   }
   let cartTotal = 0
   for (let i = 0; i < products.length; i++) {
-    cartTotal += products[i].price * products[i].count
+    cartTotal +=
+      ((products[i].price * (100 - products[i].sale)) / 100) * products[i].count
   }
   let newCart = await new Cart({
     products,
@@ -44,7 +48,7 @@ module.exports.getUserCart = async (req, res) => {
   const cart = await Cart.findOne({ orderedBy: user._id })
     .populate(
       'products.product',
-      '_id title slug price images totalAfterDiscount'
+      '_id title slug price sale images totalAfterDiscount'
     )
     .exec()
   const { products, cartTotal, totalAfterDiscount } = cart
@@ -83,7 +87,7 @@ module.exports.applyCouponToCart = async (req, res) => {
     }
     const user = await User.findOne({ email: req.user.email }).exec()
     let { products, cartTotal } = await Cart.findOne({ orderedBy: user._id })
-      .populate('products.product', '_id title price')
+      .populate('products.product', '_id title price sale')
       .exec()
     let totalAfterDiscount = Math.round(
       (cartTotal - (cartTotal * validateCoupon.discount) / 100).toFixed(2)
@@ -124,7 +128,7 @@ module.exports.createOrder = async (req, res) => {
       products,
       paymentIntent,
       deliveryAddress,
-      applyCoupon: applyCoupon._id,
+      applyCoupon: applyCoupon ? applyCoupon._id : null,
       orderedBy: user._id,
     }).save()
     // increment sold, decrement quantity

@@ -45,3 +45,8 @@ button:focus {
 svg {
   vertical-align: baseline;
 }
+
+img{
+  max-width: none;
+  width: 100%;
+}

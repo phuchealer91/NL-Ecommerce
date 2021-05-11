@@ -1,28 +1,14 @@
-import { TaobaoSquareFilled } from '@ant-design/icons'
-import { DatePicker, Select } from 'antd'
+import { Select } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 import {
-  Bar,
-  CartesianGrid,
   Cell,
-  ComposedChart,
-  LabelList,
   Legend,
   Pie,
   PieChart,
-  PolarAngleAxis,
-  PolarRadiusAxis,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
-  YAxis,
 } from 'recharts'
-import {
-  getTotalOrderStatusMonths,
-  StatisticalOrderFilters,
-  StatisticalOrders,
-} from '../../apis/order'
+import { getTotalOrderStatusMonths } from '../../apis/order'
 StatisticalOrderStatus.propTypes = {}
 const { Option } = Select
 

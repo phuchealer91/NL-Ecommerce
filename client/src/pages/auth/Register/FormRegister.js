@@ -1,6 +1,5 @@
 import { MailOutlined } from '@ant-design/icons'
 import { Form, Input } from 'antd'
-import Button from 'antd/lib/button'
 import React from 'react'
 import './Register.scss'
 const FormRegister = (props) => {
@@ -18,14 +17,13 @@ const FormRegister = (props) => {
           },
         ]}
         name="email"
+        label="Email"
       >
-        <Input placeholder="Nhập địa chỉ email" prefix={<MailOutlined />} />
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="form-submit-button">
-          Đăng ký
-        </Button>
+        <Input
+          placeholder="Nhập địa chỉ email"
+          prefix={<MailOutlined />}
+          className="rounded text-base"
+        />
       </Form.Item>
     </>
   )

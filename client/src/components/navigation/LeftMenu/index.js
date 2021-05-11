@@ -1,6 +1,6 @@
+import { CompassOutlined } from '@ant-design/icons'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { CompassOutlined } from '@ant-design/icons'
 function LeftMenu() {
   const homesx = (
     <svg

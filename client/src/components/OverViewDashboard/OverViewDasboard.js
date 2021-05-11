@@ -15,7 +15,6 @@ import {
   getTotalPriceYears,
 } from '../../apis/order'
 import { getProductsCounts } from '../../apis/product'
-import AdminSideBar from '../../components/navigation/SideBar/AdminSideBar'
 import { countTotalPrice } from '../../helpers/countTotalPrice'
 
 OverViewDashboard.propTypes = {}

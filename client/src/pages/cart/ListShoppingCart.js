@@ -8,7 +8,7 @@ import { userCarts } from '../../apis/cart'
 import imageDefault from '../../assets/images/default-image.jpg'
 import { EmptyCart } from '../../components/Empty'
 import { ModalConfirm } from '../../components/ModalConfirm'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 const ListShoppingCart = ({ cartLists }) => {
   const { user } = useSelector((state) => state)
@@ -72,7 +72,11 @@ const ListShoppingCart = ({ cartLists }) => {
   }
   function getTotal() {
     return cartLists.reduce((curr, next) => {
-      return curr + next.count * next.price
+      if (next.sale > 0) {
+        return curr + next.count * ((next.price * (100 - next.sale)) / 100)
+      } else {
+        return curr + next.count * next.price
+      }
     }, 0)
   }
   function onHandleCheckOut() {
@@ -129,9 +133,22 @@ const ListShoppingCart = ({ cartLists }) => {
                         >
                           {item.title}
                         </Link>
-                        <span className="pt-1 text-gray-700 font-semibold ">
-                          {formatPrice(item.price)}đ
-                        </span>
+                        <div className="my-1  ">
+                          {item.sale > 0 ? (
+                            <div className="flex items-center">
+                              <div className="mr-4 text-blue-600 text-base font-semibold">
+                                {formatPriceSale(item.price, item.sale)}đ
+                              </div>
+                              <div className=" text-gray-400 text-sm line-through">
+                                {formatPrice(item.price)}đ
+                              </div>{' '}
+                            </div>
+                          ) : (
+                            <div className="text-blue-600 text-base font-semibold">
+                              {formatPrice(item.price)}đ
+                            </div>
+                          )}
+                        </div>
                         <span
                           className="pt-1 text-blue-600 cursor-pointer hover:underline"
                           onClick={() => onHandleDelete(item?._id)}
@@ -188,7 +205,10 @@ const ListShoppingCart = ({ cartLists }) => {
                         <span className="text-xs text-gray-500">
                           Thành tiền:
                         </span>{' '}
-                        {formatPrice(item.price * item.count)}đ
+                        {item.sale > 0
+                          ? formatPriceSale(item.price * item.count, item.sale)
+                          : formatPrice(item.price * item.count)}
+                        đ
                       </div>
                     </div>
                   </div>

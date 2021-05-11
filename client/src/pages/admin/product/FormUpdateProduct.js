@@ -136,6 +136,24 @@ const FormCreateProduct = ({
           placeholder="Nhập số lượng của sản phẩm"
         />
       </Form.Item>
+      <Form.Item
+        rules={[
+          {
+            required: false,
+            message: 'Giảm giá không được để trống',
+          },
+        ]}
+        name="sale"
+        label="Giảm giá"
+      >
+        <Input
+          type="number"
+          min="1"
+          max="1000"
+          prefix={<TagOutlined />}
+          placeholder="Nhập số phần trăm giảm giá"
+        />
+      </Form.Item>
       <Form.Item label="Layout" name="layout">
         <Select
           showSearch
@@ -300,22 +318,6 @@ const FormCreateProduct = ({
         </Select>
       </Form.Item>
 
-      <Form.Item label="Shipping" name="shipping">
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="Chọn ship"
-          optionFilterProp="children"
-          onChange={onChange}
-          onSearch={onSearch}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        >
-          <Option value="Có">Có</Option>
-          <Option value="Không">Không</Option>
-        </Select>
-      </Form.Item>
       <Button htmlType="submit" type="primary" className="category__btn">
         Thêm
       </Button>

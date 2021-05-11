@@ -1,9 +1,8 @@
-import { Col, Form, Row, Select } from 'antd'
+import { Form, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Layouts } from '../../../components/navigation/Layouts/Layouts'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import { getCategories } from '../../../redux/actions/category'
 import {

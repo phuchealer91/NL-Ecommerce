@@ -2,7 +2,7 @@ import { Button, Drawer } from 'antd'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
 import { hideDrawer } from '../../redux/actions/ui'
 import './SidebarDrawer.scss'
 function SideDrawer(props) {
@@ -37,7 +37,10 @@ function SideDrawer(props) {
                 <div className="dra__content">
                   <h3 className="dra__content-name">{c.title}</h3>
                   <span className="text-blue-600 font-semibold">
-                    {formatPrice(c.price)}đ
+                    {c.sale > 0
+                      ? formatPriceSale(c.price * c.count, c.sale)
+                      : formatPrice(c.price * c.count)}
+                    đ
                   </span>
                 </div>
               </div>

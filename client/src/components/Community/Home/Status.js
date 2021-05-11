@@ -1,10 +1,8 @@
 import { CloseOutlined } from '@ant-design/icons'
-import Modal from 'antd/lib/modal/Modal'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPosts, updatePosts } from '../../../redux/actions/post'
+import { createPosts } from '../../../redux/actions/post'
 import * as types from '../../../redux/constants/notify'
-import * as postTypes from '../../../redux/constants/post'
 function Status() {
   const { user, status } = useSelector((state) => state)
   const dispatch = useDispatch()

@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Button, Tag } from 'antd'
 import { DeleteOutlined, EyeOutlined } from '@ant-design/icons'
-import { formatPrice } from '../../helpers/formatPrice'
-import ViewOrder from './ViewOrder'
+import { Button, Tag } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
-import ViewOrderAdmin from './ViewOrderAdmin'
-import { ModalConfirm } from '../ModalConfirm'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { removeOrders } from '../../apis/order'
+import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
+import { ModalConfirm } from '../ModalConfirm'
+import ViewOrderAdmin from './ViewOrderAdmin'
 
 TableOrderAdmin.propTypes = {}
 
@@ -76,7 +74,9 @@ function TableOrderAdmin({ order, loadAllOrders }) {
             </ul>
           </td>
           <td className="py-3 px-6 text-center">
-            <div className="">{formatPrice(order?.paymentIntent?.amount)}đ</div>
+            <div className="">
+              {formatPriceReal(order?.paymentIntent?.amount)}đ
+            </div>
           </td>
           <td className="py-3 px-6 text-center">
             <span className="">

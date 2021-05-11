@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Avatar, Button, Col, Row, Table } from 'antd'
+import { Avatar, Button, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -8,7 +8,6 @@ import imageDefault from '../../../assets/images/default-image.jpg'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { Layouts } from '../../../components/navigation/Layouts/Layouts'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import './Product.scss'
 
@@ -68,6 +67,7 @@ const ListProduct = () => {
       Title: item.title,
       Sold: item.sold,
       Price: item.price,
+      Sale: item.sale,
       Author: item.author,
       Image: item.images[0] ? item.images[0].url : imageDefault,
       Quantity: item.quantity,
@@ -99,6 +99,11 @@ const ListProduct = () => {
       key: 'price',
     },
     {
+      title: 'Giảm giá',
+      dataIndex: 'Sale',
+      key: 'sale',
+    },
+    {
       title: 'Hình ảnh',
       dataIndex: 'Image',
       key: 'image',
@@ -125,10 +130,7 @@ const ListProduct = () => {
         <>
           <Button type="primary" className="rounded mr-1">
             <Link to={`/admin/product/${record.Slug}`} className="sub__edit">
-              <span className="product__icon">
-                <EditOutlined />
-              </span>
-              Sửa
+              <EditOutlined />
             </Link>
           </Button>
           <Button
@@ -139,9 +141,7 @@ const ListProduct = () => {
               onHandleDelete(record.Slug, e)
             }}
             className="rounded"
-          >
-            Xóa
-          </Button>
+          ></Button>
         </>
       ),
     },

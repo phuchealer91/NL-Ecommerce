@@ -1,12 +1,11 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Button, Col, Form, Row, Select, Table } from 'antd'
+import { Button, Form, Select, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { SearchItem } from '../../../components/LocalSearch'
 import { ModalConfirm } from '../../../components/ModalConfirm'
 import { Layouts } from '../../../components/navigation/Layouts/Layouts'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import { getCategories } from '../../../redux/actions/category'
 import {

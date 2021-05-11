@@ -1,13 +1,10 @@
-import { Pagination, Spin, Steps } from 'antd'
+import { Pagination } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getOrders } from '../../../apis/order'
 import { Layouts } from '../../../components/navigation/Layouts/Layouts'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
 import Loading from '../../../components/Notify/Loading'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import TableOrderAdmin from '../../../components/ViewOrder/TableOrderAdmin'
-import ViewOrderAdmin from '../../../components/ViewOrder/ViewOrderAdmin'
-const { Step } = Steps
 function OrdersList(props) {
   const [orders, setOrders] = useState([])
   const [page, setPage] = useState(1)

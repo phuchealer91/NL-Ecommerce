@@ -1,11 +1,8 @@
 import { CheckCircleOutlined } from '@ant-design/icons'
-import { InputNumber, Steps, Tag } from 'antd'
+import { InputNumber } from 'antd'
 import moment from 'moment'
 import React, { useState } from 'react'
-import ModalImage from 'react-modal-image'
-import { Link } from 'react-router-dom'
-import { userReceiptAccepts, userReceiptTransactions } from '../../../apis/cart'
-import imageDefault from '../../../assets/images/default-image.jpg'
+import { userReceiptTransactions } from '../../../apis/cart'
 import { formatPrice } from '../../../helpers/formatPrice'
 ViewTransaction.propTypes = {}
 function ViewTransaction({ receipt, idx, loadUserReceipts }) {

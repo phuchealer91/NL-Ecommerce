@@ -12,7 +12,7 @@ const orderSchema = new schema(
     ],
     paymentIntent: {},
     deliveryAddress: {},
-    applyCoupon: { type: ObjectId, ref: 'Coupon' },
+    applyCoupon: { type: ObjectId, ref: 'Coupon', required: false },
     orderStatus: {
       type: String,
       default: 'Đang chờ xác nhận',

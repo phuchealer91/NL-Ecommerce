@@ -1,14 +1,6 @@
-import {
-  DownOutlined,
-  HomeOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  ShoppingCartOutlined,
-  UserAddOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
-import { Badge, Dropdown, Menu } from 'antd'
-import React, { useState } from 'react'
+import { DownOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons'
+import { Dropdown, Menu } from 'antd'
+import React from 'react'
 // import './HeaderAdmin.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
@@ -17,21 +9,12 @@ import UserLogined from '../../../pages/auth/Login/UserLogined'
 import { logoutInUser } from '../../../redux/actions/users'
 import { TOKEN } from '../../../redux/constants/keys'
 import PATHS from '../../../redux/constants/paths'
-import { Searchs } from '../../LocalSearch'
-import {
-  SubCategoryK,
-  SubCategoryN,
-  SubCategoryT,
-  SubCategoryV,
-} from '../../SubCategory/'
 
-const { SubMenu, Item } = Menu
+const { Item } = Menu
 const HeaderAdmin = () => {
-  const [current, setCurrent] = useState('home')
   const history = useHistory()
   const dispatch = useDispatch()
-  let { user, cart } = useSelector((state) => state)
-  let { cartLists } = cart
+  let { user } = useSelector((state) => state)
 
   function logout() {
     auth.signOut()

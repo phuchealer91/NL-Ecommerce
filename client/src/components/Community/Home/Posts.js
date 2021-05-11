@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import PostCard from '../PostCard/PostCard'
 
 function Posts() {
-  const { homePost, user } = useSelector((state) => state)
+  const { homePost } = useSelector((state) => state)
 
   return (
     <>

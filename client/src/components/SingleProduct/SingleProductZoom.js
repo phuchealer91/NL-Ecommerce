@@ -1,14 +1,12 @@
 import { HeartOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Form, Input, Rate, Tooltip } from 'antd'
 import _ from 'lodash'
-import React, { useCallback, useRef, useState } from 'react'
+import React from 'react'
 import 'react-image-lightbox/style.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
-import { config, useSpring } from 'react-spring/three'
-import { Canvas } from 'react-three-fiber'
+import { SideBySideMagnifier } from 'react-image-magnifiers'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useDrag } from 'react-use-gesture'
 import { addWishLists } from '../../apis/cart'
 import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
@@ -16,20 +14,8 @@ import { showDrawer } from '../../redux/actions/ui'
 import { ImagePreviewList } from '../Community/ImagePreview/ImagePreview'
 import ModalRating from '../ModalConfirm/ModalRating'
 import ShowRatings from '../Ratings/ShowRatings'
-import {
-  Magnifier,
-  GlassMagnifier,
-  SideBySideMagnifier,
-  PictureInPictureMagnifier,
-  MOUSE_ACTIVATION,
-  TOUCH_ACTIVATION,
-} from 'react-image-magnifiers'
 function SingleProductZoom({ productEditing }) {
   const dispatch = useDispatch()
-  const [photoIndex, setPhotoIndex] = useState(0)
-  const [isOpen, setIsOpen] = useState(false)
-  const dragDelta = useRef(0)
-  const history = useHistory()
 
   const {
     title,

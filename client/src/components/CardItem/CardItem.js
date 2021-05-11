@@ -12,12 +12,12 @@ import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { addWishLists } from '../../apis/cart'
 import imageDefault from '../../assets/images/mac-default.png'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { showDrawer } from '../../redux/actions/ui'
 import ShowRatings from '../Ratings/ShowRatings'
 function CardItem({ product }) {
-  const { title, price, slug, quantity } = product
+  const { title, price, slug, quantity, sale } = product
   const image = product.images[0].url
   const dispatch = useDispatch()
   const history = useHistory()
@@ -56,30 +56,48 @@ function CardItem({ product }) {
   }
   return (
     <>
-      <div className="relative p-4 shadow-lg">
+      <div className="relative p-4">
         <Link to={`/product/${slug}`} className="block">
           <img
             src={image ? image : imageDefault}
             alt={image}
-            className="product__item-image"
+            style={{
+              height: '220px',
+              width: '220px',
+              objectFit: 'cover',
+            }}
           />
         </Link>
 
-        <div className="product-item__footer bg-white text-center relative">
-          <p className=" font-light text-lg pt-4 text-gray-500">{title}</p>
-          <div className="star">
+        <div className="product-item__footer bg-white relative">
+          <p className="text-sm pt-4 text-gray-600 text-center">{title}</p>
+          <div className="star text-center">
             {product && product.reviews && product.reviews.length > 0 ? (
               <span style={{ fontSize: '14px' }}>{ShowRatings(product)}</span>
             ) : (
-              <span className="text-center py-1 block">
-                <Rate disabled style={{ fontSize: '20px' }} />
+              <span className="py-1 block">
+                <Rate disabled style={{ fontSize: '14px' }} />
+                <span className="text-gray-600 pl-2">(0 đánh giá)</span>
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-600 mt-1 ">
-            {product.description.substring(0, 30)}...
-          </span>
-          <p className="money mt-1 text-blue-600">{formatPrice(price)}đ</p>
+
+          <div className="my-1">
+            {sale > 0 ? (
+              <>
+                <div className="text-blue-600 text-base font-semibold">
+                  {formatPriceSale(price, sale)}đ
+                </div>
+                <div className="mt-1 text-gray-400 text-sm line-through">
+                  {formatPrice(price)}đ
+                </div>{' '}
+              </>
+            ) : (
+              <div className="text-blue-600 text-base font-semibold">
+                {formatPrice(price)}đ
+              </div>
+            )}
+          </div>
         </div>
         {/* hidden */}
         <div className="desktop__add-to-cart  xl:block ">

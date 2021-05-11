@@ -9,7 +9,7 @@ import { createOrders, emptyCarts } from '../../apis/cart'
 import { createPaymentIntents } from '../../apis/stripe'
 import CreditCard from '../../assets/images/credit-card.png'
 import logo from '../../assets/images/logo.png'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { appliedCoupon } from '../../redux/actions/coupon'
 import './StripeCheckOut.scss'
@@ -151,7 +151,7 @@ function StripeCheckOut(props) {
                   ) : (
                     <div>
                       <SafetyCertificateOutlined className="mr-2" />
-                      Thanh toán {formatPrice(payable)}đ
+                      Thanh toán {formatPriceReal(payable)}đ
                     </div>
                   )}
                 </button>
@@ -176,7 +176,7 @@ function StripeCheckOut(props) {
                       Số tiền thanh toán
                     </p>
                     <p className="text-blue-600 font-semibold text-xl">
-                      {formatPrice(payable)}đ
+                      {formatPriceReal(payable)}đ
                     </p>
                   </div>
                   <div className="flex items-center justify-between pt-2 pb-4 border-t border-gray-100 border-solid">

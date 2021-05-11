@@ -1,4 +1,4 @@
-import { Col, Form, Row, Space, Spin } from 'antd'
+import { Form, Space, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { getAuthors } from '../../../apis/author'
@@ -7,7 +7,6 @@ import { createProducts } from '../../../apis/product'
 import { getSuppliers } from '../../../apis/supplier'
 import FileUpload from '../../../components/FileUpload'
 import { Layouts } from '../../../components/navigation/Layouts/Layouts'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import FormCreateProduct from './FormCreateProduct'
 const layout = {
@@ -21,7 +20,7 @@ const initialState = {
   categories: [],
   category: '',
   subs: [],
-  shipping: ['Có', 'Không'],
+  sale: '',
   quantity: '',
   totalQuantity: '',
   pages: '',

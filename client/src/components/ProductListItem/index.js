@@ -10,7 +10,7 @@ function ProductListItem({ productEditing }) {
     sold,
     category,
     publisher,
-    shipping,
+    sale,
     subs,
     author,
     layout,
@@ -70,8 +70,7 @@ function ProductListItem({ productEditing }) {
         )}
 
         <li className="list-group-item">
-          Ship{' '}
-          <span className="list-group__right font-semibold">{shipping}</span>
+          Sale <span className="list-group__right font-semibold">{sale}%</span>
         </li>
 
         {author && (

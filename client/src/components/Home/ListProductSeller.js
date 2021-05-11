@@ -34,7 +34,7 @@ function ListProductSeller(props) {
       {isLoading ? (
         <LoadingCard count={4} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-12 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 auto-rows-auto grid-flow-row gap-2 mt-6">
           {listproduct &&
             listproduct.map((product) => {
               return (

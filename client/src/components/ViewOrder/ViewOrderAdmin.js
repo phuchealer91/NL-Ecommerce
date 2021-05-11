@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { updatedOrderCancelStatus, updatedOrderStatus } from '../../apis/order'
 import imageDefault from '../../assets/images/default-image.jpg'
-import { formatPrice } from '../../helpers/formatPrice'
+import {
+  formatPrice,
+  formatPriceReal,
+  formatPriceSale,
+} from '../../helpers/formatPrice'
 ViewOrderAdmin.propTypes = {}
 const { Step } = Steps
 const { Option } = Select
@@ -88,7 +92,7 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
         <div className="mt-3">
           Tổng tiền:{' '}
           <span className="text-sm text-gray-600 font-semibold">
-            {formatPrice(order?.paymentIntent?.amount)}đ
+            {formatPriceReal(order?.paymentIntent?.amount)}đ
           </span>
         </div>
       </div>
@@ -194,9 +198,26 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
                       >
                         {item.product?.title}
                       </Link>
-                      <span className="pt-1 text-gray-700 font-semibold ">
-                        {formatPrice(item.product?.price)}đ
-                      </span>
+                      <div className="my-1  ">
+                        {item.product.sale > 0 ? (
+                          <div className="flex items-center">
+                            <div className="mr-4 text-blue-600 text-base font-semibold">
+                              {formatPriceSale(
+                                item.product.price,
+                                item.product.sale
+                              )}
+                              đ
+                            </div>
+                            <div className=" text-gray-400 text-sm line-through">
+                              {formatPrice(item.product.price)}đ
+                            </div>{' '}
+                          </div>
+                        ) : (
+                          <div className="text-blue-600 text-base font-semibold">
+                            {formatPrice(item.product.price)}đ
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -209,7 +230,11 @@ function ViewOrderAdmin({ order, loadAllOrders }) {
                     </div>
                     <div className=" text-blue-700 text-base font-semibold">
                       <span className="text-xs text-gray-500">Thành tiền:</span>{' '}
-                      {formatPrice(item.product?.price * item.count)}đ
+                      {formatPriceSale(
+                        item.product?.price * item.count,
+                        item.product.sale
+                      )}
+                      đ
                     </div>
                   </div>
                 </div>

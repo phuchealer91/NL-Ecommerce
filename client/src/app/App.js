@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { Image } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { currentUsers } from '../apis/auth'
 import SideDrawer from '../components/Drawer/SideDrawer'
-import GlobalLoading from '../components/GlobalLoading/GlobalLoading'
-import { HeaderAdmin, HeaderUser } from '../components/navigation/Header'
+import { HeaderUser } from '../components/navigation/Header'
 import Notify from '../components/Notify/Notify'
 import { auth } from '../firebase'
 import Addressx from '../pages/address'
 import { DashBoard } from '../pages/admin'
+import AdminPassword from '../pages/admin/AdminPassword'
 import CreateAuthor from '../pages/admin/author/CreateAuthor'
 import UpdateAuthor from '../pages/admin/author/UpdateAuthor'
 import { CreateCategory, UpdateCategory } from '../pages/admin/category'
@@ -24,6 +23,10 @@ import {
   UpdateSubCategory,
 } from '../pages/admin/subCategory'
 import { CreateSupplier, UpdateSupplier } from '../pages/admin/supplier'
+import { CreateReceipt } from '../pages/admin/warehouse'
+import InventoryWareHouseList from '../pages/admin/warehouse/InventoryWareHouseList/InventoryWareHouseList'
+import OutWareHouseList from '../pages/admin/warehouse/OutWareHouseList/OutWareHouseList'
+import WareHouseList from '../pages/admin/warehouse/WareHouseList'
 import ForgotPassword from '../pages/auth/ForgotPassword'
 import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
@@ -31,29 +34,19 @@ import RegisterComplete from '../pages/auth/RegisterComplete'
 import Cart from '../pages/cart/Cart'
 import CategoryMainPage from '../pages/category/CategoryMainPage'
 import CheckOut from '../pages/checkout/CheckOut'
+import Community from '../pages/Community/home/Community'
+import Profile from '../pages/Community/profile'
 import { Home } from '../pages/Home'
 import { Payment } from '../pages/payment'
 import { Product } from '../pages/product'
 import Shop from '../pages/Shop/Shop'
-import Community from '../pages/Community/home/Community'
 import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 import { History, Password, WishList } from '../pages/user'
 import { notify } from '../redux/actions/notify'
-import {
-  currentUser,
-  loginInUser,
-  registerOrUpdateUser,
-} from '../redux/actions/users'
+import { getPostsx } from '../redux/actions/post'
 import PATHS from '../redux/constants/paths'
 import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
-import Profile from '../pages/Community/profile'
-import { getPostsx } from '../redux/actions/post'
-import { CreateReceipt } from '../pages/admin/warehouse'
-import WareHouseList from '../pages/admin/warehouse/WareHouseList'
-import OutWareHouseList from '../pages/admin/warehouse/OutWareHouseList/OutWareHouseList'
-import InventoryWareHouseList from '../pages/admin/warehouse/InventoryWareHouseList/InventoryWareHouseList'
-import AdminPassword from '../pages/admin/AdminPassword'
 
 export default function App() {
   const dispatch = useDispatch()
@@ -92,7 +85,7 @@ export default function App() {
   }, [dispatch, users.token])
   return (
     <React.Fragment>
-      {users && users.userDatas.role !== 'admin' && <HeaderUser />}
+      {users && users.userDatas?.role !== 'admin' && <HeaderUser />}
       {/* <Image.PreviewGroup>
         <Image
           width={200}

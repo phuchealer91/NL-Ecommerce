@@ -1,27 +1,15 @@
-import {
-  ApartmentOutlined,
-  ShoppingCartOutlined,
-  TagOutlined,
-  UsergroupAddOutlined,
-} from '@ant-design/icons'
-import { Layout } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getTotalUserss } from '../../apis/cart'
 import { getTotalOrderss } from '../../apis/order'
 import { getProductsCounts } from '../../apis/product'
-import NavBar from '../../components/navigation/NavBar/NavBar'
-import SideBars from '../../components/navigation/SideBars/SideBars'
+import { Layouts } from '../../components/navigation/Layouts/Layouts'
 import AdminSideBar from '../../components/navigation/SideBar/AdminSideBar'
+import OverViewDashboard from '../../components/OverViewDashboard/OverViewDasboard'
+import PageTitle from '../../components/SectionTitle/PageTitle'
+import StatisticalNewOrder from '../../components/StatisticalOrder/StatisticalNewOrder'
 import StatisticalOrder from '../../components/StatisticalOrder/StatisticalOrder'
 import StatisticalOrderStatus from '../../components/StatisticalOrder/StatisticalOrderStatus'
-import TopicMenu from '../../components/navigation/TopicMenu'
-import HeaderAdmin from '../../components/navigation/Header/HeaderAdmin'
-import PageTitle from '../../components/SectionTitle/PageTitle'
-import OverViewDashboard from '../../components/OverViewDashboard/OverViewDasboard'
 import StatisticalTopSellers from '../../components/StatisticalOrder/StatisticalTopSellers'
-import StatisticalNewOrder from '../../components/StatisticalOrder/StatisticalNewOrder'
-import { Layouts } from '../../components/navigation/Layouts/Layouts'
 
 DashBoard.propTypes = {}
 

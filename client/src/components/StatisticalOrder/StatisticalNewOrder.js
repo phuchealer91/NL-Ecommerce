@@ -1,25 +1,7 @@
-import { TaobaoSquareFilled } from '@ant-design/icons'
-import { DatePicker, Select, Tag } from 'antd'
+import { Select, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import {
-  Bar,
-  CartesianGrid,
-  Cell,
-  ComposedChart,
-  LabelList,
-  Legend,
-  Pie,
-  PieChart,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts'
 import { getNewOrderss } from '../../apis/order'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
 StatisticalNewOrder.propTypes = {}
 const { Option } = Select
 
@@ -79,7 +61,7 @@ function StatisticalNewOrder(props) {
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span>
-                            {formatPrice(order?.paymentIntent?.amount)}đ
+                            {formatPriceReal(order?.paymentIntent?.amount)}đ
                           </span>
                           {order?.applyCoupon?.discount && (
                             <span className="pl-1">

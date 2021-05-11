@@ -1,15 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { Dropdown, Menu } from 'antd'
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-} from '@ant-design/icons'
-import CommentMenu from './CommentMenu'
+import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import CommentMenu from './CommentMenu'
 CommentCard.propTypes = {}
 
 function CommentCard({ comment, post }) {

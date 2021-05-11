@@ -1,6 +1,6 @@
-import { BellOutlined, WalletTwoTone } from '@ant-design/icons'
-import { Avatar, Badge, Button, Dropdown, Menu, notification } from 'antd'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { BellOutlined } from '@ant-design/icons'
+import { Avatar, Badge, Button, Menu, notification } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import OpenSocket from 'socket.io-client'
@@ -14,7 +14,6 @@ const UserLogined = (props) => {
   const [notifications, setNotifications] = useState([])
   const [hasFirstFetch, setHasFirstFetch] = useState(false)
   const [visibleNoti, setVisibleNoti] = useState(false)
-  const [isChangeCount, setIsChangeCount] = useState('')
   const dispatch = useDispatch()
 
   const openNotification = useCallback(

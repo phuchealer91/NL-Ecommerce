@@ -1,10 +1,10 @@
 import axiosServices from '../../apis/axiosServices'
+import { auth } from '../../firebase'
 import { ImageUpload } from '../../helpers/ImageUpload'
+import { DeleteData } from '../../helpers/shortFunctions'
 import PATHS from '../constants/paths'
 import * as types from '../constants/users'
-import { auth } from '../../firebase'
 import { loginInUser } from './users'
-import { DeleteData } from '../../helpers/shortFunctions'
 export const getUsers = (data) => {
   return axiosServices.get(`/${PATHS.USER}/${data}`)
 }
@@ -48,7 +48,7 @@ export const updateProfileUser = ({ userData, avatar, user }) => async (
       displayName: userData ? userData.name : user.userDatas.name,
       photoURL: avatar ? media[0].url : user.userDatas.photoURL,
     })
-    const res = await axiosServices.patch(`${PATHS.USER}/`, {
+    await axiosServices.patch(`${PATHS.USER}/`, {
       ...userData,
       avatar: avatar ? media[0].url : user.userDatas.photoURL,
     })

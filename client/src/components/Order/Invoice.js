@@ -8,7 +8,7 @@ import {
 } from '@react-pdf/renderer'
 import React from 'react'
 import logo from '../../assets/images/logo.png'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
 function Invoice({ userOrders: order }) {
   function removeAccents(str) {
     return str
@@ -191,7 +191,13 @@ function Invoice({ userOrders: order }) {
                       {removeAccents(item.product?.publisher)}
                     </Text>
                     <Text style={styles.amount}>
-                      {formatPrice(item.product?.price * item?.count)}đ
+                      {item.product.sale > 0
+                        ? formatPriceSale(
+                            item.product.price * item.count,
+                            item.product.sale
+                          )
+                        : formatPrice(item.product.price * item.count)}
+                      đ
                     </Text>
                   </View>
                 )

@@ -1,11 +1,10 @@
-import { Col, Divider, Rate, Row, Tabs } from 'antd'
+import { Divider, Rate, Tabs } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useRouteMatch } from 'react-router-dom'
 import { getProduct } from '../../apis/product'
 import { CardItem } from '../../components/CardItem'
 import LoadingCard from '../../components/LoadingCard'
-import { SingleProduct } from '../../components/SingleProduct'
 import SingleProductZoom from '../../components/SingleProduct/SingleProductZoom'
 import { EmptyBox } from '../../helpers/icons'
 import { getRelated } from '../../redux/actions/product'
@@ -59,7 +58,11 @@ function Product(props) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-12 mt-6">
                   {productRelated &&
                     productRelated.map((product) => {
-                      return <CardItem product={product} key={product._id} />
+                      return (
+                        <div className="product-item" key={product._id}>
+                          <CardItem product={product} />
+                        </div>
+                      )
                     })}
                 </div>
               </div>
@@ -191,7 +194,11 @@ function Product(props) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-12 mt-6">
                   {productRelated &&
                     productRelated.map((product) => {
-                      return <CardItem product={product} key={product._id} />
+                      return (
+                        <div className="product-item" key={product._id}>
+                          <CardItem product={product} />
+                        </div>
+                      )
                     })}
                 </div>
               </div>

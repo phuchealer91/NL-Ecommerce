@@ -323,8 +323,8 @@
   }
 
   &__item-image {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: 200px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -346,7 +346,6 @@
   border-radius: 8px;
   &__footer {
     width: 100%;
-    padding-bottom: 1rem;
     transition: all 0.2s ease;
     background-color: #fff;
   }

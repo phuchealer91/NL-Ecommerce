@@ -17,8 +17,8 @@ function FileUpload({ product, setProduct, setIsLoading }) {
       for (let i = 0; i < files.length; i++) {
         Resizer.imageFileResizer(
           files[i],
-          1920,
-          1920,
+          720,
+          720,
           'JPEG',
           100,
           0,

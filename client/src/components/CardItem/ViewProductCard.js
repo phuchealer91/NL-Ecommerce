@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { CheckCircleOutlined } from '@ant-design/icons'
 import _ from 'lodash'
-import imageDefault from '../../assets/images/mac-default.png'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import ModalImage from 'react-modal-image'
 import { useDispatch, useSelector } from 'react-redux'
+import imageDefault from '../../assets/images/mac-default.png'
 import * as types from '../../redux/constants/receipt'
-import { CheckCircleOutlined } from '@ant-design/icons'
 ViewProductCard.propTypes = {}
 
 function ViewProductCard({ product }) {

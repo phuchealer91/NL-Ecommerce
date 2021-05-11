@@ -1,8 +1,7 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import {
   currentAdmins,
   currentUsers,
-  notificationUpdate,
   registerOrUpdateUsers,
 } from '../../apis/auth'
 import {
@@ -16,7 +15,6 @@ import {
   registerOrUpdateUserSuccess,
 } from '../actions/users'
 import { TOKEN } from '../constants/keys'
-import * as types from '../constants/users'
 
 function* LoggedUser({ payload }) {
   const { token } = payload

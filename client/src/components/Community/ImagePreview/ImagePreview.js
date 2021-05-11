@@ -1,6 +1,5 @@
+import { Image } from 'antd'
 import React from 'react'
-
-import { Carousel, Image } from 'antd'
 
 export const ImagePreview = ({ data }) => {
   return (

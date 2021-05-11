@@ -48,9 +48,9 @@ const productSchema = new mongoose.Schema(
     images: {
       type: Array,
     },
-    shipping: {
-      type: String,
-      enum: ['Có', 'Không'],
+    sale: {
+      type: Number,
+      default: 0,
     },
     layout: {
       type: String,

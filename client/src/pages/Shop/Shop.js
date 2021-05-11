@@ -5,23 +5,20 @@ import {
   DownSquareOutlined,
   StarOutlined,
 } from '@ant-design/icons'
-import { Col, Menu, Row, Slider, Spin, Checkbox, Radio, Tag } from 'antd'
+import { Checkbox, Col, Menu, Radio, Row, Slider, Tag } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { useSpeechRecognition } from '../../useSpeechRecognition'
 import { getCategories } from '../../apis/category'
 import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
 import { getSubCategories } from '../../apis/subCategory'
 import { CardItem } from '../../components/CardItem'
 import Star from '../../components/Star'
-import { formatPrice } from '../../helpers/formatPrice'
 import { searchQuery } from '../../redux/actions/search'
+import { useSpeechRecognition } from '../../useSpeechRecognition'
 const { CheckableTag } = Tag
 
 function Shop(props) {
-  const history = useHistory()
   const dispatch = useDispatch()
   const [price, setPrice] = useState([0, 0])
   const [ok, setOk] = useState(false)

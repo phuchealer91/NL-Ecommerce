@@ -1,8 +1,6 @@
-import { Col, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getOrdersCompleteds } from '../../../../apis/order'
 import { Layouts } from '../../../../components/navigation/Layouts/Layouts'
-import { AdminSideBar } from '../../../../components/navigation/SideBar'
 import SectionTitle from '../../../../components/SectionTitle/SectionTitle'
 import { formatPrice } from '../../../../helpers/formatPrice'
 import TableOutWarehouse from './TableOutWarehouse'
@@ -28,7 +26,7 @@ function OutWareHouseList(props) {
   }
   function getTotalPrice() {
     return ordersCompleted.reduce((curr, next) => {
-      return curr + next.paymentIntent.amount
+      return curr + next.paymentIntent.amount * 100
     }, 0)
   }
   function getTotalOutWare() {

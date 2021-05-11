@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { Col, Row } from 'antd'
-import { AdminSideBar } from '../../../components/navigation/SideBar'
-import { useState } from 'react'
-import TableReceipts from './TableReceipts'
-import { getUserReceipts } from '../../../apis/cart'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getUserReceipts } from '../../../apis/cart'
 import { Layouts } from '../../../components/navigation/Layouts/Layouts'
 import SectionTitle from '../../../components/SectionTitle/SectionTitle'
+import TableReceipts from './TableReceipts'
 
 WareHouseList.propTypes = {}
 

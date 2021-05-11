@@ -4,10 +4,8 @@ import { useSelector } from 'react-redux'
 import Posts from '../../../components/Community/Home/Posts'
 import Status from '../../../components/Community/Home/Status'
 import UpdateStatus from '../../../components/Community/Home/UpdateStatus'
-import SearchUser from '../../../components/Community/SearchUser'
 import LeftMenu from '../../../components/navigation/LeftMenu'
 import RightMenu from '../../../components/navigation/RightMenu'
-import Notify from '../../../components/Notify/Notify'
 import { EmptyBox } from '../../../helpers/icons'
 
 const Community = (props) => {

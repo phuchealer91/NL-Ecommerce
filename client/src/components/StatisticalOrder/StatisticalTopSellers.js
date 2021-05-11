@@ -1,32 +1,7 @@
-import { TaobaoSquareFilled } from '@ant-design/icons'
-import { DatePicker, Select, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import {
-  Bar,
-  CartesianGrid,
-  Cell,
-  ComposedChart,
-  LabelList,
-  Legend,
-  Pie,
-  PieChart,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts'
-import {
-  getTopSellers,
-  getTotalOrderStatusMonths,
-  StatisticalOrderFilters,
-  StatisticalOrders,
-} from '../../apis/order'
+import { getTopSellers } from '../../apis/order'
 import { formatPrice } from '../../helpers/formatPrice'
 StatisticalTopSellers.propTypes = {}
-const { Option } = Select
 
 function StatisticalTopSellers(props) {
   const [topSellers, setTopSellers] = useState([])
@@ -38,7 +13,6 @@ function StatisticalTopSellers(props) {
       }
     })
   }, [])
-  console.log('hello', topSellers)
   return (
     <>
       <div className="my-4 flex justify-center">

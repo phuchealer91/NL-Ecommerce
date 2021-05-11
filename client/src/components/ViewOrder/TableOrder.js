@@ -2,7 +2,7 @@ import { EyeOutlined } from '@ant-design/icons'
 import { Tag } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
 import React, { useState } from 'react'
-import { formatPrice } from '../../helpers/formatPrice'
+import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
 import ViewOrder from './ViewOrder'
 
 TableOrder.propTypes = {}
@@ -40,7 +40,9 @@ function TableOrder({ order, idx, loaduserOrder }) {
             </div>
           </td>
           <td className="py-3 px-6 text-center">
-            <div className="">{formatPrice(order?.paymentIntent?.amount)}đ</div>
+            <div className="">
+              {formatPriceReal(order?.paymentIntent?.amount)}đ
+            </div>
           </td>
           <td className="py-3 px-6 text-center">
             <span className="">

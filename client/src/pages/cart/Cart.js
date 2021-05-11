@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import './Cart.scss'
 import ListShoppingCart from './ListShoppingCart'
 function Cart(props) {
-  const { cart, user } = useSelector((state) => ({ ...state }))
+  const { cart } = useSelector((state) => ({ ...state }))
   let { cartLists } = cart
 
   return (

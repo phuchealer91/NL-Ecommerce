@@ -1,14 +1,11 @@
-import { Col, Pagination, Row } from 'antd'
+import { Pagination } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { AdminSideBar } from '../../../../components/navigation/SideBar'
-import { getProductsCount } from '../../../../redux/actions/product'
-import TableReceipts from '../TableReceipts'
-import TableInventoryWarehouse from './TableInventoryWarehouse'
 import { getListProductss } from '../../../../apis/product'
 import { Layouts } from '../../../../components/navigation/Layouts/Layouts'
 import SectionTitle from '../../../../components/SectionTitle/SectionTitle'
+import { getProductsCount } from '../../../../redux/actions/product'
+import TableInventoryWarehouse from './TableInventoryWarehouse'
 InventoryWareHouseList.propTypes = {}
 
 function InventoryWareHouseList(props) {

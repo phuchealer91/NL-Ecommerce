@@ -1,12 +1,8 @@
-import { Col, Form, Row } from 'antd'
+import { Form } from 'antd'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import {
-  Layouts,
-  UserLayouts,
-} from '../../components/navigation/Layouts/Layouts'
-import { UserSideBar } from '../../components/navigation/SideBar'
+import { UserLayouts } from '../../components/navigation/Layouts/Layouts'
 import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import { auth } from '../../firebase'
 import { hideLoading, showLoading } from '../../redux/actions/ui'

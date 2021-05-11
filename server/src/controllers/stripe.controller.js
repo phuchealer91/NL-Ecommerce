@@ -11,9 +11,9 @@ module.exports.createPaymentIntent = async (req, res) => {
   }).exec()
   let totalCurrent = 0
   if (isCoupons && totalAfterDiscount) {
-    totalCurrent = Math.round(totalAfterDiscount)
+    totalCurrent = Math.round(totalAfterDiscount / 100)
   } else {
-    totalCurrent = Math.round(cartTotal)
+    totalCurrent = Math.round(cartTotal / 100)
   }
   // if (isCoupons && totalAfterDiscount) {
   //   totalCurrent = totalAfterDiscount * 100

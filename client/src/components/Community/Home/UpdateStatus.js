@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePosts } from '../../../redux/actions/post'
 import * as types from '../../../redux/constants/notify'
-import * as postTypes from '../../../redux/constants/post'
 
 function UpdateStatus() {
   const { user, status } = useSelector((state) => state)

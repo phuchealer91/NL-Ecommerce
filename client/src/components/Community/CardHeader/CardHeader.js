@@ -1,17 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { Dropdown, Menu } from 'antd'
 import {
   CopyOutlined,
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
+import { Dropdown, Menu } from 'antd'
 import moment from 'moment'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Status from '../Home/Status'
-import Modal from 'antd/lib/modal/Modal'
+import { Link } from 'react-router-dom'
 import * as types from '../../../redux/constants/post'
 CardHeader.propTypes = {}
 
@@ -19,8 +16,6 @@ function CardHeader({ post }) {
   const { user } = useSelector((state) => state)
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
-  const [modalText, setModalText] = useState('Content of the modal')
 
   const onHandleEdit = (post) => {
     setVisible(true)
@@ -30,18 +25,6 @@ function CardHeader({ post }) {
     })
   }
 
-  const handleOk = () => {
-    setModalText('The modal will be closed after two seconds')
-    setConfirmLoading(true)
-    setTimeout(() => {
-      setVisible(false)
-      setConfirmLoading(false)
-    }, 1000)
-  }
-  function onHandleSubmit() {}
-  const handleCancel = () => {
-    setVisible(false)
-  }
   return (
     <>
       <div className="flex  p-4 pb-0">

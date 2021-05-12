@@ -145,7 +145,7 @@ function Invoice({ userOrders: order }) {
       <Page style={styles.page}>
         <Image style={styles.logo} src={logo} />
         <View style={styles.titleContainer}>
-          <Text style={styles.reportTitle}>Wobook</Text>
+          <Text style={styles.reportTitle}>Workbook</Text>
         </View>
 
         <>

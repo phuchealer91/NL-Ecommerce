@@ -19,18 +19,29 @@ function Searchs(props) {
 
   return (
     <React.Fragment>
-      <div className="flex items-center content-center">
+      <div className="flex items-center">
         <input
           type="search"
-          placeholder="Search"
+          placeholder="Tìm kiếm sản phẩm mong muốn"
           onChange={handleChange}
           value={text}
-          className="border-0 outline-none focus:border-0 focus:outline-none text-gray-800"
+          className="px-3 py-2 w-full h-full outline-none focus:border-0 focus:outline-none text-gray-800 text-base border-solid border-2 border-blue-500 rounded "
         />
         ,
         <SearchOutlined
           onClick={handleSubmit}
-          className="font-semibold text-2xl"
+          style={{
+            position: 'relative',
+            left: '-60px',
+
+            fontWeight: 600,
+            paddingLeft: '16px',
+            paddingRight: '16px',
+            paddingTop: '12px',
+            paddingBottom: '12px',
+            fontSize: '20px',
+          }}
+          className="text-blue-600"
         />
       </div>
     </React.Fragment>

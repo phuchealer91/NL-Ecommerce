@@ -1,5 +1,10 @@
-import { HeartOutlined, ShoppingOutlined } from '@ant-design/icons'
-import { Form, Input, Rate, Tooltip } from 'antd'
+import {
+  CompassOutlined,
+  HeartOutlined,
+  ShoppingOutlined,
+  ZoomInOutlined,
+} from '@ant-design/icons'
+import { Form, Input, Rate, Tabs, Tooltip } from 'antd'
 import _ from 'lodash'
 import React from 'react'
 import 'react-image-lightbox/style.css'
@@ -14,6 +19,7 @@ import { showDrawer } from '../../redux/actions/ui'
 import { ImagePreviewList } from '../Community/ImagePreview/ImagePreview'
 import ModalRating from '../ModalConfirm/ModalRating'
 import ShowRatings from '../Ratings/ShowRatings'
+const { TabPane } = Tabs
 function SingleProductZoom({ productEditing }) {
   const dispatch = useDispatch()
 
@@ -74,20 +80,12 @@ function SingleProductZoom({ productEditing }) {
               </div>
             </div>
             <div
-              className="border border-gray-200 h-96 p-2"
-              style={{ width: 'calc(100% - 112px)' }}
+              className="border border-gray-200 p-2 pt-0"
+              style={{ width: 'calc(100% - 112px)', height: '400px' }}
             >
-              {/* <Magnifier
-                className="input-position"
-                imageSrc={images ? images[0]?.url : images[1]?.url}
-                // largeImageSrc={largeImage}
-                mouseActivation={MOUSE_ACTIVATION.CLICK}
-                touchActivation={TOUCH_ACTIVATION.TAP}
-                dragToMove={true}
-              /> */}
               <SideBySideMagnifier
-                className="input-position"
-                style={{ order: false ? '1' : '0' }}
+                className=""
+                style={{ order: false ? '1' : '0', height: '100%' }}
                 imageSrc={images ? images[0]?.url : images[1]?.url}
                 largeImageSrc={images ? images[0]?.url : images[1]?.url}
                 alwaysInPlace={false}
@@ -104,6 +102,33 @@ function SingleProductZoom({ productEditing }) {
                 zoomContainerBorder="1px solid #ccc"
                 zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
               />
+              {/* <div>
+                <Tabs defaultActiveKey="1" size="small">
+                  <TabPane
+                    tab={
+                      <span>
+                        <ZoomInOutlined />
+                        Zoom
+                      </span>
+                    }
+                    key="1"
+                    style={{ width: '100%' }}
+                  >
+                    
+                  </TabPane>
+                  <TabPane
+                    tab={
+                      <span>
+                        <CompassOutlined />
+                        Xoay 3D
+                      </span>
+                    }
+                    key="2"
+                  >
+                    Tab 2
+                  </TabPane>
+                </Tabs>
+              </div> */}
             </div>
           </div>
         </div>

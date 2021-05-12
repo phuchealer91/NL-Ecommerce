@@ -49,6 +49,7 @@ const PATHS = {
   LIST_WAREHOUSE: 'list-warehouse',
   OUT_WAREHOUSE: 'out-warehouse',
   INVENTORY_WAREHOUSE: 'inventory-warehouse',
+  SALE: 'sale',
 }
 
 export default PATHS

@@ -168,7 +168,7 @@ function StripeCheckOut(props) {
                       <img src={logo} alt={logo} />
                     </p>
                     <p className="text-blue-600 font-semibold text-xl">
-                      Wobook
+                      Workbook
                     </p>
                   </div>
                   <div className="flex items-center justify-between pt-2 pb-4">

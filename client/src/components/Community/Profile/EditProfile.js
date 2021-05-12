@@ -131,7 +131,7 @@ function EditProfile({ visible, handleCancel, setVisible }) {
                             name="website"
                             id="website"
                             className="py-2 px-3  border text-grey-darkest rounded w-full"
-                            placeholder="https://www.wobook.com"
+                            placeholder="https://www.workbook.com"
                             value={website}
                             onChange={onHandleInput}
                           />

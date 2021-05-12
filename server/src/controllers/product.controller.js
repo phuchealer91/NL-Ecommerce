@@ -62,7 +62,7 @@ module.exports.getListProducts = async (req, res) => {
   try {
     const { sort, order, page } = req.body
     const currentPage = page || 1
-    const perPage = 8
+    const perPage = 10
 
     const listProducts = await Product.find({})
       .skip((currentPage - 1) * perPage)
@@ -74,6 +74,29 @@ module.exports.getListProducts = async (req, res) => {
       .limit(perPage)
       .exec()
     return res.status(200).json({ products: listProducts })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+module.exports.getListProductSale = async (req, res) => {
+  try {
+    const { page } = req.body
+    const currentPage = page || 1
+    const perPage = 10
+
+    const listProducts = await Product.find({ sale: { $gt: 0 } })
+      .skip((currentPage - 1) * perPage)
+      .populate('author')
+      .populate('supplier')
+      .populate('category')
+      .populate('subs')
+      .sort([['createdAt', 'desc']])
+      .limit(perPage)
+      .exec()
+    const productTotal = await Product.find({ sale: { $gt: 0 } })
+      .estimatedDocumentCount()
+      .exec()
+    return res.status(200).json({ products: listProducts, productTotal })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
   }

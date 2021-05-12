@@ -14,12 +14,11 @@ function Product(props) {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [productEditing, setProductEditing] = useState()
-  const { productRelated, reviews } = useSelector((state) => state.product)
+  const { productRelated } = useSelector((state) => state.product)
   const { slug } = useRouteMatch().params
-  console.log('slug', slug)
   useEffect(() => {
     loadProduct()
-  }, [])
+  }, [slug])
   const loadProduct = () => {
     getProduct(slug).then((res) => {
       if (res.data) {
@@ -34,10 +33,7 @@ function Product(props) {
       setIsLoading(false)
     }
   }, [dispatch, productEditing])
-  console.log(
-    'productEditingproductEditingproductEditingproductEditing',
-    productEditing
-  )
+
   return (
     <React.Fragment>
       <div className="block w-full ">
@@ -46,16 +42,26 @@ function Product(props) {
             <SingleProductZoom productEditing={productEditing} />
           )}
         </div>
-        <div className="mx-4 my-4 rounded rounded-b-none rounded-l-none">
-          <div className="px-4 py-4 bg-white">
-            <div className="text-gray-600 font-semibold text-base px-4 py-3">
-              SẢN PHẨM LIÊN QUAN
+        <section className="my-5 mx-4  bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+          <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
+            <div className="flex items-center">
+              <img
+                src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_goiy.png"
+                style={{ width: '25px', height: '25px' }}
+                alt="flash sale"
+                className="mx-3"
+              />
+              <span className=" text-base text-gray-600 font-semibold">
+                Sản liên quan
+              </span>
             </div>
+          </div>
+          <div className="mx-3 my-4">
             {isLoading ? (
-              <LoadingCard count={4} />
+              <LoadingCard count={5} />
             ) : (
               <div className="container">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-12 mt-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 auto-rows-auto grid-flow-row gap-2 mt-6">
                   {productRelated &&
                     productRelated.map((product) => {
                       return (
@@ -68,7 +74,7 @@ function Product(props) {
               </div>
             )}
           </div>
-        </div>
+        </section>
         <div className="mx-4 my-4 rounded rounded-b-none rounded-l-none ">
           <div className="px-4 py-4 bg-white">
             <Tabs type="card">
@@ -182,13 +188,24 @@ function Product(props) {
             </Tabs>
           </div>
         </div>
-        <div className="mx-4 my-4 rounded rounded-b-none rounded-l-none ">
-          <div className="px-4 py-4 bg-white">
-            <div className="text-gray-600 font-semibold text-base px-4 py-3">
-              SẢN PHẨM LIÊN QUAN
+
+        <section className="my-5 mx-4  bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+          <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
+            <div className="flex items-center">
+              <img
+                src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_goiy.png"
+                style={{ width: '25px', height: '25px' }}
+                alt="flash sale"
+                className="mx-3"
+              />
+              <span className=" text-base text-gray-600 font-semibold">
+                Sản liên quan
+              </span>
             </div>
+          </div>
+          <div className="mx-3 my-4">
             {isLoading ? (
-              <LoadingCard count={4} />
+              <LoadingCard count={5} />
             ) : (
               <div className="container">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-12 mt-6">
@@ -204,7 +221,7 @@ function Product(props) {
               </div>
             )}
           </div>
-        </div>
+        </section>
       </div>
     </React.Fragment>
   )

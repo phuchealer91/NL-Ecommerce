@@ -54,7 +54,7 @@ function ListProduct(props) {
         <div className="pagination">
           <Pagination
             current={page}
-            total={(totalProducts / 4) * 10}
+            total={(totalProducts / 10) * 10}
             onChange={(value) => setPage(value)}
           />
         </div>

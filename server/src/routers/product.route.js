@@ -13,6 +13,7 @@ const {
   productReivews,
   productSearchFilters,
   getProductsRating,
+  getListProductSale,
 } = require('../controllers/product.controller')
 const { isAuth, isAdmin } = require('../middlewares/auth')
 // const { validatorCategory } = require('../helpers/Validator')
@@ -32,6 +33,7 @@ router.put('/review/:productId', isAuth, productReivews)
 router.post('/search/filters', productSearchFilters)
 router.delete('/:slug', isAuth, isAdmin, deleteProduct)
 router.post('/list', getListProducts)
+router.post('/list-sale', getListProductSale)
 router.post('/', isAuth, isAdmin, createProduct)
 
 module.exports = router

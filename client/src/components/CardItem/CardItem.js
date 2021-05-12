@@ -4,7 +4,7 @@ import {
   ShoppingCartOutlined,
   ShoppingOutlined,
 } from '@ant-design/icons'
-import { Rate, Tooltip } from 'antd'
+import { Progress, Rate, Tooltip } from 'antd'
 import _ from 'lodash'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -16,8 +16,8 @@ import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { showDrawer } from '../../redux/actions/ui'
 import ShowRatings from '../Ratings/ShowRatings'
-function CardItem({ product }) {
-  const { title, price, slug, quantity, sale } = product
+function CardItem({ product, flashSale }) {
+  const { title, price, slug, quantity, sale, sold } = product
   const image = product.images[0].url
   const dispatch = useDispatch()
   const history = useHistory()
@@ -57,6 +57,11 @@ function CardItem({ product }) {
   return (
     <>
       <div className="relative p-4">
+        {sale > 0 && (
+          <div className="bg-red-600 text-white text-sm font-semibold absolute z-10 top-0 left-0 rounded-tr-sm rounded-br-3xl px-2 pr-3 py-1">
+            {sale}%
+          </div>
+        )}
         <Link to={`/product/${slug}`} className="block">
           <img
             src={image ? image : imageDefault}
@@ -98,6 +103,24 @@ function CardItem({ product }) {
               </div>
             )}
           </div>
+
+            {sale > 0 && flashSale && (
+          <div className="my-2 text-center">
+              <div className="rounded-2xl bg-red-200 h-5 relative">
+                <span className="absolute left-0 top-0 right-0 bottom-0 text-white text-sm">
+                  Đã bán {sold}
+                </span>
+                <div
+                  role="progressbar"
+                  aria-valuenow={sold}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  className="bg-red-600 h-full rounded-2xl"
+                  style={{ width: `${sold}%` }}
+                ></div>
+              </div>
+          </div>
+            )}
         </div>
         {/* hidden */}
         <div className="desktop__add-to-cart  xl:block ">

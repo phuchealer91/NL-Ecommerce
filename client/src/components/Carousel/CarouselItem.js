@@ -1,13 +1,48 @@
-import { Carousel } from 'antd'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { Card, Carousel } from 'antd'
 import React from 'react'
-import slider2 from '../../assets/images/Slider2.png'
-import slider3 from '../../assets/images/Slider3.jpg'
-import slider4 from '../../assets/images/Slider4.jpg'
-import slider5 from '../../assets/images/Slider5.jpg'
-import slider6 from '../../assets/images/Slider6.jpg'
-import slider7 from '../../assets/images/Slider7.jpg'
+import banner1 from '../../assets/images/banner1.png'
+import banner2 from '../../assets/images/banner2.png'
+import banner3 from '../../assets/images/banner3.png'
+import banner4 from '../../assets/images/banner4.jpg'
+import banner5 from '../../assets/images/banner5.png'
+import banner6 from '../../assets/images/banner6.png'
+import banner7 from '../../assets/images/banner7.png'
 
 function CarouselItem(props) {
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props
+    return (
+      <RightOutlined
+        className={className}
+        style={{
+          ...style,
+          fontWeight: 'bold',
+          color: 'white',
+          zIndex: '10',
+          right: '20px',
+        }}
+        onClick={onClick}
+      />
+    )
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props
+    return (
+      <LeftOutlined
+        className={className}
+        style={{
+          ...style,
+          fontWeight: 'bold',
+          color: 'white',
+          zIndex: '10',
+          left: '20px',
+        }}
+        onClick={onClick}
+      />
+    )
+  }
   const settings = {
     dots: true,
     infinite: false,
@@ -21,149 +56,67 @@ function CarouselItem(props) {
   return (
     <React.Fragment>
       <div>
-        <Carousel autoplay arrows={false} {...settings}>
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage:
-                  'url(https://github.com/dtrongphuc/home-e-commerce/blob/main/assests/images/home1_01_9e9ee306-65ab-4e2e-9a19-c54fa8039f8a_x1024.png?raw=true)',
-              }}
-            ></div>
-            <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div>
+        <Carousel
+          autoplay
+          {...settings}
+          prevArrow={<SamplePrevArrow />}
+          nextArrow={<SampleNextArrow />}
+        >
+          <div className="">
+            <img
+              src={banner1}
+              alt={banner1}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
-
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage: `url(${slider2})`,
-              }}
-            ></div>
-            <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div>
+          <div className="">
+            <img
+              src={banner2}
+              alt={banner2}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
-
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage: `url(${slider3})`,
-              }}
-            ></div>
-            {/* <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div> */}
+          <div className="">
+            <img
+              src={banner3}
+              alt={banner3}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage: `url(${slider4})`,
-              }}
-            ></div>
-            {/* <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div> */}
+          <div className="">
+            <img
+              src={banner4}
+              alt={banner4}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage: `url(${slider5})`,
-              }}
-            ></div>
-            {/* <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div> */}
+          <div className="">
+            <img
+              src={banner5}
+              alt={banner5}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage: `url(${slider6})`,
-              }}
-            ></div>
-            {/* <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div> */}
+          <div className="">
+            <img
+              src={banner6}
+              alt={banner6}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
-          <div className="main__slide-item relative">
-            <div
-              className="slider-full"
-              style={{
-                backgroundImage: `url(${slider7})`,
-              }}
-            ></div>
-            {/* <div className="slider-item__content">
-              <p className="text-5xl text-blue-500 mb-3 text-center">Wobook</p>
-              <p className="text-6xl text-black capitalize text-center font-semibold mb-8">
-                Sách <br /> là bạn
-              </p>
-              <p className="text-gray-600 text-md text-center mb-6">
-                Nơi bán sách online uy tín, chất lượng nhất Việt Nam
-              </p>
-              <button className="btn btn-primary uppercase mx-auto">
-                Mua Ngay
-              </button>
-            </div> */}
+          <div className="">
+            <img
+              src={banner7}
+              alt={banner7}
+              style={{ width: '100%', height: 'auto' }}
+              loading="lazy"
+            />
           </div>
         </Carousel>
       </div>

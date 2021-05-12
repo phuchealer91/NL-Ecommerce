@@ -17,6 +17,11 @@ export const getListProductss = (sort, order, page) => {
     page,
   })
 }
+export const getListProductSales = (page) => {
+  return axiosServices.post(`/${PATHS.PRODUCT}/${PATHS.LIST}-${PATHS.SALE}`, {
+    page,
+  })
+}
 // export const getListProductss = (sort, order, page) => {
 //   return axiosServices.post(
 //     `/${PATHS.PRODUCT}/${PATHS.LIST}`,

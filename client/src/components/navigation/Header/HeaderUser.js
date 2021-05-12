@@ -1,4 +1,5 @@
 import {
+  DownOutlined,
   HomeOutlined,
   LogoutOutlined,
   SettingOutlined,
@@ -6,7 +7,7 @@ import {
   UserAddOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Badge, Menu } from 'antd'
+import { Badge, Dropdown, Menu } from 'antd'
 import React, { useState } from 'react'
 // import './HeaderUser.scss'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +18,7 @@ import { logoutInUser } from '../../../redux/actions/users'
 import { TOKEN } from '../../../redux/constants/keys'
 import PATHS from '../../../redux/constants/paths'
 import { Searchs } from '../../LocalSearch'
+import Logo from '../../../assets/images/logo-book.png'
 import {
   SubCategoryK,
   SubCategoryN,
@@ -43,133 +45,70 @@ const HeaderUser = () => {
 
   return (
     <>
-      <header className="header sticky top-0 z-50">
-        <div className="desktop-header bg-white hidden lg:block">
+      <header className="header sticky top-0 z-50 ">
+        <div
+          className="desktop-header bg-white hidden lg:block h-16 shadow-md"
+          // style={{ lineHeight: '80px' }}
+        >
           <div className="container mx-auto px-11">
-            <nav className="nav flex justify-between relative">
+            <nav className=" flex justify-between items-center relative pt-2">
               <div className="flex items-center">
                 <a href="/" className="inline-block mb-2 mr-2">
                   <img
-                    src="./assests/images/Logo_95x.png"
-                    alt="Wokiee"
-                    className="mr-6"
+                    src={Logo}
+                    alt="Workbook"
+                    style={{ width: '120px', height: ' auto' }}
                   />
                 </a>
-                <ul className="flex items-center">
-                  <li className="mr-6">
-                    <Link
-                      to="/"
-                      className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
-                    >
-                      TRANG CHỦ
-                    </Link>
-                  </li>
-                  <li className="mr-6">
-                    <Link
-                      to="/shop"
-                      className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
-                    >
-                      KHO SÁCH
-                    </Link>
-                  </li>
-
-                  <li className="mr-6 dropdown-hover">
-                    <Link
-                      to="# "
-                      className="stc text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
-                    >
-                      SÁCH TRONG NƯỚC
-                    </Link>
-                    <div className="dropdown-menu grid-rows-3">
-                      <div className="grid row-span-2 ">
-                        <div className="col-span-7 grid grid-cols-3">
-                          <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all">
-                              VĂN HỌC
-                            </p>
-                            <SubCategoryV />
-                          </ul>
-                          <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500  transition-all">
-                              KINH TẾ
-                            </p>
-                            <SubCategoryK />
-                          </ul>
-                          <ul className="group">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500  transition-all">
-                              THIẾU NHI
-                            </p>
-                            <SubCategoryT />
-                          </ul>
-                          <ul className="group mt-6">
-                            <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500  transition-all">
-                              NGOẠI NGỮ
-                            </p>
-                            <SubCategoryN />
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/community"
-                      className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
-                    >
-                      CỘNG ĐỒNG
-                    </Link>
-                  </li>
-                  {/* <li className="mr-6">
-                    <a
-                      href
-                      className="text-sm color-secondary hover:text-blue-500 transition-all pt-2 pb-2 inline-block"
-                    >
-                      HỖ TRỢ
-                    </a>
-                  </li> */}
-                </ul>
+              </div>
+              <div style={{ width: 'calc(100% - 500px)' }}>
+                <Searchs />
               </div>
               <ul className="flex items-center">
-                {/* <li className="ml-6 relative">
-                  <button className="nav__btn">
-                    <i className="fal fa-search hover:text-blue-500 transition-all" />
-                  </button>
-                  <div className="absolute left-2/4 transform -translate-x-2/4 bg-white shadow-sm rounded-lg px-2 text-sm text-center align-middle tooltip">
-                    Search
-                  </div>
-                </li> */}
-                <li className="ml-6 relative">
-                  <span className="mr-2">
-                    <ShoppingCartOutlined />
-                  </span>
+                <li className="mr-5 relative">
                   <Link to="/cart">
-                    <Badge count={cartLists.length} offset={[9, 0]}>
-                      GIỎ HÀNG
+                    <Badge
+                      count={cartLists.length}
+                      offset={[9, 0]}
+                      className=" flex flex-col items-center"
+                      style={{ left: '35px', width: '20px', top: '2px' }}
+                    >
+                      <ShoppingCartOutlined
+                        style={{ fontSize: '24px' }}
+                        className="text-blue-600"
+                      />
+
+                      <div className="text-sm text-blue-600">Giỏ hàng</div>
                     </Badge>
                   </Link>
                 </li>
-                <li className="ml-6 relative">
-                  <Menu
-                    onClick={handleClick}
-                    selectedKeys={[current]}
-                    mode="horizontal"
-                    className="nav"
-                  >
-                    <Item className="nav__login">
-                      <Searchs />
-                    </Item>
-                    {user && user.token ? (
-                      <SubMenu
-                        key="SubMenu"
-                        icon={<SettingOutlined />}
-                        title={
-                          user.userDatas && user.userDatas.name
-                            ? user.userDatas.name
-                            : ''
-                        }
-                        className="nav__user"
-                      >
+                {user && !user.token ? (
+                  <>
+                    <li className="mr-5 relative">
+                      <Link to="/login" className="text-center block">
+                        <UserOutlined
+                          style={{ fontSize: '24px' }}
+                          className="text-blue-600"
+                        />
+
+                        <div className="text-sm text-blue-600">Đăng nhập</div>
+                      </Link>
+                    </li>
+                    <li className="mr-5 relative">
+                      <Link to="/register" className="text-center block">
+                        <UserAddOutlined
+                          style={{ fontSize: '24px' }}
+                          className="text-blue-600"
+                        />
+
+                        <div className="text-sm text-blue-600">Đăng ký</div>
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <Dropdown
+                    overlay={
+                      <Menu>
                         <Item icon={<HomeOutlined />}>
                           <Link to="/user/history">Trang chủ</Link>
                         </Item>
@@ -181,29 +120,28 @@ const HeaderUser = () => {
                         <Item icon={<LogoutOutlined />} onClick={logout}>
                           Đăng xuất
                         </Item>
-                      </SubMenu>
-                    ) : null}
-
-                    {user && !user.token ? (
-                      <>
-                        <Item
-                          key="login"
-                          icon={<UserOutlined />}
-                          className="nav__login"
-                        >
-                          <Link to="/login">Đăng nhập</Link>
-                        </Item>
-                        <Item
-                          key="register"
-                          icon={<UserAddOutlined />}
-                          className="nav__register"
-                        >
-                          <Link to="/register">Đăng ký</Link>
-                        </Item>
-                      </>
-                    ) : null}
-                  </Menu>
-                </li>
+                      </Menu>
+                    }
+                    trigger={['click']}
+                  >
+                    <button className="cursor-pointer flex items-center">
+                      <img
+                        className="w-8 h-8 rounded-full mr-2"
+                        src={user && user.userDatas?.photoURL}
+                        width={32}
+                        height={32}
+                        alt="User"
+                      />
+                      <div className="flex items-center">
+                        {' '}
+                        <span className="pr-2 text-gray-600 font-semibold">
+                          {user && user.userDatas.name}
+                        </span>{' '}
+                        <DownOutlined style={{ fontSize: '14px' }} />
+                      </div>
+                    </button>
+                  </Dropdown>
+                )}
                 {/* <li className="ml-6 relative">
                   <button className="nav__btn">
                     <UserOutlined />

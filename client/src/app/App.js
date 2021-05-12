@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { currentUsers } from '../apis/auth'
 import SideDrawer from '../components/Drawer/SideDrawer'
+import Footer from '../components/Footer/Footer'
 import { HeaderUser } from '../components/navigation/Header'
 import Notify from '../components/Notify/Notify'
 import { auth } from '../firebase'
@@ -37,6 +38,7 @@ import CheckOut from '../pages/checkout/CheckOut'
 import Community from '../pages/Community/home/Community'
 import Profile from '../pages/Community/profile'
 import { Home } from '../pages/Home'
+import NavBarDropdown from '../pages/Home/NavBarDropdown'
 import { Payment } from '../pages/payment'
 import { Product } from '../pages/product'
 import Shop from '../pages/Shop/Shop'
@@ -51,6 +53,7 @@ import UserRoute from '../routers/UserRoute'
 export default function App() {
   const dispatch = useDispatch()
   let { user: users, homePost } = useSelector((state) => state)
+  const { pathname } = useLocation()
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -96,6 +99,11 @@ export default function App() {
           src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
         />
       </Image.PreviewGroup> */}
+      {pathname !== '/' && (
+        <div className="px-4 pt-2">
+          <NavBarDropdown />
+        </div>
+      )}
       <Switch>
         <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
         <Route exact path={`/${PATHS.REGISTER}`} component={Register} />
@@ -245,6 +253,7 @@ export default function App() {
           component={Profile}
         />
       </Switch>
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={2000}

@@ -58,7 +58,7 @@ function Home(props) {
                 </div>
                 <div className="dropdown-menu grid-rows-3">
                   <div className="grid row-span-2 ">
-                    <div className="col-span-7 grid grid-cols-3 mt-4">
+                    <div className="col-span-7 grid grid-cols-3 my-4">
                       <ul className="group">
                         <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all">
                           VĂN HỌC
@@ -139,7 +139,7 @@ function Home(props) {
               </span>
             </div>
             <span className="mx-2 h-5 border-l-2 border-solid border-gray-600"></span>
-            <CountDownTimer />
+            <CountDownTimer deadline={new Date(2021, 5, 14)} />
           </div>
           <div className="mx-3 my-4">
             <ListProductSale flashSale={true} />

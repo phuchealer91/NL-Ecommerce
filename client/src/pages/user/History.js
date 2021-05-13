@@ -42,7 +42,6 @@ function History(props) {
   //   }
   //   loaduserOrder(variables)
   // }, [isChange])
-  console.log('userOrderuserOrderuserOrderuserOrderuserOrder', userOrder)
   const arrStatus = ['Đang chờ xác nhận', 'Đang xử lý', 'Đã bàn giao', 'Hủy']
   const loadTotalWConfirm = () => {
     getTotalOrdersStatuss({ status: arrStatus[0] })
@@ -122,8 +121,8 @@ function History(props) {
   return (
     <React.Fragment>
       <UserLayouts>
-        <SectionTitle>Tổng quan trạng thái đơn hàng</SectionTitle>
-        <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="px-4 mb-8 bg-white dark:bg-gray-800">
+          <SectionTitle>Tổng quan trạng thái đơn hàng</SectionTitle>
           <div className="grid gap-6 mb-4 md:grid-cols-2 xl:grid-cols-4">
             {/* Card */}
             <div className="border border-gray-100 flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -137,7 +136,7 @@ function History(props) {
                   Đang chờ xác nhận
                 </p>
 
-                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                <p className="text-lg font-semibold text-gray-600 dark:text-gray-200">
                   {totalWConfirm}
                 </p>
               </div>
@@ -156,7 +155,7 @@ function History(props) {
                   Đang xử lý
                 </p>
 
-                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                <p className="text-lg font-semibold text-gray-600 dark:text-gray-200">
                   {totalProcess}
                 </p>
               </div>
@@ -174,7 +173,7 @@ function History(props) {
                   Đã bàn giao
                 </p>
 
-                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                <p className="text-lg font-semibold text-gray-600 dark:text-gray-200">
                   {totalCompleted}
                 </p>
               </div>
@@ -188,15 +187,15 @@ function History(props) {
                 <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                   Hủy
                 </p>
-                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                <p className="text-lg font-semibold text-gray-600 dark:text-gray-200">
                   {totalCancel}
                 </p>
               </div>
             </div>
           </div>
           {userOrder && userOrder.length > 0 ? (
-            <div className=" mt-4 px-4 border">
-              <div className="uppercase border-b py-4 border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
+            <div className=" mt-6">
+              <div className="uppercase pb-1 text-gray-600 font-semibold">
                 CÁC ĐƠN HÀNG CỦA BẠN{' '}
                 <span className="text-gray-500 text-xs">
                   ({userOrder?.length})
@@ -204,18 +203,18 @@ function History(props) {
               </div>
               <div>
                 <div className="w-full">
-                  <div className="bg-white shadow-md rounded my-6">
+                  <div className="bg-white shadow-md rounded my-4">
                     <table className=" w-full table-auto">
                       <thead>
-                        <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                          <th className="py-3 px-6 text-left">Mã đơn hàng</th>
-                          <th className="py-3 px-6 text-left">
+                        <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
+                          <th className="py-3 px-4 text-left">Mã đơn hàng</th>
+                          <th className="py-3 px-4 text-left">
                             Tên khách hàng
                           </th>
-                          <th className="py-3 px-6 text-center">Tổng tiền</th>
-                          <th className="py-3 px-6 text-center">Thời gian</th>
-                          <th className="py-3 px-6 text-center">Trạng thái</th>
-                          <th className="py-3 px-6 text-center">Thao tác</th>
+                          <th className="py-3 px-4 text-left">Tổng tiền</th>
+                          <th className="py-3 px-4 text-left">Thời gian</th>
+                          <th className="py-3 px-4 text-left">Trạng thái</th>
+                          <th className="py-3 px-4 text-left">Thao tác</th>
                         </tr>
                       </thead>
                       {userOrder &&

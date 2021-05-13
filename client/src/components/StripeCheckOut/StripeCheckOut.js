@@ -126,6 +126,7 @@ function StripeCheckOut(props) {
                     src={CreditCard}
                     alt={CreditCard}
                     width="180px"
+                    style={{ width: '180px' }}
                     height="auto"
                   />
                 </div>

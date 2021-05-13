@@ -8,10 +8,10 @@ function Payment(props) {
 
   return (
     <div className="">
-      <div className="xl:max-w-7xl mx-auto bg-white rounded">
+      <div className="xl:max-w-7xl mx-auto bg-white rounded mt-4">
         <div className="px-3 pt-3 pb-8">
-          <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
-            HOÀN TẤT THANH TOÁN ()
+          <div className="uppercase border-b border-gray-100 pb-1 text-gray-600 font-semibold  border-solid px-4">
+            HOÀN TẤT THANH TOÁN
           </div>
           <Elements stripe={stripePromise}>
             <StripeCheckOut />

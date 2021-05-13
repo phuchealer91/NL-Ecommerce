@@ -24,6 +24,7 @@
     transition: all 0.2s ease;
     top: -47px;
     left: 100%;
+    visibility: visible;
   }
 }
 .stc {
@@ -62,6 +63,7 @@
   transition: all 0.2s ease 0s;
   background: white;
   background-position: right bottom;
+  visibility: hidden;
 }
 
 .c-text-1 {

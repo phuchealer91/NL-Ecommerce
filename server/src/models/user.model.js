@@ -8,7 +8,7 @@ const userSchema = new schema(
     email: { type: String, required: true, unique: true, index: true },
     role: { type: String, default: 'user' },
     cart: { type: Array, default: [] },
-    gender: { type: String, default: 'male' },
+    gender: { type: String, default: 'Nam' },
     mobile: { type: String, default: '' },
     website: { type: String, default: '' },
     story: { type: String, default: '', maxlength: 200 },

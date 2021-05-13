@@ -47,7 +47,7 @@ const HeaderUser = () => {
     <>
       <header className="header sticky top-0 z-50 ">
         <div
-          className="desktop-header bg-white hidden lg:block h-16 shadow-md"
+          className="desktop-header bg-white hidden lg:block h-16"
           // style={{ lineHeight: '80px' }}
         >
           <div className="container mx-auto px-11">

@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getWishLists, removeWishLists } from '../../apis/cart'
 import { EmptyData } from '../../components/Empty'
+import { UserLayouts } from '../../components/navigation/Layouts/Layouts'
 import { UserSideBar } from '../../components/navigation/SideBar'
+import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import { formatPrice } from '../../helpers/formatPrice'
 function WishList(props) {
   const [wishList, setWishList] = useState([])
@@ -38,15 +40,10 @@ function WishList(props) {
 
   return (
     <React.Fragment>
-      <Row>
-        <Col span={5}>
-          <UserSideBar />
-        </Col>
-        <div className="lg:w-3/4 mt-12 lg:mt-0">
-          <div className="bg-grey-light py-8 px-5 md:px-8 h-full">
-            <h1 className="font-hkbold text-secondary text-2xl pb-6 text-center sm:text-left">
-              Danh sách yêu thích
-            </h1>
+      <UserLayouts>
+        <div className="w-full mx-auto bg-white rounded">
+          <div className="px-3 pt-3 pb-8">
+            <SectionTitle>Danh sách yêu thích</SectionTitle>
             {wishList[0] !== null ? (
               wishList.map((w, idx) => {
                 return (
@@ -86,15 +83,15 @@ function WishList(props) {
               <EmptyData />
             )}
           </div>
+          <div className="pagination">
+            <Pagination
+              current={page}
+              total={(totalWishLists * 4) / 10}
+              onChange={(value) => setPage(value)}
+            />
+          </div>
         </div>
-        <div className="pagination">
-          <Pagination
-            current={page}
-            total={(totalWishLists * 4) / 10}
-            onChange={(value) => setPage(value)}
-          />
-        </div>
-      </Row>
+      </UserLayouts>
     </React.Fragment>
   )
 }

@@ -7,7 +7,7 @@ import HeaderAdmin from '../Header/HeaderAdmin'
 const NavBar = ({ menu }) => {
   const [visible, setVisible] = useState(false)
   return (
-    <nav className="navbar z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+    <nav className="navbar z-10 bg-white shadow-md dark:bg-gray-800">
       <Button
         className="menu"
         type="primary"
@@ -25,13 +25,13 @@ const NavBar = ({ menu }) => {
       >
         {menu}
       </Drawer>
-      <a href="/">
+      {/* <a href="/">
         <img
           src="https://developer.logicblox.com/content/docs/api-reference/wb-framework/lblogo.png"
           className="logo"
           alt="logo"
         />
-      </a>
+      </a> */}
     </nav>
   )
 }

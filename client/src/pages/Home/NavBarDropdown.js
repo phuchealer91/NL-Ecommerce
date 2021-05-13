@@ -14,9 +14,9 @@ NavBarDropdown.propTypes = {}
 function NavBarDropdown(props) {
   return (
     <React.Fragment>
-      <div className="w-full flex items-center">
-        <div className="dropdown-sp w-1/4 mr-4 relative">
-          <div className=" cursor-pointer bg-blue-600 h-11 flex items-center justify-center relative rounded-t-md">
+      <div className="w-full flex items-center mb-3">
+        <div className="dropdown-sp mr-4 relative" style={{ width: '256px' }}>
+          <div className=" cursor-pointer bg-blue-600 h-10 flex items-center justify-center relative">
             <span className="text-base text-white font-semibold ">
               {' '}
               Danh mục sản phẩm
@@ -52,7 +52,7 @@ function NavBarDropdown(props) {
               </div>
               <div className="dropdown-menu grid-rows-3">
                 <div className="grid row-span-2 ">
-                  <div className="col-span-7 grid grid-cols-3 mt-4">
+                  <div className="col-span-7 grid grid-cols-3 my-4">
                     <ul className="group">
                       <p className="text-sm font-semibold uppercase mb-3 group-hover:text-blue-500 transition-all">
                         VĂN HỌC
@@ -100,7 +100,7 @@ function NavBarDropdown(props) {
             </li>
           </ul>
         </div>
-        <div className="w-9/12">
+        <div className="" style={{ width: 'calc(100% - 256px)' }}>
           <div className="flex items-center">
             <img
               src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale.png"

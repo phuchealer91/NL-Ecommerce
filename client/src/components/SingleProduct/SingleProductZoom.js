@@ -85,7 +85,11 @@ function SingleProductZoom({ productEditing }) {
             >
               <SideBySideMagnifier
                 className=""
-                style={{ order: false ? '1' : '0', height: '100%' }}
+                style={{
+                  order: false ? '1' : '0',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
                 imageSrc={images ? images[0]?.url : images[1]?.url}
                 largeImageSrc={images ? images[0]?.url : images[1]?.url}
                 alwaysInPlace={false}

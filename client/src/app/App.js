@@ -44,6 +44,8 @@ import { Product } from '../pages/product'
 import Shop from '../pages/Shop/Shop'
 import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 import { History, Password, WishList } from '../pages/user'
+import UserAddress from '../pages/user/UserAddress'
+import UserProfile from '../pages/user/UserProfile'
 import { notify } from '../redux/actions/notify'
 import { getPostsx } from '../redux/actions/post'
 import PATHS from '../redux/constants/paths'
@@ -54,6 +56,7 @@ export default function App() {
   const dispatch = useDispatch()
   let { user: users, homePost } = useSelector((state) => state)
   const { pathname } = useLocation()
+  console.log('pathname', pathname)
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -89,18 +92,8 @@ export default function App() {
   return (
     <React.Fragment>
       {users && users.userDatas?.role !== 'admin' && <HeaderUser />}
-      {/* <Image.PreviewGroup>
-        <Image
-          width={200}
-          src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-        />
-        <Image
-          width={200}
-          src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-        />
-      </Image.PreviewGroup> */}
-      {pathname !== '/' && (
-        <div className="px-4 pt-2">
+      {pathname !== '/' && pathname !== '/admin/dashboard' && (
+        <div className="px-4 bg-white">
           <NavBarDropdown />
         </div>
       )}
@@ -122,6 +115,16 @@ export default function App() {
           exact
           path={`/${PATHS.USER}/${PATHS.HISTORY}`}
           component={History}
+        />
+        <UserRoute
+          exact
+          path={`/${PATHS.USER}/${PATHS.ADDRESS}`}
+          component={UserAddress}
+        />
+        <UserRoute
+          exact
+          path={`/${PATHS.USER}/${PATHS.PROFILE}/:id`}
+          component={UserProfile}
         />
         <UserRoute
           exact
@@ -253,7 +256,8 @@ export default function App() {
           component={Profile}
         />
       </Switch>
-      <Footer />
+      {pathname !== '/admin/dashboard' && <Footer />}
+
       <ToastContainer
         position="top-right"
         autoClose={2000}

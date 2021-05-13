@@ -28,8 +28,8 @@ export const Layouts = ({ children }) => {
 export const UserLayouts = ({ children }) => {
   const Menu = <UserSideBar />
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+    <div className="px-4 flex dark:bg-gray-900">
+      <div className="z-20 hidden w-64  bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <NavBar menu={Menu} />
         <SideBars menu={Menu} />
       </div>
@@ -39,9 +39,7 @@ export const UserLayouts = ({ children }) => {
           <NavBar menu={Menu} />
         </div>
         {/* <HeaderAdmin /> */}
-        <div className=" h-full overflow-y-auto">
-          <div className=" container px-6 mx-auto grid">{children}</div>
-        </div>
+        <div className=" container px-4 mx-auto grid">{children}</div>
       </div>
     </div>
   )

@@ -25,8 +25,8 @@ function CheckOut(props) {
   // const [isSubmitAddr, setIsSubmitAddr] = useState(false)
   const [addressSaved, setAddressSaved] = useState(null)
   const [listAddress, setListAddress] = useState([])
-  const [addressId, setAddressId] = useState('')
   const [coupons, setCoupons] = useState('')
+  const [addressId, setAddressId] = useState('')
   const [visible, setVisible] = useState(false)
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
@@ -240,10 +240,10 @@ function CheckOut(props) {
           </div>
         </Col>
       </Row> */}
-      <div className="xl:max-w-7xl mx-auto bg-white rounded">
+      <div className="xl:max-w-7xl mx-auto bg-white rounded mt-4">
         <div className="px-3 pt-3 pb-8">
-          <div className="uppercase border-b border-gray-100 pb-1 text-gray-700 font-semibold  border-solid px-4">
-            TẤT CẢ ĐỊA CHỈ ()
+          <div className="uppercase border-b border-gray-100 pb-1 text-gray-600 font-semibold  border-solid px-4">
+            TẤT CẢ ĐỊA CHỈ ({listAddress.length})
           </div>
           <div className="my-3 mx-3 flex items-center">
             <span>Bạn muốn giao hàng đến địa chỉ khác?</span>

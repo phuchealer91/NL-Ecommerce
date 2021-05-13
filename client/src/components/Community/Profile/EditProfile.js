@@ -152,9 +152,9 @@ function EditProfile({ visible, handleCancel, setVisible }) {
                             onChange={onHandleInput}
                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           >
-                            <option value="male">Nam</option>
-                            <option value="female">Nữ</option>
-                            <option value="other">Khác</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
                           </select>
                         </div>
                         <div className="mt-2  rounded-md w-full ">

@@ -50,6 +50,7 @@ const PATHS = {
   OUT_WAREHOUSE: 'out-warehouse',
   INVENTORY_WAREHOUSE: 'inventory-warehouse',
   SALE: 'sale',
+  OVERVIEW: 'overview',
 }
 
 export default PATHS

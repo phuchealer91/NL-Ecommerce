@@ -40,7 +40,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*first trending tweet*/}
               {/* <div className="flex">
                 <div className="flex-1">
@@ -69,7 +69,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*second trending tweet*/}
               {/* <div className="flex">
                 <div className="flex-1">
@@ -100,7 +100,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*third trending tweet*/}
               {/* <div className="flex">
                 <div className="flex-1">
@@ -131,7 +131,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*forth trending tweet*/}
               {/* <div className="flex">
                 <div className="flex-1">
@@ -162,7 +162,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*show more*/}
               {/* <div className="flex">
                 <div className="flex-1 p-4">
@@ -181,7 +181,7 @@ function RightMenu() {
                   </h2>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*first person who to follow*/}
               {/* <div className="flex flex-shrink-0">
                 <div className="flex-1 ">
@@ -211,7 +211,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*second person who to follow*/}
               {/* <div className="flex flex-shrink-0">
                 <div className="flex-1 ">
@@ -241,7 +241,7 @@ function RightMenu() {
                   </a>
                 </div>
               </div> */}
-              <hr className="border-gray-800" />
+              <hr className="border-gray-200" />
               {/*show more*/}
             </div>
           </div>

@@ -35,7 +35,7 @@ function SearchUser(props) {
 
   return (
     <>
-      <div className="relative text-gray-300  p-5">
+      <div className="relative text-gray-300  px-5">
         <button type="submit" className="absolute ml-4 mt-3 mr-4">
           <svg
             className="h-4 w-4 fill-current"
@@ -60,7 +60,7 @@ function SearchUser(props) {
           type="text"
           name="search"
           autoComplete="off"
-          placeholder="Search by user name"
+          placeholder="Tìm kiếm người dùng"
           value={search}
           onChange={(e) =>
             setSearch(e.target.value.toLowerCase().replace(/ /g, ''))

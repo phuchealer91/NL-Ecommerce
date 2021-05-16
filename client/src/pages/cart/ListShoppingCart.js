@@ -103,9 +103,11 @@ const ListShoppingCart = ({ cartLists }) => {
         <div className="lg:w-2/3 pr-6">
           <div className="pt-8 bg-white  rounded">
             {!cartLists.length ? (
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center flex-col">
                 <EmptyCart />
-                <Link to="/shop">Tiếp tục mua hàng</Link>{' '}
+                <Link className="pt-4" to="/shop">
+                  Tiếp tục mua hàng
+                </Link>{' '}
               </div>
             ) : (
               cartLists &&
@@ -201,6 +203,7 @@ const ListShoppingCart = ({ cartLists }) => {
                           className="opacity-100"
                         />
                       </div>
+                      <span className="border-l-2 h-full border-solid border-gray-500"></span>
                       <div className=" text-blue-700 text-base font-semibold">
                         <span className="text-xs text-gray-500">
                           Thành tiền:

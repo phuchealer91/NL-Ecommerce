@@ -8,15 +8,27 @@ function Cart(props) {
 
   return (
     <>
-      <div className="pt-10 px-6">
-        <h1 className="font-hkbold text-secondary text-2xl pb-3 text-center sm:text-left">
-          GIỎ HÀNG{' '}
-          <span className="text-gray-500 text-xs">
-            ({cartLists.length} sản phẩm)
-          </span>
-        </h1>
-        <ListShoppingCart cartLists={cartLists} />
-      </div>
+      <section className="my-5 mx-4  bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+        <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
+          <div className="flex items-center">
+            <img
+              src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_PCSC_hot.png"
+              style={{ width: '25px', height: '25px' }}
+              alt="flash sale"
+              className="mx-3"
+            />
+            <span className=" text-base text-gray-600 font-semibold">
+              Giỏ hàng{' '}
+              <span className="text-gray-600 text-xs">
+                ({cartLists.length} sản phẩm)
+              </span>
+            </span>
+          </div>
+        </div>
+        <div className="mx-3 my-4">
+          <ListShoppingCart cartLists={cartLists} />
+        </div>
+      </section>
     </>
   )
 }

@@ -43,7 +43,6 @@ function LeftMenu() {
       <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
     </svg>
   )
-  const discoversx = <CompassOutlined />
   const listsx = (
     <svg
       className="mr-4 h-6 w-6"
@@ -87,21 +86,20 @@ function LeftMenu() {
     { label: 'Trang chủ', icon: homesx, path: '/community' },
     { label: 'Thông báo', icon: notificationsx, path: '/community/notify' },
     { label: 'Tin nhắn', icon: messagesx, path: '/community/message' },
-    { label: 'Khám phá', icon: discoversx, path: '/community/discover' },
   ]
   function ScrollToTop() {
-    window.scrollTo({ top: 0 })
+    window.scrollTop({ top: 0 })
   }
   return (
-    <nav className="mt-5 px-2">
+    <nav className="mt-3 px-2">
       {navLinks &&
         navLinks.map((item, idx) => {
           return (
             <NavLink
               key={idx}
               to={item.path}
-              className="mt-1 group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full text-white hover:bg-gray-800 hover:text-blue-500"
-              activeClassName="text-blue-300"
+              className="group flex items-center px-2 py-2 text-base leading-6 font-semibold rounded-full text-gray-600 hover:bg-gray-200 hover:text-gray-700"
+              activeClassName="text-blue-600"
               onClick={idx === 0 && ScrollToTop}
             >
               {item.icon}
@@ -109,10 +107,6 @@ function LeftMenu() {
             </NavLink>
           )
         })}
-
-      {/* <button className="bg-blue-400 hover:bg-blue-500 w-full mt-5 text-white font-bold py-2 px-4 rounded-full">
-        Tweet
-      </button> */}
     </nav>
   )
 }

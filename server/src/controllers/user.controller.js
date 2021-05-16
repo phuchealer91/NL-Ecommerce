@@ -190,8 +190,9 @@ module.exports.getOrders = async (req, res) => {
       .limit(perPage)
       .exec()
     const orderTotal = await Order.find({ orderedBy: user._id })
-      .estimatedDocumentCount()
+      .countDocuments()
       .exec()
+    console.log('orderTotalorderTotalorderTotal', orderTotal)
     return res.status(200).json({ userOrders, orderTotal })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })

@@ -20,13 +20,13 @@ function CommentCard({ comment, post }) {
         <div className="flex items-center justify-center space-x-2">
           <div className="block">
             <div className="flex  items-center space-x-2">
-              <div className="bg-gray-300 w-auto rounded-xl px-3 py-2 pb-2">
-                <div className="font-medium">
+              <div className="bg-gray-100 w-auto rounded-xl px-3 py-2 pb-2">
+                <div className="font-semibold">
                   <Link
                     to={`/profile/${comment.postBy._id}`}
-                    className="hover:underline text-sm"
+                    className="no-underline text-sm"
                   >
-                    <small className="text-xs text-gray-800 font-semibold">
+                    <small className="text-xs text-gray-700 font-semibold">
                       {comment.postBy.name}
                     </small>
                   </Link>
@@ -38,20 +38,20 @@ function CommentCard({ comment, post }) {
             </div>
             <div className="flex justify-start items-center text-xs w-full pt-1">
               <div className="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
-                <span href="#" className="hover:underline text-white">
-                  <span className="text-xs text-white hover:text-gray-400 cursor-pointer">
-                    {comment.likes.length} Like
+                <span className="no-underline text-gray-600">
+                  <span className="text-xs text-gray-600 hover:text-gray-700 cursor-pointer">
+                    {comment.likes.length} Thích
                   </span>
                 </span>
                 <small className="self-center">.</small>
-                <span href="#" className="hover:underline text-white">
-                  <span className="text-xs text-white hover:text-gray-400 cursor-pointer">
-                    Reply
+                <span className="no-underline text-gray-600">
+                  <span className="text-xs text-gray-600 hover:text-gray-700 cursor-pointer">
+                    Trả lời
                   </span>
                 </span>
                 <small className="self-center">.</small>
-                <span href="#" className="hover:underline text-white">
-                  <span className="text-xs text-white">
+                <span className="no-underline text-gray-400">
+                  <span className="text-xs text-gray-400">
                     {moment(comment.createdAt).fromNow()}
                   </span>
                 </span>

@@ -36,6 +36,7 @@ import Cart from '../pages/cart/Cart'
 import CategoryMainPage from '../pages/category/CategoryMainPage'
 import CheckOut from '../pages/checkout/CheckOut'
 import Community from '../pages/Community/home/Community'
+import Messages from '../pages/Community/message/Messages'
 import Profile from '../pages/Community/profile'
 import { Home } from '../pages/Home'
 import NavBarDropdown from '../pages/Home/NavBarDropdown'
@@ -254,6 +255,11 @@ export default function App() {
           exact
           path={`/${PATHS.COMMUNITY}/${PATHS.PROFILE}/:id`}
           component={Profile}
+        />
+        <Route
+          exact
+          path={`/${PATHS.COMMUNITY}/${PATHS.MESSAGE}`}
+          component={Messages}
         />
       </Switch>
       {pathname !== '/admin/dashboard' && <Footer />}

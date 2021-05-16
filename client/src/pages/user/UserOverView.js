@@ -14,7 +14,7 @@ import TableOrder from '../../components/ViewOrder/TableOrder'
 import './Styles.scss'
 const { Step } = Steps
 
-function History(props) {
+function UserOverView(props) {
   // const [isReady, setIsReady] = useState(false)
   const [isChange, setIsChange] = useState(false)
   const [isChangeStatus, setIsChangeStatus] = useState(false)
@@ -197,7 +197,9 @@ function History(props) {
             <div className=" mt-6">
               <div className="uppercase pb-1 text-gray-600 font-semibold">
                 CÁC ĐƠN HÀNG CỦA BẠN{' '}
-                <span className="text-gray-500 text-xs">({orderTotals})</span>
+                <span className="text-gray-500 text-xs">
+                  ({userOrder?.length})
+                </span>
               </div>
               <div>
                 <div className="w-full">
@@ -245,6 +247,6 @@ function History(props) {
     </React.Fragment>
   )
 }
-History.propTypes = {}
+UserOverView.propTypes = {}
 
-export default History
+export default UserOverView

@@ -35,7 +35,7 @@ function CardHeader({ post }) {
               className="block"
             >
               <img
-                className="inline-block h-10 w-10 rounded-full border-2 border-blue-500"
+                className="inline-block h-10 w-10 rounded-full border-2 border-white shadow-sm"
                 src={post.postBy.photoURL}
                 alt={post.postBy.photoURL}
               />
@@ -45,9 +45,9 @@ function CardHeader({ post }) {
                 <span>
                   <Link
                     to={`/community/profile/${post.postBy._id}`}
-                    className="hover:underline text-white  block"
+                    className="no-underline text-gray-800  block"
                   >
-                    <p className="text-base  font-semibold text-white ">
+                    <p className="text-sm  font-semibold text-gray-800 ">
                       {post.postBy.name}
                     </p>
                   </Link>
@@ -55,7 +55,7 @@ function CardHeader({ post }) {
                 <span>
                   <Dropdown
                     overlay={
-                      <Menu>
+                      <Menu className="right-0 relative">
                         {user.userDatas._id === post.postBy._id && (
                           <>
                             <Menu.Item>
@@ -100,7 +100,7 @@ function CardHeader({ post }) {
                       </Menu>
                     }
                   >
-                    <span className="text-white hover:text-blue-600 transition">
+                    <span className="text-gray-600 hover:text-gray-700 transition">
                       <EllipsisOutlined
                         style={{
                           fontSize: '24px',
@@ -111,7 +111,7 @@ function CardHeader({ post }) {
                   </Dropdown>
                 </span>
               </div>
-              <span className="text-xs  font-medium text-gray-300  transition ease-in-out duration-150">
+              <span className="text-xs text-gray-400  transition ease-in-out duration-150">
                 {moment(post.createdAt).fromNow()}{' '}
                 {/* <span className="text-xs pl-2">
                   ({post.updatedAt && 'Đã chỉnh sửa'})

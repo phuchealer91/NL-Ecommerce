@@ -51,6 +51,7 @@ const PATHS = {
   INVENTORY_WAREHOUSE: 'inventory-warehouse',
   SALE: 'sale',
   OVERVIEW: 'overview',
+  MESSAGE: 'message',
 }
 
 export default PATHS

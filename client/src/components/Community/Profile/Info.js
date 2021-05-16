@@ -63,7 +63,7 @@ const Info = () => {
                     onClick={() => {
                       history.push('/community')
                     }}
-                    className=" text-2xl font-medium rounded-full text-blue-400 hover:bg-gray-800 hover:text-blue-300 float-right"
+                    className=" text-2xl font-medium rounded-full text-blue-400 hover:bg-gray-200 float-right"
                   >
                     <svg
                       className="m-2 h-6 w-6"
@@ -77,7 +77,7 @@ const Info = () => {
                   </button>
                 </div>
                 <div className="mx-2">
-                  <h2 className="mb-0 text-base pt-2 font-bold text-white">
+                  <h2 className="mb-0 text-base pt-2 font-bold text-gray-600">
                     {item.name}
                   </h2>
                   <p className="mb-0 w-48 text-xs text-gray-400">9,416 Posts</p>
@@ -111,7 +111,7 @@ const Info = () => {
                         >
                           <img
                             style={{ height: '9rem', width: '9rem' }}
-                            className="md rounded-full relative border-4 border-gray-900"
+                            className="md rounded-full relative border-4 border-gray-800"
                             src={item.photoURL}
                             alt="avatar"
                           />
@@ -124,7 +124,7 @@ const Info = () => {
                       {item._id === user?.userDatas?._id ? (
                         <button
                           onClick={showModal}
-                          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-white border-solid  text-white hover:bg-blue-400   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
+                          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded-full max-w-max border   bg-blue-500 text-white hover:bg-blue-600   items-center  font-semibold py-2 px-6  mr-0 ml-auto"
                         >
                           Chỉnh sửa
                         </button>
@@ -137,7 +137,7 @@ const Info = () => {
                   <div className="space-y-1 justify-center w-full mt-3 ml-3">
                     {/* User basic*/}
                     <div>
-                      <h2 className="text-xl leading-6 font-bold text-white">
+                      <h2 className="text-xl leading-6 font-bold text-gray-600">
                         {item.name}
                       </h2>
                       <p className="text-sm leading-5 font-medium text-gray-600">
@@ -146,12 +146,12 @@ const Info = () => {
                     </div>
                     {/* Description and others */}
                     <div className="mt-3">
-                      <p className="text-white leading-tight mb-2">
+                      <p className="text-gray-600 leading-tight mb-2">
                         {item.story}
                       </p>
-                      <div className="text-white flex">
+                      <div className="text-gray-600 flex">
                         <span className="flex mr-2">
-                          <LinkOutlined size="24px" style={{ color: '#fff' }} />
+                          <LinkOutlined size="24px" className="text-blue-600" />
                           <Link
                             to={item.website}
                             target="_blank"
@@ -167,10 +167,10 @@ const Info = () => {
                         <span>
                           <EnvironmentOutlined
                             size="24px"
-                            style={{ color: '#fff' }}
+                            className="text-blue-600"
                           />
                         </span>
-                        <span className="leading-5 ml-1 text-white pl-2">
+                        <span className="leading-5 ml-1 text-gray-600 pl-2">
                           {item.address
                             ? item.address[0]?.fullAddress
                             : 'Chưa cập nhật địa chỉ.'}
@@ -180,32 +180,32 @@ const Info = () => {
                     <div className="pt-3 flex justify-start items-start w-full divide-x divide-gray-800 divide-solid">
                       <div className="text-center pr-3">
                         <button
-                          className="text-gray-600 pr-1 hover:text-white"
+                          className="text-gray-600 pr-1 hover:text-gray-800"
                           onClick={showModal2}
                         >
                           {' '}
                           Theo dõi
                         </button>
-                        <span className="font-bold text-white">
+                        <span className="font-bold text-gray-600">
                           ({item.following?.length})
                         </span>
                       </div>
                       <div className="text-center px-3">
                         <button
-                          className="text-gray-600 pr-1 hover:text-white"
+                          className="text-gray-600 pr-1 hover:text-gray-800"
                           onClick={showModal1}
                         >
                           {' '}
                           Người theo dõi
                         </button>
-                        <span className="font-bold text-white">
+                        <span className="font-bold text-gray-600">
                           ({item.followers?.length})
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <hr className="border-gray-800" />
+                <hr className="border-gray-300" />
 
                 <EditProfile
                   visible={visible}

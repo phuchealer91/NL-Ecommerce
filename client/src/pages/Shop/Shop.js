@@ -14,6 +14,7 @@ import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
 import { getSubCategories } from '../../apis/subCategory'
 import { CardItem } from '../../components/CardItem'
 import Star from '../../components/Star'
+import { EmptyBox } from '../../helpers/icons'
 import { searchQuery } from '../../redux/actions/search'
 import { useSpeechRecognition } from '../../useSpeechRecognition'
 const { CheckableTag } = Tag
@@ -221,38 +222,40 @@ function Shop(props) {
   }, [speech.transcript, dispatch])
   return (
     <React.Fragment>
-      <Row gutter={[2, 12]}>
-        <Col xs={6} sm={6} md={6} lg={6}>
-          <h4 className="p-3 pl-2 text-green-600 font-semibold text-lg">
-            Tìm kiếm/Lọc
-          </h4>
-          <div className="px-4 flex items-center">
-            <button onClick={speech.startListening}>
-              <AudioOutlined style={{ fontSize: '32px' }} />
-            </button>
-            {/* <input
+      <h4 className="p-3 pl-2 text-green-600 font-semibold text-lg">
+        Tìm kiếm/Lọc
+      </h4>
+      <div className="px-4 flex items-center">
+        <button onClick={speech.startListening}>
+          <AudioOutlined style={{ fontSize: '32px' }} />
+        </button>
+        {/* <input
               type="text"
               readOnly
               // onChange={handleChange}
               value={speech.transcript}
               style={{ width: '100%' }}
             /> */}
-            <p className="pl-3">
-              {speech.listening ? (
-                <span style={{ color: 'green' }}>
-                  <AimOutlined color="green" /> Đang ghi......
-                </span>
-              ) : (
-                <span style={{ color: 'red' }}>
-                  <AimOutlined color="red" /> Dừng ghi.
-                </span>
-              )}
-            </p>
-          </div>
+        <p className="pl-3">
+          {speech.listening ? (
+            <span style={{ color: 'green' }}>
+              <AimOutlined color="green" /> Đang ghi......
+            </span>
+          ) : (
+            <span style={{ color: 'red' }}>
+              <AimOutlined color="red" /> Dừng ghi.
+            </span>
+          )}
+        </p>
+      </div>
 
+      {/* hhh */}
+      <div className="px-4 flex dark:bg-gray-900">
+        <div className="z-20 hidden w-64  bg-white dark:bg-gray-800 md:block flex-shrink-0">
           <Menu
             defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7']}
             mode="inline"
+            style={{ width: '256px', height: 'auto' }}
           >
             {/* price */}
             <SubMenu
@@ -327,29 +330,47 @@ function Shop(props) {
               </div>
             </SubMenu>
           </Menu>
-        </Col>
-        <Col xs={18} sm={18} md={18} lg={18}>
-          <h3 className="text-2xl text-green-600 font-semibold pb-3 pl-3">
-            Products
-          </h3>
+        </div>
 
-          {productsAll.length < 1 && (
-            <span className="text-gray-700 font-semibold text-xl pl-3">
-              No products found
-            </span>
-          )}
-          <div className="grid mx-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-4 mt-6">
-            {productsAll &&
-              productsAll.map((product) => {
-                return (
-                  <div className="product-item" key={product._id}>
-                    <CardItem product={product} />
-                  </div>
-                )
-              })}
+        <div className="flex flex-col flex-1 w-full">
+          {/* <HeaderAdmin /> */}
+          <div className=" container px-4 mx-auto grid">
+            {' '}
+            <section className="bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+              <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
+                <div className="flex items-center">
+                  <img
+                    src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_goiy.png"
+                    style={{ width: '25px', height: '25px' }}
+                    alt="flash sale"
+                    className="mx-3"
+                  />
+                  <span className=" text-base text-gray-600 font-semibold">
+                    Sản phẩm đề xuất
+                  </span>
+                </div>
+              </div>
+              <div className="mx-3 my-4">
+                {productsAll.length < 1 && (
+                  <span className="text-gray-700 font-semibold text-xl pl-3 flex justify-center items-center">
+                    <EmptyBox />
+                  </span>
+                )}
+                <div className="grid mx-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-auto grid-flow-row gap-4 mt-6">
+                  {productsAll &&
+                    productsAll.map((product) => {
+                      return (
+                        <div className="product-item" key={product._id}>
+                          <CardItem product={product} />
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            </section>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </React.Fragment>
   )
 }

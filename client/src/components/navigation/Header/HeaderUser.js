@@ -110,14 +110,20 @@ const HeaderUser = () => {
                     overlay={
                       <Menu>
                         <Item icon={<HomeOutlined />}>
-                          <Link to="/user/history">Trang chủ</Link>
+                          <Link to="/user/history" className="py-2">
+                            Trang chủ
+                          </Link>
                         </Item>
-                        <Item icon={<UserOutlined />}>
+                        {/* <Item icon={<UserOutlined />}>
                           <Link to={`/community/profile/${user.userDatas._id}`}>
                             Thông tin cá nhân
                           </Link>
-                        </Item>
-                        <Item icon={<LogoutOutlined />} onClick={logout}>
+                        </Item> */}
+                        <Item
+                          icon={<LogoutOutlined />}
+                          className="py-2"
+                          onClick={logout}
+                        >
                           Đăng xuất
                         </Item>
                       </Menu>

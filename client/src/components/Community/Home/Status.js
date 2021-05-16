@@ -113,7 +113,7 @@ function Status() {
           <div className="flex-1 px-2 pt-2 mt-2">
             <div>
               <textarea
-                className=" bg-transparent  font-medium text-base w-full text-white"
+                className=" bg-transparent border-none outline-none text-base w-full text-gray-600"
                 rows={2}
                 cols={50}
                 name="content"
@@ -127,11 +127,11 @@ function Status() {
                     <img
                       src={img.camera ? img.camera : URL.createObjectURL(img)}
                       alt="images"
-                      className="w-44 h-44 rounded-md object-contain bg-gray-200"
+                      className="w-44 h-44 rounded-md object-contain bg-white"
                     />
                     <span
                       onClick={() => onHandleDelete(idx)}
-                      className="w-8 h-8 rounded-full transition-all bg-white shadow-md border border-gray-400 relative right-10 -top-16 cursor-pointer hover:bg-blue-500 hover:text-white"
+                      className="w-8 h-8 rounded-full transition-all bg-white shadow-md border border-gray-400 relative right-10 -top-16 cursor-pointer hover:bg-blue-500 hover:text-gray-600"
                     >
                       <CloseOutlined
                         className="grid place-items-center h-full"
@@ -152,7 +152,7 @@ function Status() {
                     />
                     <span
                       onClick={onHandleStopStream}
-                      className="w-8 h-8 px-2 rounded-full transition-all bg-white shadow-md border border-gray-400 relative right-10 -top-24 cursor-pointer hover:bg-blue-500 hover:text-white"
+                      className="w-8 h-8 px-2 rounded-full transition-all bg-white shadow-md border border-gray-400 relative right-10 -top-24 cursor-pointer hover:bg-blue-500 hover:text-gray-600"
                     >
                       <CloseOutlined
                         className="grid place-items-center h-full w-full"
@@ -169,14 +169,13 @@ function Status() {
         </div>
         {/*middle creat tweet below icons*/}
         <div className="flex">
-          <div className="w-10" />
-          <div className="w-36 px-2">
+          <div className="w-36">
             <div className="flex items-center">
               {stream ? (
                 <div className="flex-1 text-center py-2 m-2">
                   <div
                     onClick={onHandleCapture}
-                    className="cursor-pointer mt-1 group flex items-center justify-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300"
+                    className="cursor-pointer mt-1 group flex items-center justify-center text-green-600 px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-200 "
                   >
                     <svg
                       id="bold"
@@ -214,7 +213,7 @@ function Status() {
                     />
                     <label
                       htmlFor="filexxx"
-                      className="cursor-pointer mt-1 group flex items-center justify-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300"
+                      className="cursor-pointer mt-1 group flex items-center justify-center text-green-600 px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-200"
                     >
                       <svg
                         className="text-center h-7 w-6 cursor-pointer"
@@ -232,7 +231,7 @@ function Status() {
                   <div className="flex-1 text-center py-2 m-2">
                     <div
                       onClick={onHandleStream}
-                      className="cursor-pointer mt-1 group flex items-center justify-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300"
+                      className="cursor-pointer mt-1 group flex items-center justify-center text-red-600 px-2 py-2 text-base leading-6 font-semibold rounded-full hover:bg-gray-200 "
                     >
                       <svg
                         version="1.1"
@@ -285,7 +284,7 @@ function Status() {
           <div className="flex-1">
             <button
               type="submit"
-              className="bg-blue-400 hover:bg-blue-500 mt-5 text-white font-bold py-2 px-8 rounded-full mr-8 float-right"
+              className="bg-blue-500 hover:bg-blue-600 mt-5 text-white font-semibold py-2 px-8 rounded-full mr-8 float-right"
             >
               Đăng
             </button>

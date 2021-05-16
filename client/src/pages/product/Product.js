@@ -52,7 +52,7 @@ function Product(props) {
                 className="mx-3"
               />
               <span className=" text-base text-gray-600 font-semibold">
-                Sản liên quan
+                Sản phẩm liên quan
               </span>
             </div>
           </div>
@@ -61,16 +61,24 @@ function Product(props) {
               <LoadingCard count={5} />
             ) : (
               <div className="container">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 auto-rows-auto grid-flow-row gap-2 mt-6">
-                  {productRelated &&
+              {
+                productRelated.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 auto-rows-auto grid-flow-row gap-2 mt-6">
+                  {
                     productRelated.map((product) => {
                       return (
                         <div className="product-item" key={product._id}>
                           <CardItem product={product} />
                         </div>
                       )
-                    })}
+                    })
+                }
                 </div>
+                ) :  <div className="flex items-center justify-center">
+                      <EmptyBox />
+                    </div>
+              }
+                
               </div>
             )}
           </div>
@@ -176,7 +184,6 @@ function Product(props) {
                           </div>
                           <Rate value={rating.rating} disabled />
                           <p className="text-lg">{rating.comment}</p>
-                          <Divider dashed />
                         </div>
                       )
                     })
@@ -199,7 +206,7 @@ function Product(props) {
                 className="mx-3"
               />
               <span className=" text-base text-gray-600 font-semibold">
-                Sản liên quan
+                Sản phẩm liên quan
               </span>
             </div>
           </div>

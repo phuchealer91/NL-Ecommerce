@@ -315,9 +315,9 @@ function UserAddress(props) {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-1/4"
+                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-1/2 font-semibold"
                       >
-                        Save
+                        Lưu
                       </button>
                     </div>
                   </form>

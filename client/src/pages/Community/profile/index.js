@@ -11,61 +11,29 @@ const Profile = () => {
     <React.Fragment>
       <div
         className="w-full flex items-center justify-center"
-        style={{ background: '#15202b' }}
+        style={{ background: '#f4f4f4' }}
       >
         <div
-          className="w-full p-relative "
-          style={{ backgroundColor: '#15202b' }}
+          className="w-full relative "
+          style={{ backgroundColor: '#f4f4f4' }}
         >
-          <div className="flex justify-center">
-            {/* Navbar (left side) */}
-            <div style={{ width: '275px' }} className="text-white py-4 h-auto">
+          <div className="flex justify-center ">
+            <div className="text-gray-600  sticky top-0">
               <div
-                className="overflow-y-auto fixed pr-3"
-                style={{ width: '275px', height: 'calc(100vh - 52px)' }}
+                className="overflow-y-auto pr-3 "
+                style={{ width: '275px', height: 'calc(100vh - 100px)' }}
               >
-                {/*Logo*/}
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-8 w-8 text-white ml-3"
-                  fill="currentColor"
-                >
-                  <g>
-                    <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path>
-                  </g>
-                </svg>
-                {/* Nav*/}
+                {/* <span className="px-5 text-base uppercase text-blue-600 font-semibold">
+                  {' '}
+                  Danh mục
+                </span> */}
                 <LeftMenu />
-                {/* User Menu */}
-                <div className="absolute" style={{ bottom: '2rem' }}>
-                  <div className="flex-shrink-0 flex hover:bg-gray-800 rounded-full px-4 py-3 mt-12 mr-2">
-                    <a href="#" className="flex-shrink-0 group block">
-                      <div className="flex items-center">
-                        <div>
-                          <img
-                            className="inline-block h-10 w-10 rounded-full"
-                            src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
-                            alt=""
-                          />
-                        </div>
-                        <div className="ml-3">
-                          <p className="text-base leading-6 font-medium text-white">
-                            ℜ𝔦𝔠𝔞𝔯𝔡𝔬ℜ𝔦𝔟𝔢𝔦𝔯𝔬.dev
-                          </p>
-                          <p className="text-sm leading-5 font-medium  group-hover:text-gray-300 transition ease-in-out duration-150">
-                            @Ricardo_oRibeir
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="flex" style={{ width: 'calc(100% - 275px)' }}>
               <section
-                className="w-full border border-y-0 border-gray-800"
-                style={{ maxWidth: '100%' }}
+                className="w-full rounded-md shadow-md bg-white"
+                style={{ maxWidth: '700px' }}
               >
                 {/*Content (Center)*/}
                 {profile.loading ? (

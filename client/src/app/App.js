@@ -52,18 +52,23 @@ import { getPostsx } from '../redux/actions/post'
 import PATHS from '../redux/constants/paths'
 import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
-
+import io from 'socket.io-client'
+import OpenSocket from 'socket.io-client'
+import * as types from '../redux/constants/global'
+import SocketClient from '../SocketClient'
 export default function App() {
   const dispatch = useDispatch()
   let { user: users, homePost } = useSelector((state) => state)
   const { pathname } = useLocation()
-  console.log('pathname', pathname)
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        dispatch(notify(true))
+        dispatch({
+          type: 'NOTIFY',
+          payload: { loading: true },
+        })
         const idTokenUser = await user.getIdTokenResult(true)
-        await window.localStorage.setItem('token', idTokenUser.token)
+        window.localStorage.setItem('token', idTokenUser.token)
         currentUsers()
           .then((res) => {
             if (res.data) {
@@ -76,16 +81,30 @@ export default function App() {
                 type: 'LOGGIN_IN_USER',
                 payload: data,
               })
-              dispatch(notify(false))
+              dispatch({
+                type: 'NOTIFY',
+                payload: { loading: false },
+              })
             }
           })
           .catch((error) => {
-            dispatch(notify(false))
+            dispatch({
+              type: 'NOTIFY',
+              payload: { loading: false },
+            })
             console.log('errorerrorerrorerrorerrorerror', error)
           })
       }
     })
-    return () => unsubscribe()
+    const socket = io()
+    dispatch({
+      type: types.SOCKET,
+      payload: socket,
+    })
+    return () => {
+      unsubscribe()
+      socket.close()
+    }
   }, [dispatch])
   useEffect(() => {
     if (users.token) dispatch(getPostsx())
@@ -98,6 +117,8 @@ export default function App() {
           <NavBarDropdown />
         </div>
       )}
+
+      {users && users.token && <SocketClient />}
       <Switch>
         <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
         <Route exact path={`/${PATHS.REGISTER}`} component={Register} />
@@ -259,6 +280,11 @@ export default function App() {
         <Route
           exact
           path={`/${PATHS.COMMUNITY}/${PATHS.MESSAGE}`}
+          component={Messages}
+        />
+        <Route
+          exact
+          path={`/${PATHS.COMMUNITY}/${PATHS.MESSAGE}/:id`}
           component={Messages}
         />
       </Switch>

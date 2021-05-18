@@ -13,8 +13,6 @@ export const createComments = (post, newComment, user) => async (dispatch) => {
     const newData = { ...res.data.comments, postBy: user.userDatas }
     const posts = { ...post, comments: [...post.comments, newData] }
     dispatch({ type: types.UPDATE_POST, payload: posts })
-    console.log('resresresres', res)
-
     // dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })
   } catch (error) {
     dispatch({ type: GlobalTypes.NOTIFY, payload: { loading: false } })

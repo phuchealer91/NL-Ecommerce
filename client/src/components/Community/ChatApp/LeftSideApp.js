@@ -4,14 +4,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Spin } from 'antd'
 import UserCard from '../UserCard'
 import { searchUsers } from '../../../apis/cart'
+import {
+  addUserMessage,
+  getConversations,
+} from '../../../redux/actions/message'
+import { useHistory, useParams } from 'react-router'
 LeftSideApp.propTypes = {}
 
 function LeftSideApp(props) {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [search, setSearch] = useState('')
   const [searchUserss, setSearchUserss] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const { user } = useSelector((state) => state)
+  const { id } = useParams()
+  const { user, message } = useSelector((state) => state)
   useEffect(() => {
     if (search && user.token) {
       loadSearhUser()
@@ -19,6 +26,12 @@ function LeftSideApp(props) {
       setSearchUserss([])
     }
   }, [search, user?.token])
+  useEffect(() => {
+    if (message.firstLoad) return
+    if (user.token) {
+      dispatch(getConversations({ user }))
+    }
+  }, [dispatch, user, message.firstLoad])
   const loadSearhUser = () => {
     setIsLoading(true)
     searchUsers(search)
@@ -34,6 +47,17 @@ function LeftSideApp(props) {
   function onHandleClose() {
     setSearch('')
     setSearchUserss([])
+  }
+  function onHandleAddUser(user) {
+    console.log('user', user)
+    setSearch('')
+    setSearchUserss([])
+    dispatch(addUserMessage({ user, message }))
+    return history.push(`/community/message/${user._id}`)
+  }
+  function isActive(user) {
+    if (id === user._id) return true
+    return false
   }
   return (
     <section className="flex flex-col flex-none overflow-auto w-24 hover:w-64 group lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out">
@@ -70,11 +94,28 @@ function LeftSideApp(props) {
           <div className="grid place-items-center py-4 px-4">
             <Spin size="default" />
           </div>
-        ) : (
-          searchUserss &&
+        ) : searchUserss.length !== 0 ? (
           searchUserss.map((item) => {
-            return <UserCard user={item} onHandleClose={onHandleClose} />
+            return (
+              <div key={item._id} onClick={() => onHandleAddUser(item)}>
+                <UserCard
+                  user={item}
+                  onHandleClose={onHandleClose}
+                  isActive={isActive(item)}
+                />
+              </div>
+            )
           })
+        ) : (
+          message.users.map((item) => (
+            <div key={item._id} onClick={() => onHandleAddUser(item)}>
+              <UserCard
+                user={item}
+                onHandleClose={onHandleClose}
+                isActive={isActive(item)}
+              />
+            </div>
+          ))
         )}
       </div>
     </section>

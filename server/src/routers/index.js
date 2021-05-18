@@ -15,6 +15,7 @@ const provinceRoute = require('./province.route')
 const wardRoute = require('./district.route')
 const postRoute = require('./post.route')
 const commentRoute = require('./comment.route')
+const messageRoute = require('./message.route')
 
 // router.use('/', uploadRoute)
 router.use('/v1', cloudinaryRoute)
@@ -32,5 +33,6 @@ router.use('/province', provinceRoute)
 router.use('/district', wardRoute)
 router.use('/post', postRoute)
 router.use('/comment', commentRoute)
+router.use('/message', messageRoute)
 
 module.exports = router

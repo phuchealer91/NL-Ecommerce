@@ -67,11 +67,7 @@ const UserLogined = (props) => {
   // }, [notificationsCount])
 
   useEffect(() => {
-    const socket = OpenSocket('http://localhost:8000', {
-      auth: {
-        userId: userDatas._id,
-      },
-    })
+    const socket = OpenSocket('http://localhost:8000')
     socket.on('create order', (orderUser) => {
       openNotification('create order', orderUser)
       dispatch(

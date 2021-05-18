@@ -14,6 +14,8 @@ import profileReducer from './profileReducer'
 import postReducer from './postReducer'
 import statusReducer from './statusReducer'
 import receiptReducer from './receiptReducer'
+import messageReducer from './messageReducer'
+import socketReducer from './socketReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   homePost: postReducer,
   status: statusReducer,
   receipt: receiptReducer,
+  message: messageReducer,
+  socket: socketReducer,
 })
 
 export default rootReducer

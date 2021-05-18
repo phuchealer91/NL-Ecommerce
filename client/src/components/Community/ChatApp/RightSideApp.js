@@ -6,12 +6,14 @@ import { EmptyBox } from '../../../helpers/icons'
 import MessageOther from './MessageOther'
 import MessageMe from './MessageMe'
 import * as types from '../../../redux/constants/notify'
+import * as typesMess from '../../../redux/constants/message'
 import { CloseOutlined } from '@ant-design/icons'
 import Icons from './Icons'
 import { ImageUpload } from '../../../helpers/ImageUpload'
 import { addMessages, getMessages } from '../../../redux/actions/message'
 import moment from 'moment'
 import { Spin } from 'antd'
+import { useRef } from 'react'
 RightSideApp.propTypes = {}
 
 function RightSideApp(props) {
@@ -23,6 +25,7 @@ function RightSideApp(props) {
   const [medias, setMedias] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isShowTime, setIsShowTime] = useState(false)
+  const refDisplay = useRef()
   useEffect(() => {
     const newUser = message.users.find((user) => user._id === id)
     if (newUser) {
@@ -32,7 +35,18 @@ function RightSideApp(props) {
   useEffect(() => {
     if (id) {
       const getMessagesData = async () => {
+        dispatch({
+          type: typesMess.GET_MESSAGES,
+          payload: { messages: [] },
+        })
         await dispatch(getMessages({ id }))
+        if (refDisplay.current) {
+          refDisplay.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          })
+        }
+        console.log('refDisplay', refDisplay)
       }
       if (users.token) {
         getMessagesData()
@@ -90,9 +104,14 @@ function RightSideApp(props) {
       createdAt: new Date().toISOString(),
     }
     setIsLoading(false)
-    dispatch(addMessages({ users, msg, socket }))
+    await dispatch(addMessages({ users, msg, socket }))
+    if (refDisplay.current) {
+      refDisplay.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      })
+    }
   }
-  console.log('text', medias)
   return (
     <React.Fragment>
       {user.length !== 0 ? (
@@ -148,47 +167,49 @@ function RightSideApp(props) {
             </div>
           </div>
           <div
-            className="chat-body p-4 flex-1 overflow-y-scroll"
+            className="chat-body p-4 flex-1 overflow-y-auto"
             style={{ height: 'calc(100% - 100px)' }}
           >
-            {message.data.map((msg, index) => (
-              <div key={index}>
-                {msg.sender !== users.userDatas?._id && (
-                  <>
-                    <p
-                      className={`${
-                        isShowTime === false && 'hidden'
-                      } py-1 text-right text-xs text-gray-500`}
-                    >
-                      {new Date(msg.createdAt).toLocaleString()}
-                    </p>
-                    <MessageOther
-                      user={user}
-                      msg={msg}
-                      isShowTime={isShowTime}
-                      setIsShowTime={setIsShowTime}
-                    />
-                  </>
-                )}
-                {msg.sender === users.userDatas?._id && (
-                  <>
-                    <p
-                      className={`${
-                        isShowTime === false && 'hidden'
-                      } py-1 text-right text-xs text-gray-500`}
-                    >
-                      {new Date(msg.createdAt).toLocaleString()}
-                    </p>
-                    <MessageMe
-                      user={users.userDatas}
-                      msg={msg}
-                      isShowTime={isShowTime}
-                      setIsShowTime={setIsShowTime}
-                    />
-                  </>
-                )}
-              </div>
-            ))}
+            <div ref={refDisplay}>
+              {message.data.map((msg, index) => (
+                <div key={index}>
+                  {msg.sender !== users.userDatas?._id && (
+                    <>
+                      <p
+                        className={`${
+                          isShowTime === false && 'hidden'
+                        } py-1 text-right text-xs text-gray-500`}
+                      >
+                        {new Date(msg.createdAt).toLocaleString()}
+                      </p>
+                      <MessageOther
+                        user={user}
+                        msg={msg}
+                        isShowTime={isShowTime}
+                        setIsShowTime={setIsShowTime}
+                      />
+                    </>
+                  )}
+                  {msg.sender === users.userDatas?._id && (
+                    <>
+                      <p
+                        className={`${
+                          isShowTime === false && 'hidden'
+                        } py-1 text-right text-xs text-gray-500`}
+                      >
+                        {new Date(msg.createdAt).toLocaleString()}
+                      </p>
+                      <MessageMe
+                        user={users.userDatas}
+                        msg={msg}
+                        isShowTime={isShowTime}
+                        setIsShowTime={setIsShowTime}
+                      />
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
             {isLoading && (
               <div className="text-right py-3 px-3">
                 <Spin size="default" />

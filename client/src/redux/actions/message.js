@@ -16,6 +16,7 @@ export const addUserMessage =
 export const addMessages =
   ({ users, msg, socket }) =>
   async (dispatch) => {
+    socket.emit('addMessage', msg)
     dispatch({
       type: types.ADD_MESSAGE,
       payload: msg,
@@ -32,13 +33,11 @@ export const addMessages =
 export const getConversations =
   ({ user }) =>
   async (dispatch) => {
-    console.log('useruseruseruseruseruseruseruseruseruser', user)
     try {
       const res = await axiosServices.get(`${PATHS.MESSAGE}/conversations`)
       let newArr = []
       res.data.conversations.forEach((item) => {
         item.recipients.forEach((cv) => {
-          console.log('cvcvcvcvcvcvcvcvcv', cv)
           if (cv._id !== user.userDatas._id) {
             newArr.push({ ...cv, text: item.text, medias: item.medias })
           }

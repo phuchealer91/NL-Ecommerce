@@ -82,3 +82,19 @@ module.exports.getMessage = async (req, res) => {
     return res.status(500).json({ msg: 'Server error' })
   }
 }
+
+module.exports.deleteConversation = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec()
+    const conver = await Conversation.findOneAndDelete({
+      $or: [
+        { recipients: [user._id, req.params.id] },
+        { recipients: [req.params.id, user._id] },
+      ],
+    })
+    await Message.deleteMany({ conversation: conver._id }).exec()
+    return res.status(200).json({ msg: 'Xóa thành công.' })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}

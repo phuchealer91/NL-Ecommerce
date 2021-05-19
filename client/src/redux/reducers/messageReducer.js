@@ -1,3 +1,4 @@
+import { DeleteData } from '../../helpers/shortFunctions'
 import * as types from '../constants/message'
 
 const initValue = {
@@ -9,13 +10,16 @@ const initValue = {
 }
 
 const messageReducer = (state = initValue, action) => {
-  console.log('message', action.payload)
   switch (action.type) {
     case types.ADD_USER:
-      return {
-        ...state,
-        users: [action.payload, ...state.users],
+      if (state.users.every((item) => item._id !== action.payload._id)) {
+        return {
+          ...state,
+          users: [action.payload, ...state.users],
+        }
       }
+      return state
+
     case types.ADD_MESSAGE:
       return {
         ...state,
@@ -43,6 +47,12 @@ const messageReducer = (state = initValue, action) => {
         ...state,
         data: action.payload.messages.reverse(),
         resultData: action.payload.result,
+      }
+    case types.DELETE_CONVERSATION:
+      return {
+        ...state,
+        users: DeleteData(state.users, action.payload),
+        data: DeleteData(state.data, action.payload),
       }
 
     default:

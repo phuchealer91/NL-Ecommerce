@@ -9,6 +9,7 @@ import {
   getConversations,
 } from '../../../redux/actions/message'
 import { useHistory, useParams } from 'react-router'
+import * as types from '../../../redux/constants/message'
 LeftSideApp.propTypes = {}
 
 function LeftSideApp(props) {
@@ -49,10 +50,12 @@ function LeftSideApp(props) {
     setSearchUserss([])
   }
   function onHandleAddUser(user) {
-    console.log('user', user)
     setSearch('')
     setSearchUserss([])
-    dispatch(addUserMessage({ user, message }))
+    dispatch({
+      type: types.ADD_USER,
+      payload: { ...user, text: '', medias: [] },
+    })
     return history.push(`/community/message/${user._id}`)
   }
   function isActive(user) {

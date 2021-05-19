@@ -16,7 +16,8 @@ export const addUserMessage =
 export const addMessages =
   ({ users, msg, socket }) =>
   async (dispatch) => {
-    socket.emit('addMessage', msg)
+    const { _id, name, email, photoURL } = users.userDatas
+    socket.emit('addMessage', { ...msg, user: { _id, name, email, photoURL } })
     dispatch({
       type: types.ADD_MESSAGE,
       payload: msg,
@@ -61,6 +62,22 @@ export const getMessages =
         type: types.GET_MESSAGES,
         payload: res.data,
       })
+    } catch (error) {
+      console.log('Error', error)
+    }
+  }
+export const deleteConversation =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: types.DELETE_CONVERSATION,
+        payload: id,
+      })
+      const res = await axiosServices.delete(
+        `${PATHS.MESSAGE}/conversation/${id}`
+      )
+      console.log('delete thanh cong', res)
     } catch (error) {
       console.log('Error', error)
     }

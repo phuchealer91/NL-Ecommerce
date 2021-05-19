@@ -21,6 +21,10 @@ function SocketClient(props) {
           type: types.ADD_MESSAGE,
           payload: msg,
         })
+        dispatch({
+          type: types.ADD_USER,
+          payload: { ...msg.user, text: msg.text, medias: msg.medias },
+        })
       })
     }
   }, [socket, dispatch])

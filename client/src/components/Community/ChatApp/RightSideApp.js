@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
@@ -7,18 +7,28 @@ import MessageOther from './MessageOther'
 import MessageMe from './MessageMe'
 import * as types from '../../../redux/constants/notify'
 import * as typesMess from '../../../redux/constants/message'
-import { CloseOutlined } from '@ant-design/icons'
+import {
+  CloseOutlined,
+  DeleteFilled,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons'
 import Icons from './Icons'
 import { ImageUpload } from '../../../helpers/ImageUpload'
-import { addMessages, getMessages } from '../../../redux/actions/message'
+import {
+  addMessages,
+  deleteConversation,
+  getMessages,
+} from '../../../redux/actions/message'
 import moment from 'moment'
-import { Spin } from 'antd'
-import { useRef } from 'react'
+import { Modal, Spin } from 'antd'
+import { useHistory } from 'react-router-dom'
 RightSideApp.propTypes = {}
 
 function RightSideApp(props) {
   const { user: users, message, socket } = useSelector((state) => state)
   const dispatch = useDispatch()
+  const history = useHistory()
   const [user, setUser] = useState([])
   const { id } = useParams()
   const [text, setText] = useState('')
@@ -112,9 +122,27 @@ function RightSideApp(props) {
       })
     }
   }
+  function onHandleDelete(id) {
+    dispatch(deleteConversation({ id }))
+  }
+  function confirm() {
+    Modal.confirm({
+      title: 'Xác nhận xóa cuộc hội thoại',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'Sau khi xóa cuộc hội thoại bạn sẽ không thể khôi phục nó. Bạn chắc chắn muốn xóa chứ?',
+      okText: 'Xóa',
+      cancelText: 'Hủy',
+      onOk: () => {
+        onHandleDelete(id)
+        history.push('/community/message')
+      },
+    })
+  }
+
   return (
     <React.Fragment>
-      {user.length !== 0 ? (
+      {id ? (
         <>
           <div className="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
             <div className="flex items-center">
@@ -153,17 +181,15 @@ function RightSideApp(props) {
                   <path d="M0,3.99406028 C0,2.8927712 0.894513756,2 1.99406028,2 L14.0059397,2 C15.1072288,2 16,2.89451376 16,3.99406028 L16,16.0059397 C16,17.1072288 15.1054862,18 14.0059397,18 L1.99406028,18 C0.892771196,18 0,17.1054862 0,16.0059397 L0,3.99406028 Z M8,14 C10.209139,14 12,12.209139 12,10 C12,7.790861 10.209139,6 8,6 C5.790861,6 4,7.790861 4,10 C4,12.209139 5.790861,14 8,14 Z M8,12 C9.1045695,12 10,11.1045695 10,10 C10,8.8954305 9.1045695,8 8,8 C6.8954305,8 6,8.8954305 6,10 C6,11.1045695 6.8954305,12 8,12 Z M16,7 L20,3 L20,17 L16,13 L16,7 Z" />
                 </svg>
               </a>
-              <a
-                href="#"
-                className="block rounded-full hover:bg-gray-300 bg-gray-200 w-8 h-8 p-2 ml-4"
+              <span
+                onClick={confirm}
+                className="block rounded-full hover:bg-gray-300 bg-gray-200 w-8 h-8 p-2 ml-4 cursor-pointer"
               >
-                <svg
-                  viewBox="0 0 20 20"
-                  className="w-4 h-4 fill-current text-blue-500"
-                >
-                  <path d="M2.92893219,17.0710678 C6.83417511,20.9763107 13.1658249,20.9763107 17.0710678,17.0710678 C20.9763107,13.1658249 20.9763107,6.83417511 17.0710678,2.92893219 C13.1658249,-0.976310729 6.83417511,-0.976310729 2.92893219,2.92893219 C-0.976310729,6.83417511 -0.976310729,13.1658249 2.92893219,17.0710678 Z M9,11 L9,10.5 L9,9 L11,9 L11,15 L9,15 L9,11 Z M9,5 L11,5 L11,7 L9,7 L9,5 Z" />
-                </svg>
-              </a>
+                <DeleteFilled
+                  style={{ fontSize: '16px' }}
+                  className="text-blue-500"
+                />
+              </span>
             </div>
           </div>
           <div

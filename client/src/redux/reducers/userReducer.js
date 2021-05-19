@@ -5,17 +5,6 @@ const initialState = {
   userDatas: [],
   notificationsCount: 0,
 }
-// const initialState = {
-//   userDatas: [],
-//   name: '',
-//   email: '',
-//   photoURL: '',
-//   notificationsCount: 0,
-//   token: null,
-//   role: '',
-//   _id: '',
-//   isAdmin: false,
-// }
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {

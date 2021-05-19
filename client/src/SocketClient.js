@@ -7,7 +7,7 @@ import * as types from './redux/constants/message'
 SocketClient.propTypes = {}
 
 function SocketClient(props) {
-  const { user, socket } = useSelector((state) => state)
+  const { user, socket, call } = useSelector((state) => state)
   const dispatch = useDispatch()
   useEffect(() => {
     if (user.token) {
@@ -27,7 +27,30 @@ function SocketClient(props) {
         })
       })
     }
+    return () => socket.off('addMessageToClient')
   }, [socket, dispatch])
+  useEffect(() => {
+    if (user.token) {
+      socket.on('callUserToClient', (data) => {
+        dispatch({
+          type: types.CALL,
+          payload: data,
+        })
+      })
+    }
+    return () => socket.off('callUserToClient')
+  }, [socket, dispatch])
+  useEffect(() => {
+    if (user.token) {
+      socket.on('userBusy', (data) => {
+        dispatch({
+          type: 'NOTIFY',
+          payload: { error: 'Người dùng bận !' },
+        })
+      })
+    }
+    return () => socket.off('userBusy')
+  }, [socket, dispatch, call])
   return <div></div>
 }
 

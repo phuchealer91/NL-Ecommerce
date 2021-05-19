@@ -55,10 +55,13 @@ import UserRoute from '../routers/UserRoute'
 import io from 'socket.io-client'
 import OpenSocket from 'socket.io-client'
 import * as types from '../redux/constants/global'
+import * as typesMess from '../redux/constants/message'
 import SocketClient from '../SocketClient'
+import CallModal from '../components/Community/ChatApp/CallModal'
+import Peer from 'peerjs'
 export default function App() {
   const dispatch = useDispatch()
-  let { user: users, homePost } = useSelector((state) => state)
+  let { user: users, homePost, call } = useSelector((state) => state)
   const { pathname } = useLocation()
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -109,6 +112,16 @@ export default function App() {
   useEffect(() => {
     if (users.token) dispatch(getPostsx())
   }, [dispatch, users.token])
+  useEffect(() => {
+    const newPeer = new Peer(undefined, {
+      host: '/',
+      port: '3001',
+    })
+    dispatch({
+      type: typesMess.PEER,
+      payload: newPeer,
+    })
+  }, [])
   return (
     <React.Fragment>
       {users && users.userDatas?.role !== 'admin' && <HeaderUser />}
@@ -119,6 +132,7 @@ export default function App() {
       )}
 
       {users && users.token && <SocketClient />}
+      {call && <CallModal />}
       <Switch>
         <Route exact path={`/${PATHS.LOGIN}`} component={Login} />
         <Route exact path={`/${PATHS.REGISTER}`} component={Register} />

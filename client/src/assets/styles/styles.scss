@@ -701,3 +701,7 @@
   display: grid;
   place-items: center;
 }
+.ant-modal-content {
+  overflow: auto;
+  border-radius: 12px
+}

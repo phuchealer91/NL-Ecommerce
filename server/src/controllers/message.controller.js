@@ -17,29 +17,31 @@ class APIfeatures {
 }
 module.exports.createMessage = async (req, res) => {
   try {
-    const { recipient, text, medias } = req.body
+    const { sender, recipient, text, medias, call } = req.body
     const user = await User.findOne({ email: req.user.email }).exec()
-    if (!recipient || (!text.trim() && medias.length === 0)) return
+    if (!recipient || (!text.trim() && medias.length === 0 && !call)) return
     const newConversation = await Conversation.findOneAndUpdate(
       {
         $or: [
-          { recipients: [user._id, recipient] },
-          { recipients: [recipient, user._id] },
+          { recipients: [sender, recipient] },
+          { recipients: [recipient, sender] },
         ],
       },
       {
-        recipients: [user._id, recipient],
+        recipients: [sender, recipient],
         text,
         medias,
+        call,
       },
       { new: true, upsert: true }
     ).exec()
     const newMessage = new Message({
       conversation: newConversation._id,
-      sender: user._id,
+      sender,
       recipient,
       text,
       medias,
+      call,
     })
     await newMessage.save()
     return res.status(201).json({ messages: newMessage })

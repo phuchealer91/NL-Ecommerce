@@ -16,6 +16,8 @@ import statusReducer from './statusReducer'
 import receiptReducer from './receiptReducer'
 import messageReducer from './messageReducer'
 import socketReducer from './socketReducer'
+import callReducer from './callReducer'
+import peerReducer from './peerReducer'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -35,6 +37,8 @@ const rootReducer = combineReducers({
   receipt: receiptReducer,
   message: messageReducer,
   socket: socketReducer,
+  call: callReducer,
+  peer: peerReducer,
 })
 
 export default rootReducer

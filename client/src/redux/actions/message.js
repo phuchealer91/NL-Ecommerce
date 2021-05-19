@@ -40,7 +40,12 @@ export const getConversations =
       res.data.conversations.forEach((item) => {
         item.recipients.forEach((cv) => {
           if (cv._id !== user.userDatas._id) {
-            newArr.push({ ...cv, text: item.text, medias: item.medias })
+            newArr.push({
+              ...cv,
+              text: item.text,
+              medias: item.medias,
+              call: item.call,
+            })
           }
         })
       })

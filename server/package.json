@@ -20,6 +20,7 @@
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.5",
+    "peer": "^0.6.1",
     "slugify": "^1.4.5",
     "socket.io": "^4.0.1",
     "stripe": "^8.126.0"

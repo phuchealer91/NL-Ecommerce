@@ -99,9 +99,9 @@ const ListShoppingCart = ({ cartLists }) => {
         title="sản phẩm từ giỏ hàng"
         // categoryToDelete={categoryToDelete}
       />
-      <div className="flex flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
-        <div className="lg:w-2/3 pr-6">
-          <div className="pt-8 bg-white  rounded">
+      <div className="flex flex-col lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
+        <div className="lg:w-2/3 pr-0 md:pr-6">
+          <div className="pt-4 bg-white  rounded">
             {!cartLists.length ? (
               <div className="flex items-center justify-center flex-col">
                 <EmptyCart />
@@ -112,11 +112,11 @@ const ListShoppingCart = ({ cartLists }) => {
             ) : (
               cartLists &&
               cartLists.map((item) => (
-                <div className="hidden md:block">
-                  <div className="py-3 flex-row justify-between items-center mb-0 hidden md:flex">
-                    <div className="w-1/2 lg:w-3/5 xl:w-3/5 flex flex-row items-start border-b-0 border-grey-dark pt-0 pb-0 pl-3 text-left">
-                      <div className="w-20 mx-0 relative pr-0 mr-3 ">
-                        <div className="h-20 rounded flex items-center justify-center">
+                <div className="">
+                  <div className="py-3 flex-row justify-between items-center mb-0 block md:flex">
+                    <div className="w-full md:w-3/5 flex flex-row items-start border-b-0 border-grey-dark pt-0 pb-0 pl-3 text-left">
+                      <div className="w-24 mx-0 relative pr-0 mr-3 md:w-20 ">
+                        <div className="h-24 md:h-20 rounded flex items-center justify-center">
                           <div className="aspect-w-1 aspect-h-1 w-full">
                             <ModalImage
                               small={item ? item.images[0]?.url : imageDefault}
@@ -160,8 +160,8 @@ const ListShoppingCart = ({ cartLists }) => {
                       </div>
                     </div>
 
-                    <div className="w-1/4 lg:w-1/5 xl:w-1/4 text-right pr-10 xl:pr-10 pb-4 flex flex-col items-center justify-end">
-                      <div className="custom-number-input h-10 w-32">
+                    <div className="w-full lg:w-1/5 xl:w-1/4 text-right pr-0 md:pr-10 pb-4 block flex-col items-center justify-end md:flex">
+                      <div className="custom-number-input h-10 w-full md:w-32">
                         <InputNumber
                           size="middle"
                           min={1}
@@ -200,11 +200,11 @@ const ListShoppingCart = ({ cartLists }) => {
                               dispatch(addToCart(cart))
                             }
                           }}
-                          className="opacity-100"
+                          className="opacity-100 w-1/2 md:w-auto"
                         />
                       </div>
-                      <span className="border-l-2 h-full border-solid border-gray-500"></span>
-                      <div className=" text-blue-700 text-base font-semibold">
+                      <span className="border-l-none h-full border-solid border-gray-500 md:border-l-2"></span>
+                      <div className=" hidden md:block text-blue-700 text-base font-semibold">
                         <span className="text-xs text-gray-500">
                           Thành tiền:
                         </span>{' '}

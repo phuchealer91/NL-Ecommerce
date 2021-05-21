@@ -202,8 +202,8 @@ function UserAddress(props) {
                   isSubmitting,
                   /* and other goodies */
                 }) => (
-                  <form onSubmit={handleSubmit}>
-                    <div className="my-5 px-4">
+                  <form onSubmit={handleSubmit} className="mx-0 w-full">
+                    <div className="my-5 px-0 md:px-4">
                       <div className="my-2 flex items-center justify-between">
                         <span> Họ và tên người nhận </span>
                         <input
@@ -315,7 +315,7 @@ function UserAddress(props) {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-1/2 font-semibold"
+                        className="inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full md:w-1/2 font-semibold"
                       >
                         Lưu
                       </button>

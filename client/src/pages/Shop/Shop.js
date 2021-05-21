@@ -220,12 +220,13 @@ function Shop(props) {
       dispatch(searchQuery({ text: speech.transcript }))
     }, 2000)
   }, [speech.transcript, dispatch])
-  return (
-    <React.Fragment>
-      <h4 className="p-3 pl-2 text-green-600 font-semibold text-lg">
-        Tìm kiếm/Lọc
-      </h4>
-      <div className="px-4 flex items-center">
+  const menu = (
+    <Menu
+      defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7']}
+      mode="inline"
+      style={{ width: '256px', height: 'auto' }}
+    >
+      <div className="px-1 flex items-center">
         <button onClick={speech.startListening}>
           <AudioOutlined style={{ fontSize: '32px' }} />
         </button>
@@ -248,93 +249,98 @@ function Shop(props) {
           )}
         </p>
       </div>
+      {/* price */}
+      <SubMenu
+        key="1"
+        title={
+          <span className="h6 flex items-center">
+            <DollarOutlined /> <span>Giá</span>
+          </span>
+        }
+      >
+        <div>
+          <Slider
+            className="ml-4 mr-4"
+            tipFormatter={(v) => `${v}đ`}
+            range
+            value={price}
+            onChange={handleSlider}
+            max="500000"
+          />
+        </div>
+      </SubMenu>
+      {/* Category */}
+      <SubMenu
+        key="2"
+        title={
+          <span className="h6 flex items-center">
+            <DownSquareOutlined /> <span>Danh mục</span>
+          </span>
+        }
+      >
+        <div style={{ maringTop: '-10px' }}>{showCategories()}</div>
+      </SubMenu>
+
+      {/* stars */}
+      <SubMenu
+        key="3"
+        title={
+          <span className="h6">
+            <StarOutlined /> Đánh giá
+          </span>
+        }
+      >
+        <div style={{ maringTop: '-10px' }}>{showStars()}</div>
+      </SubMenu>
+      {/* sub category */}
+      <SubMenu
+        key="4"
+        title={
+          <span className="h6">
+            <DownSquareOutlined /> Danh mục con
+          </span>
+        }
+      >
+        <div
+          style={{ maringTop: '-10px' }}
+          className="pl-4 pr-4 flex items-center flex-wrap border border-gray-100 py-3 mb-5"
+        >
+          {showSubs()}
+        </div>
+      </SubMenu>
+      {/* layout */}
+      <SubMenu
+        key="5"
+        title={
+          <span className="h6">
+            <DownSquareOutlined /> Hình thức
+          </span>
+        }
+      >
+        <div style={{ maringTop: '-10px' }} className="pr-5">
+          {showLayouts()}
+        </div>
+      </SubMenu>
+    </Menu>
+  )
+  return (
+    <React.Fragment>
+      <h4 className="p-3 pl-2 text-blue-600 font-semibold text-lg">
+        Tìm kiếm/Lọc
+      </h4>
 
       {/* hhh */}
-      <div className="px-4 flex dark:bg-gray-900">
+      <div className=" flex dark:bg-gray-900">
         <div className="z-20 hidden w-64  bg-white dark:bg-gray-800 md:block flex-shrink-0">
-          <Menu
-            defaultOpenKeys={['1', '2', '3', '4', '5', '6', '7']}
-            mode="inline"
-            style={{ width: '256px', height: 'auto' }}
-          >
-            {/* price */}
-            <SubMenu
-              key="1"
-              title={
-                <span className="h6 flex items-center">
-                  <DollarOutlined /> <span>Giá</span>
-                </span>
-              }
-            >
-              <div>
-                <Slider
-                  className="ml-4 mr-4"
-                  tipFormatter={(v) => `${v}đ`}
-                  range
-                  value={price}
-                  onChange={handleSlider}
-                  max="500000"
-                />
-              </div>
-            </SubMenu>
-            {/* Category */}
-            <SubMenu
-              key="2"
-              title={
-                <span className="h6 flex items-center">
-                  <DownSquareOutlined /> <span>Danh mục</span>
-                </span>
-              }
-            >
-              <div style={{ maringTop: '-10px' }}>{showCategories()}</div>
-            </SubMenu>
-
-            {/* stars */}
-            <SubMenu
-              key="3"
-              title={
-                <span className="h6">
-                  <StarOutlined /> Đánh giá
-                </span>
-              }
-            >
-              <div style={{ maringTop: '-10px' }}>{showStars()}</div>
-            </SubMenu>
-            {/* sub category */}
-            <SubMenu
-              key="4"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Danh mục con
-                </span>
-              }
-            >
-              <div
-                style={{ maringTop: '-10px' }}
-                className="pl-4 pr-4 flex items-center flex-wrap border border-gray-100 py-3 mb-5"
-              >
-                {showSubs()}
-              </div>
-            </SubMenu>
-            {/* layout */}
-            <SubMenu
-              key="5"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Hình thức
-                </span>
-              }
-            >
-              <div style={{ maringTop: '-10px' }} className="pr-5">
-                {showLayouts()}
-              </div>
-            </SubMenu>
-          </Menu>
+          {menu}
+        </div>
+        <div className="z-20  w-64 block bg-white dark:bg-gray-800 md:hidden flex-shrink-0">
+          <NavBar menu={menu} />
         </div>
 
         <div className="flex flex-col flex-1 w-full">
           {/* <HeaderAdmin /> */}
-          <div className=" container px-4 mx-auto grid">
+          <div className="">
             {' '}
             <section className="bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
               <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">

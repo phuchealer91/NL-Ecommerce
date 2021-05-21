@@ -70,17 +70,17 @@ function SingleProductZoom({ productEditing }) {
 
   return (
     <>
-      <div className="px-4 py-4 bg-white flex">
-        <div className="px-4 w-5/12">
-          <div className="flex justify-center">
-            <div className="w-28 border-r-0 border border-gray-200">
-              <div className="p-2">
+      <div className="py-4 bg-white block md:flex">
+        <div className="w-full px-4 md:w-5/12 md:px-0">
+          <div className="flex flex-col-reverse md:flex-row justify-center">
+            <div className=" w-full border-r-0 border border-gray-200 md:w-28 ">
+              <div className="p-2 flex md:block items-center">
                 {' '}
                 <ImagePreviewList data={images} />
               </div>
             </div>
             <div
-              className="border border-gray-200 p-2 pt-0"
+              className="border-none border-gray-200 p-0 pt-0 full-img md:p-2 md:border"
               style={{ width: 'calc(100% - 112px)', height: '400px' }}
             >
               <SideBySideMagnifier
@@ -136,9 +136,9 @@ function SingleProductZoom({ productEditing }) {
             </div>
           </div>
         </div>
-        <div className="px-4 w-7/12">
+        <div className=" w-full px-4 md:w-7/12 pt-3 md:pt-0">
           <h2 className="text-gray-700 text-lg font-semibold pb-2">{title}</h2>
-          <div className="pb-1">
+          <div className="hidden pb-1 md:block">
             <div className="inline-block w-3/5 pr-4 whitespace-nowrap overflow-hidden overflow-ellipsis">
               <span>Nhà cung cấp: </span>
               <Link to="/" className="no-underline">
@@ -160,7 +160,7 @@ function SingleProductZoom({ productEditing }) {
                 ))}
             </div>
           </div>
-          <div className="pb-2">
+          <div className="hidden pb-2 md:block">
             <div className="inline-block w-3/5 pr-4 whitespace-nowrap overflow-hidden overflow-ellipsis">
               <span>Nhà xuất bản:</span>
               <span className="font-semibold pl-1 text-sm">{publisher}</span>
@@ -208,7 +208,7 @@ function SingleProductZoom({ productEditing }) {
             <button
               onClick={handleAddToCart}
               disabled={quantity < 1}
-              className=" btn btn-primary btn-addToCart uppercase mr-4"
+              className=" btn btn-primary btn-addToCart mr-4"
             >
               <span className="mr-2">
                 {' '}

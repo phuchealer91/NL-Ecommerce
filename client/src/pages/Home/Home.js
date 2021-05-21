@@ -19,9 +19,9 @@ Home.propTypes = {}
 function Home(props) {
   return (
     <React.Fragment>
-      <div className="products">
-        <div className="w-full flex" style={{ minHeight: '420px' }}>
-          <div className="w-1/4 mr-4 relative">
+      <div className="px-1 md:px-7">
+        <div className="w-full flex">
+          <div className="hidden md:w-1/4 md:block mr-4 relative">
             <div className="bg-blue-600 h-11 flex justify-center items-center relative rounded-t-md">
               <span className="text-base text-white font-semibold ">
                 {' '}
@@ -106,7 +106,7 @@ function Home(props) {
               </li>
             </ul>
           </div>
-          <div className="w-9/12">
+          <div className="w-full md:w-9/12">
             <CarouselItem />
           </div>
         </div>
@@ -135,7 +135,7 @@ function Home(props) {
                 className="mx-3"
               />
               <span className=" text-base text-gray-600 font-semibold">
-                FLASH SALE
+                Giảm giá sốc
               </span>
             </div>
             <span className="mx-2 h-5 border-l-2 border-solid border-gray-600"></span>

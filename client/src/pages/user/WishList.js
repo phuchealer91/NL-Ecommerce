@@ -42,16 +42,16 @@ function WishList(props) {
     <React.Fragment>
       <UserLayouts>
         <div className="w-full mx-auto bg-white rounded">
-          <div className="px-3 pt-3 pb-8">
+          <div className="px-3 pt-3 pb-3">
             <SectionTitle>Danh sách yêu thích</SectionTitle>
             {wishList[0] !== null ? (
               wishList.map((w, idx) => {
                 return (
                   <div
                     key={w._id}
-                    className="bg-white shadow px-4 py-5 sm:py-4 rounded mb-3 flex flex-col sm:flex-row justify-between items-center"
+                    className="bg-white shadow px-4 py-5 sm:py-4 rounded mb-3 flex flex-row justify-between items-center"
                   >
-                    <div className="w-full sm:w-1/3 md:w-2/5 flex flex-col md:flex-row md:items-center border-b sm:border-b-0 border-grey-dark pb-4 sm:pb-0 text-center sm:text-left">
+                    <div className="w-full sm:w-1/3 md:w-2/5 flex flex-col md:flex-row md:items-center k pb-4 sm:pb-0 text-center sm:text-left">
                       <div className="w-20 mx-auto sm:mx-0 relative sm:mr-3 sm:pr-0">
                         <div className="aspect-w-1 aspect-h-1 w-full">
                           <img
@@ -83,7 +83,7 @@ function WishList(props) {
               <EmptyData />
             )}
           </div>
-          <div className="pagination">
+          <div className="flex justify-center pb-4">
             <Pagination
               current={page}
               total={(totalWishLists * 4) / 10}

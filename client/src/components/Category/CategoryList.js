@@ -12,9 +12,9 @@ function CategoryList(props) {
   }, [dispatch])
   return (
     <React.Fragment>
-      <section className="categories sm:px-4 px-0 mt-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 md:gap-4 gap-2">
+      <section className=" sm:px-4 px-0 mt-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 md:gap-4 gap-0">
         <div className="sm:col-span-1 sm:row-span-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 sm:gap-4 gap-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 sm:gap-4 gap-y-2 place-items-center">
             <div className="col-span-2 sm:col-span-1 sm:row-span-2 grid grid-rows-2 sm:gap-4 gap-2">
               {listCategories &&
                 listCategories.slice(0, 2).map((category, idx) => {

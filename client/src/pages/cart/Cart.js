@@ -8,7 +8,7 @@ function Cart(props) {
 
   return (
     <>
-      <section className="my-5 mx-4  bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+      <section className="my-5 mx-1 md:mx-4 bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
         <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
           <div className="flex items-center">
             <img

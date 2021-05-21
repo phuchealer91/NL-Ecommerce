@@ -126,7 +126,7 @@ export default function App() {
     <React.Fragment>
       {users && users.userDatas?.role !== 'admin' && <HeaderUser />}
       {pathname !== '/' && pathname !== '/admin/dashboard' && (
-        <div className="px-4 bg-white">
+        <div className="px-4 bg-white hidden md:block">
           <NavBarDropdown />
         </div>
       )}

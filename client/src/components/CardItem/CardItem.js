@@ -70,6 +70,7 @@ function CardItem({ product, flashSale }) {
               height: '220px',
               width: '220px',
               objectFit: 'cover',
+              margin: ' 0 auto',
             }}
           />
         </Link>
@@ -87,7 +88,7 @@ function CardItem({ product, flashSale }) {
             )}
           </div>
 
-          <div className="my-1">
+          <div className="my-1 text-center md:text-left">
             {sale > 0 ? (
               <>
                 <div className="text-blue-600 text-base font-semibold">
@@ -104,8 +105,8 @@ function CardItem({ product, flashSale }) {
             )}
           </div>
 
-            {sale > 0 && flashSale && (
-          <div className="my-2 text-center">
+          {sale > 0 && flashSale && (
+            <div className="my-2 text-center">
               <div className="rounded-2xl bg-red-200 h-5 relative">
                 <span className="absolute left-0 top-0 right-0 bottom-0 text-white text-sm">
                   Đã bán {sold}
@@ -119,8 +120,8 @@ function CardItem({ product, flashSale }) {
                   style={{ width: `${sold}%` }}
                 ></div>
               </div>
-          </div>
-            )}
+            </div>
+          )}
         </div>
         {/* hidden */}
         <div className="desktop__add-to-cart  xl:block ">
@@ -149,7 +150,7 @@ function CardItem({ product, flashSale }) {
             <span>{quantity < 1 ? 'Tạm hết hàng' : 'Thêm vào giỏ hàng'}</span>
           </button>
         </div>
-        <div className="product-item__tools">
+        <div className="product-item__tools hidden md:block">
           <div className="flex align-center flex-row justify-center lg:flex-col">
             <Tooltip placement="left" title="Xem chi tiết">
               <Link to={`/product/${slug}`}>

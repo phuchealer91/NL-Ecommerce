@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
-import { Drawer, Button } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
+import { Button, Drawer } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import './NavBar.css'
-import HeaderAdmin from '../Header/HeaderAdmin'
 
 const NavBar = ({ menu }) => {
   const [visible, setVisible] = useState(false)
+  const { pathname } = useLocation()
+  useEffect(() => {
+    setVisible(false)
+  }, [pathname])
   return (
-    <nav className="navbar z-10 bg-white shadow-md dark:bg-gray-800">
+    <nav className="cursor-pointer ml-2 z-10  shadow-md dark:bg-gray-800">
       <Button
         className="menu"
         type="primary"
@@ -17,11 +21,13 @@ const NavBar = ({ menu }) => {
       <Drawer
         title="Danh sách"
         placement="left"
-        onClick={() => setVisible(false)}
+        // onClick={() => setVisible(false)}
         onClose={() => setVisible(false)}
         visible={visible}
+        closable={false}
         bodyStyle={{ padding: 0 }}
         width="256px"
+        destroyOnClose={false}
       >
         {menu}
       </Drawer>

@@ -38,7 +38,7 @@ export const CountDownTimer = ({ deadline }) => {
 
   return (
     <div className="flex items-center">
-      Kết thúc trong:
+      <span className="hidden md:inline-block">Kết thúc trong:</span>
       <div className="mx-1 h-6 w-7 bg-white rounded flex items-center justify-center font-semibold">
         {countdown.days}
       </div>

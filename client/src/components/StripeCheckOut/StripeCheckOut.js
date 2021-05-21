@@ -111,10 +111,10 @@ function StripeCheckOut(props) {
         </div>
       )}
 
-      <form id="payment-form" onSubmit={onHandleSubmit}>
-        <div className="pt-6 px-6">
-          <div className="flex flex-col-reverse lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
-            <div className="lg:w-2/3 pr-6">
+      <form id="payment-form" onSubmit={onHandleSubmit} className="mx-0 w-full">
+        <div className="pt-6 px-0 md:px-6 ">
+          <div className="flex flex-col lg:flex-row justify-between pb-16 sm:pb-20 lg:pb-24">
+            <div className="lg:w-2/3 pr-0 md:pr-6">
               <div className="bg-white rounded border h-full">
                 <div className="px-3 pt-3 pb-8">
                   <div className="border-b border-gray-100 pb-1 text-gray-500  border-solid  ">
@@ -130,7 +130,7 @@ function StripeCheckOut(props) {
                     height="auto"
                   />
                 </div>
-                <div className="pt-10 px-4">
+                <div className="pt-10 px-0 pb-3 md:pb-0 md:px-4">
                   <CardElement
                     id="card-element"
                     options={cartStyle}
@@ -141,24 +141,8 @@ function StripeCheckOut(props) {
                   )}
                 </div>
               </div>
-              <div className="text-right">
-                <button
-                  type="submit"
-                  disabled={disabled || successed}
-                  className=" px-8 mt-4 py-2 bg-blue-600 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
-                >
-                  {processing ? (
-                    <Spin />
-                  ) : (
-                    <div>
-                      <SafetyCertificateOutlined className="mr-2" />
-                      Thanh toán {formatPriceReal(payable)}đ
-                    </div>
-                  )}
-                </button>
-              </div>
             </div>
-            <div className="lg:w-2/6">
+            <div className="lg:w-2/6 mt-3 md:mt-0">
               <div className="bg-white rounded border">
                 <div className="px-3 pt-3 pb-8">
                   <div className="border-b border-gray-100 pb-1 text-gray-500  border-solid">
@@ -188,6 +172,22 @@ function StripeCheckOut(props) {
                     </p>
                   </div>
                 </div>
+              </div>
+              <div className="text-right">
+                <button
+                  type="submit"
+                  disabled={disabled || successed}
+                  className=" px-8 mt-4 py-3 bg-blue-600 text-blue-50 w-full md:max-w-max  shadow-sm hover:shadow-lg rounded"
+                >
+                  {processing ? (
+                    <Spin />
+                  ) : (
+                    <div>
+                      <SafetyCertificateOutlined className="mr-2" />
+                      Thanh toán {formatPriceReal(payable)}đ
+                    </div>
+                  )}
+                </button>
               </div>
             </div>
           </div>

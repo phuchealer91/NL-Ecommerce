@@ -31,23 +31,21 @@ export const ImagePreview = ({ data }) => {
 }
 export const ImagePreviewList = ({ data }) => {
   return (
-    <div>
-      <Image.PreviewGroup>
-        {data &&
-          data.map((cover, idx) => (
-            <div className="flex flex-col items-center">
-              <Image
-                src={cover.url}
-                alt={cover.url}
-                preview={true}
-                className="px-3 py-3"
-                placeholder="Xem chi tiết"
-                width="100%"
-                key={idx}
-              />
-            </div>
-          ))}
-      </Image.PreviewGroup>
-    </div>
+    <Image.PreviewGroup>
+      {data &&
+        data.map((cover, idx) => (
+          <div className="flex flex-col items-center ">
+            <Image
+              src={cover.url}
+              alt={cover.url}
+              preview={true}
+              className="px-1 py-1 md:px-3 md:py-3 "
+              placeholder="Xem chi tiết"
+              width="100%"
+              key={idx}
+            />
+          </div>
+        ))}
+    </Image.PreviewGroup>
   )
 }

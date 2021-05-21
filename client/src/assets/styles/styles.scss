@@ -703,5 +703,15 @@
 }
 .ant-modal-content {
   overflow: auto;
-  border-radius: 12px
+  border-radius: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+  .full-img {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .btn-addToCart {
+    padding: 12px 16px;
+  }
 }

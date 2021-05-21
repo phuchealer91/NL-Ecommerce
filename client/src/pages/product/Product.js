@@ -36,13 +36,13 @@ function Product(props) {
 
   return (
     <React.Fragment>
-      <div className="block w-full ">
-        <div className="mx-4 my-4 ">
+      <div className="px-1 md:mx-4 ">
+        <div className=" my-4 ">
           {productEditing && (
             <SingleProductZoom productEditing={productEditing} />
           )}
         </div>
-        <section className="my-5 mx-4  bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+        <section className="my-5 bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
           <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
             <div className="flex items-center">
               <img
@@ -61,33 +61,30 @@ function Product(props) {
               <LoadingCard count={5} />
             ) : (
               <div className="container">
-              {
-                productRelated.length > 0 ? (
+                {productRelated.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 auto-rows-auto grid-flow-row gap-2 mt-6">
-                  {
-                    productRelated.map((product) => {
+                    {productRelated.map((product) => {
                       return (
                         <div className="product-item" key={product._id}>
                           <CardItem product={product} />
                         </div>
                       )
-                    })
-                }
-                </div>
-                ) :  <div className="flex items-center justify-center">
-                      <EmptyBox />
-                    </div>
-              }
-                
+                    })}
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <EmptyBox />
+                  </div>
+                )}
               </div>
             )}
           </div>
         </section>
-        <div className="mx-4 my-4 rounded rounded-b-none rounded-l-none ">
+        <div className="rounded rounded-b-none rounded-l-none ">
           <div className="px-4 py-4 bg-white">
             <Tabs type="card">
               <TabPane tab="Thông tin sản phẩm" key="1">
-                <div className="px-4 py-4">
+                <div className="px-0 py-4 md:px-4">
                   <table className="w-full">
                     <tbody>
                       <tr className="my-3">
@@ -147,7 +144,7 @@ function Product(props) {
                     </tbody>
                   </table>
                 </div>
-                <div className="px-4 my-2">
+                <div className="px-0 my-2 md:px-4">
                   <div className="text-base text-gray-600 font-semibold pb-2">
                     Thông tin ngắn về sách
                   </div>
@@ -196,7 +193,7 @@ function Product(props) {
           </div>
         </div>
 
-        <section className="my-5 mx-4  bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
+        <section className="my-5 bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">
           <div className="flex items-center bg-blue-300 h-12 rounded-t-lg">
             <div className="flex items-center">
               <img

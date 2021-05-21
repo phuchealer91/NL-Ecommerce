@@ -25,6 +25,8 @@ import {
   SubCategoryT,
   SubCategoryV,
 } from '../../SubCategory/'
+import NavBar from '../NavBar/NavBar'
+import NavBarDropdownMobile from '../../../pages/Home/NavBarDropdownMobile'
 
 const { SubMenu, Item } = Menu
 const HeaderUser = () => {
@@ -42,12 +44,12 @@ const HeaderUser = () => {
     dispatch(logoutInUser())
     history.push(`/${PATHS.LOGIN}`)
   }
-
+  const menu = <NavBarDropdownMobile />
   return (
     <>
       <header className="header sticky top-0 z-50 ">
         <div
-          className="desktop-header bg-white hidden lg:block h-16"
+          className="desktop-header bg-white hidden md:block h-16"
           // style={{ lineHeight: '80px' }}
         >
           <div className="container mx-auto px-11">
@@ -161,39 +163,87 @@ const HeaderUser = () => {
           </div>
         </div>
 
-        <div className="mobile-header bg-white lg:hidden">
-          <div className="px-6">
-            <div className="nav flex items-center relative">
+        <div className="mobile-header bg-white md:hidden">
+          <div className="px-1">
+            <Link to="/" className="flex justify-center items-center py-2 ">
+              <img
+                src={Logo}
+                alt="Workbook"
+                style={{ width: '120px', height: ' auto' }}
+              />
+            </Link>
+            <div className="pb-4 nav flex items-center relative">
               <div className="mobile-menu inline-block cursor-pointer">
-                <i className="far fa-bars" />
+                <NavBar menu={menu} />
               </div>
-              <a href="/" className="inline-block mx-auto">
-                <img src="./assests/images/Logo_95x.png" alt="Wokiee" />
-              </a>
-              <ul className="flex items-center absolute right-0">
-                <li className="ml-6 relative">
-                  <button className="nav__btn">
-                    <i className="fal fa-search hover:text-blue-500 transition-all" />
-                  </button>
-                  <div className="absolute left-2/4 transform -translate-x-2/4 bg-white shadow-sm rounded-lg px-2 text-sm text-center align-middle tooltip">
-                    Search
-                  </div>
+
+              <ul className="flex items-center ">
+                <li className="ml-2 relative">
+                  <Searchs />
                 </li>
-                <li className="ml-6 relative">
-                  <button className="nav__btn">
-                    <i className="fal fa-shopping-cart hover:text-blue-500 transition-all" />
-                  </button>
-                  <div className="absolute left-2/4 transform -translate-x-2/4 bg-white shadow-sm rounded-lg px-2 text-sm text-center align-middle tooltip">
-                    Cart
-                  </div>
+                <li className="ml-2 relative">
+                  <Link to="/cart">
+                    <Badge
+                      count={cartLists.length}
+                      offset={[9, 0]}
+                      className=" flex flex-col items-center"
+                      style={{ left: '6px', width: '20px', top: '2px' }}
+                    >
+                      <ShoppingCartOutlined
+                        style={{ fontSize: '24px' }}
+                        className="text-blue-600"
+                      />
+                    </Badge>
+                  </Link>
                 </li>
-                <li className="ml-6 relative">
-                  <button className="nav__btn">
-                    <i className="fal fa-user-alt hover:text-blue-500 transition-all" />
-                  </button>
-                  <div className="absolute left-2/4 transform -translate-x-2/4 bg-white shadow-sm rounded-lg px-2 text-sm text-center align-middle tooltip">
-                    Account
-                  </div>
+                <li className="ml-4 relative">
+                  {user && !user.token ? (
+                    <>
+                      <li className="mr-5 relative">
+                        <Link to="/login" className="text-center block">
+                          <UserOutlined
+                            style={{ fontSize: '24px' }}
+                            className="text-blue-600"
+                          />
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <Dropdown
+                      overlay={
+                        <Menu>
+                          <Item icon={<HomeOutlined />}>
+                            <Link to="/user/history" className="py-2">
+                              Trang chủ
+                            </Link>
+                          </Item>
+                          {/* <Item icon={<UserOutlined />}>
+                          <Link to={`/community/profile/${user.userDatas._id}`}>
+                            Thông tin cá nhân
+                          </Link>
+                        </Item> */}
+                          <Item
+                            icon={<LogoutOutlined />}
+                            className="py-2"
+                            onClick={logout}
+                          >
+                            Đăng xuất
+                          </Item>
+                        </Menu>
+                      }
+                      trigger={['click']}
+                    >
+                      <button className="cursor-pointer flex items-center">
+                        <img
+                          className="w-8 h-8 rounded-full mr-2"
+                          src={user && user.userDatas?.photoURL}
+                          width={32}
+                          height={32}
+                          alt="User"
+                        />
+                      </button>
+                    </Dropdown>
+                  )}
                 </li>
               </ul>
             </div>

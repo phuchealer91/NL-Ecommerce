@@ -109,7 +109,7 @@ function NavBarDropdown(props) {
               className="mx-3"
             />
             <span className=" text-base text-gray-600 font-semibold">
-              FLASH SALE
+              Giảm giá sốc
             </span>
           </div>
         </div>

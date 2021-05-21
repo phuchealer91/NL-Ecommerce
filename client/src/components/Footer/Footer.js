@@ -5,7 +5,7 @@ function Footer() {
       <footer className="bg-gray-800 pt-10 sm:mt-10">
         <div className="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-left">
           {/* Col-1 */}
-          <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+          <div className="p-5 w-full sm:w-4/12 md:w-3/12">
             {/* Col Title */}
             <div className="text-xs uppercase text-gray-400 font-medium mb-6">
               Hỗ trợ khách hàng
@@ -56,7 +56,7 @@ function Footer() {
             </a>
           </div>
           {/* Col-2 */}
-          <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+          <div className="p-5 w-full sm:w-4/12 md:w-3/12">
             {/* Col Title */}
             <div className="text-xs uppercase text-gray-400 font-medium mb-6">
               Về Workbook
@@ -100,7 +100,7 @@ function Footer() {
             </a>
           </div>
           {/* Col-3 */}
-          <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+          <div className="p-5 w-full sm:w-4/12 md:w-3/12">
             {/* Col Title */}
             <div className="text-xs uppercase text-gray-400 font-medium mb-6">
               Hợp tác và liên kết
@@ -120,7 +120,7 @@ function Footer() {
             </a>
           </div>
           {/* Col-3 */}
-          <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+          <div className="p-5 w-full sm:w-4/12 md:w-3/12">
             {/* Col Title */}
             <div className="text-xs uppercase text-gray-400 font-medium mb-6">
               Liên hệ
@@ -162,9 +162,9 @@ function Footer() {
         {/* Copyright Bar */}
         <div className="pt-2">
           <div
-            className="flex  pb-5 px-3 m-auto pt-5 
+            className="flex justify-center pb-5 px-3 mx-auto pt-5 
             border-t border-gray-500 text-gray-400 text-sm 
-            flex-col md:flex-row max-w-6xl"
+            flex-col md:flex-row max-w-6xl md:justify-start"
           >
             <div>
               <div className="mt-2">

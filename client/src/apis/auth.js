@@ -1,6 +1,5 @@
 import PATHS from '../redux/constants/paths'
 import axiosServices from './axiosServices'
-import axios from 'axios'
 export const registerOrUpdateUsers = (data) => {
   return axiosServices.post(`/${PATHS.AUTH}/create-or-update-user`, data)
 }

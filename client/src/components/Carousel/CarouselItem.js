@@ -1,5 +1,5 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
-import { Card, Carousel } from 'antd'
+import { Carousel } from 'antd'
 import React from 'react'
 import banner1 from '../../assets/images/banner1.png'
 import banner2 from '../../assets/images/banner2.png'

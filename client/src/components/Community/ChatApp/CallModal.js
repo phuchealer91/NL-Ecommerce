@@ -1,12 +1,9 @@
-import React, { useState, useRef } from 'react'
-import PropTypes from 'prop-types'
 import { Modal } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as types from '../../../redux/constants/message'
-import { useEffect } from 'react'
-import { Socket } from 'socket.io-client'
+import RingRing from '../../../assets/audio/ringring.mp3'
 import { addMessages } from '../../../redux/actions/message'
-CallModal.propTypes = {}
+import * as types from '../../../redux/constants/message'
 
 function CallModal(props) {
   const { call, user, peer, socket } = useSelector((state) => state)
@@ -17,6 +14,7 @@ function CallModal(props) {
   const [total, setTotal] = useState(0)
   const [answers, setAnswers] = useState(false)
   const [stracks, setTracks] = useState(null)
+  const [newCall, setNewCall] = useState(null)
   const dispatch = useDispatch()
   const youVideo = useRef()
   const otherVideo = useRef()
@@ -128,7 +126,7 @@ function CallModal(props) {
           }
         })
         setAnswers(true)
-        // setNewCall(newCall)
+        setNewCall(newCall)
       })
     })
     return () => peer.removeListener('call')
@@ -143,11 +141,32 @@ function CallModal(props) {
         type: 'NOTIFY',
         payload: { error: 'Người dùng mất kết nối !' },
       })
-
+      if (newCall) newCall.close()
+      let times = answers ? total : 0
+      addCallMessage(call, times, true)
       stracks && stracks.forEach((track) => track.stop())
     })
     return () => socket.off('callerDisconect')
-  }, [dispatch, socket, stracks])
+  }, [dispatch, socket, stracks, call, addCallMessage, answers, total, newCall])
+  const playAudio = (newAudio) => {
+    newAudio.play()
+  }
+
+  const pauseAudio = (newAudio) => {
+    newAudio.pause()
+    newAudio.currentTime = 0
+  }
+
+  useEffect(() => {
+    let newAudio = new Audio(RingRing)
+    if (answers) {
+      pauseAudio(newAudio)
+    } else {
+      playAudio(newAudio)
+    }
+
+    return () => pauseAudio(newAudio)
+  }, [answers])
   return (
     <React.Fragment>
       <Modal

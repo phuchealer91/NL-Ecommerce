@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Link, useHistory, useLocation } from 'react-router-dom'
 import {
   BookOutlined,
   HomeOutlined,
-  RightOutlined,
   ShopOutlined,
   WechatOutlined,
 } from '@ant-design/icons'
-import {
-  SubCategoryK,
-  SubCategoryN,
-  SubCategoryT,
-  SubCategoryV,
-} from '../../components/SubCategory'
-import '../../assets/styles/styles.scss'
-import { getCategorySubs } from '../../apis/category'
-import PATHS from '../../redux/constants/paths'
 import { Menu } from 'antd'
-NavBarDropdownMobile.propTypes = {}
+import React, { useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { getCategorySubs } from '../../apis/category'
+import '../../assets/styles/styles.scss'
+import PATHS from '../../redux/constants/paths'
 const { SubMenu } = Menu
 function NavBarDropdownMobile(props) {
   const history = useHistory()

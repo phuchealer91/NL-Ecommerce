@@ -11,6 +11,7 @@ const FollowBtn = ({ userx }) => {
     if (user.userDatas.following?.find((x) => x._id === userx._id)) {
       setFollowed(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.userDatas.following, userx._id])
   function onHandleUnFollow() {
     setFollowed(false)

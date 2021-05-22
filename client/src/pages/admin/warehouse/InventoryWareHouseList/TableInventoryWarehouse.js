@@ -32,6 +32,7 @@ function TableInventoryWarehouse({ product }) {
             <div className="flex items-center">
               <img
                 src={product?.images[0]?.url}
+                alt={product?.images[0]?.url}
                 width="80px"
                 height="auto"
                 loading="lazy"

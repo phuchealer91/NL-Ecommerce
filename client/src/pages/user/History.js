@@ -4,15 +4,13 @@ import {
   MinusCircleOutlined,
   StopOutlined,
 } from '@ant-design/icons'
-import { Pagination, Steps } from 'antd'
+import { Pagination } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getTotalOrdersStatuss, userOrders } from '../../apis/cart'
 import { UserLayouts } from '../../components/navigation/Layouts/Layouts'
-import { UserSideBar } from '../../components/navigation/SideBar'
 import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import TableOrder from '../../components/ViewOrder/TableOrder'
 import './Styles.scss'
-const { Step } = Steps
 
 function History(props) {
   // const [isReady, setIsReady] = useState(false)

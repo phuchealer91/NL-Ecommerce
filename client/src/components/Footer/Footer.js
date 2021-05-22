@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 function Footer() {
   return (
     <React.Fragment>
@@ -136,8 +137,8 @@ function Footer() {
               hàng
             </small>
             <p className="flex items-center">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="my-3 mr-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
               >
                 <img
@@ -145,9 +146,9 @@ function Footer() {
                   alt="fb"
                   width="32px"
                 />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="my-3 mx-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
               >
                 <img
@@ -155,7 +156,7 @@ function Footer() {
                   alt="fb"
                   width="32px"
                 />
-              </a>
+              </Link>
             </p>
           </div>
         </div>

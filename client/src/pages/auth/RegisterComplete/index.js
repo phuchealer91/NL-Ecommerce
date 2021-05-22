@@ -49,7 +49,6 @@ const RegisterComplete = (props) => {
       const idTokenUser = await user.getIdTokenResult()
       // const { token } = idTokenUser
       // save email & token with redux store
-      const data = { token: idTokenUser.token }
       registerOrUpdateUsers(idTokenUser.token).then((res) => {
         if (res.data) {
           const data = {

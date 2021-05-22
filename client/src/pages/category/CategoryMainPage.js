@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getCategory } from '../../redux/actions/category'
 import { useParams } from 'react-router-dom'
-import LoadingCard from '../../components/LoadingCard'
-import { Col, Row } from 'antd'
 import { CardItem } from '../../components/CardItem'
+import LoadingCard from '../../components/LoadingCard'
+import { getCategory } from '../../redux/actions/category'
 import './CategoryMainPage.scss'
 function CategoryMainPage(props) {
   const dispatch = useDispatch()
-  const { productOfCategory, categoryEditing, isLoading } = useSelector(
+  const { productOfCategory, isLoading } = useSelector(
     (state) => state.category
   )
   const { slug } = useParams()

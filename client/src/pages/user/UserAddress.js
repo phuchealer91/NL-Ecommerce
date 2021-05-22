@@ -2,7 +2,6 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
 import { Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { addAddresss, getAddresss, removeAddress } from '../../apis/cart'
 import {
@@ -15,7 +14,6 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import { EmptyBox } from '../../helpers/icons'
 
 function UserAddress(props) {
-  const history = useHistory()
   const [province, setProvince] = useState('')
   // const [district, setDistrict] = useState('')
   const [provinceDistrict, setProvinceDistrict] = useState('')

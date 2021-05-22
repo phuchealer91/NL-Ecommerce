@@ -1,7 +1,6 @@
-import { EnvironmentOutlined, LinkOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import EditProfile from '../../components/Community/Profile/EditProfile'
 import { UserLayouts } from '../../components/navigation/Layouts/Layouts'
 import SectionTitle from '../../components/SectionTitle/SectionTitle'
@@ -11,7 +10,6 @@ const UserProfile = () => {
   const { id } = useParams()
   const { user, profile } = useSelector((state) => state)
 
-  const history = useHistory()
   const dispatch = useDispatch()
   const [userData, setUserData] = useState([])
   const [visible, setVisible] = useState(false)

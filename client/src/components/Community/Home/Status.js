@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createPosts } from '../../../redux/actions/post'
 import * as types from '../../../redux/constants/notify'
 function Status() {
-  const { user, status } = useSelector((state) => state)
+  const { user } = useSelector((state) => state)
   const dispatch = useDispatch()
   const [content, setContent] = useState('')
   const [images, setImages] = useState([])
-  const [contentEdit, setContentEdit] = useState('')
-  const [imagesEdit, setImagesEdit] = useState([])
+  // const [contentEdit, setContentEdit] = useState('')
+  // const [imagesEdit, setImagesEdit] = useState([])
   const [stream, setStream] = useState(false)
   const [tracks, setTracks] = useState('')
-  const [visible, setVisible] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
+  const [setVisible] = useState(false)
+  // const [confirmLoading, setConfirmLoading] = useState(false)
   const videoRef = useRef()
   const canvasRef = useRef()
   const onHandleChangeUpload = (e) => {
@@ -92,13 +92,13 @@ function Status() {
   //     setVisible(true)
   //   }
   // }, [status])
-  const handleCancel = () => {
-    setVisible(false)
-    // dispatch({
-    //   type: postTypes.STATUS_POST,
-    //   payload: { onEdit: false },
-    // })
-  }
+  // const handleCancel = () => {
+  //   setVisible(false)
+  //   // dispatch({
+  //   //   type: postTypes.STATUS_POST,
+  //   //   payload: { onEdit: false },
+  //   // })
+  // }
   return (
     <>
       <form onSubmit={onHandleSubmit}>
@@ -127,11 +127,11 @@ function Status() {
                     <img
                       src={img.camera ? img.camera : URL.createObjectURL(img)}
                       alt="images"
-                      className="w-44 h-44 rounded-md object-contain bg-white"
+                      className="w-28 h-28 md:w-44 md:h-44 rounded-md object-contain bg-white"
                     />
                     <span
                       onClick={() => onHandleDelete(idx)}
-                      className="w-8 h-8 rounded-full transition-all bg-white shadow-md border border-gray-400 relative right-10 -top-16 cursor-pointer hover:bg-blue-500 hover:text-gray-600"
+                      className="w-6 h-6 md:w-8 md:h-8  rounded-full transition-all bg-white shadow-md border border-gray-400 relative right-10 -top-16 cursor-pointer hover:bg-blue-500 hover:text-gray-600"
                     >
                       <CloseOutlined
                         className="grid place-items-center h-full"

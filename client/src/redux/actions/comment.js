@@ -1,8 +1,7 @@
 import axiosServices from '../../apis/axiosServices'
-import { ImageUpload } from '../../helpers/ImageUpload'
+import * as GlobalTypes from '../constants/notify'
 import PATHS from '../constants/paths'
 import * as types from '../constants/post'
-import * as GlobalTypes from '../constants/notify'
 
 export const createComments = (post, newComment, user) => async (dispatch) => {
   // const posts = { ...post, comments: [...post.comments, newComment] }

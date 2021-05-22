@@ -4,7 +4,7 @@ import Modal from 'antd/lib/modal/Modal'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { removeOrders } from '../../apis/order'
-import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
+import { formatPriceReal } from '../../helpers/formatPrice'
 import { ModalConfirm } from '../ModalConfirm'
 import ViewOrderAdmin from './ViewOrderAdmin'
 

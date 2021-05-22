@@ -2,7 +2,6 @@ import {
   DownOutlined,
   HomeOutlined,
   LogoutOutlined,
-  SettingOutlined,
   ShoppingCartOutlined,
   UserAddOutlined,
   UserOutlined,
@@ -12,21 +11,14 @@ import React, { useState } from 'react'
 // import './HeaderUser.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
+import Logo from '../../../assets/images/logo-book.png'
 import { auth } from '../../../firebase'
-import UserLogined from '../../../pages/auth/Login/UserLogined'
+import NavBarDropdownMobile from '../../../pages/Home/NavBarDropdownMobile'
 import { logoutInUser } from '../../../redux/actions/users'
 import { TOKEN } from '../../../redux/constants/keys'
 import PATHS from '../../../redux/constants/paths'
 import { Searchs } from '../../LocalSearch'
-import Logo from '../../../assets/images/logo-book.png'
-import {
-  SubCategoryK,
-  SubCategoryN,
-  SubCategoryT,
-  SubCategoryV,
-} from '../../SubCategory/'
 import NavBar from '../NavBar/NavBar'
-import NavBarDropdownMobile from '../../../pages/Home/NavBarDropdownMobile'
 
 const { SubMenu, Item } = Menu
 const HeaderUser = () => {
@@ -35,9 +27,7 @@ const HeaderUser = () => {
   const dispatch = useDispatch()
   let { user, cart } = useSelector((state) => ({ ...state }))
   let { cartLists } = cart
-  function handleClick(e) {
-    setCurrent(e.key)
-  }
+
   function logout() {
     auth.signOut()
     localStorage.removeItem(TOKEN)

@@ -11,7 +11,7 @@ const NavBar = ({ menu }) => {
     setVisible(false)
   }, [pathname])
   return (
-    <nav className="cursor-pointer ml-2 z-10  shadow-md dark:bg-gray-800">
+    <nav className="cursor-pointer ml-2 z-10">
       <Button
         className="menu"
         type="primary"

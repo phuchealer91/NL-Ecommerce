@@ -714,4 +714,12 @@
   .btn-addToCart {
     padding: 12px 16px;
   }
+  // .w-mobile {
+  //   width: 100% !important;
+  // }
+}
+@media only screen and (max-width: 1024px) {
+  .w-mobile {
+    width: 100% !important;
+  }
 }

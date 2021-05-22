@@ -1,29 +1,25 @@
-import React, { useEffect, useState, useRef } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router'
-import { EmptyBox } from '../../../helpers/icons'
-import MessageOther from './MessageOther'
-import MessageMe from './MessageMe'
-import * as types from '../../../redux/constants/notify'
-import * as typesMess from '../../../redux/constants/message'
 import {
   CloseOutlined,
   DeleteFilled,
-  DeleteOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons'
-import Icons from './Icons'
+import { Modal, Spin } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { useHistory } from 'react-router-dom'
+import { EmptyBox } from '../../../helpers/icons'
 import { ImageUpload } from '../../../helpers/ImageUpload'
 import {
   addMessages,
   deleteConversation,
   getMessages,
 } from '../../../redux/actions/message'
-import moment from 'moment'
-import { Modal, Spin } from 'antd'
-import { useHistory } from 'react-router-dom'
-RightSideApp.propTypes = {}
+import * as typesMess from '../../../redux/constants/message'
+import * as types from '../../../redux/constants/notify'
+import Icons from './Icons'
+import MessageMe from './MessageMe'
+import MessageOther from './MessageOther'
 
 function RightSideApp(props) {
   const { user: users, message, socket, peer } = useSelector((state) => state)
@@ -41,6 +37,7 @@ function RightSideApp(props) {
     if (newUser) {
       setUser(newUser)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message.users, id])
   useEffect(() => {
     if (id) {
@@ -62,6 +59,7 @@ function RightSideApp(props) {
         getMessagesData()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch, users])
   const onHandleUpload = (e) => {
     const files = [...e.target.files]

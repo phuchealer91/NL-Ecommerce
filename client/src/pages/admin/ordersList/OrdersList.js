@@ -12,6 +12,7 @@ function OrdersList(props) {
   const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     loadAllOrders()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
   const loadAllOrders = () => {

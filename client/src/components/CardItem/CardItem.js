@@ -4,7 +4,7 @@ import {
   ShoppingCartOutlined,
   ShoppingOutlined,
 } from '@ant-design/icons'
-import { Progress, Rate, Tooltip } from 'antd'
+import { Rate, Tooltip } from 'antd'
 import _ from 'lodash'
 import React from 'react'
 import { useDispatch } from 'react-redux'

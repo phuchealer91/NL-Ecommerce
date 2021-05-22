@@ -5,7 +5,7 @@ import {
   DownSquareOutlined,
   StarOutlined,
 } from '@ant-design/icons'
-import { Checkbox, Col, Menu, Radio, Row, Slider, Tag } from 'antd'
+import { Checkbox, Menu, Radio, Slider, Tag } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +13,7 @@ import { getCategories } from '../../apis/category'
 import { fetchProductsSearch, getListAllProducts } from '../../apis/product'
 import { getSubCategories } from '../../apis/subCategory'
 import { CardItem } from '../../components/CardItem'
+import NavBar from '../../components/navigation/NavBar/NavBar'
 import Star from '../../components/Star'
 import { EmptyBox } from '../../helpers/icons'
 import { searchQuery } from '../../redux/actions/search'
@@ -26,14 +27,14 @@ function Shop(props) {
   const [productsAll, setProductsAll] = useState([])
   const [categories, setCategories] = useState([])
   const [categoryIds, setCategoryIds] = useState([])
-  const [star, setStar] = useState('')
+  const [setStar] = useState('')
   const [subs, setSubs] = useState([])
-  const [sub, setSub] = useState('')
+  const [setSub] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [layouts, setLayouts] = useState(['Bìa Cứng', 'Bìa Mềm'])
   const [layout, setLayout] = useState('')
-  const [langs, setLangs] = useState(['Tiếng Việt', 'Tiếng Anh'])
-  const [lang, setLang] = useState('')
+  // const [langs, setLangs] = useState(['Tiếng Việt', 'Tiếng Anh'])
+  // const [lang, setLang] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const { text } = useSelector((state) => state.search)
   useEffect(() => {
@@ -226,7 +227,7 @@ function Shop(props) {
       mode="inline"
       style={{ width: '256px', height: 'auto' }}
     >
-      <div className="px-1 flex items-center">
+      <div className="px-1 py-2 flex items-center">
         <button onClick={speech.startListening}>
           <AudioOutlined style={{ fontSize: '32px' }} />
         </button>
@@ -330,15 +331,19 @@ function Shop(props) {
       </h4>
 
       {/* hhh */}
-      <div className=" flex dark:bg-gray-900">
+      <div className="flex items-center md:hidden pb-3 pl-2">
+        <span className="text-gray-600 font-semibold pr-2">
+          {' '}
+          Tìm kiếm ngay:
+        </span>{' '}
+        <NavBar menu={menu} />
+      </div>
+      <div className="px-0 md:px-4 flex dark:bg-gray-900">
         <div className="z-20 hidden w-64  bg-white dark:bg-gray-800 md:block flex-shrink-0">
           {menu}
         </div>
-        <div className="z-20  w-64 block bg-white dark:bg-gray-800 md:hidden flex-shrink-0">
-          <NavBar menu={menu} />
-        </div>
 
-        <div className="flex flex-col flex-1 w-full">
+        <div className="flex flex-col flex-1 w-full px-0 md:px-2">
           {/* <HeaderAdmin /> */}
           <div className="">
             {' '}

@@ -1,7 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
-LikeButton.propTypes = {}
 
 function LikeButton({ isLike, onHandleLike, onHandleUnLike }) {
   return (

@@ -50,7 +50,7 @@ const UserCard = ({
               ></div>
             </div>
           </div>
-          <div className="flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block">
+          <div className="flex-auto min-w-0 ml-4 mr-6 block">
             <Link to={`/community/profile/${user._id}`} onClick={onHandleAll}>
               <p className="text-gray-600 hover:to-gray-800 font-semibold">
                 {user.name}

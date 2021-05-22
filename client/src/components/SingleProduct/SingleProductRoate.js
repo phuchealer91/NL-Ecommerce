@@ -1,12 +1,13 @@
 import { HeartOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Form, Input, Rate, Tabs, Tooltip } from 'antd'
 import _ from 'lodash'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import 'react-image-lightbox/style.css'
-import { SideBySideMagnifier } from 'react-image-magnifiers'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import * as THREE from 'three'
+import oc from 'three-orbit-controls'
 import { addWishLists } from '../../apis/cart'
 import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
@@ -14,10 +15,13 @@ import { showDrawer } from '../../redux/actions/ui'
 import { ImagePreviewList } from '../Community/ImagePreview/ImagePreview'
 import ModalRating from '../ModalConfirm/ModalRating'
 import ShowRatings from '../Ratings/ShowRatings'
-const { TabPane } = Tabs
-function SingleProductZoom({ productEditing }) {
-  const dispatch = useDispatch()
 
+const OrbitControls = oc(THREE)
+
+const { TabPane } = Tabs
+function SingleProductRoate({ productEditing }) {
+  const dispatch = useDispatch()
+  const section = useRef()
   const {
     title,
 
@@ -29,6 +33,8 @@ function SingleProductZoom({ productEditing }) {
     author,
     price,
   } = productEditing
+
+  const myMesh = React.useRef()
   function handleAddToCart() {
     let cart = []
     if (typeof window !== 'undefined') {
@@ -63,6 +69,65 @@ function SingleProductZoom({ productEditing }) {
       })
   }
 
+  useEffect(() => {
+    var scene = new THREE.Scene()
+    var camera = new THREE.PerspectiveCamera(75, 420 / 400, 0.1, 1000)
+
+    var renderer = new THREE.WebGLRenderer({ alpha: true })
+    renderer.setSize(420, 400)
+    section.current.appendChild(renderer.domElement)
+    const controls = new OrbitControls(camera, renderer.domElement)
+    renderer.setClearColor(0xf2f2f2)
+    // camera.position.set(0, 20, 100)
+    controls.autoRotate = true
+    controls.update()
+    var geometry = new THREE.BoxGeometry(3.5, 5, 0.5)
+
+    const light = new THREE.DirectionalLight(0xffffff)
+    const ambient = new THREE.AmbientLight(0xffffff)
+    light.position.set(0, 0, 6)
+    scene.add(light)
+    scene.add(ambient)
+
+    camera.position.z = 5
+    const loader = new THREE.TextureLoader()
+    // const urls = [
+    //   'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/wkt6vka3tqijadqkuntd.jpg',
+    //   'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/c1uckbdftljwyxhdy9lw.jpg',
+    //   'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/cenbivni42pgp0hugrzo.jpg',
+    //   'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/t6xeprhxbz9mhljeilpr.jpg',
+    //   'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/uvufcwicytuglkkys2sr.jpg',
+    //   'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/rj6hwym8tzvf2qlvyg89.jpg',
+    // ]
+    const urls = [
+      'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/wkt6vka3tqijadqkuntd.jpg',
+      'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/c1uckbdftljwyxhdy9lw.jpg',
+
+      'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/cenbivni42pgp0hugrzo.jpg',
+      'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/t6xeprhxbz9mhljeilpr.jpg',
+      images[0]?.url || '',
+      images[1]?.url || '',
+    ]
+    const materials = urls.map((url) => {
+      return new THREE.MeshLambertMaterial({
+        map: loader.load(url),
+      })
+    })
+    var cube = new THREE.Mesh(geometry, materials)
+    scene.add(cube)
+
+    var animate = function () {
+      requestAnimationFrame(animate)
+      controls.update()
+      // cube.rotation.x += 0.01
+      // cube.rotation.y += 0.01
+
+      renderer.render(scene, camera)
+    }
+
+    animate()
+  }, [])
+
   return (
     <>
       <div className="py-4 bg-white block md:flex">
@@ -78,56 +143,13 @@ function SingleProductZoom({ productEditing }) {
               className="border-none border-gray-200 p-0 pt-0 full-img md:p-2 md:border"
               style={{ width: 'calc(100% - 112px)', height: '400px' }}
             >
-              <SideBySideMagnifier
-                className=""
-                style={{
-                  order: false ? '1' : '0',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-                imageSrc={images ? images[0]?.url : images[1]?.url}
-                largeImageSrc={images ? images[0]?.url : images[1]?.url}
-                alwaysInPlace={false}
-                overlayOpacity={0.6}
-                switchSides={false}
-                zoomPosition="left"
-                inPlaceMinBreakpoint={680}
-                fillAvailableSpace={false}
-                fillAlignTop={false}
-                fillGapTop={10}
-                fillGapRight={10}
-                fillGapBottom={10}
-                fillGapLeft={0}
-                zoomContainerBorder="1px solid #ccc"
-                zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
-              />
-              {/* <div>
-                <Tabs defaultActiveKey="1" size="small">
-                  <TabPane
-                    tab={
-                      <span>
-                        <ZoomInOutlined />
-                        Zoom
-                      </span>
-                    }
-                    key="1"
-                    style={{ width: '100%' }}
-                  >
-                    
-                  </TabPane>
-                  <TabPane
-                    tab={
-                      <span>
-                        <CompassOutlined />
-                        Xoay 3D
-                      </span>
-                    }
-                    key="2"
-                  >
-                    Tab 2
-                  </TabPane>
-                </Tabs>
-              </div> */}
+              <div ref={section}></div>
+              {/* <Canvas>
+                <Suspense fallback={null}>
+                  <div ref={section}></div>
+                  <OrbitControls autoRotate />
+                </Suspense>
+              </Canvas> */}
             </div>
           </div>
         </div>
@@ -242,6 +264,6 @@ function SingleProductZoom({ productEditing }) {
     </>
   )
 }
-SingleProductZoom.propTypes = {}
+SingleProductRoate.propTypes = {}
 
-export default SingleProductZoom
+export default SingleProductRoate

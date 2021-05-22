@@ -1,10 +1,10 @@
+import { RightOutlined } from '@ant-design/icons'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import CarouselItem from '../../components/Carousel/CarouselItem'
 import CategoryList from '../../components/Category/CategoryList'
-import Footer from '../../components/Footer/Footer'
-import { ListProduct, ListProductSeller } from '../../components/Home'
 import { CountDownTimer } from '../../components/CountDownTimer/CountDownTimer'
-import './Home.scss'
+import { ListProduct, ListProductSeller } from '../../components/Home'
 import ListProductSale from '../../components/Home/ListProductSale'
 import {
   SubCategoryK,
@@ -12,8 +12,7 @@ import {
   SubCategoryT,
   SubCategoryV,
 } from '../../components/SubCategory'
-import { Link } from 'react-router-dom'
-import { RightOutlined } from '@ant-design/icons'
+import './Home.scss'
 Home.propTypes = {}
 
 function Home(props) {

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import LikeButton from '../LikeButton/LikeButton'
 import { useDispatch, useSelector } from 'react-redux'
-import { likePosts, unLikePosts } from '../../../redux/actions/post'
 import { Link } from 'react-router-dom'
-CardFooter.propTypes = {}
+import { likePosts, unLikePosts } from '../../../redux/actions/post'
+import LikeButton from '../LikeButton/LikeButton'
 
 function CardFooter({ post }) {
   const { user } = useSelector((state) => state)

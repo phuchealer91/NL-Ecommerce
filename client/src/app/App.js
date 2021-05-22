@@ -1,9 +1,13 @@
+import { Canvas } from '@react-three/fiber'
+import Peer from 'peerjs'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import io from 'socket.io-client'
 import { currentUsers } from '../apis/auth'
+import CallModal from '../components/Community/ChatApp/CallModal'
 import SideDrawer from '../components/Drawer/SideDrawer'
 import Footer from '../components/Footer/Footer'
 import { HeaderUser } from '../components/navigation/Header'
@@ -47,18 +51,14 @@ import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
 import { History, Password, WishList } from '../pages/user'
 import UserAddress from '../pages/user/UserAddress'
 import UserProfile from '../pages/user/UserProfile'
-import { notify } from '../redux/actions/notify'
 import { getPostsx } from '../redux/actions/post'
+import * as types from '../redux/constants/global'
+import * as typesMess from '../redux/constants/message'
 import PATHS from '../redux/constants/paths'
 import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
-import io from 'socket.io-client'
-import OpenSocket from 'socket.io-client'
-import * as types from '../redux/constants/global'
-import * as typesMess from '../redux/constants/message'
 import SocketClient from '../SocketClient'
-import CallModal from '../components/Community/ChatApp/CallModal'
-import Peer from 'peerjs'
+
 export default function App() {
   const dispatch = useDispatch()
   let { user: users, homePost, call } = useSelector((state) => state)
@@ -121,7 +121,7 @@ export default function App() {
       type: typesMess.PEER,
       payload: newPeer,
     })
-  }, [])
+  }, [dispatch])
   return (
     <React.Fragment>
       {users && users.userDatas?.role !== 'admin' && <HeaderUser />}

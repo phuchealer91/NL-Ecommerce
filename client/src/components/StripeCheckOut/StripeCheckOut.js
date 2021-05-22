@@ -9,7 +9,7 @@ import { createOrders, emptyCarts } from '../../apis/cart'
 import { createPaymentIntents } from '../../apis/stripe'
 import CreditCard from '../../assets/images/credit-card.png'
 import logo from '../../assets/images/logo.png'
-import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
+import { formatPriceReal } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { appliedCoupon } from '../../redux/actions/coupon'
 import './StripeCheckOut.scss'
@@ -29,8 +29,8 @@ function StripeCheckOut(props) {
 
   const [clientSecret, setClientSecret] = useState('')
 
-  const [cartTotal, setCartTotal] = useState(0)
-  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
+  const [setCartTotal] = useState(0)
+  const [setTotalAfterDiscount] = useState(0)
   const [payable, setPayable] = useState(0)
 
   useEffect(() => {

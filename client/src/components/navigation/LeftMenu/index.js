@@ -1,4 +1,3 @@
-import { CompassOutlined } from '@ant-design/icons'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 function LeftMenu() {
@@ -91,7 +90,7 @@ function LeftMenu() {
     window.scrollTop({ top: 0 })
   }
   return (
-    <nav className="mt-3 px-2">
+    <nav className="mt-3 px-2 flex items-center lg:block">
       {navLinks &&
         navLinks.map((item, idx) => {
           return (

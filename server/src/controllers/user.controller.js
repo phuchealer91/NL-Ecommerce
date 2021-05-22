@@ -157,7 +157,7 @@ module.exports.createOrder = async (req, res) => {
     await log.save()
     // TODO: push notification
     const orderByUser = await User.findById(
-      '5f8f2684bc42094a801edfa6',
+      '607b2755309a774a98eaaee1',
       'notifications'
     )
     orderByUser.notifications.newNotifications++
@@ -171,6 +171,7 @@ module.exports.createOrder = async (req, res) => {
     })
     return res.status(200).json({ order: newOrder })
   } catch (error) {
+    console.log('error', error)
     return res.status(500).json({ Error: 'Server error' })
   }
 }

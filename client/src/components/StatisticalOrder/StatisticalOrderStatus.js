@@ -1,4 +1,3 @@
-import { Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import {
   Cell,
@@ -10,7 +9,6 @@ import {
 } from 'recharts'
 import { getTotalOrderStatusMonths } from '../../apis/order'
 StatisticalOrderStatus.propTypes = {}
-const { Option } = Select
 
 function StatisticalOrderStatus(props) {
   const [orderStatus, setOrderStatus] = useState([])

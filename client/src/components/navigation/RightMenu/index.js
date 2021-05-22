@@ -5,7 +5,7 @@ function RightMenu() {
   return (
     <>
       <aside
-        className="h-full  relative"
+        className="h-full  relative hidden md:block"
         style={{ width: 'calc(100% - 700px)' }}
       >
         {/*Aside menu (right side)*/}

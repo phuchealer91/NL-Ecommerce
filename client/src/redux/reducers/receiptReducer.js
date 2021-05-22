@@ -1,5 +1,4 @@
 import * as types from '../constants/receipt'
-import { toast } from 'react-toastify'
 let initialState = {
   receiptLists: [],
   totalPayment: 0,

@@ -1,5 +1,5 @@
 import { Select, Steps } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import ModalImage from 'react-modal-image'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -14,9 +14,9 @@ ViewOrderAdmin.propTypes = {}
 const { Step } = Steps
 const { Option } = Select
 function ViewOrderAdmin({ order, loadAllOrders }) {
-  const [isChange, setIsChange] = useState(false)
-  const [userOrder, setuserOrder] = useState([])
-  const [isCancel, setIsCancel] = useState(false)
+  // const [isChange, setIsChange] = useState(false)
+  // const [userOrder, setuserOrder] = useState([])
+  // const [isCancel, setIsCancel] = useState(false)
   const arrStatus = ['Đang chờ xác nhận', 'Đang xử lý', 'Đã bàn giao', 'Hủy']
   function handleChange(orderId, orderStatus) {
     updatedOrderStatus(orderId, orderStatus)

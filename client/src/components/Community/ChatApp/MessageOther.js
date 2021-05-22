@@ -1,10 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import moment from 'moment'
 import { Image } from 'antd'
+import React from 'react'
 import Times from './Times'
-
-MessageOther.propTypes = {}
 
 function MessageOther({ user, msg, isShowTime, setIsShowTime }) {
   return (

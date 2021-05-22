@@ -1,13 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Dropdown, Menu } from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
-
-CommentMenu.propTypes = {}
+import { Dropdown, Menu } from 'antd'
+import React from 'react'
 
 function CommentMenu({ post, comment, user }) {
   return (

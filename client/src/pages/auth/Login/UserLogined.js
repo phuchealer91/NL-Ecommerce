@@ -1,5 +1,5 @@
 import { BellOutlined } from '@ant-design/icons'
-import { Avatar, Badge, Button, Menu, notification } from 'antd'
+import { Avatar, Badge, Button, notification } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -80,6 +80,7 @@ const UserLogined = (props) => {
     return () => {
       socket.emit('logout')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, notificationsCount])
 
   const openNotificationsDropdown = () => {
@@ -117,28 +118,7 @@ const UserLogined = (props) => {
       notifyId = newNotifications[index]._id
       return newNotifications
     })
-
-    const token = localStorage.getItem('token')
-    // axios.get(`/auth/mark-as-read-notification/${notifyId}`, {
-    //   headers: { Authorization: `Bearer ${token}` },
-    // })
   }
-
-  const menuAccount = (
-    <Menu className="user-menu">
-      <Menu.Item>
-        <Link to="/tai-khoan/">Thông tin tài khoản</Link>
-      </Menu.Item>
-
-      <Menu.Item>
-        <Link to="/doi-ma/">Đổi mã keygame</Link>
-      </Menu.Item>
-
-      <Menu.Item>
-        <Link to="/lich-su">Lịch sử giao dịch</Link>
-      </Menu.Item>
-    </Menu>
-  )
 
   return (
     <div className="user-group desktop-screen">

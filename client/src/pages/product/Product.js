@@ -5,7 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom'
 import { getProduct } from '../../apis/product'
 import { CardItem } from '../../components/CardItem'
 import LoadingCard from '../../components/LoadingCard'
-import SingleProductZoom from '../../components/SingleProduct/SingleProductZoom'
+import SingleProductRoate from '../../components/SingleProduct/SingleProductRoate'
 import { EmptyBox } from '../../helpers/icons'
 import { getRelated } from '../../redux/actions/product'
 import './Product.scss'
@@ -18,6 +18,7 @@ function Product(props) {
   const { slug } = useRouteMatch().params
   useEffect(() => {
     loadProduct()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
   const loadProduct = () => {
     getProduct(slug).then((res) => {
@@ -39,7 +40,7 @@ function Product(props) {
       <div className="px-1 md:mx-4 ">
         <div className=" my-4 ">
           {productEditing && (
-            <SingleProductZoom productEditing={productEditing} />
+            <SingleProductRoate productEditing={productEditing} />
           )}
         </div>
         <section className="my-5 bg-white border border-gray-200 border-solid overflow-hidden rounded-t-lg">

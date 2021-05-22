@@ -13,13 +13,13 @@ const morgan = require('morgan')
 // Connect db
 const { connectDB } = require('./src/config/db/db')
 const router = require('./src/routers')
-connectDB(DB_URL)
+// connectDB(DB_URL)
 // connectDB(DB_URL).then((res) => {
 //   const server = app.listen(PORT, () => {
 //     console.log(`Server listening ${PORT}`)
 //   })
-//   const io = require('./io').init(server)
-//   io.on('connection', (socket) => {
+//   const ios = require('./io').init(server)
+//   ios.on('connection', (socket) => {
 //     console.log(socket.id)
 //     socket.on('disconnect', () => {
 //       console.log(`${socket.id} disconnect`)
@@ -35,7 +35,8 @@ const io = require('socket.io')(http, {
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   },
 })
-
+connectDB(DB_URL)
+// const io = require('./io').init(http)
 io.on('connection', (socket) => {
   SocketServer(socket)
 })

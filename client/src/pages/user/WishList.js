@@ -1,12 +1,11 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Col, Pagination, Row } from 'antd'
+import { Pagination } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getWishLists, removeWishLists } from '../../apis/cart'
 import { EmptyData } from '../../components/Empty'
 import { UserLayouts } from '../../components/navigation/Layouts/Layouts'
-import { UserSideBar } from '../../components/navigation/SideBar'
 import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import { formatPrice } from '../../helpers/formatPrice'
 function WishList(props) {

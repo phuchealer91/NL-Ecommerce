@@ -1,9 +1,8 @@
 import { EnvironmentOutlined, LinkOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { getProfileUsers } from '../../../redux/actions/profile'
-
 import EditProfile from './EditProfile'
 import FollowBtn from './FollowBtn'
 import Followers from './Followers'
@@ -30,6 +29,7 @@ const Info = () => {
       const newData = profile.users.filter((item) => item._id === id)
       setUserData(newData)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, dispatch, profile.users])
   const showModal = () => {
     setVisible(true)

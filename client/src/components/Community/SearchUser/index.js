@@ -15,6 +15,7 @@ function SearchUser(props) {
     } else {
       setUsers([])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, user?.token])
   const loadSearhUser = () => {
     setIsLoading(true)

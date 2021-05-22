@@ -1,6 +1,6 @@
+import { Modal } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modal } from 'antd'
 import { updateProfileUser } from '../../../redux/actions/profile'
 function EditProfile({ visible, handleCancel, setVisible }) {
   const initValue = {
@@ -12,7 +12,6 @@ function EditProfile({ visible, handleCancel, setVisible }) {
   }
   // const [visible, setVisible] = useState(visible)
   const [confirmLoading, setConfirmLoading] = useState(false)
-  const [modalText, setModalText] = useState('Content of the modal')
   const [userData, setUserData] = useState(initValue)
   const { name, mobile, website, story, gender } = userData
   const [avatar, setAvatar] = useState('')

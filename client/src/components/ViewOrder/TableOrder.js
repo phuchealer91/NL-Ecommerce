@@ -2,7 +2,7 @@ import { EyeOutlined } from '@ant-design/icons'
 import { Tag } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
 import React, { useState } from 'react'
-import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
+import { formatPriceReal } from '../../helpers/formatPrice'
 import ViewOrder from './ViewOrder'
 
 TableOrder.propTypes = {}

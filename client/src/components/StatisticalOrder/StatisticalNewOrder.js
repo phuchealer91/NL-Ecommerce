@@ -1,9 +1,8 @@
-import { Select, Tag } from 'antd'
+import { Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getNewOrderss } from '../../apis/order'
-import { formatPrice, formatPriceReal } from '../../helpers/formatPrice'
+import { formatPriceReal } from '../../helpers/formatPrice'
 StatisticalNewOrder.propTypes = {}
-const { Option } = Select
 
 function StatisticalNewOrder(props) {
   const [newOrders, setNewOrders] = useState([])

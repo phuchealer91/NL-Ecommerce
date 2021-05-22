@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
 import { Spin } from 'antd'
-import UserCard from '../UserCard'
-import { searchUsers } from '../../../apis/cart'
-import {
-  addUserMessage,
-  getConversations,
-} from '../../../redux/actions/message'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router'
+import { searchUsers } from '../../../apis/cart'
+import { getConversations } from '../../../redux/actions/message'
 import * as types from '../../../redux/constants/message'
-LeftSideApp.propTypes = {}
+import UserCard from '../UserCard'
 
 function LeftSideApp(props) {
   const dispatch = useDispatch()
@@ -32,6 +27,7 @@ function LeftSideApp(props) {
     if (user.token) {
       dispatch(getConversations({ user }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, user, message.firstLoad])
   const loadSearhUser = () => {
     setIsLoading(true)
@@ -63,7 +59,7 @@ function LeftSideApp(props) {
     return false
   }
   return (
-    <section className="flex flex-col flex-none overflow-auto w-24 hover:w-64 group lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out">
+    <section className="flex flex-col flex-none overflow-auto group w-full  md:w-2/5 transition-all duration-300 ease-in-out">
       <div className="search-box p-4 flex-none">
         <form>
           <div className="relative">

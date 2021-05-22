@@ -1,8 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { Dropdown, Menu } from 'antd'
-
-Icons.propTypes = {}
+import React from 'react'
 
 function Icons({ setContent, content }) {
   const reactions = [

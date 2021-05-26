@@ -45,13 +45,13 @@ const HeaderUser = () => {
           <div className="container mx-auto px-11">
             <nav className=" flex justify-between items-center relative pt-2">
               <div className="flex items-center">
-                <a href="/" className="inline-block mb-2 mr-2">
+                <Link to="/" className="inline-block mb-2 mr-2">
                   <img
                     src={Logo}
                     alt="Workbook"
                     style={{ width: '120px', height: ' auto' }}
                   />
-                </a>
+                </Link>
               </div>
               <div style={{ width: 'calc(100% - 500px)' }}>
                 <Searchs />

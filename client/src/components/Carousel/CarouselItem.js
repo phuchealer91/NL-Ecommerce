@@ -64,56 +64,56 @@ function CarouselItem(props) {
         >
           <div className="">
             <img
-              src={banner1}
-              alt={banner1}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/Resize-920x420.jpg"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/Resize-920x420.jpg"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />
           </div>
           <div className="">
             <img
-              src={banner2}
-              alt={banner2}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/muonkiepnhansinh_resize_920x420.jpg"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/muonkiepnhansinh_resize_920x420.jpg"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />
           </div>
           <div className="">
             <img
-              src={banner3}
-              alt={banner3}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/b2s_920_x_420_.jpg"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/b2s_920_x_420_.jpg"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />
           </div>
           <div className="">
             <img
-              src={banner4}
-              alt={banner4}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/Mua-sam-an-toan-920x420.png"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/Mua-sam-an-toan-920x420.png"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />
           </div>
           <div className="">
             <img
-              src={banner5}
-              alt={banner5}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/DCVP__920x420.png"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/DCVP__920x420.png"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />
           </div>
           <div className="">
             <img
-              src={banner6}
-              alt={banner6}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/1.6-slide.png"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/1.6-slide.png"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />
           </div>
           <div className="">
             <img
-              src={banner7}
-              alt={banner7}
+              src="https://cdn0.fahasa.com/media/magentothem/banner7/airpay_920_x_420_2.jpg"
+              alt="https://cdn0.fahasa.com/media/magentothem/banner7/airpay_920_x_420_2.jpg"
               style={{ width: '100%', height: 'auto' }}
               loading="lazy"
             />

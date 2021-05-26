@@ -12,6 +12,7 @@ import {
   ShoppingCartOutlined,
   SyncOutlined,
   UnorderedListOutlined,
+  UsergroupAddOutlined,
   UserSwitchOutlined,
 } from '@ant-design/icons'
 import { Menu } from 'antd'
@@ -55,18 +56,18 @@ const AdminSideBar = () => {
         Tổng quan
       </Menu.Item>
 
-      <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Loại">
+      <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Danh mục - Loại">
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.CATEGORY}`}
           icon={<UnorderedListOutlined />}
         >
-          Tất cả các loại
+          Tất cả các danh mục
         </Menu.Item>
         <Menu.Item
           key={`/${PATHS.ADMIN}/${PATHS.SUB_CATEGORY}`}
           icon={<AppstoreAddOutlined />}
         >
-          Danh mục
+          Tất cả các loại
         </Menu.Item>
       </SubMenu>
       <SubMenu key="sub3" icon={<UserSwitchOutlined />} title="Tác giả">
@@ -130,6 +131,12 @@ const AdminSideBar = () => {
         key={`/${PATHS.ADMIN}/${PATHS.ORDER}`}
       >
         Đơn đặt hàng
+      </Menu.Item>
+      <Menu.Item
+        icon={<UsergroupAddOutlined />}
+        key={`/${PATHS.ADMIN}/${PATHS.USER}`}
+      >
+        Thành viên
       </Menu.Item>
 
       <Menu.Item

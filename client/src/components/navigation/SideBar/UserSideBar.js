@@ -46,12 +46,12 @@ const UserSideBar = () => {
         mode="inline"
         selectedKeys={selectedKey}
       >
-        <Menu.Item
+        {/* <Menu.Item
           icon={<DashboardOutlined />}
           key={`/${PATHS.USER}/${PATHS.OVERVIEW}`}
         >
           Tổng quan tài khoản
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item
           icon={<SafetyCertificateOutlined />}
           key={`/${PATHS.USER}/${PATHS.PROFILE}/${userDatas._id}`}

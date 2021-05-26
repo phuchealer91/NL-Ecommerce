@@ -19,42 +19,42 @@ function Footer() {
               </small>
             </p>
 
-            <a
-              href="#"
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Các câu hỏi thường gặp
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Gửi yêu cầu hỗ trợ
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Hướng dẫn đặt hàng
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Phương thức vận chuyển
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Chính sách đổi trả
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Hỗ trợ khách hàng: hotro@workbook.vn
-            </a>
+            </Link>
           </div>
           {/* Col-2 */}
           <div className="p-5 w-full sm:w-4/12 md:w-3/12">
@@ -63,42 +63,42 @@ function Footer() {
               Về Workbook
             </div>
             {/* Links */}
-            <a
-              href="#"
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Giới thiệu workbook
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Tuyển dụng
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Chính sách bảo mật thanh toán
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Chính sách bảo mật thông tin cá nhân
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Chính sách giải quyết khiếu nại
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Điều khoản sử dụng
-            </a>
+            </Link>
           </div>
           {/* Col-3 */}
           <div className="p-5 w-full sm:w-4/12 md:w-3/12">
@@ -107,18 +107,18 @@ function Footer() {
               Hợp tác và liên kết
             </div>
             {/* Links */}
-            <a
-              href="#"
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Quy chế hoạt động sàn GDTMDT
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/"
               className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700"
             >
               Bán hàng cùng Workbook
-            </a>
+            </Link>
           </div>
           {/* Col-3 */}
           <div className="p-5 w-full sm:w-4/12 md:w-3/12">

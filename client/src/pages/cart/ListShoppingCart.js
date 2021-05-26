@@ -1,15 +1,13 @@
-import { InputNumber } from 'antd'
-import React, { useState } from 'react'
-import ModalImage from 'react-modal-image'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { userCarts } from '../../apis/cart'
-import imageDefault from '../../assets/images/default-image.jpg'
 import { EmptyCart } from '../../components/Empty'
 import { ModalConfirm } from '../../components/ModalConfirm'
-import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
+import { formatPrice } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
+import CartItemss from './CartItemss'
 const ListShoppingCart = ({ cartLists }) => {
   const { user } = useSelector((state) => state)
   const [showModal, setShowModal] = useState(false)
@@ -17,6 +15,11 @@ const ListShoppingCart = ({ cartLists }) => {
   const [isCheck, setIsCheck] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
+  useEffect(() => {
+    // if (parseInt(item.count) > item.quantity) setIsCheck(true)
+    const xxx = cartLists.some((x) => parseInt(x.count) > x.quantity)
+    setIsCheck(xxx)
+  }, [cartLists])
   // function onChangeCount(count) {
   //   let countX = count < 1 ? 1 : count
 
@@ -90,6 +93,7 @@ const ListShoppingCart = ({ cartLists }) => {
         toast.error('Lỗi thanh toán')
       })
   }
+
   return (
     <>
       <ModalConfirm
@@ -112,110 +116,11 @@ const ListShoppingCart = ({ cartLists }) => {
             ) : (
               cartLists &&
               cartLists.map((item) => (
-                <div className="">
-                  <div className="py-3 flex-row justify-between items-center mb-0 block md:flex">
-                    <div className="w-full md:w-3/5 flex flex-row items-start border-b-0 border-grey-dark pt-0 pb-0 pl-3 text-left">
-                      <div className="w-24 mx-0 relative pr-0 mr-3 md:w-20 ">
-                        <div className="h-24 md:h-20 rounded flex items-center justify-center">
-                          <div className="aspect-w-1 aspect-h-1 w-full">
-                            <ModalImage
-                              small={item ? item.images[0]?.url : imageDefault}
-                              large={item ? item.images[0]?.url : imageDefault}
-                              alt={`${
-                                item ? item.images[0]?.url : imageDefault
-                              }`}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex flex-col justify-start items-start">
-                        <Link
-                          to={`/product/${item.slug}`}
-                          className="font-hk text-secondary text-base"
-                        >
-                          {item.title}
-                        </Link>
-                        <div className="my-1  ">
-                          {item.sale > 0 ? (
-                            <div className="flex items-center">
-                              <div className="mr-4 text-blue-600 text-base font-semibold">
-                                {formatPriceSale(item.price, item.sale)}đ
-                              </div>
-                              <div className=" text-gray-400 text-sm line-through">
-                                {formatPrice(item.price)}đ
-                              </div>{' '}
-                            </div>
-                          ) : (
-                            <div className="text-blue-600 text-base font-semibold">
-                              {formatPrice(item.price)}đ
-                            </div>
-                          )}
-                        </div>
-                        <span
-                          className="pt-1 text-blue-600 cursor-pointer hover:underline"
-                          onClick={() => onHandleDelete(item?._id)}
-                        >
-                          Xóa
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="w-full lg:w-1/5 xl:w-1/4 text-right pr-0 md:pr-10 pb-4 block flex-col items-center justify-end md:flex">
-                      <div className="custom-number-input h-10 w-full md:w-32">
-                        <InputNumber
-                          size="middle"
-                          min={1}
-                          // max={item.quantity + 1}
-                          defaultValue={1}
-                          onChange={(count) => {
-                            let countX = count < 1 ? 1 : count
-                            setIsCheck(false)
-                            if (count && item.quantity > 0) {
-                              if (count > item.quantity) {
-                                setIsCheck(true)
-
-                                setTimeout(() => {
-                                  return toast.warning(
-                                    `Sản phẩm chỉ còn: ${item.quantity} `
-                                  )
-                                }, 500)
-                              }
-                            } else {
-                              setIsCheck(true)
-                              return toast.error(
-                                `Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác`
-                              )
-                            }
-                            let cart = []
-                            if (typeof window !== 'undefined') {
-                              if (localStorage.getItem('cart')) {
-                                cart = JSON.parse(localStorage.getItem('cart'))
-                              }
-                              cart.map((pro, i) => {
-                                if (pro._id === item._id) {
-                                  return (cart[i].count = countX)
-                                }
-                              })
-                              localStorage.setItem('cart', JSON.stringify(cart))
-                              dispatch(addToCart(cart))
-                            }
-                          }}
-                          className="opacity-100 w-1/2 md:w-auto"
-                        />
-                      </div>
-                      <span className="border-l-none h-full border-solid border-gray-500 md:border-l-2"></span>
-                      <div className=" hidden md:block text-blue-700 text-base font-semibold">
-                        <span className="text-xs text-gray-500">
-                          Thành tiền:
-                        </span>{' '}
-                        {item.sale > 0
-                          ? formatPriceSale(item.price * item.count, item.sale)
-                          : formatPrice(item.price * item.count)}
-                        đ
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <CartItemss
+                  item={item}
+                  onHandleDelete={onHandleDelete}
+                  setIsCheck={setIsCheck}
+                />
               ))
             )}
           </div>
@@ -239,9 +144,11 @@ const ListShoppingCart = ({ cartLists }) => {
                   <button
                     onClick={onHandleCheckOut}
                     disabled={!cartLists.length || isCheck}
-                    className={`btn  ${
-                      isCheck ? 'bg-gray-300' : 'btn-primary'
-                    } btn-addToCart uppercase mx-auto w-4/5`}
+                    className={`btn py-3 ${
+                      isCheck || !cartLists.length
+                        ? 'opacity-40'
+                        : 'opacity-100'
+                    } bg-blue-500 hover:bg-blue-600 transition text-white hover:text-white uppercase mx-auto w-full`}
                   >
                     Thanh Toán
                   </button>
@@ -252,17 +159,31 @@ const ListShoppingCart = ({ cartLists }) => {
                   >
                     Thanh Toán Tiền Mặt
                   </button> */}
+                  {isCheck && (
+                    <div className="text-red-500 text-xs mt-2">
+                      Bạn đã nhập quá số lượng sản phẩm có sẵn trong kho. Vui
+                      lòng điều chỉnh lại.
+                    </div>
+                  )}
                 </>
               ) : (
-                <Link
-                  to={{
-                    pathname: '/login',
-                    state: { from: 'cart' },
-                  }}
-                  className="btn btn-primary btn-addToCart uppercase mx-auto w-4/5"
-                >
-                  Đăng nhập
-                </Link>
+                <>
+                  <Link
+                    to={{
+                      pathname: '/login',
+                      state: { from: 'cart' },
+                    }}
+                    className="btn btn-primary btn-addToCart uppercase mx-auto w-full"
+                  >
+                    Đăng nhập
+                  </Link>
+                  {isCheck && (
+                    <div className="text-red-500 text-xs mt-2">
+                      Bạn đã nhập quá số lượng sản phẩm có sẵn trong kho. Vui
+                      lòng điều chỉnh lại.
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

@@ -12,7 +12,7 @@ function Status() {
   // const [imagesEdit, setImagesEdit] = useState([])
   const [stream, setStream] = useState(false)
   const [tracks, setTracks] = useState('')
-  const [setVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
   // const [confirmLoading, setConfirmLoading] = useState(false)
   const videoRef = useRef()
   const canvasRef = useRef()

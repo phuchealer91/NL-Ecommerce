@@ -101,12 +101,14 @@ function SingleProductRoate({ productEditing }) {
     // ]
     const urls = [
       'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/wkt6vka3tqijadqkuntd.jpg',
-      'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/c1uckbdftljwyxhdy9lw.jpg',
-
+      images[0]?.url ||
+        'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/c1uckbdftljwyxhdy9lw.jpg',
       'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/cenbivni42pgp0hugrzo.jpg',
       'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673518/t6xeprhxbz9mhljeilpr.jpg',
-      images[0]?.url || '',
-      images[1]?.url || '',
+      images[1]?.url ||
+        'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/uvufcwicytuglkkys2sr.jpg',
+      images[2]?.url ||
+        'https://res.cloudinary.com/ecommerce-mp/image/upload/v1621673519/rj6hwym8tzvf2qlvyg89.jpg',
     ]
     const materials = urls.map((url) => {
       return new THREE.MeshLambertMaterial({

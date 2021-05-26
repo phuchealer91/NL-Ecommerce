@@ -22,6 +22,7 @@ function Searchs(props) {
       <div className="items-center hidden md:flex">
         <input
           type="search"
+          name="text"
           placeholder="Tìm kiếm sản phẩm mong muốn"
           onChange={handleChange}
           value={text}
@@ -47,6 +48,7 @@ function Searchs(props) {
       <div className="flex items-center md:hidden">
         <input
           type="search"
+          name="text"
           placeholder="Tìm kiếm sản phẩm "
           onChange={handleChange}
           value={text}

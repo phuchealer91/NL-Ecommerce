@@ -39,7 +39,7 @@ export const UserLayouts = ({ children }) => {
           <NavBar menu={Menu} />
         </div>
         {/* <HeaderAdmin /> */}
-        <div className=" px-0 md:px-4 md:grid md:mx-auto">{children}</div>
+        <div className=" px-0 md:px-4">{children}</div>
       </div>
     </div>
   )

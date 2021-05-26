@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { Modal } from 'antd'
+import { Modal, Pagination } from 'antd'
 import { Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -114,42 +114,77 @@ function UserAddress(props) {
             <SectionTitle>
               Danh sách địa chỉ giao hàng ({listAddress.length})
             </SectionTitle>
-            {listAddress.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto grid-flow-row gap-2 mt-6 mb-4">
-                {listAddress.map((addr, idx) => {
-                  return (
-                    <>
-                      <div key={addr._id} className=" bg-gray-50 border ">
-                        <div className="px-3 py-3">
-                          <div className="text-base text-gray-600 font-semibold flex items-center justify-between">
-                            <span>{addr.name}</span>
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            <span className="text-xs text-gray-600 font-semibold">
-                              Địa chỉ:{' '}
-                            </span>
-                            {addr.fullAddress} - {addr.mainAddress}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            <span className="text-xs text-gray-600 font-semibold">
-                              Điện thoại:{' '}
-                            </span>
-                            {addr.phone}
-                          </div>
-                        </div>
+            {listAddress && listAddress.length > 0 ? (
+              <div className=" mt-4">
+                {/* <div className="uppercase pb-1 text-gray-600 font-semibold">
+                  CÁC ĐƠN HÀNG CỦA BẠN{' '}
+                  <span className="text-gray-500 text-xs">({orderTotals})</span>
+                </div> */}
+                <div>
+                  <div className="w-full">
+                    <div className="bg-white shadow-md rounded my-4 overflow-x-auto">
+                      <table className=" w-full table-auto">
+                        <thead>
+                          <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
+                            <th className="py-3 px-4 text-left">STT</th>
+                            <th className="py-3 px-4 text-left">
+                              Tên người nhận
+                            </th>
+                            <th className="py-3 px-4 text-left">Địa chỉ</th>
+                            <th className="py-3 px-4 text-left">Điện thoại</th>
 
-                        <div className="flex items-center justify-start mb-4 pl-3">
-                          <button
-                            onClick={() => onHandleDelete(addr._id)}
-                            className=" px-8 py-2 bg-red-500 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
-                          >
-                            <DeleteOutlined />
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )
-                })}
+                            <th className="py-3 px-4 text-left">Thao tác</th>
+                          </tr>
+                        </thead>
+                        {listAddress &&
+                          listAddress.map((addr, idx) => {
+                            return (
+                              <tbody className="text-gray-600 text-sm font-light">
+                                <tr className="border-b border-gray-200 hover:bg-gray-100">
+                                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                                    <div className="flex items-center">
+                                      <span className="font-medium">
+                                        {idx + 1}
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-6 text-left">
+                                    <div className="flex items-center">
+                                      <span>{addr.name}</span>
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-6 text-center">
+                                    <div className="">
+                                      {addr.fullAddress} - {addr.mainAddress}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-6 text-center">
+                                    <span className="">{addr.phone}</span>
+                                  </td>
+
+                                  <td className="py-3 px-6 text-center">
+                                    <button
+                                      onClick={() => onHandleDelete(addr._id)}
+                                      className=" px-8 py-2 bg-red-500 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
+                                    >
+                                      <DeleteOutlined />
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            )
+                          })}
+                      </table>
+                      {/* <div className="py-6 flex justify-center">
+                        <Pagination
+                          current={page}
+                          total={(orderTotals / 10) * 10}
+                          onChange={(value) => setPage(value)}
+                        />
+                      </div> */}
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="py-3 mt-3 mx-auto ">

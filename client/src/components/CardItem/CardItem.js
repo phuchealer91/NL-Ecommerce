@@ -18,7 +18,7 @@ import { showDrawer } from '../../redux/actions/ui'
 import ShowRatings from '../Ratings/ShowRatings'
 function CardItem({ product, flashSale }) {
   const { title, price, slug, quantity, sale, sold } = product
-  const image = product.images[0].url
+  const image = product?.images[1]?.url
   const dispatch = useDispatch()
   const history = useHistory()
   function handleAddToCart() {

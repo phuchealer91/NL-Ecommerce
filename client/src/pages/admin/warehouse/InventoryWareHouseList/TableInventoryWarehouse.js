@@ -33,9 +33,12 @@ function TableInventoryWarehouse({ product }) {
               <img
                 src={product?.images[0]?.url}
                 alt={product?.images[0]?.url}
-                width="80px"
-                height="auto"
                 loading="lazy"
+                style={{
+                  objectFit: 'cover',
+                  width: '80px',
+                  height: '80px',
+                }}
               />
             </div>
           </td>

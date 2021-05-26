@@ -34,11 +34,11 @@ const UpdateCategory = ({ match }) => {
   return (
     <React.Fragment>
       <Layouts>
-        <SectionTitle>Loại sản phẩm</SectionTitle>
+        <SectionTitle>Danh mục sách</SectionTitle>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
           <h3 className="text-sm text-gray-600 pb-2">
             {' '}
-            Cập nhật loại sản phẩm
+            Cập nhật danh mục sách
           </h3>
           <Form form={form} onFinish={onFinish}>
             <FormCategory />

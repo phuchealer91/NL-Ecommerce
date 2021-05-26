@@ -14,12 +14,13 @@ function Product(props) {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [productEditing, setProductEditing] = useState()
-  const { productRelated } = useSelector((state) => state.product)
+  const { productRelated, reviews } = useSelector((state) => state.product)
   const { slug } = useRouteMatch().params
   useEffect(() => {
     loadProduct()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug])
+  }, [slug, reviews])
+  console.log('product', productEditing)
   const loadProduct = () => {
     getProduct(slug).then((res) => {
       if (res.data) {
@@ -33,7 +34,7 @@ function Product(props) {
       dispatch(getRelated(productEditing._id))
       setIsLoading(false)
     }
-  }, [dispatch, productEditing])
+  }, [dispatch, productEditing?._id])
 
   return (
     <React.Fragment>

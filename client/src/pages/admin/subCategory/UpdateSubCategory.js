@@ -58,16 +58,13 @@ const UpdateSubCategory = ({ match }) => {
   return (
     <React.Fragment>
       <Layouts>
-        <SectionTitle>Danh mục sản phẩm</SectionTitle>
+        <SectionTitle>Loại sách</SectionTitle>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <h3 className="text-sm text-gray-600 pb-2">
-            {' '}
-            Cập nhật danh mục sản phẩm
-          </h3>
+          <h3 className="text-sm text-gray-600 pb-2"> Cập nhật loại sách</h3>
           <Form form={form} onFinish={onFinish}>
             <div className="sub__form">
               <div className="sub__select">
-                <div className="pb-2"> Chọn loại sản phẩm: </div>
+                <div className="pb-2"> Chọn danh mục sách: </div>
                 <Select
                   showSearch
                   style={{ width: 400 }}
@@ -93,7 +90,7 @@ const UpdateSubCategory = ({ match }) => {
                     ))}
                 </Select>
               </div>
-              <div className="pb-2">Chọn loại danh mục sản phẩm</div>
+              <div className="pb-2">Chọn loại sách</div>
               <FormCategory />
             </div>
           </Form>

@@ -10,8 +10,8 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle'
 import { formatPrice } from '../../helpers/formatPrice'
 function WishList(props) {
   const [wishList, setWishList] = useState([])
+  const [totalWishList, setTotalWishList] = useState(0)
   const [page, setPage] = useState(1)
-  const totalWishLists = wishList && wishList.length
 
   useEffect(() => {
     loadWishList()
@@ -22,6 +22,7 @@ function WishList(props) {
       .then((res) => {
         if (res) {
           setWishList(res.data.list.wishlist)
+          setTotalWishList(res.data.totalWish)
         }
       })
       .catch((error) => {
@@ -82,13 +83,15 @@ function WishList(props) {
               <EmptyData />
             )}
           </div>
-          <div className="flex justify-center pb-4">
-            <Pagination
-              current={page}
-              total={(totalWishLists * 4) / 10}
-              onChange={(value) => setPage(value)}
-            />
-          </div>
+          {totalWishList >= 8 && (
+            <div className="flex justify-center pb-4">
+              <Pagination
+                current={page}
+                total={(totalWishList * 8) / 10}
+                onChange={(value) => setPage(value)}
+              />
+            </div>
+          )}
         </div>
       </UserLayouts>
     </React.Fragment>

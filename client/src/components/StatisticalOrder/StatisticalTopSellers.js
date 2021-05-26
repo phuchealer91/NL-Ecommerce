@@ -53,9 +53,11 @@ function StatisticalTopSellers(props) {
                               <td className="py-3 px-6 text-center">
                                 <img
                                   src={order.images[0]?.url}
-                                  width="100px"
-                                  height="100px"
-                                  style={{ objectFit: 'cover' }}
+                                  style={{
+                                    objectFit: 'cover',
+                                    width: '100px',
+                                    height: '100px',
+                                  }}
                                   alt=""
                                 />
                               </td>

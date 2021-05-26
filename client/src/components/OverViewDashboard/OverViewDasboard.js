@@ -16,6 +16,7 @@ import {
 } from '../../apis/order'
 import { getProductsCounts } from '../../apis/product'
 import { countTotalPrice } from '../../helpers/countTotalPrice'
+import { formatPriceReal } from '../../helpers/formatPrice'
 
 OverViewDashboard.propTypes = {}
 
@@ -195,7 +196,7 @@ function OverViewDashboard(props) {
             </p>
 
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              {totalDay} VND
+              {formatPriceReal(totalDay)} VND
             </p>
           </div>
         </div>
@@ -212,7 +213,7 @@ function OverViewDashboard(props) {
             </p>
 
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              {totalWeek} VND
+              {formatPriceReal(totalWeek)} VND
             </p>
           </div>
         </div>
@@ -228,7 +229,7 @@ function OverViewDashboard(props) {
             </p>
 
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              {totalMonth} VND
+              {formatPriceReal(totalMonth)} VND
             </p>
           </div>
         </div>
@@ -242,7 +243,7 @@ function OverViewDashboard(props) {
               Doanh thu năm
             </p>
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-              {totalYear} VND
+              {formatPriceReal(totalYear)} VND
             </p>
           </div>
         </div>

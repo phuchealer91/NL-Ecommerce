@@ -28,6 +28,9 @@ const {
   userReceiptAccept,
   userReceiptUpdate,
   removeReceipt,
+  getAllUser,
+  deleteUser,
+  suggestionsUser,
 } = require('../controllers/user.controller')
 
 const { isAuth, isAdmin } = require('../middlewares/auth')
@@ -61,11 +64,14 @@ router.put('/address/:addressId', isAuth, removeAddress)
 
 // get user
 router.get('/total', isAuth, isAdmin, getTotalUsers)
+router.post('/total-users', isAuth, isAdmin, getAllUser)
+router.post('/delete-user', isAuth, isAdmin, deleteUser)
 // get search
 router.get('/search', isAuth, searchUser)
 router.get('/:id', isAuth, getUser)
 router.patch('/', isAuth, updateUser)
 router.patch('/:id/follow', isAuth, follow)
 router.patch('/:id/unfollow', isAuth, unfollow)
+router.get('/get-suggestions', isAuth, suggestionsUser)
 
 module.exports = router

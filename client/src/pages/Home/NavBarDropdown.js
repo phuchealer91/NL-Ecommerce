@@ -9,9 +9,11 @@ import {
   SubCategoryV,
 } from '../../components/SubCategory'
 import '../../assets/styles/styles.scss'
+import { useSelector } from 'react-redux'
 NavBarDropdown.propTypes = {}
 
 function NavBarDropdown(props) {
+  const { user } = useSelector((state) => state)
   return (
     <React.Fragment>
       <div className="w-full flex items-center mb-3">
@@ -84,7 +86,7 @@ function NavBarDropdown(props) {
 
             <li className="px-4 py-2 hover:bg-blue-200 cursor-pointer transition">
               <Link
-                to="/community"
+                to={`${user.token ? '/community' : '/login'}`}
                 className="text-base color-secondar transition-all  inline-block text-gray-600 hover:text-gray-600"
               >
                 Cộng đồng

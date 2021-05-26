@@ -6,12 +6,14 @@ import {
 } from '@ant-design/icons'
 import { Menu } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
 import { getCategorySubs } from '../../apis/category'
 import '../../assets/styles/styles.scss'
 import PATHS from '../../redux/constants/paths'
 const { SubMenu } = Menu
 function NavBarDropdownMobile(props) {
+  const { user } = useSelector((state) => state)
   const history = useHistory()
   const [selectedKey, setSelectedKey] = useState('/')
   const [subV, setSubV] = useState([])
@@ -113,7 +115,10 @@ function NavBarDropdownMobile(props) {
               })}
           </SubMenu>
         </SubMenu>
-        <Menu.Item key={`/community`} icon={<WechatOutlined />}>
+        <Menu.Item
+          key={`${user.token ? '/community' : '/login'}`}
+          icon={<WechatOutlined />}
+        >
           Cộng đồng
         </Menu.Item>
       </Menu>

@@ -1,56 +1,17 @@
-import { Canvas } from '@react-three/fiber'
+import React, { useEffect, lazy, Suspense } from 'react'
 import Peer from 'peerjs'
-import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import io from 'socket.io-client'
 import { currentUsers } from '../apis/auth'
-import CallModal from '../components/Community/ChatApp/CallModal'
 import SideDrawer from '../components/Drawer/SideDrawer'
+import CallModal from '../components/Community/ChatApp/CallModal'
 import Footer from '../components/Footer/Footer'
 import { HeaderUser } from '../components/navigation/Header'
 import Notify from '../components/Notify/Notify'
 import { auth } from '../firebase'
-import Addressx from '../pages/address'
-import { DashBoard } from '../pages/admin'
-import AdminPassword from '../pages/admin/AdminPassword'
-import CreateAuthor from '../pages/admin/author/CreateAuthor'
-import UpdateAuthor from '../pages/admin/author/UpdateAuthor'
-import { CreateCategory, UpdateCategory } from '../pages/admin/category'
-import { CreateCoupon } from '../pages/admin/coupon'
-import { OrdersList } from '../pages/admin/ordersList'
-import { CreateProduct, ListProduct } from '../pages/admin/product'
-import UpdateProduct from '../pages/admin/product/UpdateProduct'
-import {
-  CreateSubCategory,
-  UpdateSubCategory,
-} from '../pages/admin/subCategory'
-import { CreateSupplier, UpdateSupplier } from '../pages/admin/supplier'
-import { CreateReceipt } from '../pages/admin/warehouse'
-import InventoryWareHouseList from '../pages/admin/warehouse/InventoryWareHouseList/InventoryWareHouseList'
-import OutWareHouseList from '../pages/admin/warehouse/OutWareHouseList/OutWareHouseList'
-import WareHouseList from '../pages/admin/warehouse/WareHouseList'
-import ForgotPassword from '../pages/auth/ForgotPassword'
-import Login from '../pages/auth/Login'
-import Register from '../pages/auth/Register'
-import RegisterComplete from '../pages/auth/RegisterComplete'
-import Cart from '../pages/cart/Cart'
-import CategoryMainPage from '../pages/category/CategoryMainPage'
-import CheckOut from '../pages/checkout/CheckOut'
-import Community from '../pages/Community/home/Community'
-import Messages from '../pages/Community/message/Messages'
-import Profile from '../pages/Community/profile'
-import { Home } from '../pages/Home'
-import NavBarDropdown from '../pages/Home/NavBarDropdown'
-import { Payment } from '../pages/payment'
-import { Product } from '../pages/product'
-import Shop from '../pages/Shop/Shop'
-import SubCategoryMainPage from '../pages/subCategory/SubCategoryMainPage'
-import { History, Password, WishList } from '../pages/user'
-import UserAddress from '../pages/user/UserAddress'
-import UserProfile from '../pages/user/UserProfile'
 import { getPostsx } from '../redux/actions/post'
 import * as types from '../redux/constants/global'
 import * as typesMess from '../redux/constants/message'
@@ -58,6 +19,77 @@ import PATHS from '../redux/constants/paths'
 import AdminRoute from '../routers/AdminRoute'
 import UserRoute from '../routers/UserRoute'
 import SocketClient from '../SocketClient'
+import { Spin } from 'antd'
+import MessengerCustomerChat from 'react-messenger-customer-chat'
+
+const Addressx = lazy(() => import('../pages/address'))
+const DashBoard = lazy(() => import('../pages/admin/DashBoard'))
+const AdminPassword = lazy(() => import('../pages/admin/AdminPassword'))
+const CreateAuthor = lazy(() => import('../pages/admin/author/CreateAuthor'))
+const UpdateAuthor = lazy(() => import('../pages/admin/author/UpdateAuthor'))
+const CreateCategory = lazy(() =>
+  import('../pages/admin/category/CreateCategory')
+)
+const UpdateCategory = lazy(() =>
+  import('../pages/admin/category/UpdateCategory')
+)
+const CreateCoupon = lazy(() => import('../pages/admin/coupon/CreateCoupon'))
+const UsersList = lazy(() => import('../pages/admin/userLists/UsersList'))
+const OrdersList = lazy(() => import('../pages/admin/ordersList/OrdersList'))
+const CreateProduct = lazy(() => import('../pages/admin/product/CreateProduct'))
+const ListProduct = lazy(() => import('../pages/admin/product/ListProduct'))
+const UpdateProduct = lazy(() => import('../pages/admin/product/UpdateProduct'))
+const CreateSubCategory = lazy(() =>
+  import('../pages/admin/subCategory/CreateSubCategory')
+)
+const UpdateSubCategory = lazy(() =>
+  import('../pages/admin/subCategory/UpdateSubCategory')
+)
+const CreateSupplier = lazy(() =>
+  import('../pages/admin/supplier/CreateSupplier')
+)
+const UpdateSupplier = lazy(() =>
+  import('../pages/admin/supplier/UpdateSupplier')
+)
+const CreateReceipt = lazy(() =>
+  import('../pages/admin/warehouse/CreateReceipt')
+)
+const InventoryWareHouseList = lazy(() =>
+  import(
+    '../pages/admin/warehouse/InventoryWareHouseList/InventoryWareHouseList'
+  )
+)
+const OutWareHouseList = lazy(() =>
+  import('../pages/admin/warehouse/OutWareHouseList/OutWareHouseList')
+)
+const WareHouseList = lazy(() =>
+  import('../pages/admin/warehouse/WareHouseList')
+)
+const ForgotPassword = lazy(() => import('../pages/auth/ForgotPassword'))
+const Login = lazy(() => import('../pages/auth/Login'))
+const Register = lazy(() => import('../pages/auth/Register'))
+const RegisterComplete = lazy(() => import('../pages/auth/RegisterComplete'))
+const Cart = lazy(() => import('../pages/cart/Cart'))
+const CategoryMainPage = lazy(() =>
+  import('../pages/category/CategoryMainPage')
+)
+const CheckOut = lazy(() => import('../pages/checkout/CheckOut'))
+const Community = lazy(() => import('../pages/Community/home/Community'))
+const Messages = lazy(() => import('../pages/Community/message/Messages'))
+const Profile = lazy(() => import('../pages/Community/profile'))
+const Home = lazy(() => import('../pages/Home/Home'))
+const NavBarDropdown = lazy(() => import('../pages/Home/NavBarDropdown'))
+const Payment = lazy(() => import('../pages/payment/Payment'))
+const Product = lazy(() => import('../pages/product/Product'))
+const Shop = lazy(() => import('../pages/Shop/Shop'))
+const SubCategoryMainPage = lazy(() =>
+  import('../pages/subCategory/SubCategoryMainPage')
+)
+const History = lazy(() => import('../pages/user/History'))
+const Password = lazy(() => import('../pages/user/Password'))
+const WishList = lazy(() => import('../pages/user/WishList'))
+const UserAddress = lazy(() => import('../pages/user/UserAddress'))
+const UserProfile = lazy(() => import('../pages/user/UserProfile'))
 
 export default function App() {
   const dispatch = useDispatch()
@@ -123,14 +155,22 @@ export default function App() {
     })
   }, [dispatch])
   return (
-    <React.Fragment>
-      {users && users.userDatas?.role !== 'admin' && <HeaderUser />}
-      {pathname !== '/' && pathname !== '/admin/dashboard' && (
-        <div className="px-4 bg-white hidden md:block">
-          <NavBarDropdown />
+    <Suspense
+      fallback={
+        <div className="grid place-items-center h-screen w-full">
+          <Spin tip="Đang tải dữ liệu" size="large" />
         </div>
-      )}
-
+      }
+    >
+      {users && users.userDatas?.role !== 'admin' && <HeaderUser />}
+      {users &&
+        users.userDatas?.role !== 'admin' &&
+        pathname !== '/' &&
+        pathname !== '/admin/dashboard' && (
+          <div className="px-4 bg-white hidden md:block">
+            <NavBarDropdown />
+          </div>
+        )}
       {users && users.token && <SocketClient />}
       {call && <CallModal />}
       <Switch>
@@ -268,6 +308,11 @@ export default function App() {
           path={`/${PATHS.ADMIN}/${PATHS.ORDER}`}
           component={OrdersList}
         />
+        <AdminRoute
+          exact
+          path={`/${PATHS.ADMIN}/${PATHS.USER}`}
+          component={UsersList}
+        />
         <Route exact path={`/${PATHS.PRODUCT}/:slug`} component={Product} />
         <Route
           exact
@@ -303,7 +348,6 @@ export default function App() {
         />
       </Switch>
       {pathname !== '/admin/dashboard' && <Footer />}
-
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -317,6 +361,10 @@ export default function App() {
       />
       <Notify />
       <SideDrawer />
-    </React.Fragment>
+      <MessengerCustomerChat
+        pageId="102783052012250"
+        appId="1419843074891555"
+      />
+    </Suspense>
   )
 }

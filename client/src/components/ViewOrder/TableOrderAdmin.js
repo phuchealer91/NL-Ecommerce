@@ -1,4 +1,4 @@
-import { DeleteOutlined, EyeOutlined } from '@ant-design/icons'
+import { DeleteFilled, DeleteOutlined, EyeOutlined } from '@ant-design/icons'
 import { Button, Tag } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
 import React, { useState } from 'react'
@@ -95,18 +95,18 @@ function TableOrderAdmin({ order, loadAllOrders }) {
             )}
           </td>
           <td className="py-3 px-6 text-center">
-            <div className="flex item-center justify-between">
+            <div className="flex items-center justify-between">
               <EyeOutlined
                 onClick={showModal}
                 className="cursor-pointer mr-2"
+                style={{ fontSize: '18px' }}
               />
-              <Button
-                type="primary"
-                danger
-                icon={<DeleteOutlined />}
+
+              <DeleteFilled
+                className="text-red-500 cursor-pointer"
                 onClick={() => onHandleDelete(order._id)}
-                className="rounded"
-              ></Button>
+                style={{ fontSize: '18px' }}
+              />
             </div>
           </td>
         </tr>

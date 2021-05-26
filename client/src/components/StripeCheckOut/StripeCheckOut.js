@@ -29,16 +29,16 @@ function StripeCheckOut(props) {
 
   const [clientSecret, setClientSecret] = useState('')
 
-  const [setCartTotal] = useState(0)
-  const [setTotalAfterDiscount] = useState(0)
+  const [cartTotal, setCartTotal] = useState(0)
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
   const [payable, setPayable] = useState(0)
 
   useEffect(() => {
     createPaymentIntents({ isCoupons }).then((res) => {
       setClientSecret(res.data.clientSecret)
       // additional response received on successful payment
-      setCartTotal(res.data.cartTotal)
-      setTotalAfterDiscount(res.data.totalAfterDiscount)
+      // setCartTotal(res.data.cartTotal)
+      // setTotalAfterDiscount(res.data.totalAfterDiscount)
       setPayable(res.data.payable)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

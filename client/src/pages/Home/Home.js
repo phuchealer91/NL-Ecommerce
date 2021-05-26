@@ -1,5 +1,6 @@
 import { RightOutlined } from '@ant-design/icons'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import CarouselItem from '../../components/Carousel/CarouselItem'
 import CategoryList from '../../components/Category/CategoryList'
@@ -16,6 +17,7 @@ import './Home.scss'
 Home.propTypes = {}
 
 function Home(props) {
+  const { user } = useSelector((state) => state)
   return (
     <React.Fragment>
       <div className="px-1 md:px-7">
@@ -89,7 +91,7 @@ function Home(props) {
 
               <li className="px-4 py-2 hover:bg-blue-200 cursor-pointer transition">
                 <Link
-                  to="/community"
+                  to={`${user.token ? '/community' : '/login'}`}
                   className="text-base color-secondar transition-all  inline-block text-gray-600 hover:text-gray-600"
                 >
                   Cộng đồng

@@ -103,19 +103,19 @@ const CreateCategory = () => {
         showModal={showModal}
         closeModal={closeModal}
         onHandleDeleteItem={onHandleDeleteItem}
-        title="loại"
+        title="danh mục"
         categoryToDelete={categoryToDelete}
       />
       <Layouts>
-        <SectionTitle>Loại sản phẩm</SectionTitle>
+        <SectionTitle>Danh mục sách</SectionTitle>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <h3 className="text-sm text-gray-600 pb-2"> Tạo mới loại sản phẩm</h3>
+          <h3 className="text-sm text-gray-600 pb-2"> Tạo mới danh mục sách</h3>
           <Form form={form} onFinish={onFinish}>
             <FormCategory />
           </Form>
           <h3 className="text-sm text-gray-600 pb-1">
             {' '}
-            Danh sách loại sản phẩm{' '}
+            Danh sách danh mục sách{' '}
             <span className="font-semibold">({totalCategory})</span>
           </h3>
           {/* Search */}

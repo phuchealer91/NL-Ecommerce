@@ -88,3 +88,11 @@ export const userReceiptTransactions = (data) => {
 export const removeReceipts = (data) => {
   return axiosServices.post(`/${PATHS.USER}/receipt-remove`, data)
 }
+
+// get all users
+export const getAllUsers = (page) => {
+  return axiosServices.post(`/${PATHS.USER}/total-users`, { page })
+}
+export const deleteUsers = (data) => {
+  return axiosServices.post(`/${PATHS.USER}/delete-user`, data)
+}

@@ -30,7 +30,7 @@ const CreateSubCategory = () => {
   const subCategories = useSelector(
     (state) => state.subCategory.listSubCategories
   )
-  const totalCategory = categories.length
+  const totalCategory = subCategories.length
   useEffect(() => {
     dispatch(getSubCategories())
     dispatch(getCategories())
@@ -129,19 +129,16 @@ const CreateSubCategory = () => {
         showModal={showModal}
         closeModal={closeModal}
         onHandleDeleteItem={onHandleDeleteItem}
-        title="danh mục"
+        title="loại"
         categoryToDelete={categoryToDelete}
       />
       <Layouts>
-        <SectionTitle>Danh mục sản phẩm</SectionTitle>
+        <SectionTitle>Loại sách</SectionTitle>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <h3 className="text-sm text-gray-600 pb-2">
-            {' '}
-            Tạo mới danh mục sản phẩm
-          </h3>
+          <h3 className="text-sm text-gray-600 pb-2"> Tạo mới loại sách</h3>
           <Form form={form} onFinish={onFinish}>
             <div className="">
-              Chọn loại sản phẩm:{' '}
+              Chọn danh mục sách:{' '}
               <Select
                 showSearch
                 style={{ padding: '8px 0' }}
@@ -164,13 +161,13 @@ const CreateSubCategory = () => {
                     </Option>
                   ))}
               </Select>
-              <div className="pb-2">Chọn loại danh mục sản phẩm</div>
+              <div className="pb-2">Chọn loại sách</div>
               <FormCategory />
             </div>
           </Form>
           <h3 className="text-sm text-gray-600 pb-1">
             {' '}
-            Danh sách danh mục sản phẩm{' '}
+            Danh sách các loại sách{' '}
             <span className="font-semibold">({totalCategory})</span>
           </h3>
           {/* Search */}

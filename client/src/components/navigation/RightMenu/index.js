@@ -213,7 +213,7 @@ function RightMenu() {
               </div> */}
               <hr className="border-gray-200" />
               {/*second person who to follow*/}
-              {/* <div className="flex flex-shrink-0">
+              <div className="flex flex-shrink-0">
                 <div className="flex-1 ">
                   <div className="flex items-center w-48">
                     <div>
@@ -240,7 +240,7 @@ function RightMenu() {
                     </button>
                   </a>
                 </div>
-              </div> */}
+              </div>
               <hr className="border-gray-200" />
               {/*show more*/}
             </div>

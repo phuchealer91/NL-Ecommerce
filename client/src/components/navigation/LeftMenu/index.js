@@ -87,7 +87,7 @@ function LeftMenu() {
     { label: 'Tin nhắn', icon: messagesx, path: '/community/message' },
   ]
   function ScrollToTop() {
-    window.scrollTop({ top: 0 })
+    window.scrollTo({ top: 0 })
   }
   return (
     <nav className="mt-3 px-2 flex items-center lg:block">

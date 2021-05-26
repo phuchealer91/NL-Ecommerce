@@ -27,9 +27,9 @@ function Shop(props) {
   const [productsAll, setProductsAll] = useState([])
   const [categories, setCategories] = useState([])
   const [categoryIds, setCategoryIds] = useState([])
-  const [setStar] = useState('')
+  const [star, setStar] = useState('')
   const [subs, setSubs] = useState([])
-  const [setSub] = useState('')
+  const [sub, setSub] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [layouts, setLayouts] = useState(['Bìa Cứng', 'Bìa Mềm'])
   const [layout, setLayout] = useState('')
@@ -38,7 +38,15 @@ function Shop(props) {
   const [isLoading, setIsLoading] = useState(true)
   const { text } = useSelector((state) => state.search)
   useEffect(() => {
-    loadAllProducts()
+    let cleared = setTimeout(() => {
+      loadProductsFilter({ query: text })
+      if (!text) {
+        loadAllProducts()
+      }
+    }, 300)
+    return () => clearTimeout(cleared)
+  }, [text])
+  useEffect(() => {
     loadCategory()
     loadSubCategory()
   }, [])
@@ -65,15 +73,6 @@ function Shop(props) {
   function loadProductsFilter(value) {
     fetchProductsSearch(value).then((res) => setProductsAll(res.data.products))
   }
-  useEffect(() => {
-    let cleared = setTimeout(() => {
-      loadProductsFilter({ query: text })
-      if (!text) {
-        loadAllProducts()
-      }
-    }, 300)
-    return () => clearTimeout(cleared)
-  }, [text])
 
   useEffect(() => {
     loadProductsFilter({ price: price })
@@ -212,13 +211,11 @@ function Shop(props) {
   // speech.transcript
   const speech = useSpeechRecognition()
 
-  console.log(
-    ' e.target.value e.target.value e.target.value e.target.value',
-    speech.transcript
-  )
   useEffect(() => {
     setTimeout(() => {
-      dispatch(searchQuery({ text: speech.transcript }))
+      dispatch(
+        searchQuery({ text: speech.transcript ? speech.transcript : text })
+      )
     }, 2000)
   }, [speech.transcript, dispatch])
   const menu = (

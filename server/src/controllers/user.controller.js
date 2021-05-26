@@ -193,7 +193,6 @@ module.exports.getOrders = async (req, res) => {
     const orderTotal = await Order.find({ orderedBy: user._id })
       .countDocuments()
       .exec()
-    console.log('orderTotalorderTotalorderTotal', orderTotal)
     return res.status(200).json({ userOrders, orderTotal })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
@@ -228,18 +227,18 @@ module.exports.addWishList = async (req, res) => {
 }
 
 module.exports.getWishList = async (req, res) => {
-  // const { page } = req.body
-  // const currentPage = page || 1
-  // const perPage = 4
+  const { page } = req.body
+  const currentPage = page || 1
+  const perPage = 8
   try {
     const list = await User.findOne({ email: req.user.email })
       .select('wishlist')
       .populate('wishlist')
-      // .skip((currentPage - 1) * perPage)
-      // .limit(perPage)
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage)
       .exec()
-    // const wishL = list.limit(4).exec()
-    return res.status(200).json({ list })
+
+    return res.status(200).json({ list, totalWish: list.wishlist.length })
   } catch (error) {
     return res.status(500).json({ Error: 'Server error' })
   }
@@ -514,5 +513,67 @@ module.exports.removeReceipt = async (req, res) => {
     return res.status(200).json({ msg: 'Delete success' })
   } catch (error) {
     return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
+module.exports.getAllUser = async (req, res) => {
+  const { page } = req.body
+  const currentPage = page || 1
+  const perPage = 10
+  try {
+    const users = await User.find({})
+      .skip((currentPage - 1) * perPage)
+      .sort('role')
+      .limit(perPage)
+      .exec()
+    return res.status(200).json({ users, totalUsers: users.length })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+module.exports.deleteUser = async (req, res) => {
+  const { id } = req.body
+  try {
+    await User.findOneAndDelete({ _id: id }).exec()
+    return res.status(200).json({ msg: 'Xóa thành viên thành công.' })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Server error' })
+  }
+}
+
+module.exports.suggestionsUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec()
+    const newArr = [...user.following, user._id]
+
+    const num = req.query.num || 10
+
+    const users = await Users.aggregate([
+      { $match: { _id: { $nin: newArr } } },
+      { $sample: { size: Number(num) } },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'followers',
+          foreignField: '_id',
+          as: 'followers',
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'following',
+          foreignField: '_id',
+          as: 'following',
+        },
+      },
+    ]).project('-password')
+
+    return res.status(200).json({
+      users,
+      result: users.length,
+    })
+  } catch (err) {
+    return res.status(500).json({ msg: err.message })
   }
 }

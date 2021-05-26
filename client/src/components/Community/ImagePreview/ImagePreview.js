@@ -33,7 +33,7 @@ export const ImagePreviewList = ({ data }) => {
   return (
     <Image.PreviewGroup>
       {data &&
-        data.map((cover, idx) => (
+        data.slice(0, 5).map((cover, idx) => (
           <div className="flex flex-col items-center ">
             <Image
               src={cover.url}

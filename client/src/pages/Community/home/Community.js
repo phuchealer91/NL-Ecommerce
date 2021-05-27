@@ -36,9 +36,9 @@ const Community = (props) => {
             </div>
             <div
               className="flex flex-col-reverse md:flex-row w-mobile"
-              style={{ width: 'calc(100% - 275px)' }}
+              style={{ width: 'calc(100% - 320px)' }}
             >
-              <section className="w-full rounded" style={{ maxWidth: '700px' }}>
+              <section className="w-full rounded" style={{ maxWidth: '600px' }}>
                 <aside className="rounded-md bg-white shadow-md">
                   <Status />
                   {status.onEdit && <UpdateStatus />}

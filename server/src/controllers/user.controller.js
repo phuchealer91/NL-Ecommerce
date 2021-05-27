@@ -278,9 +278,16 @@ module.exports.addAddress = async (req, res) => {
   return res.status(200).json({ userAddress })
 }
 module.exports.getAddress = async (req, res) => {
+  // const { page } = req.body
+  // const currentPage = page || 1
+  // const perPage = 6
+
   try {
     const listUserAddress = await User.findOne({ email: req.user.email })
       .select('address')
+      // .skip((currentPage - 1) * perPage)
+      // .sort('role')
+      // .limit(perPage)
       .exec()
     if (!listUserAddress)
       return res.status(400).json({ error: 'Không thấy người dùng' })
@@ -546,9 +553,9 @@ module.exports.suggestionsUser = async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).exec()
     const newArr = [...user.following, user._id]
 
-    const num = req.query.num || 10
+    const num = 10
 
-    const users = await Users.aggregate([
+    const users = await User.aggregate([
       { $match: { _id: { $nin: newArr } } },
       { $sample: { size: Number(num) } },
       {
@@ -567,13 +574,14 @@ module.exports.suggestionsUser = async (req, res) => {
           as: 'following',
         },
       },
-    ]).project('-password')
+    ])
 
     return res.status(200).json({
       users,
       result: users.length,
     })
-  } catch (err) {
-    return res.status(500).json({ msg: err.message })
+  } catch (error) {
+    console.log('errro', error)
+    return res.status(500).json({ msg: 'Server error' })
   }
 }

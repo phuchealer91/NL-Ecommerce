@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import Modal from 'antd/lib/modal/Modal'
+import { Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import ModalImage from 'react-modal-image'
 import { useDispatch } from 'react-redux'
@@ -14,6 +14,7 @@ import {
   removeAddress,
 } from '../../apis/cart'
 import imageDefault from '../../assets/images/default-image.jpg'
+import Loading from '../../components/Notify/Loading'
 import { formatPrice, formatPriceSale } from '../../helpers/formatPrice'
 import { addToCart } from '../../redux/actions/cart'
 import { appliedCoupon } from '../../redux/actions/coupon'
@@ -30,7 +31,7 @@ function CheckOut(props) {
   const [visible, setVisible] = useState(false)
   // discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
-  // const [discountError, setDiscountError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   console.log('hello enh ', products)
   const history = useHistory()
   useEffect(() => {
@@ -60,8 +61,10 @@ function CheckOut(props) {
   }
 
   function loadUserAddress() {
+    setIsLoading(true)
     getAddresss()
       .then((res) => {
+        setIsLoading(false)
         setListAddress(res.data.listUserAddress.address)
         setAddressSaved(res.data.listUserAddress.address[0])
         applyAddressCarts({
@@ -127,119 +130,6 @@ function CheckOut(props) {
   }
   return (
     <div>
-      <Modal
-        title="Xóa địa chỉ giao hàng"
-        visible={visible}
-        onOk={onHandleDeleted}
-        onCancel={() => setVisible(false)}
-        okText="Chấp nhận"
-        cancelText="Hủy"
-      >
-        <p>
-          Khi bạn xóa địa chỉ giao hàng hiện tại, bạn sẽ{' '}
-          <span className="text-red-600">không thể</span> khôi phục nó.
-        </p>
-      </Modal>
-      {/* <Row>
-        <Col xs={24} sm={24} md={12} lg={12} className="px-2">
-          <h3 className="text-2xl font-medium mb-3">Thông tin vận chuyển</h3>
-          <ReactQuill
-            value={addressCart}
-            onChange={onHandleChange}
-            placeholder="Điền thông tin địa chỉ của bạn"
-          />
-          <Button
-            type="primary"
-            size="middle"
-            className="my-4"
-            onClick={onSubmit}
-          >
-            Save
-          </Button>
-          <Divider />
-          <h3 className="text-2xl font-medium mb-4">Áp dụng mã giảm giá</h3>
-          <form action="">
-            <label htmlFor="" className="text-xl">
-              Code
-            </label>
-            <br />
-            <Input
-              type="text"
-              onChange={(e) => {
-                setCoupons(e.target.value)
-                // setErrorss('')
-              }}
-              value={coupons}
-              className="w-60 mt-3"
-              placeholder="Apply code coupon"
-            />
-            <Button
-              type="primary"
-              size="middle"
-              className="my-4 ml-3"
-              onClick={onHandleSubmit}
-            >
-              Apply
-            </Button>
-          </form>
-          
-        </Col>
-        <Col xs={24} sm={24} md={12} lg={12} className="px-2">
-          <List
-            header={
-              <h3 className="text-2xl font-medium">Danh sách đơn hàng</h3>
-            }
-            footer={
-              <>
-                <h3 className="text-lg font-medium">
-                  Tổng tiền: {formatPrice(cartTotals)} VND
-                </h3>
-                {totalAfterDiscount > 0 ? (
-                  <h3 className="text-lg font-medium bg-green-600 py-2 pl-2 text-white my-2">
-                    Tổng tiền sau khi giảm giá:{' '}
-                    <span className="text-red-700 text-xl font-bold m-0 inline-block">
-                      {formatPrice(totalAfterDiscount)} VND
-                    </span>
-                  </h3>
-                ) : (
-                  ''
-                )}
-              </>
-            }
-            bordered
-            loading={isLoading}
-            dataSource={cartCheckOut}
-            renderItem={(cc) => (
-              <List.Item>
-                <Typography.Text className="text-lg">
-                  {cc.product.title} ({cc.color}) x {cc.count} ={' '}
-                  {formatPrice(cc.product.price * cc.count)}{' '}
-                </Typography.Text>
-              </List.Item>
-            )}
-          />
-
-          <div className="my-4">
-            <Button
-              type="primary"
-              size="large"
-              disabled={isAddAddress || !cartCheckOut.length}
-              onClick={() => history.push('/payment')}
-            >
-              Đặt hàng
-            </Button>
-            <Button
-              danger
-              size="large"
-              className="ml-2"
-              disabled={!cartCheckOut.length}
-              onClick={onHandleEmptyCart}
-            >
-              Xóa đơn hàng
-            </Button>
-          </div>
-        </Col>
-      </Row> */}
       <div className="xl:max-w-7xl mx-auto bg-white rounded mt-4">
         <div className="px-3 pt-3 pb-8">
           <div className="uppercase border-b border-gray-100 pb-1 text-gray-600 font-semibold  border-solid px-4">
@@ -255,77 +145,97 @@ function CheckOut(props) {
               Thêm địa chỉ giao hàng mới
             </Link>
           </div>
-          <div className="block items-start justify-start mt-4 md:flex">
-            {listAddress.length > 0 ? (
-              listAddress.map((addr, idx) => {
-                return (
-                  <>
-                    <div
-                      key={addr._id}
-                      className={`w-full mb-2 md:mb-0 md:w-2/6 bg-gray-50 px-3 md:px-0 mx-0 md:mx-3 border ${
+
+          <div className="bg-white shadow-md rounded my-6 overflow-x-auto">
+            <table className=" w-full table-auto text-center ">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
+                  <th className="py-3 px-4 text-left">STT</th>
+                  <th className="py-3 px-4 text-left">Tên</th>
+                  <th className="py-3 px-4 text-left">Địa chỉ</th>
+                  <th className="py-3 px-4 text-left">SDT</th>
+                  <th className="py-3 px-4 text-left">Thao tác</th>
+                </tr>
+              </thead>
+              {isLoading ? (
+                <Loading />
+              ) : listAddress.length > 0 ? (
+                listAddress.map((addr, idx) => (
+                  <tbody
+                    className="text-gray-600 text-sm font-light"
+                    key={addr._id}
+                  >
+                    <tr
+                      className={`border-b border-gray-200 hover:bg-gray-200 ${
                         addressSaved && addr._id === addressSaved?._id
-                          ? 'border-dashed border-red-700 border-4'
-                          : 'border-solid border-gray-200'
-                      }`}
+                          ? 'bg-blue-200 '
+                          : 'bg-gray-100'
+                      } `}
                     >
-                      <div className="px-3 py-3">
-                        <div className="text-base text-gray-600 font-semibold flex items-center justify-between">
-                          <span>{addr.name}</span>
-                          {idx === 0 && addr._id === addressSaved?._id ? (
-                            <span className="text-blue-600 text-xs">
-                              Mặc định
-                            </span>
-                          ) : (
-                            ''
-                          )}
+                      <td className="py-3 px-6 text-left whitespace-nowrap">
+                        <div className="flex items-center">
+                          <span className="font-medium">{idx + 1}</span>
                         </div>
-                        <div className="text-base text-gray-600">
-                          <span className="text-sm text-gray-500">
-                            Địa chỉ:{' '}
-                          </span>
+                      </td>
+                      <td className="py-3 px-6 text-left">
+                        <div className="flex items-center">
+                          <span className="font-semibold">{addr.name}</span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-6 text-left  w-2/5">
+                        {idx === 0 && addr._id === addressSaved?._id ? (
+                          <Tag color="green-inverse">Mặc định</Tag>
+                        ) : (
+                          ''
+                        )}
+                        <div className="mt-2">
                           {addr.fullAddress} - {addr.mainAddress}
                         </div>
-                        <div className="text-base text-gray-600">
-                          <span className="text-sm text-gray-500">
-                            Điện thoại:{' '}
-                          </span>
-                          {addr.phone}
-                        </div>
-                      </div>
+                      </td>
+                      <td className="py-3 px-6">
+                        <div className="text-left">{addr.phone}</div>
+                      </td>
 
-                      <div className="flex items-center justify-start mb-4 pl-3">
+                      <td className="py-3 px-6  flex items-center">
                         <button
                           onClick={() => onHandleAddressSelected(addr)}
-                          className=" px-8 py-2 mr-3 bg-blue-600 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
+                          className=" px-4 py-2 mr-2 bg-blue-600 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
                         >
-                          Giao đến địa chỉ này
+                          Giao đến đây
                         </button>
 
                         <button
                           onClick={() => onHandleDelete(addr._id)}
-                          className=" px-8 py-2 bg-red-500 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
+                          className=" px-4 py-2 bg-red-500 text-blue-50 max-w-max shadow-sm hover:shadow-lg rounded"
                         >
                           <DeleteOutlined />
                         </button>
-                      </div>
-                    </div>
-                  </>
-                )
-              })
-            ) : (
-              <div className="border border-dashed border-red-600 px-4 py-3 mt-3 mx-auto">
-                <span className="text-red-600 font-semibold text-sm">
-                  Hiện tại bạn chưa có địa chỉ để chúng tôi giao hàng !{' '}
-                </span>
-                <button
-                  // disabled={districtWard || !products.length}
-                  onClick={() => history.push('/address')}
-                  className="text-blue-600 btn btn-addToCart uppercase mx-auto w-full mt-2 bg-transparent border border-blue-600 border-solid"
-                >
-                  Bấm vào đây để thêm địa chỉ giao hàng
-                </button>
-              </div>
-            )}
+                      </td>
+                    </tr>
+                  </tbody>
+                ))
+              ) : (
+                <div className="border border-dashed border-red-600 px-4 py-3 mt-3 mx-auto">
+                  <span className="text-red-600 font-semibold text-sm">
+                    Hiện tại bạn chưa có địa chỉ để chúng tôi giao hàng !{' '}
+                  </span>
+                  <button
+                    // disabled={districtWard || !products.length}
+                    onClick={() => history.push('/address')}
+                    className="text-blue-600 btn btn-addToCart uppercase mx-auto w-full mt-2 bg-transparent border border-blue-600 border-solid"
+                  >
+                    Bấm vào đây để thêm địa chỉ giao hàng
+                  </button>
+                </div>
+              )}
+            </table>
+            {/* <div className="py-6 flex justify-center items-center">
+              <Pagination
+                current={page}
+                total={(usersTotal / 10) * 10}
+                onChange={(value) => setPage(value)}
+              />
+            </div> */}
           </div>
         </div>
       </div>

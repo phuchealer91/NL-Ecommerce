@@ -59,7 +59,11 @@ function LeftSideApp(props) {
     return false
   }
   return (
-    <section className="flex flex-col flex-none overflow-auto group w-full  md:w-2/5 transition-all duration-300 ease-in-out">
+    <section
+      className={`${id ? 'hidden' : 'flex'} md:${
+        id ? 'flex' : 'flex'
+      } flex-col flex-none overflow-auto group w-full  md:w-2/5 transition-all duration-300 ease-in-out`}
+    >
       <div className="search-box p-4 flex-none">
         <form>
           <div className="relative">

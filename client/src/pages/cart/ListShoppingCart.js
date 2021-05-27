@@ -75,11 +75,9 @@ const ListShoppingCart = ({ cartLists }) => {
   }
   function getTotal() {
     return cartLists.reduce((curr, next) => {
-      if (next.sale > 0) {
-        return curr + next.count * ((next.price * (100 - next.sale)) / 100)
-      } else {
-        return curr + next.count * next.price
-      }
+      return (
+        curr + (parseInt(next.count) * next.price * (100 - next.sale)) / 100
+      )
     }, 0)
   }
   function onHandleCheckOut() {

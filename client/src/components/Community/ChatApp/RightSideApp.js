@@ -1,4 +1,5 @@
 import {
+  ArrowLeftOutlined,
   CloseOutlined,
   DeleteFilled,
   ExclamationCircleOutlined,
@@ -178,8 +179,13 @@ function RightSideApp(props) {
     <React.Fragment>
       {id ? (
         <>
-          <div className="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
+          <div className=" chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
             <div className="flex items-center">
+              <ArrowLeftOutlined
+                className="flex items-center justify-center cursor-pointer text-blue-600 mr-2 hover:bg-gray-200 w-8 h-8 rounded-full"
+                onClick={() => history.push('/community/message')}
+                style={{ fontSize: '18px' }}
+              />
               <div className="w-8 h-8 mr-4 relative flex flex-shrink-0">
                 <img
                   className="shadow-md rounded-full w-full h-full object-cover"
@@ -189,7 +195,6 @@ function RightSideApp(props) {
               </div>
               <div className="text-sm">
                 <p className="font-bold">{user.name}</p>
-                <p>Active 1h ago</p>
               </div>
             </div>
             <div className="flex">
@@ -400,7 +405,11 @@ function RightSideApp(props) {
           </div>{' '}
         </>
       ) : (
-        <div className="h-full w-full grid place-items-center">
+        <div
+          className={`${id ? 'hidden' : 'hidden'} md:${
+            id ? 'hidden' : 'grid'
+          } h-full w-full  place-items-center`}
+        >
           <EmptyBox />
         </div>
       )}

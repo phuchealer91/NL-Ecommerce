@@ -72,6 +72,6 @@ router.get('/:id', isAuth, getUser)
 router.patch('/', isAuth, updateUser)
 router.patch('/:id/follow', isAuth, follow)
 router.patch('/:id/unfollow', isAuth, unfollow)
-router.get('/get-suggestions', isAuth, suggestionsUser)
+router.get('/suggestions/list', isAuth, suggestionsUser)
 
 module.exports = router

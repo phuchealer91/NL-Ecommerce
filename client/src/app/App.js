@@ -21,6 +21,7 @@ import UserRoute from '../routers/UserRoute'
 import SocketClient from '../SocketClient'
 import { Spin } from 'antd'
 import MessengerCustomerChat from 'react-messenger-customer-chat'
+import { getSuggestions } from '../redux/actions/suggestions'
 
 const Addressx = lazy(() => import('../pages/address'))
 const DashBoard = lazy(() => import('../pages/admin/DashBoard'))
@@ -142,7 +143,10 @@ export default function App() {
     }
   }, [dispatch])
   useEffect(() => {
-    if (users.token) dispatch(getPostsx())
+    if (users.token) {
+      dispatch(getPostsx())
+      dispatch(getSuggestions())
+    }
   }, [dispatch, users.token])
   useEffect(() => {
     const newPeer = new Peer(undefined, {

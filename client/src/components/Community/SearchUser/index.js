@@ -36,7 +36,7 @@ function SearchUser(props) {
 
   return (
     <>
-      <div className="relative text-gray-300  px-5">
+      <div className="relative text-gray-300  px-4">
         <button type="submit" className="absolute ml-4 mt-3 mr-4">
           <svg
             className="h-4 w-4 fill-current"

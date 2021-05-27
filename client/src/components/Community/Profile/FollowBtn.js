@@ -26,14 +26,14 @@ const FollowBtn = ({ userx }) => {
       {followed ? (
         <button
           onClick={onHandleUnFollow}
-          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-red-600 border-solid  text-red-600 hover:bg-red-200   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
+          className="text-xs flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-red-600 border-solid  text-red-600 hover:bg-red-200   items-center hover:shadow-lg font-semibold py-2 px-4  mr-0 ml-auto"
         >
           Bỏ theo dõi
         </button>
       ) : (
         <button
           onClick={onHandleFollow}
-          className="flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-blue-600 border-solid  text-blue-600 hover:bg-blue-200   items-center hover:shadow-lg font-bold py-2 px-4  mr-0 ml-auto"
+          className="text-xs flex justify-center  max-h-max whitespace-nowrap  focus:ring  rounded max-w-max border  border-blue-600 border-solid  text-blue-600 hover:bg-blue-200   items-center hover:shadow-lg font-semibold py-2 px-4  mr-0 ml-auto"
         >
           Theo dõi
         </button>
